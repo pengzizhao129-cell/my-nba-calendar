@@ -18,10 +18,10 @@ const symbols = {
  DEN: <><path d="m5 15 4.5-7L12 11l3-4.5 5 8.5M10 15l2-1.5 2.5 1.5-2 3M12 13.5l.5 4.5"/></>,
 };
 
-export function TeamSymbol({team,size=18}:{team:Team;size?:number}) {
+export function TeamSymbol({team,size=16}:{team:Team;size?:number}) {
  const geometry = symbols[team.id as keyof typeof symbols];
  if (!geometry) return null;
- return <svg className="team-symbol" data-team={team.id} aria-hidden="true" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" style={{color:team.primaryColor}}>{geometry}</svg>;
+ return <svg className="team-symbol" data-team={team.id} aria-hidden="true" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{color:team.primaryColor}}>{geometry}</svg>;
 }
 
 export function TeamIdentityBlock({team}:{team:Team}) {
