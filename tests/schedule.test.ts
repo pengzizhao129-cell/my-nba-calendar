@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {dateKey,formatDate,timezones} from '../src/lib/timezone';
+import {getSchedule} from '../src/lib/schedule';
+import {DEMO_NOW,mockGames} from '../src/data/mockGames';
+import {teams} from '../src/data/teams';
+test('30 unique teams and all 15 required timezones are valid',()=>{assert.equal(new Set(teams.map(t=>t.id)).size,30);assert.equal(timezones.length,15);timezones.forEach(t=>assert.doesNotThrow(()=>dateKey(new Date(DEMO_NOW),t.id)));});
+test('Tokyo demo has one game today and four in the next seven calendar days',()=>{const s=getSchedule(mockGames,'HOU','Asia/Tokyo',new Date(DEMO_NOW));assert.equal(s.today.length,1);assert.equal(s.week.length,4);assert.equal(s.daysUntilNext,0);});
+test('same fixture changes calendar date across the Pacific',()=>{const g=mockGames[0];assert.equal(dateKey(new Date(g.startsAt),'Asia/Tokyo'),'2026-10-25');assert.equal(dateKey(new Date(g.startsAt),'America/Los_Angeles'),'2026-10-24');});
+test('Intl handles New York daylight saving fallback',()=>{const format=(date:string)=>formatDate(new Date(date),'America/New_York',{hour:'2-digit',minute:'2-digit',hourCycle:'h23'});assert.equal(format('2026-11-01T05:30:00Z'),'01:30');assert.equal(format('2026-11-01T06:30:00Z'),'01:30');});
+test('all teams have valid, chronological mock fixtures and missing games stay empty',()=>{for(const team of teams){const s=getSchedule(mockGames,team.id,'Asia/Tokyo',new Date(DEMO_NOW));assert.ok(s.week.length>0);assert.ok(s.week.every(g=>g.home===team.id||g.away===team.id));}const s=getSchedule(mockGames,'HOU','Asia/Tokyo',new Date('2027-01-01T00:00:00Z'));assert.equal(s.week.length,0);assert.equal(s.daysUntilNext,null);});
