@@ -9,7 +9,7 @@ export const teamEnglishNames:Record<string,string> = {
  POR:'PORTLAND TRAIL BLAZERS',SAC:'SACRAMENTO KINGS',SAS:'SAN ANTONIO SPURS',TOR:'TORONTO RAPTORS',UTA:'UTAH JAZZ',WAS:'WASHINGTON WIZARDS',
 };
 
-// Original Game+ geometry, independent of official team marks.
+// Original MyGame+ geometry, independent of official team marks.
 const symbols = {
  HOU: <><path d="m7 17 9.5-9.5-2 6-4.5 3.5M8 16l-3.5 2.5M8 16.5 6 20"/><path d="m15.5 13.5 2-2M8.5 9.5q2-3 5.5-4"/></>,
  LAL: <><path d="M12 6v3m0 6v3m-5.5-6h3m5 0h3M9 9l1.5-1.6L12 8.5l1.5-1.3L15 9"/><circle cx="12" cy="12" r=".75" fill="currentColor" stroke="none"/></>,
