@@ -27,8 +27,8 @@ npm start
 
 无需环境变量、密钥或数据库。球队与时区选择保留在当前页面会话内。
 
-## V2.6 品牌呈现
+## V2.7 Quiet Motion · Homepage Brand Final
 
-首页使用「我的主队日历 MyGame+」完整品牌与 MG+ 票券微型签名。品牌与状态规则见 `docs/brand-system.md`。
+首页使用「我的主队日历 MyGame+」完整品牌、副标题「NBA 主队赛程 · 本地时间」与 MG+ 票券微型签名。品牌与状态规则见 `docs/brand-system.md`。
 
 正常页面隐藏模拟数据、演示日期和非官方赛程说明，赛程仍使用上述 mock 数据。开发时可通过 `NEXT_PUBLIC_DEBUG_UI=true npm run dev` 显示调试说明；生产构建如需显示，请在 `npm run build` 前设置该变量。它仅影响说明文字，不影响日期或赛程。
