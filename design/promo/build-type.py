@@ -19,7 +19,7 @@ SOURCE = HERE.parents[1] / "src/app/fonts/GeistSans.woff2"
 def timing_zero(weight):
     # Long, upright flanks and controlled shoulders; solid, continuous strokes.
     # The counter opens at the lighter schedule weight, preserving small-size ink.
-    inset = 90 if weight == 500 else 97
+    inset = 78 if weight == 450 else 90 if weight == 500 else 97
     p = TTGlyphPen(None)
     p.moveTo((277, 726))
     p.lineTo((341, 726))
@@ -45,7 +45,7 @@ def timing_zero(weight):
 
 def timing_one(weight):
     # A continuous shoulder and a shorter, balanced timing-device foot.
-    stem_left, stem_right, foot = (282, 374, 82) if weight == 500 else (278, 376, 88)
+    stem_left, stem_right, foot = (288, 368, 70) if weight == 450 else (282, 374, 82) if weight == 500 else (278, 376, 88)
     p = TTGlyphPen(None)
     p.moveTo((124, 0))
     for point in [(124, foot), (stem_left, foot), (stem_left, 583),
@@ -118,6 +118,6 @@ def build(family, weight, text, x_scale, destination):
 
 
 if __name__ == "__main__":
-    for weight in (500, 550):
+    for weight in (450, 500, 550):
         build("MyGame Timing", weight, "0123456789. ", .875, f"timing-{weight}.woff2")
     build("MyGame Identity", 600, "ABCDEFGHIJKLMNOPQRSTUVWXYZ ", .93, "identity-600.woff2")

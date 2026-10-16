@@ -34,7 +34,11 @@
   --text-primary: var(--graphite-100);
   --text-secondary: var(--graphite-70);
   --text-tertiary: var(--graphite-50);
-  --text-micro: var(--graphite-30);
+  --text-micro: var(--graphite-50);
+  --ticket-rule: var(--graphite-15);
+  --ticket-contact: drop-shadow(0 1px 1px rgba(26,26,23,.025)) drop-shadow(0 6px 16px rgba(26,26,23,.035));
+  --controller-shadow: 0 3px 10px rgba(26,26,23,.06);
+  --controller-active: rgba(255,255,255,.035);
   --text-on-graphite: var(--pass-highlight);
   --text-on-graphite-secondary: color-mix(in srgb,var(--pass-highlight) 62%,transparent);
   --text-on-graphite-muted: color-mix(in srgb,var(--pass-highlight) 60%,transparent);

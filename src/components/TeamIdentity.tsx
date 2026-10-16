@@ -19,8 +19,7 @@ export function TeamSymbol({team,size=16}:{team:Team;size?:number}) {
 export function TeamIdentityBlock({team}:{team:Team}) {
  const identity=getTeamIdentity(team.id)!;
  return <div className="team-identity" data-identity={identity.symbol} data-temperature={identity.temperature} style={teamMaterialProperties(identity) as React.CSSProperties}>
-  <TeamSymbol team={team}/>
   <strong>{team.abbr}</strong>
-  <span>{team.city}{team.name}</span>
+  <span className="identity-name"><TeamSymbol team={team}/><span>{team.city}{team.name}</span></span>
  </div>;
 }

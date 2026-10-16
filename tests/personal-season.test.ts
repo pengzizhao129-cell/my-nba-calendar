@@ -41,7 +41,7 @@ test('All share moments use a genuine personal Pass snapshot and reject invented
  for(const [pass,moment,label] of [[next,'next_up','NEXT UP'],[day,'game_day','GAME DAY'],[collected,'collected','COLLECTED'],[halfway,'milestone','HALFWAY'],[complete,'season_complete','SEASON COMPLETE']] as const){
   assert.equal(passShareContext(pass,moment).label,label);
   const html=renderToStaticMarkup(createElement(PassShareCard,{pass,moment}));
-  assert.equal((html.match(/data-dna="MG-DNA-1"/g)??[]).length,1);assert.equal((html.match(/class="emotion-mark"/g)??[]).length,1);
+  assert.equal((html.match(/data-dna="MG-DNA-2"/g)??[]).length,1);assert.equal((html.match(/class="emotion-mark"/g)??[]).length,1);
   assert.ok(html.includes('PASS</span> 0147')&&html.includes('SEASON</span> 26–27'));
   assert.doesNotMatch(html,/NEXT 7 DAYS|SCHEDULE|PROFILE|WEB APP BETA|DOWNLOAD NOW|QR CODE/);
  }
@@ -64,7 +64,7 @@ test('An 82-pass series preserves identity, ordinal, structure and exactly one s
   phases.add(pass.status.phase);stocks.add(pass.team.securityPattern);assert.equal(pass.game.gameNumber,i+1);
   for(const variant of ['full','compact','collection'] as const){
    const html=renderToStaticMarkup(createElement(GamePass,{pass,variant}));
-   for(const part of ['data-dna="MG-DNA-1"','data-dna="bridge"','data-dna="spine"','PASS</span> 0147',`GAME</span> ${String(i+1).padStart(2,'0')} / 82`,'SEASON</span> 26–27'])assert.ok(html.includes(part));
+   for(const part of ['data-dna="MG-DNA-2"','data-dna="bridge"','data-dna="spine"','PASS</span> 0147',`GAME</span> ${String(i+1).padStart(2,'0')} / 82`,'SEASON</span> 26–27'])assert.ok(html.includes(part));
    assert.equal((html.match(/class="emotion-mark"/g)??[]).length,1);
    assert.ok(html.includes(`data-pass-variant="${variant}"`));
    if(pass.status.phase==='archived')assert.ok(html.includes('data-emotion="Collected"'));

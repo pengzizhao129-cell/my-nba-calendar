@@ -26,6 +26,7 @@ if(name==='series'){
 }
 const styles=`<style>
 @font-face{font-family:Geist;src:url('/GeistSans.woff2');font-weight:100 900;font-display:block}
+@font-face{font-family:'MyGame Timing';src:url('/timing-450.woff2');font-weight:450;font-display:block}
 @font-face{font-family:'MyGame Timing';src:url('/timing-500.woff2');font-weight:500;font-display:block}
 @font-face{font-family:'MyGame Timing';src:url('/timing-550.woff2');font-weight:550;font-display:block}
 @font-face{font-family:'MyGame Identity';src:url('/identity-600.woff2');font-weight:600;font-display:block}

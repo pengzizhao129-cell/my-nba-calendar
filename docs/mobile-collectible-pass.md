@@ -1,5 +1,7 @@
 # MyGame+ — Collectible Pass Inside Real Mobile UI
 
+> 当前版本见 [Digital Game Ticket](digital-game-ticket.md)：仍保留真实手机 App，票面已授权重建为 MG-DNA-2，默认不显示亚克力壳。下文 V2.8 壳体参数是历史实现记录。
+
 The current identity, collection and sharing behavior is specified in [V2.9 Personal Season Collection](personal-season-collection.md). Material/type/brand refinement remains specified in [Precision Refinement](precision-refinement.md). V2.8's mobile composition and ticket architecture remain the foundation.
 
 The current promo is the complete 1080 × 1440 mobile product composition in `design/promo/promo.html`. Its top brand/product/state groups, MY TEAM / LOCAL TIME selectors, WEB APP BETA, AUTO CONVERTED, NEXT 7 DAYS and Bottom System Island remain in their approved positions. There is no standalone studio setting or poster conversion.

@@ -11,7 +11,7 @@ test('Encased share composition retains one complete functional Pass across the 
  for(const instant of ['2026-10-01T00:00:00Z',DEMO_NOW,'2026-10-25T05:00:00Z']){
   const pass=createPersonalPass({passId:'0147',teamCode:'HOU',game:mockGames[0],games:mockGames,city:'东京',timezone:'Asia/Tokyo',now:new Date(instant)});
   const html=renderToStaticMarkup(createElement(PassShareCard,{pass}));
-  assert.equal((html.match(/data-dna="MG-DNA-1"/g)??[]).length,1);
+  assert.equal((html.match(/data-dna="MG-DNA-2"/g)??[]).length,1);
   assert.ok(html.includes('data-dna="bridge"'));assert.ok(html.includes('data-dna="spine"'));
   assert.ok(html.includes('PASS</span> 0147'));assert.ok(html.includes('GAME</span> 01 / 82'));assert.ok(html.includes('SEASON</span> 26–27'));
   assert.ok(html.includes(`data-pass-status="${pass.status.phase}"`));

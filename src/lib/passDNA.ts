@@ -2,20 +2,20 @@
  * No user, team, location, game, state or season input is accepted here.
  */
 export const PASS_DNA = Object.freeze({
- version: 'MG-DNA-1', width: 728, height: 576, radius: 20,
- main: Object.freeze({x: 0, y: 0, width: 728, height: 480}),
- stub: Object.freeze({x: 0, y: 482, width: 728, height: 94}),
- perforation: Object.freeze({x: 16, y: 480, width: 696, height: 2, pitch: 8, punch: 3}),
- bridge: Object.freeze({x: 348, y: 475, width: 32, height: 12}),
- spine: Object.freeze({x: 16, y: 176, width: 1, height: 240}),
- timingSanctuary: Object.freeze({x: 28, y: 328, width: 568, height: 136}),
- identityLeft: Object.freeze({x: 32, y: 176, width: 240, height: 144}),
- identityRight: Object.freeze({x: 456, y: 176, width: 240, height: 144}),
- securityWindow: Object.freeze({x: 246, y: 16, width: 236, height: 144}),
- // Left: shallow upper shoulder + longer lower return. Right: deeper, shorter return.
- leftCut: 'M0 475 C10 475 10 481 0 493',
- rightCut: 'M728 471 C712 471 712 487 728 487',
- outline: 'M20 0H708Q728 0 728 20V471C712 471 712 487 728 487V556Q728 576 708 576H20Q0 576 0 556V493C10 481 10 475 0 475V20Q0 0 20 0Z',
+ version: 'MG-DNA-2', width: 728, height: 576, radius: 4,
+ main: Object.freeze({x: 0, y: 0, width: 582, height: 576}),
+ stub: Object.freeze({x: 584, y: 0, width: 144, height: 576}),
+ perforation: Object.freeze({x: 582, y: 16, width: 2, height: 544, pitch: 8, punch: 3}),
+ bridge: Object.freeze({x: 576, y: 278, width: 14, height: 28}),
+ spine: Object.freeze({x: 704, y: 80, width: 12, height: 410}),
+ timingSanctuary: Object.freeze({x: 40, y: 368, width: 504, height: 112}),
+ identityLeft: Object.freeze({x: 40, y: 156, width: 208, height: 144}),
+ identityRight: Object.freeze({x: 320, y: 156, width: 224, height: 144}),
+ securityWindow: Object.freeze({x: 24, y: 24, width: 8, height: 528}),
+ // The tear starts at a shallow top V and ends in a deeper rounded bottom return.
+ leftCut: 'M574 0L582 8L590 0',
+ rightCut: 'M572 576Q582 552 592 576',
+ outline: 'M4 0H574L582 8L590 0H720L728 8V572Q728 576 724 576H592Q582 552 572 576H4Q0 576 0 572V4Q0 0 4 0Z',
 });
 export function passOutlineMask() {
  return `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${PASS_DNA.width} ${PASS_DNA.height}" preserveAspectRatio="none"><path fill="white" d="${PASS_DNA.outline}"/></svg>`)}")`;

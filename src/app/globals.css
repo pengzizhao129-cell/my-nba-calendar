@@ -8,6 +8,7 @@
 @import "../styles/brand-lockup.css";
 @import "../styles/personal-season.css";
 @import "../styles/pass-share.css";
+@import "../styles/ticket-home.css";
 
 :root {
   --bg-canvas: var(--canvas-base);

@@ -5,6 +5,7 @@
 .pass-issued-note { position:absolute;right:calc(32 * var(--dna-unit));top:calc(496 * var(--dna-unit));width:calc(152 * var(--dna-unit));height:calc(24 * var(--dna-unit));font-size:calc(12 * var(--dna-unit));line-height:calc(24 * var(--dna-unit));letter-spacing:.13em;font-weight:500;color:var(--text-tertiary);text-align:right;pointer-events:none;animation:issued-note 800ms ease-out both; }
 .personal-pass[data-issuance] .team-identity { animation:issue-identity 150ms ease-out both; }
 .personal-pass[data-issuance] .pass-security { animation:issue-security 200ms ease-out 150ms both;transition:none; }
+.personal-pass[data-issuance] .time-route { animation:issue-ink 200ms ease-out 150ms both; }
 .personal-pass[data-issuance] .pass-id { animation:issue-pass-id 450ms ease-out 350ms both; }
 .personal-pass[data-issuance] [data-pass-layer="game-number"],.personal-pass[data-issuance] [data-pass-layer="season"],.personal-pass[data-issuance] .collection-progress { animation:issue-ink 160ms ease-out 530ms both; }
 .personal-pass[data-issuance] .ticket-number { animation:issue-ink 110ms ease-out 690ms both; }
@@ -19,5 +20,5 @@
 .personal-pass[data-pass-variant="compact"] .pass-weekday small,.personal-pass[data-pass-variant="compact"] .venue-status,.personal-pass[data-pass-variant="compact"] .ticket-number { visibility:hidden; }
 .personal-pass[data-pass-variant="collection"] .pass-weekday,.personal-pass[data-pass-variant="collection"] .venue-detail,.personal-pass[data-pass-variant="collection"] .pass-label,.personal-pass[data-pass-variant="collection"] .team-identity>span,.personal-pass[data-pass-variant="collection"] .time-caption>.eyebrow,.personal-pass[data-pass-variant="collection"] .pass-id,.personal-pass[data-pass-variant="collection"] [data-pass-layer="season"],.personal-pass[data-pass-variant="collection"] .ticket-number,.personal-pass[data-pass-variant="collection"] .collection-progress { visibility:hidden; }
 @media(prefers-reduced-motion:reduce) {
- .personal-pass[data-issuance] .team-identity,.personal-pass[data-issuance] .pass-security,.personal-pass[data-issuance] .pass-id,.personal-pass[data-issuance] [data-pass-layer="game-number"],.personal-pass[data-issuance] [data-pass-layer="season"],.personal-pass[data-issuance] .collection-progress,.personal-pass[data-issuance] .ticket-number,.pass-issued-note { animation:none!important; }
+ .personal-pass[data-issuance] .team-identity,.personal-pass[data-issuance] .time-route,.personal-pass[data-issuance] .pass-security,.personal-pass[data-issuance] .pass-id,.personal-pass[data-issuance] [data-pass-layer="game-number"],.personal-pass[data-issuance] [data-pass-layer="season"],.personal-pass[data-issuance] .collection-progress,.personal-pass[data-issuance] .ticket-number,.pass-issued-note { animation:none!important; }
 }

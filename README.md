@@ -27,6 +27,10 @@ npm start
 
 无需环境变量、密钥或数据库。首次确认主队后签发并持久化四位 PASS ID；主队和当前比赛保存在本地，时区选择保留在当前页面会话内。
 
+## 当前视觉系统：Digital Game Ticket
+
+设计规则与新票根结构见 [Visual Constitution](docs/digital-game-ticket.md)。首页围绕连续的 HOU — LAL、Time Route 与 82 场刻度展开；纵向副券承载 PASS / GAME / SEASON / ISSUE。`npm run export:promo` 直接截取生产 App，导出 1080×1440 东京／伦敦图，不使用独立海报模板。
+
 ## V2.9 Personal Season Collection
 
 完整规则、组件接口、测试和导出见 [Personal Season Collection](docs/personal-season-collection.md)。首页保留真实手机产品结构；比赛结束后自动归档，收藏进度从按球队／赛季隔离的唯一 gameId 派生。首次签发仅一次，里程碑由真实进度计算。`GamePass` 提供 full / compact / collection 规格；`PassShareCard` 复用同一份数据，分享模板与首页分开。

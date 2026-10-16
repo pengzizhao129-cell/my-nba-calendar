@@ -1,38 +1,58 @@
-/* Content stays in the same authored regions as the promo master drawing. */
-.hero.personal-pass { aspect-ratio:var(--dna-ratio);padding:0;border:0;background:none;box-shadow:none;filter:var(--pass-contact-filter);overflow:visible; }
-.personal-pass .ticket-main { position:absolute;inset:0 0 auto;height:calc(var(--dna-main-height) * var(--dna-unit)); }
+/* MG-DNA-2. Main event field + perpendicular archival stub. All units scale together. */
+.hero.personal-pass { aspect-ratio:var(--dna-ratio);padding:0;border:0;border-radius:4px;background:none;box-shadow:none;filter:var(--ticket-contact);overflow:visible; }
+.personal-pass .ticket-main { position:absolute;left:0;top:0;width:calc(var(--dna-main-width) * var(--dna-unit));height:100%; }
 .personal-pass .hero-top { position:static;display:block; }
-.personal-pass .date-lockup { position:absolute;left:calc(32 * var(--dna-unit));top:calc(32 * var(--dna-unit));gap:calc(4 * var(--dna-unit)); }
-.personal-pass .pass-label { font-size:calc(20 * var(--dna-unit));line-height:calc(24 * var(--dna-unit)); }
-.personal-pass .pass-date { gap:calc(8 * var(--dna-unit)); }
-.personal-pass .pass-date>strong { width:auto;font-family:var(--font-timing),var(--font-geist),sans-serif;font-size:calc(64 * var(--dna-unit));line-height:1; }
-.personal-pass .pass-date>div { height:calc(64 * var(--dna-unit));padding-bottom:calc(2 * var(--dna-unit)); }
-.personal-pass .pass-date b { font-size:calc(21 * var(--dna-unit)); }
-.personal-pass .pass-weekday { margin-top:calc(8 * var(--dna-unit));font-size:calc(22 * var(--dna-unit)); }
-.personal-pass .pass-weekday small { font-size:calc(16 * var(--dna-unit)); }
-.personal-pass .game-status { position:absolute;right:calc(32 * var(--dna-unit));top:calc(32 * var(--dna-unit));gap:calc(12 * var(--dna-unit)); }
-.personal-pass .game-status>.eyebrow { font-size:calc(14 * var(--dna-unit));line-height:calc(24 * var(--dna-unit)); }
-.personal-pass .game-status>.sports-signal { font-size:calc(22 * var(--dna-unit));--signal-size:calc(7 * var(--dna-unit));--signal-gap:calc(10 * var(--dna-unit)); }
-.personal-pass .sports-signal[data-type="next"]>.sports-signal-mark { width:calc(2 * var(--dna-unit));height:calc(11 * var(--dna-unit)); }
-.personal-pass .match { position:absolute;left:calc(32 * var(--dna-unit));right:calc(32 * var(--dna-unit));top:calc(176 * var(--dna-unit));height:calc(144 * var(--dna-unit));display:grid;grid-template-columns:240fr 184fr 240fr;margin:0;gap:0; }
-.personal-pass .team-identity { max-width:none;height:100%;min-height:0;border-radius:calc(12 * var(--dna-unit));padding:calc(24 * var(--dna-unit));gap:calc(8 * var(--dna-unit)); }
-.personal-pass .team-identity>strong { position:absolute;left:calc(24 * var(--dna-unit));top:calc(24 * var(--dna-unit));font-family:var(--font-identity),var(--font-geist),sans-serif;font-size:calc(64 * var(--dna-unit));line-height:calc(72 * var(--dna-unit));letter-spacing:-.026em; }
-.personal-pass .team-identity>span { position:absolute;left:calc(24 * var(--dna-unit));top:calc(96 * var(--dna-unit));font-size:calc(22 * var(--dna-unit));line-height:calc(32 * var(--dna-unit));color:var(--text-secondary);white-space:nowrap; }
-.personal-pass .team-identity:last-child>strong,.personal-pass .team-identity:last-child>span { left:auto;right:calc(24 * var(--dna-unit)); }
-.personal-pass .team-identity>.team-symbol { width:calc(26 * var(--dna-unit));height:calc(26 * var(--dna-unit));right:calc(16 * var(--dna-unit));top:calc(18 * var(--dna-unit)); }
-.personal-pass .team-identity:last-child>.team-symbol { left:calc(16 * var(--dna-unit)); }
-.personal-pass .versus { font-size:calc(24 * var(--dna-unit)); }
-.personal-pass .tipoff { width:calc(560 * var(--dna-unit));height:calc(128 * var(--dna-unit));position:absolute;left:calc(32 * var(--dna-unit));top:calc(332 * var(--dna-unit));margin:0;gap:0; }
-.personal-pass .tipoff-time { font-size:calc(100 * var(--dna-unit));line-height:1; }
-.personal-pass .time-caption { margin-top:calc(-4 * var(--dna-unit));height:calc(32 * var(--dna-unit));gap:calc(16 * var(--dna-unit));flex-wrap:nowrap; }
-.personal-pass .time-caption>.eyebrow { font-size:calc(14 * var(--dna-unit)); }
-.personal-pass .time-caption>span:last-child { font-size:calc(22 * var(--dna-unit)); }
-.personal-pass .venue-detail { width:calc(328 * var(--dna-unit));justify-content:flex-end;position:absolute;right:calc(32 * var(--dna-unit));top:calc(428 * var(--dna-unit));margin:0;gap:calc(12 * var(--dna-unit));height:calc(32 * var(--dna-unit)); }
-.personal-pass .venue-status { width:auto;font-size:calc(17 * var(--dna-unit)); }
-.personal-pass .venue-status>.eyebrow { font:inherit;letter-spacing:inherit; }
-.personal-pass .venue-name { font-size:calc(22 * var(--dna-unit));white-space:nowrap; }
-.personal-pass .ticket-stub { position:absolute;left:0;right:0;top:calc(var(--dna-stub-y) * var(--dna-unit));height:calc(var(--dna-stub-height) * var(--dna-unit));margin:0; }
+.personal-pass .date-lockup { position:absolute;left:calc(40 * var(--dna-unit));top:calc(32 * var(--dna-unit));display:block; }
+.personal-pass .pass-label { font-size:calc(14 * var(--dna-unit));line-height:calc(20 * var(--dna-unit));letter-spacing:.15em; }
+.personal-pass .pass-date { display:flex;align-items:baseline;gap:calc(8 * var(--dna-unit));margin-top:calc(24 * var(--dna-unit)); }
+.personal-pass .pass-date>strong { width:auto;font-size:calc(42 * var(--dna-unit));font-family:var(--font-geist),sans-serif;line-height:1;font-weight:450;letter-spacing:-.055em; }
+.personal-pass .pass-date>div { display:flex;gap:calc(12 * var(--dna-unit));height:auto;padding:0;align-items:baseline; }
+.personal-pass .pass-date b { font-size:calc(28 * var(--dna-unit));font-weight:450;letter-spacing:.04em; }
+.personal-pass .pass-year { font-size:calc(16 * var(--dna-unit));color:var(--text-tertiary);font-variant-numeric:tabular-nums; }
+.personal-pass .pass-weekday { position:absolute;left:calc(278 * var(--dna-unit));top:calc(62 * var(--dna-unit));width:calc(72 * var(--dna-unit));font-size:calc(16 * var(--dna-unit));margin:0;white-space:nowrap; }
+.personal-pass .game-status { position:absolute;right:calc(40 * var(--dna-unit));top:calc(32 * var(--dna-unit));gap:calc(8 * var(--dna-unit)); }
+.personal-pass .game-status>.eyebrow { font-size:calc(12 * var(--dna-unit));line-height:calc(20 * var(--dna-unit)); }
+.personal-pass .game-status>.sports-signal { font-size:calc(16 * var(--dna-unit));--signal-size:calc(5 * var(--dna-unit));--signal-gap:calc(8 * var(--dna-unit)); }
+.personal-pass .sports-signal[data-type="next"]>.sports-signal-mark { width:calc(2 * var(--dna-unit));height:calc(9 * var(--dna-unit)); }
+.personal-pass .match { position:absolute;left:calc(40 * var(--dna-unit));top:calc(156 * var(--dna-unit));width:calc(504 * var(--dna-unit));height:calc(144 * var(--dna-unit));display:grid;grid-template-columns:208fr 72fr 224fr;gap:0;margin:0; }
+.personal-pass .team-identity { position:relative;max-width:none;width:100%;height:100%;min-height:0;padding:0;border:0;border-radius:0;background:none;display:block; }
+.personal-pass .team-identity>strong { position:absolute;left:0;top:0;font-family:var(--font-identity),var(--font-geist),sans-serif;font-size:calc(100 * var(--dna-unit));font-weight:600;line-height:calc(112 * var(--dna-unit));letter-spacing:-.055em;translate:none; }
+.personal-pass .team-identity>span { position:absolute;left:0;top:calc(114 * var(--dna-unit));display:flex;align-items:center;gap:calc(8 * var(--dna-unit));font-size:calc(19 * var(--dna-unit));line-height:calc(26 * var(--dna-unit));font-weight:450;color:var(--text-secondary);white-space:nowrap; }
+.personal-pass .team-identity:last-child>strong { left:auto;right:0; }
+.personal-pass .team-identity:last-child>span { left:auto;right:0; }
+.personal-pass .identity-name>.team-symbol { position:static;width:calc(18 * var(--dna-unit));height:calc(18 * var(--dna-unit)); }
+.personal-pass .versus { align-self:start;margin-top:calc(19 * var(--dna-unit));font-size:calc(52 * var(--dna-unit));font-weight:350;line-height:1;letter-spacing:0;color:var(--text-tertiary); }
+.personal-pass .match-result { position:absolute;left:calc(40 * var(--dna-unit));top:calc(306 * var(--dna-unit));width:calc(504 * var(--dna-unit));height:calc(16 * var(--dna-unit));font-size:calc(12 * var(--dna-unit));line-height:calc(16 * var(--dna-unit));letter-spacing:.08em;color:var(--text-secondary); }
+.personal-pass .time-route { position:absolute;left:calc(40 * var(--dna-unit));top:calc(328 * var(--dna-unit));width:calc(504 * var(--dna-unit));height:calc(28 * var(--dna-unit));display:flex;align-items:center;gap:calc(16 * var(--dna-unit));font-size:calc(14 * var(--dna-unit));font-weight:500;letter-spacing:.08em;color:var(--text-tertiary); }
+.route-rule { position:relative;flex:1;height:1px;background:var(--ticket-rule);display:flex;justify-content:space-evenly;align-items:center; }
+.route-rule i { width:1px;height:calc(5 * var(--dna-unit));background:var(--ticket-rule); }
+.route-rule b { position:absolute;right:0;width:calc(5 * var(--dna-unit));height:calc(5 * var(--dna-unit));border-radius:50%;background:var(--text-secondary); }
+.route-destination { flex:0 0 calc(180 * var(--dna-unit));text-align:right;font-size:calc(20 * var(--dna-unit));line-height:1;color:var(--text-secondary);letter-spacing:.08em;white-space:nowrap; }
+.route-destination small { font-size:calc(12 * var(--dna-unit));color:var(--text-tertiary); }
+.personal-pass .tipoff { position:absolute;left:calc(40 * var(--dna-unit));top:calc(372 * var(--dna-unit));width:calc(504 * var(--dna-unit));height:calc(108 * var(--dna-unit));margin:0;gap:0; }
+.personal-pass .tipoff-time { font-size:calc(76 * var(--dna-unit));line-height:1;letter-spacing:0; }
+.personal-pass .tipoff-time .timing-run { font-weight:450; }
+.personal-pass .time-caption { margin:calc(8 * var(--dna-unit)) 0 0;height:calc(24 * var(--dna-unit));gap:calc(16 * var(--dna-unit));flex-wrap:nowrap; }
+.personal-pass .time-caption>.eyebrow { font-size:calc(11 * var(--dna-unit)); }
+.personal-pass .time-caption>span:last-child { font-size:calc(18 * var(--dna-unit)); }
+.personal-pass .venue-detail { position:absolute;left:calc(40 * var(--dna-unit));top:calc(516 * var(--dna-unit));width:calc(504 * var(--dna-unit));height:calc(24 * var(--dna-unit));display:flex;justify-content:flex-start;gap:calc(16 * var(--dna-unit));margin:0; }
+.personal-pass .venue-status { width:auto;font-size:calc(12 * var(--dna-unit));letter-spacing:.1em; }
+.personal-pass .venue-status>.eyebrow { font:inherit; }
+.personal-pass .venue-name { font-size:calc(18 * var(--dna-unit));font-weight:450;white-space:nowrap; }
+.personal-pass .ticket-stub { position:absolute;left:calc(var(--dna-stub-x) * var(--dna-unit));top:0;width:calc(var(--dna-stub-width) * var(--dna-unit));height:100%;margin:0;box-shadow:none;background:var(--stub-base); }
 .personal-pass .ticket-stub::before,.personal-pass::before,.personal-pass::after { display:none; }
-.personal-pass .collection-stack { width:calc(224 * var(--dna-unit));left:calc(32 * var(--dna-unit));top:calc(14 * var(--dna-unit));font-size:calc(14 * var(--dna-unit));line-height:calc(20 * var(--dna-unit)); }
-.personal-pass .emotion-mark { width:calc(152 * var(--dna-unit));height:calc(24 * var(--dna-unit));text-align:right;right:calc(32 * var(--dna-unit));top:calc(14 * var(--dna-unit));font-size:calc(16 * var(--dna-unit));line-height:calc(24 * var(--dna-unit)); }
-.personal-pass .ticket-number { right:calc(32 * var(--dna-unit));bottom:calc(20 * var(--dna-unit));font-size:calc(14 * var(--dna-unit));line-height:calc(20 * var(--dna-unit)); }
+.personal-pass .collection-stack { position:absolute;inset:0;width:100%;font-size:calc(22 * var(--dna-unit));font-weight:450;line-height:1.4;color:var(--record-ink);letter-spacing:0; }
+.personal-pass .collection-stack>span { position:absolute;left:calc(20 * var(--dna-unit));width:calc(104 * var(--dna-unit));display:block;white-space:nowrap; }
+.personal-pass .collection-stack .ticket-micro-label { display:block;font-size:calc(10 * var(--dna-unit));letter-spacing:.12em;margin-bottom:calc(5 * var(--dna-unit)); }
+.personal-pass .collection-stack [data-pass-layer="game-number"] { top:calc(80 * var(--dna-unit));font-size:calc(28 * var(--dna-unit));color:var(--text-primary); }
+.personal-pass .collection-stack [data-pass-layer="season"] { top:calc(162 * var(--dna-unit));font-size:calc(19 * var(--dna-unit)); }
+.personal-pass .collection-stack .pass-id { top:calc(244 * var(--dna-unit));font-size:calc(22 * var(--dna-unit)); }
+.personal-pass .issue-state { position:absolute;left:calc(20 * var(--dna-unit));top:calc(36 * var(--dna-unit));font-size:calc(11 * var(--dna-unit));letter-spacing:.12em;color:var(--text-tertiary); }
+.personal-pass .serial-mark { position:absolute;left:calc(20 * var(--dna-unit));top:calc(326 * var(--dna-unit));font-size:calc(16 * var(--dna-unit));line-height:1.5;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--serial-ink); }
+.serial-mark>small { display:block;font-size:calc(10 * var(--dna-unit));letter-spacing:.12em; }
+.personal-pass .ticket-stub .collection-progress { left:calc(20 * var(--dna-unit));top:calc(410 * var(--dna-unit));width:calc(104 * var(--dna-unit));height:calc(44 * var(--dna-unit));font-size:calc(9 * var(--dna-unit));line-height:calc(16 * var(--dna-unit));letter-spacing:.04em; }
+.personal-pass .emotion-mark { width:calc(104 * var(--dna-unit));height:calc(24 * var(--dna-unit));left:calc(20 * var(--dna-unit));right:auto;top:calc(496 * var(--dna-unit));font-size:calc(15 * var(--dna-unit));line-height:calc(24 * var(--dna-unit));text-align:left; }
+.personal-pass .ticket-number { left:calc(20 * var(--dna-unit));right:auto;bottom:calc(20 * var(--dna-unit));font-size:calc(9 * var(--dna-unit));line-height:calc(16 * var(--dna-unit));letter-spacing:.03em;white-space:nowrap; }
+.personal-pass .watched-from { position:absolute;left:calc(20 * var(--dna-unit));top:calc(466 * var(--dna-unit));width:calc(104 * var(--dna-unit));height:calc(16 * var(--dna-unit));font-size:calc(8 * var(--dna-unit));line-height:calc(16 * var(--dna-unit));letter-spacing:.02em;color:var(--text-tertiary); }
+.personal-pass .pass-security { visibility:hidden; }
+.personal-pass .ticket-object>.pass-issued-note { left:calc(604 * var(--dna-unit));right:auto;top:calc(496 * var(--dna-unit));width:calc(104 * var(--dna-unit));font-size:calc(10 * var(--dna-unit));text-align:left; }

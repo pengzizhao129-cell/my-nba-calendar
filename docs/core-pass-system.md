@@ -1,5 +1,7 @@
 # MyGame+ V2.4 — Core Pass System
 
+> 当前票面架构已按最新视觉重构升级为 [MG-DNA-2](digital-game-ticket.md)。本页旧版 MG-DNA-1 坐标作为历史说明保留；下述状态、完成与归档算法继续执行。
+
 > Current behavior is documented in [V2.9 Personal Season Collection](personal-season-collection.md), with the full [mobile composition](mobile-collectible-pass.md) retained. The core DNA, state and archive rules below remain unchanged.
 
 The existing UI, team identity packs and V2.3-CM palette remain in place. V2.4 fixes the ticket architecture, replaces hour-threshold status with a schedule-aware lifecycle, and persists each completed personal pass. No archive page, account service, share workflow or NBA API is added.

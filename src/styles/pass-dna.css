@@ -1,33 +1,25 @@
-/* MG-DNA-1: one 728 × 576 master, responsive App and 3:4 artifact alike. */
+/* MG-DNA-2. Physical architecture is invariant under all data and lifecycle changes. */
 .personal-pass,.pass { container-type:inline-size; }
 .ticket-object,.ticket-cut-edges { --dna-unit:calc(100cqw / var(--dna-master-width));position:absolute;inset:0; }
 .ticket-object { mask-image:var(--pass-outline);mask-size:100% 100%;mask-repeat:no-repeat; }
-.ticket-paper { position:absolute;inset:0;border:1px solid var(--border-paper);border-radius:inherit;background:var(--material-pass);box-shadow:var(--pass-edge-light); }
-.ticket-cut-edges { width:100%;height:100%;fill:none;stroke:var(--cutout-inner);stroke-width:.8;pointer-events:none; }
+.ticket-paper { position:absolute;inset:0;border:0;background:var(--material-pass);box-shadow:var(--pass-edge-light); }
+.ticket-cut-edges { width:100%;height:100%;fill:none;stroke:var(--cutout-inner);stroke-width:.7;pointer-events:none; }
 .ticket-cut-edges path { vector-effect:non-scaling-stroke; }
-.ticket-join { position:absolute;left:0;right:0;top:calc(var(--dna-join-y) * var(--dna-unit));height:calc(var(--dna-join-height) * var(--dna-unit));pointer-events:none; }
-.ticket-join>.perforation { position:absolute;left:calc(16 * var(--dna-unit));right:calc(16 * var(--dna-unit));top:0;height:100%;
- background-image:repeating-linear-gradient(90deg,var(--perforation-dark) 0 calc(3 * var(--dna-unit)),transparent calc(3 * var(--dna-unit)) calc(8 * var(--dna-unit))),repeating-linear-gradient(90deg,var(--perforation-light) 0 calc(3 * var(--dna-unit)),transparent calc(3 * var(--dna-unit)) calc(8 * var(--dna-unit)));
- background-size:calc(8 * var(--dna-unit)) .7px,calc(8 * var(--dna-unit)) .5px;background-position:0 0,0 1px;background-repeat:repeat-x;
- mask-image:linear-gradient(90deg,white 0 calc(50% - 16 * var(--dna-unit)),transparent calc(50% - 16 * var(--dna-unit)) calc(50% + 16 * var(--dna-unit)),white calc(50% + 16 * var(--dna-unit)));
-}
-.mg-bridge { position:absolute;left:calc(var(--dna-bridge-x) * var(--dna-unit));top:calc((var(--dna-bridge-y) - var(--dna-join-y)) * var(--dna-unit));width:calc(var(--dna-bridge-width) * var(--dna-unit));height:calc(var(--dna-bridge-height) * var(--dna-unit)); }
+.ticket-join { position:absolute;left:calc(var(--dna-join-x) * var(--dna-unit));top:calc(var(--dna-join-y) * var(--dna-unit));width:calc(var(--dna-join-width) * var(--dna-unit));height:calc(var(--dna-join-height) * var(--dna-unit));pointer-events:none; }
+.ticket-join>.perforation { position:absolute;inset:0;background-image:repeating-linear-gradient(180deg,var(--perforation-dark) 0 calc(3 * var(--dna-unit)),transparent calc(3 * var(--dna-unit)) calc(8 * var(--dna-unit)));background-size:1px calc(8 * var(--dna-unit));background-repeat:repeat-y;box-shadow:inset -1px 0 var(--perforation-light);mask-image:linear-gradient(180deg,white 0 calc(262 * var(--dna-unit)),transparent calc(262 * var(--dna-unit)) calc(290 * var(--dna-unit)),white calc(290 * var(--dna-unit))); }
+.mg-bridge { position:absolute;left:calc((var(--dna-bridge-x) - var(--dna-join-x)) * var(--dna-unit));top:calc((var(--dna-bridge-y) - var(--dna-join-y)) * var(--dna-unit));width:calc(var(--dna-bridge-width) * var(--dna-unit));height:calc(var(--dna-bridge-height) * var(--dna-unit)); }
 .mg-bridge::before,.mg-bridge::after { content:'';position:absolute; }
-.mg-bridge::before { left:calc(14 * var(--dna-unit));top:calc(1 * var(--dna-unit));width:calc(4 * var(--dna-unit));height:calc(10 * var(--dna-unit));border-left:1px solid var(--deboss-upper);border-right:1px solid var(--deboss-lower); }
-.mg-bridge::after { left:calc(8 * var(--dna-unit));top:calc(5 * var(--dna-unit));width:calc(16 * var(--dna-unit));height:calc(2 * var(--dna-unit));border-top:1px solid var(--deboss-upper);border-bottom:1px solid var(--deboss-lower); }
-.collectible-spine { position:absolute;left:calc(var(--dna-spine-x) * var(--dna-unit));top:calc(var(--dna-spine-y) * var(--dna-unit));width:calc(var(--dna-spine-width) * var(--dna-unit));height:calc(var(--dna-spine-height) * var(--dna-unit));background:var(--spine-line);opacity:var(--spine-visibility,.45);pointer-events:none; }
-.pass-share-card { width:1080px;aspect-ratio:3/4;position:relative;margin:0;background:var(--canvas-base); }
-.pass-share-card>.personal-pass { position:absolute;left:176px;top:456px;width:728px; }
-/* State delta: paint and opacity only. DNA and font metrics never transition. */
-.personal-pass .tipoff-time,.pass .tipoff { color:var(--timing-ink);transition:color 180ms ease-out; }
+.mg-bridge::before { left:calc(6 * var(--dna-unit));top:calc(9 * var(--dna-unit));width:calc(2 * var(--dna-unit));height:calc(10 * var(--dna-unit));border-left:1px solid var(--deboss-upper);border-right:1px solid var(--deboss-lower); }
+.mg-bridge::after { left:calc(2 * var(--dna-unit));top:calc(13 * var(--dna-unit));width:calc(10 * var(--dna-unit));height:calc(2 * var(--dna-unit));border-top:1px solid var(--deboss-upper);border-bottom:1px solid var(--deboss-lower); }
+.collectible-spine { position:absolute;left:calc(var(--dna-spine-x) * var(--dna-unit));top:calc(var(--dna-spine-y) * var(--dna-unit));width:calc(var(--dna-spine-width) * var(--dna-unit));height:calc(var(--dna-spine-height) * var(--dna-unit));pointer-events:none; }
+.season-spine line { stroke:var(--ticket-rule);stroke-width:.7; }
+.season-spine line[data-current] { stroke:var(--brand-red);stroke-width:1.5; }
+.personal-pass[data-pass-status="archived"] .season-spine line[data-current] { stroke:var(--text-secondary); }
+.personal-pass .tipoff-time { color:var(--timing-ink);transition:color 180ms ease-out; }
 .pass-security { opacity:var(--security-visibility);transition:opacity 240ms ease-out; }
-.team-identity,.team-tint { transition:background 240ms ease-out; }
 .emotion-mark { opacity:var(--emotion-visibility);transition:opacity 200ms ease-out,color 200ms ease-out; }
 .sports-signal-mark { transition:opacity 140ms ease-out,background-color 140ms ease-out; }
-.personal-pass,.pass { transition:--pass-surface 180ms ease-out,--temperature-intensity 240ms ease-out; }
-.personal-pass[data-pass-status="archived"] .team-identity,.pass[data-pass-status="archived"] .team-tint { --identity-accent-ink:color-mix(in srgb,var(--team-accent) 85%,var(--graphite-70)); }
-@media(prefers-reduced-motion:reduce) {
- .personal-pass,.pass,.personal-pass .tipoff-time,.pass .tipoff,.pass-security,.team-identity,.team-tint,.emotion-mark,.sports-signal-mark { transition:none!important; }
-}
-
+.personal-pass { transition:--pass-surface 180ms ease-out; }
+.personal-pass[data-pass-status="archived"] .team-identity { --identity-accent-ink:color-mix(in srgb,var(--team-accent) 80%,var(--graphite-70)); }
 .personal-pass[data-pass-status="next_up"] .sports-signal-mark { background:var(--signal-secondary); }
+@media(prefers-reduced-motion:reduce) { .personal-pass,.personal-pass .tipoff-time,.pass-security,.emotion-mark,.sports-signal-mark { transition:none!important; } }

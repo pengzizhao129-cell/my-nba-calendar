@@ -1,5 +1,7 @@
 # MyGame+ V2.9 — Personal Season Collection
 
+> 以下描述 V2.9 的产品行为。当前视觉与 MG-DNA-2 主副券结构见 [Digital Game Ticket / Visual Constitution](digital-game-ticket.md)，取代本文旧版 MG-DNA-1 坐标与素材表现；身份、收藏与分享的数据规则继续成立。
+
 The homepage stays a functional mobile App. Brand, selectors, schedule and Bottom Island are unchanged. `MG-DNA-1`, its shell and all master coordinates are unchanged. Sharing is a separate reusable presentation, not a replacement homepage.
 
 ## Identity is issued on confirmation

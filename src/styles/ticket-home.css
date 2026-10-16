@@ -1,0 +1,58 @@
+/* The page is a quiet viewing room. Only the ticket has a physical surface. */
+body .app-shell { width:min(100%,480px);margin:0 auto;border:0;border-radius:0;overflow:visible;padding-bottom:100px;--page-gutter:24px; }
+.app-shell .brand-header { padding:20px var(--page-gutter) 0; }
+.home-edition { display:flex;justify-content:space-between;align-items:baseline;font-size:8px;line-height:12px;font-weight:500;letter-spacing:.12em;color:var(--text-tertiary); }
+.home-edition .city-state { font-size:9px;letter-spacing:.08em; }
+.app-shell .brand-line { margin-top:12px; }
+.app-shell .brand-lockup { --brand-unit:min(calc(100cqw / 480),.69px); }
+.app-shell .brand-lockup>.app-mark { background:var(--pass-base);box-shadow:none;border-color:var(--border-hairline); }
+.app-shell .header-detail { display:flex;flex-direction:column;gap:4px;margin-top:8px; }
+.app-shell .header-detail>p { font-size:10px;line-height:16px;color:var(--text-tertiary); }
+.app-shell .header-detail>.home-slogan { font-size:13px;line-height:20px;font-weight:450;color:var(--text-secondary);letter-spacing:.01em; }
+.app-shell .preferences { display:grid;grid-template-columns:minmax(0,1fr) 112px;grid-template-rows:12px 24px;column-gap:12px;row-gap:4px;margin:16px var(--page-gutter) 24px; }
+.app-shell .team-select,.app-shell .timezone-select { grid-row:1/3;grid-template-rows:subgrid;row-gap:4px; }
+.app-shell .team-select>.eyebrow,.app-shell .global-label { font-size:8px;line-height:12px;letter-spacing:.13em; }
+.app-shell .team-select strong { flex-wrap:nowrap;font-weight:450;gap:6px;min-height:24px; }
+.app-shell .team-code { color:var(--text-primary);font-size:17px;letter-spacing:-.02em;translate:none; }
+.app-shell .team-name { font-size:12px;white-space:nowrap; }
+.app-shell .team-select strong>svg:last-child { width:11px;opacity:.7;margin-left:0; }
+.app-shell .timezone-select { position:relative;width:auto; }
+.app-shell .zone-label { font-size:17px;font-weight:500;line-height:24px; }
+.app-shell .zone-label>svg:last-of-type { width:11px;opacity:.7; }
+.app-shell .offset { position:absolute;right:0;top:44px;font-size:8px;letter-spacing:.05em;line-height:12px; }
+.app-shell .content { padding:0 var(--page-gutter); }
+.app-shell .week { margin-top:24px; }
+.app-shell .section-heading { margin:0 0 8px;align-items:flex-end; }
+.app-shell .section-heading .eyebrow { display:block;font-size:8px;line-height:12px;letter-spacing:.12em; }
+.app-shell .section-heading h2 { font-size:14px;line-height:20px;font-weight:500;margin:4px 0 0; }
+.app-shell .week-count { gap:4px;font-size:10px;align-items:baseline; }
+.app-shell .week-count>strong { font-size:16px;font-weight:450; }
+.app-shell .week-count>span { font-size:9px;color:var(--text-tertiary); }
+.app-shell .schedule-link { display:inline-block;font-size:10px;color:var(--text-secondary);margin:0 0 0 12px; }
+.app-shell .schedule-list { border:0; }
+.app-shell .schedule-row { grid-template-columns:46px minmax(0,1fr) 38px 56px;min-height:40px;gap:12px;border:0;align-items:first baseline;padding:6px 0 4px; }
+.app-shell .row-date b { display:block;font-size:12px;line-height:16px;color:var(--text-secondary); }
+.app-shell .row-date small { font-size:7px;line-height:10px; }
+.app-shell .row-team { gap:12px;align-items:baseline; }
+.app-shell .team-chip { font-size:12px;letter-spacing:-.02em;min-width:28px; }
+.app-shell .row-team strong { font-size:12px;font-weight:450; }
+.app-shell .venue-tag { font-size:8px;letter-spacing:.08em; }
+.app-shell .row-time { font-size:18px;line-height:1; }
+.app-shell .app-system-island { width:min(72vw,264px);bottom:max(20px,env(safe-area-inset-bottom));border-radius:15px;background:var(--graphite-90);box-shadow:var(--controller-shadow); }
+.app-shell .app-system-island[data-context="game-day"] { width:min(76vw,288px); }
+.app-shell .system-island-items { height:40px;gap:4px;padding:3px 5px; }
+.app-shell .system-island-item { border-radius:11px;gap:2px; }
+.app-shell .system-island-item svg { width:14px;height:14px;stroke-width:1.4; }
+.app-shell .system-island-item .island-cn { font-size:11px;line-height:14px;font-weight:450; }
+.app-shell .system-island-item .island-en { display:none; }
+.app-shell .system-island-item[aria-current="page"] { background:var(--controller-active);box-shadow:none; }
+.app-shell .system-island-item[aria-current="page"]::after { width:2px;height:2px;top:5px;left:calc(50% + 10px); }
+@media(min-width:500px) { body .app-shell { --page-gutter:28px; } }
+@media(max-width:359px) {
+ body .app-shell { --page-gutter:16px; }
+ .app-shell .preferences { grid-template-columns:minmax(0,1fr) 90px;column-gap:8px; }
+ .app-shell .team-name { font-size:11px; }
+ .app-shell .team-code { font-size:15px; }
+ .app-shell .schedule-row { gap:8px;grid-template-columns:40px minmax(0,1fr) 32px 48px; }
+ .app-shell .row-team { gap:8px; }
+}
