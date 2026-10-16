@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../styles/system-island.css";
 
 :root {
   --bg-canvas: #eeede9;
@@ -8,7 +9,7 @@
   --text-secondary: #656760;
   --text-tertiary: #989a94;
   --border-subtle: rgba(32,33,31,.065);
-  --border-program: rgba(32,33,31,.05);
+  --border-program: rgba(32,33,31,.04);
   --brand-accent: #d63832;
   --radius-pass: 12px;
   --radius-team: 8px;
@@ -80,11 +81,11 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg-canvas); color: var(--text-primary); font-family: var(--font-geist), "PingFang SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
 button, select { font: inherit; cursor: pointer; }
-button { transition: opacity var(--motion-duration) var(--motion-easing), background-color var(--motion-duration) var(--motion-easing); }
-button:active { opacity: .8; }
+button { transition: opacity 140ms ease-out, background-color var(--motion-duration) var(--motion-easing), transform 140ms ease-out; }
+button:active { opacity: .92; transform: scale(.99); }
 button:focus-visible, select:focus-visible { outline: 2px solid var(--text-secondary); outline-offset: var(--space-1); }
 select { appearance: none; }
-.app-shell { width: min(100%,var(--shell-width)); margin: auto; min-height: 100dvh; background: var(--bg-page); position: relative; padding-bottom: 72px; }
+.app-shell { width: min(100%,var(--shell-width)); margin: auto; min-height: 100dvh; background: var(--bg-page); position: relative; padding-bottom: 160px; }
 .brand-header { padding: var(--space-6) var(--page-gutter) 0; }
 .brand-line { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
 .brand-line h1 { display: flex; align-items: baseline; gap: var(--space-2); font-size: var(--type-brand); font-weight: var(--weight-semibold); letter-spacing: -.04em; white-space: nowrap; margin: 0; }
@@ -173,12 +174,15 @@ select { appearance: none; }
 .timezone-note p { font-size: var(--type-caption); margin: 0; line-height: 1.6; }
 .timezone-note p span { color: var(--text-tertiary); }
 footer { text-align: center; color: var(--text-tertiary); font-size: var(--type-micro); padding: var(--space-3) 0; }
-.bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: min(100%,var(--shell-width)); display: flex; justify-content: space-around; border-top: 1px solid var(--border-program); background: var(--bg-page); z-index: 20; padding: var(--space-1) 0 max(var(--space-1),env(safe-area-inset-bottom)); }
-.bottom-nav button { min-height: 44px; position: relative; display: flex; align-items: center; justify-content: center; gap: var(--space-2); width: 30%; color: var(--text-tertiary); }
-.bottom-nav button[aria-current] { color: var(--text-primary); }
-.bottom-nav button[aria-current]::before { content: ""; position: absolute; top: 1px; left: 50%; width: 3px; height: 3px; border-radius: 50%; background: var(--brand-accent); }
-.bottom-nav button > span { font-size: var(--type-caption); }
-.bottom-nav small { display: block; font-size: var(--type-micro); letter-spacing: .12em; margin-top: var(--space-1); }
+.app-system-island { position: fixed; bottom: max(24px,env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); width: min(86vw,calc(var(--shell-width)*.86)); z-index: 20; transition: width var(--island-motion); }
+.app-system-island[data-context="game-day"] { width: min(88vw,calc(var(--shell-width)*.88)); }
+.team-symbol, .global-label svg, .zone-label svg { stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.quiet-value { position: relative; display: inline-grid; vertical-align: baseline; }
+.quiet-value-current { grid-area: 1/1; }
+.quiet-value-old { position: absolute; inset: 0; white-space: nowrap; pointer-events: none; animation: quiet-value-out 180ms ease-out both; }
+.quiet-value[data-changing] .quiet-value-current { animation: quiet-value-in 180ms ease-out both; }
+@keyframes quiet-value-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes quiet-value-out { from { opacity: 1; } to { opacity: 0; } }
 .profile { padding-top: var(--space-3); }
 .profile h2 { font-size: var(--type-section); font-weight: var(--weight-semibold); margin: var(--space-1) 0 var(--space-5); }
 .card { border: 1px solid var(--border-subtle); border-radius: var(--radius-pass); background: var(--bg-page); }
@@ -191,9 +195,9 @@ footer { text-align: center; color: var(--text-tertiary); font-size: var(--type-
 .extra-game .match { margin: var(--space-3) 0; }
 .extra-game > b { font-size: var(--space-6); font-weight: var(--numeric-weight); }
 .empty-week { padding: var(--space-6) 0; font-size: var(--type-body); color: var(--text-secondary); }
-@media(min-width:640px) { .app-shell { margin: var(--space-6) auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-pass); overflow: hidden; } .bottom-nav { border-radius: 0 0 var(--radius-pass) var(--radius-pass); } }
+@media(min-width:640px) { .app-shell { margin: var(--space-6) auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-pass); overflow: hidden; } }
 @media(max-width:380px) { :root { --page-gutter: 20px; } .team-identity > span { font-size: var(--type-body); } }
-@media(prefers-reduced-motion:reduce) { button { transition: none; } }
+@media(prefers-reduced-motion:reduce) { button { transition: none; } button:active { transform: none; } .app-system-island { transition: none; } .quiet-value-current, .quiet-value-old { animation: none !important; } .quiet-value-old { display: none; } }
 
 /* Sports signals communicate a supplied state, never infer live results. */
 .sports-signal { display: inline-flex; align-items: center; gap: var(--signal-gap); font-size: var(--type-body); line-height: 1.5; font-weight: var(--weight-medium); color: var(--status-text); white-space: nowrap; }
