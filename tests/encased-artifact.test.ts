@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createElement} from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {readFile} from 'node:fs/promises';
-import {PassShareCard} from '../src/components/PassShareCard';
+import {EncasedArtifactStudy as PassShareCard} from '../src/components/EncasedArtifactStudy';
 import {createPersonalPass} from '../src/lib/personalPass';
 import {DEMO_NOW,mockGames} from '../src/data/mockGames';
 

@@ -1,5 +1,7 @@
 # MyGame+ — Material & Brand Refinement
 
+V2.9 adds [Personal Season Collection](personal-season-collection.md) behavior on this same approved visual baseline; it does not redesign the page or Pass.
+
 This is a refinement of the full mobile product screenshot. All existing page groups remain: city label, brand, descriptor/slogan, WEB APP BETA, city state, MY TEAM / LOCAL TIME / AUTO CONVERTED, GAME PASS, NEXT 7 DAYS and Bottom System Island. Event data, user identity, timezone behavior and lifecycle are unchanged.
 
 ## Material subtraction

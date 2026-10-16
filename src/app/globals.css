@@ -6,6 +6,8 @@
 @import "../styles/encased-pass.css";
 @import "../styles/mobile-pass-enclosure.css";
 @import "../styles/brand-lockup.css";
+@import "../styles/personal-season.css";
+@import "../styles/pass-share.css";
 
 :root {
   --bg-canvas: var(--canvas-base);

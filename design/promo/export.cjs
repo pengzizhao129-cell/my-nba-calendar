@@ -25,7 +25,8 @@ async function main() {
   await prepareAssets();
   const enclosure=execFileSync(process.execPath,[path.join(repository,'node_modules/tsx/dist/cli.mjs'),'--tsconfig',path.join(repository,'tsconfig.tests.json'),path.join(directory,'render-mobile-enclosure.tsx')],{cwd:repository,encoding:'utf8'});
   const brand=execFileSync(process.execPath,[path.join(repository,'node_modules/tsx/dist/cli.mjs'),'--tsconfig',path.join(repository,'tsconfig.tests.json'),path.join(directory,'render-brand-lockup.tsx')],{cwd:repository,encoding:'utf8'});
-  const source=(await fs.readFile(path.join(directory,'promo.html'),'utf8')).replace('<!--mygame-mobile-enclosure-->',enclosure).replace('<!--mygame-brand-lockup-->',brand);
+  const progress=execFileSync(process.execPath,[path.join(repository,'node_modules/tsx/dist/cli.mjs'),'--tsconfig',path.join(repository,'tsconfig.tests.json'),path.join(directory,'render-collection-progress.tsx')],{cwd:repository,encoding:'utf8'});
+  const source=(await fs.readFile(path.join(directory,'promo.html'),'utf8')).replace('<!--mygame-mobile-enclosure-->',enclosure).replace('<!--mygame-brand-lockup-->',brand).replace('<!--mygame-collection-progress-->',progress);
   const ts=require('typescript');
   const modules=new Map();
   for(const [url,name] of [['/pass-design.js','passDesign'],['/pass-status.js','passStatus'],['/game-completion.js','gameCompletion'],['/pass-id.js','passIdentity'],['/pass-dna.js','passDNA']])modules.set(url,ts.transpileModule(await fs.readFile(path.join(repository,`src/lib/${name}.ts`),'utf8'), {compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2017}}).outputText.replaceAll('../data/teamIdentities','./team-identities.js').replaceAll("'./passDNA'","'./pass-dna.js'").replaceAll("'./gameCompletion'","'./game-completion.js'"));
@@ -43,6 +44,7 @@ async function main() {
     ['/color-material.css', [path.join(repository,'src/styles/color-material.css'),'text/css']],
     ['/mobile-pass-enclosure.css', [path.join(repository,'src/styles/mobile-pass-enclosure.css'),'text/css']],
     ['/brand-lockup.css', [path.join(repository,'src/styles/brand-lockup.css'),'text/css']],
+    ['/personal-season.css', [path.join(repository,'src/styles/personal-season.css'),'text/css']],
   ]);
   const server = http.createServer(async (request,response) => {
     const pathname=new URL(request.url,'http://127.0.0.1').pathname;
@@ -271,7 +273,7 @@ async function main() {
       await page.screenshot({path:withoutSecurity,type:'png',animations:'disabled'});
       await securityOffStyle.evaluate(element=>element.remove());
       const unprintedPixels=await sharp(withoutSecurity).removeAlpha().raw().toBuffer();
-      const protectedRects=await page.evaluate(()=>[...document.querySelectorAll('.pass-label,.date,.weekday,.game-day,.event-annotation,.team-tint,.versus,.tipoff,.time-caption,.venue,.collection-stack,.serial')].map(element=>{const b=element.getBoundingClientRect();return{x:b.x,y:b.y,right:b.right,bottom:b.bottom};}));
+      const protectedRects=await page.evaluate(()=>[...document.querySelectorAll('.pass-label,.date,.weekday,.game-day,.event-annotation,.team-tint,.versus,.tipoff,.time-caption,.venue,.collection-stack,.collection-progress,.serial')].map(element=>{const b=element.getBoundingClientRect();return{x:b.x,y:b.y,right:b.right,bottom:b.bottom};}));
       let printPixels=0,protectedDifferences=0,maxChannelDelta=0;
       for(let y=0;y<1440;y++)for(let x=0;x<1080;x++){
         const k=(y*1080+x)*3,delta=Math.max(...[0,1,2].map(channel=>Math.abs(canonicalPixels[k+channel]-unprintedPixels[k+channel])));
@@ -304,7 +306,7 @@ async function main() {
       await borderlessStyle.evaluate(element=>element.remove());
       report.review={thumbnail,greyscale,lowSaturation,blur,blurRadius:5,borderless,borderlessGeometryStable:true,dividersSuppressed};
       const materialOnly='/tmp/mygame-v2.4-'+city+'-material-only.png';
-      const paperStyle=await page.addStyleTag({content:'.pass-main>*:not(.pass-security),.stub>.collection-stack,.stub>.event-annotation,.stub>.serial,.pass-security{visibility:hidden!important}'});
+      const paperStyle=await page.addStyleTag({content:'.pass-main>*:not(.pass-security),.stub>.collection-stack,.stub>.collection-progress,.stub>.event-annotation,.stub>.serial,.pass-security{visibility:hidden!important}'});
       await page.screenshot({path:materialOnly,type:'png',animations:'disabled'});
       await paperStyle.evaluate(element=>element.remove());
       const materialPixels=await sharp(materialOnly).removeAlpha().raw().toBuffer();
@@ -344,7 +346,8 @@ async function main() {
   for(let i=0;i<overlayPixels.length;i++)overlayPixels[i]=Math.round((buffers[0][i]+buffers[1][i])/2);
   await sharp(overlayPixels,{raw:{width:1080,height:1440,channels:3}}).png().toFile(overlay);
   await sharp(overlay).resize(324,432).png().toFile(overlay.replace('.png','-30.png'));
-  const result = { version:'MyGame+ — Material & Brand Refinement', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
+  const result = { version:'MyGame+ V2.9 — Personal Season Collection System', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
+  await fs.writeFile('/tmp/mygame-v2.9-promo.json', JSON.stringify(result,null,2));
   await fs.writeFile('/tmp/mygame-v2.4-validation.json', JSON.stringify(result,null,2));
   await fs.writeFile('/tmp/mygame-refine-validation.json', JSON.stringify(result,null,2));
   console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing, MyGame Identity and Event Annotation loaded', eventAnnotations:reports.map(report=>({count:report.annotation.count,changedPixels:report.annotationReview.notePixels,outsideChanges:report.annotationReview.outsideNoteDifferences,layoutMatchesV22:report.baselineGeometryMatch})), collection:reports[0].collection.map(row=>row.text), security:reports.map(report=>report.securityReview), material:reports.map(report=>report.materialReview), enclosure:reports.map(r=>({geometry:r.enclosureReview.geometry['.mobile-pass-enclosure'],coverage:r.enclosureReview.rimCoverage,paperDifferences:r.enclosureReview.paperDifferences,phases:r.enclosureReview.phases})), radius:reports[0].radius },null,2));

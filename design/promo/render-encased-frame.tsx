@@ -1,5 +1,5 @@
 import {renderToStaticMarkup} from 'react-dom/server';
-import {PassShareCard} from '../../src/components/PassShareCard';
+import {EncasedArtifactStudy as PassShareCard} from '../../src/components/EncasedArtifactStudy';
 import {createPersonalPass} from '../../src/lib/personalPass';
 import {mockGames,DEMO_NOW} from '../../src/data/mockGames';
 const london=process.argv[2]==='london';

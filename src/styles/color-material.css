@@ -56,6 +56,7 @@
   --pass-shadow-far: 0 14px 35px rgba(26,26,23,.055);
   --pass-shadow-near: 0 2px 6px rgba(26,26,23,.035);
   --pass-shadow: var(--pass-shadow-far),var(--pass-shadow-near);
+  --collection-contact:drop-shadow(0 1px 3px rgba(26,26,23,.025));
   --pass-contact-filter: drop-shadow(var(--pass-shadow-far)) drop-shadow(var(--pass-shadow-near));
   --pass-edge-light: inset 0 1px 0 var(--light-top-edge),inset 0 -1px 0 var(--light-bottom-edge);
   --pass-next-up: color-mix(in srgb,var(--pass-base) 20%,var(--pass-highlight));
@@ -116,6 +117,7 @@
   --temperature-intensity: .65;
   --serial-ink: var(--text-micro);
   --record-ink: var(--text-micro);
+  --spine-visibility:.45;
   --timing-ink: var(--graphite-70);
   --security-visibility: .65;
   --emotion-visibility: .85;
@@ -142,6 +144,7 @@
   --security-visibility: .8;
   --serial-ink: var(--spine-text);
   --record-ink: var(--text-tertiary);
+  --spine-visibility:.58;
 }
 .team-identity,.team-tint {
  --identity-accent-ink:var(--team-print-ink);

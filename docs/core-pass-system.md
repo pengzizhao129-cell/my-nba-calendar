@@ -1,6 +1,6 @@
 # MyGame+ V2.4 — Core Pass System
 
-> Current V2.8 presentation is documented in [Collectible Pass Inside Real Mobile UI](mobile-collectible-pass.md). The core DNA, state and lifecycle rules below remain unchanged.
+> Current behavior is documented in [V2.9 Personal Season Collection](personal-season-collection.md), with the full [mobile composition](mobile-collectible-pass.md) retained. The core DNA, state and archive rules below remain unchanged.
 
 The existing UI, team identity packs and V2.3-CM palette remain in place. V2.4 fixes the ticket architecture, replaces hour-threshold status with a schedule-aware lifecycle, and persists each completed personal pass. No archive page, account service, share workflow or NBA API is added.
 
@@ -74,9 +74,9 @@ The writer reads and merges only the selected team/season, writes snapshots befo
 
 ## Future extension points
 
-`resolveSeasonMilestone()` supports First Pass, Early Season (10), Halfway (41/82) and Season Complete (82/82). `seasonSummary()` returns ordered archived pass records, user identity, collection progress and milestone for a future `SeasonSummaryCard`. These are data-only: normal tickets gain no milestone badges.
+`resolveSeasonMilestone()` supports First Pass, Early Season (10), Halfway (41/82) and Season Complete (82/82). `seasonSummary()` returns ordered archived pass records, user identity, collection progress and milestone. V2.9 adds a small printed stub progress/ordinal mark and reusable `SeasonSummaryCard`, without milestone badges or a collection page.
 
-`GamePass`, `MainTicket` and `TicketStub` remain reusable for future MY SEASON and sharing surfaces. The current V2.8 promo keeps the complete mobile interface, adding only the compact `MobilePassEnclosure` behind the existing paper. `PassShareCard` retains the unlinked historical V2.7 study; it is not the current promo composition or a product sharing feature.
+`GamePass`, `MainTicket` and `TicketStub` remain reusable for future MY SEASON and sharing surfaces. V2.9 adds full/compact/collection variants and a snapshot-based `PassShareCard`. The complete mobile homepage and promo stay intact; the historical V2.7 study is now explicitly named `EncasedArtifactStudy`.
 
 Long-term rules: **game → content; location → local time; team → identity; user → number; state → energy; season → collection.** Time passes; the object remains.
 

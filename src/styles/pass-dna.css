@@ -15,7 +15,7 @@
 .mg-bridge::before,.mg-bridge::after { content:'';position:absolute; }
 .mg-bridge::before { left:calc(14 * var(--dna-unit));top:calc(1 * var(--dna-unit));width:calc(4 * var(--dna-unit));height:calc(10 * var(--dna-unit));border-left:1px solid var(--deboss-upper);border-right:1px solid var(--deboss-lower); }
 .mg-bridge::after { left:calc(8 * var(--dna-unit));top:calc(5 * var(--dna-unit));width:calc(16 * var(--dna-unit));height:calc(2 * var(--dna-unit));border-top:1px solid var(--deboss-upper);border-bottom:1px solid var(--deboss-lower); }
-.collectible-spine { position:absolute;left:calc(var(--dna-spine-x) * var(--dna-unit));top:calc(var(--dna-spine-y) * var(--dna-unit));width:calc(var(--dna-spine-width) * var(--dna-unit));height:calc(var(--dna-spine-height) * var(--dna-unit));background:var(--spine-line);opacity:.45;pointer-events:none; }
+.collectible-spine { position:absolute;left:calc(var(--dna-spine-x) * var(--dna-unit));top:calc(var(--dna-spine-y) * var(--dna-unit));width:calc(var(--dna-spine-width) * var(--dna-unit));height:calc(var(--dna-spine-height) * var(--dna-unit));background:var(--spine-line);opacity:var(--spine-visibility,.45);pointer-events:none; }
 .pass-share-card { width:1080px;aspect-ratio:3/4;position:relative;margin:0;background:var(--canvas-base); }
 .pass-share-card>.personal-pass { position:absolute;left:176px;top:456px;width:728px; }
 /* State delta: paint and opacity only. DNA and font metrics never transition. */

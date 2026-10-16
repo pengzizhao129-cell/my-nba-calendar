@@ -25,7 +25,13 @@ npm start
 - `src/lib/schedule.ts`：按当地日期筛选、统计和下一场计算
 - `src/components/CalendarApp.tsx`：交互界面
 
-无需环境变量、密钥或数据库。球队与时区选择保留在当前页面会话内。
+无需环境变量、密钥或数据库。首次确认主队后签发并持久化四位 PASS ID；主队和当前比赛保存在本地，时区选择保留在当前页面会话内。
+
+## V2.9 Personal Season Collection
+
+完整规则、组件接口、测试和导出见 [Personal Season Collection](docs/personal-season-collection.md)。首页保留真实手机产品结构；比赛结束后自动归档，收藏进度从按球队／赛季隔离的唯一 gameId 派生。首次签发仅一次，里程碑由真实进度计算。`GamePass` 提供 full / compact / collection 规格；`PassShareCard` 复用同一份数据，分享模板与首页分开。
+
+`npm run export:promo` 导出两张完整手机宣传图；`npm run export:season` 导出分享样例及 82 张验证图。82 场 mock 仅用于系列验证，不替换首页演示赛程，也未新增完整收藏页。
 
 ## V2.7 Quiet Motion · Homepage Brand Final
 

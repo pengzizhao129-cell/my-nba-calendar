@@ -1,0 +1,11 @@
+/* 15% quiet brand zone / 65% Pass hero zone / 20% context and breathing room. */
+.personal-share-card { width:1080px;height:1440px;aspect-ratio:3/4;margin:0;position:relative;overflow:hidden;background:var(--canvas-base);color:var(--text-primary); }
+.share-brand { position:absolute;left:88px;top:80px;width:224px;height:40px;display:flex;align-items:center;gap:16px; }
+.share-brand>.app-mark { display:block;flex:none;width:40px;height:40px;border-radius:11px;background:var(--seal-surface);border:1px solid var(--seal-edge);box-shadow:var(--seal-shadow);color:var(--brand-red); }
+.share-signature { display:block;width:156px;height:40px;background:var(--brand-signature-ink);mask:url('/brand/mygame-plus.png') center/contain no-repeat; }
+.share-pass-stage { position:absolute;left:72px;top:216px;width:936px;height:936px;display:flex;align-items:center; }
+.share-pass-stage>.personal-pass { width:100%;margin:0;flex:none; }
+.share-context { position:absolute;left:88px;right:88px;top:1200px;height:112px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px; }
+.share-moment { font-size:22px;line-height:28px;letter-spacing:.13em;font-weight:500;color:var(--text-secondary); }
+.share-location { font-size:20px;line-height:28px;font-weight:500;color:var(--text-tertiary);font-variant-numeric:tabular-nums; }
+.share-progress { font-size:14px;line-height:20px;font-weight:500;letter-spacing:.10em;color:var(--text-micro);font-variant-numeric:tabular-nums; }

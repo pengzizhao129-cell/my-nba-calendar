@@ -30,7 +30,7 @@ export function passSecuritySvg(teamId: string, region: 'main'|'stub'='main'): s
  const height=region==='main'?480:94;
  const mask=region==='main'
   ? `<rect x="${window.x}" y="${window.y}" width="${window.width}" height="${window.height}" fill="white"/><rect x="284" y="172" width="158" height="148" fill="white"/><rect x="306" y="218" width="116" height="62" fill="black"/><rect x="8" y="24" width="14" height="430" fill="white"/><rect x="706" y="24" width="14" height="430" fill="white"/><rect x="608" y="332" width="92" height="80" fill="white"/>`
-  : '<rect x="328" y="8" width="192" height="32" fill="white"/>';
+  : '<rect x="328" y="8" width="192" height="32" fill="white"/><rect x="268" y="10" width="224" height="50" fill="black"/>';
  const paths=geometry.paths.map(d=>`<path d="${d}"/>`).join('')+(geometry.dot?'<circle cx="12" cy="12" r=".75" fill="currentColor" stroke="none"/>':'');
  return `<svg xmlns="http://www.w3.org/2000/svg" width="728" height="${height}" viewBox="0 0 728 ${height}" fill="none" color="white"><defs><g id="crest" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">${paths}</g><pattern id="security" width="160" height="96" patternUnits="userSpaceOnUse"><use href="#crest" x="24" y="20"/><use href="#crest" x="104" y="68"/><g stroke="currentColor" stroke-width=".45" opacity=".65"><path d="M-24 47Q16 29 56 47T136 47T216 47M-24 51Q16 33 56 51T136 51T216 51"/></g></pattern><mask id="clear-ink"><rect width="728" height="${height}" fill="black"/>${mask}</mask></defs><g mask="url(#clear-ink)"><rect width="728" height="${height}" fill="url(#security)"/></g></svg>`;
 }

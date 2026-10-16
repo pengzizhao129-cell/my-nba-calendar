@@ -1,6 +1,6 @@
 # MyGame+ — Collectible Pass Inside Real Mobile UI
 
-The current material/type/brand refinement is specified in [Precision Refinement](precision-refinement.md). V2.8's mobile composition and ticket architecture remain the foundation.
+The current identity, collection and sharing behavior is specified in [V2.9 Personal Season Collection](personal-season-collection.md). Material/type/brand refinement remains specified in [Precision Refinement](precision-refinement.md). V2.8's mobile composition and ticket architecture remain the foundation.
 
 The current promo is the complete 1080 × 1440 mobile product composition in `design/promo/promo.html`. Its top brand/product/state groups, MY TEAM / LOCAL TIME selectors, WEB APP BETA, AUTO CONVERTED, NEXT 7 DAYS and Bottom System Island remain in their approved positions. There is no standalone studio setting or poster conversion.
 
@@ -56,7 +56,7 @@ MYGAME_APP_URL=http://127.0.0.1:4600 node design/promo/check-app.cjs
 npm run export:promo
 ```
 
-Only these two current deliverables are replaced:
+These two mobile deliverables are retained; V2.9 adds a small collection progress/ordinal mark inside existing stub whitespace:
 
 - `output/douyin/mygame-plus-douyin-01-tokyo.png`
 - `output/douyin/mygame-plus-douyin-02-london.png`

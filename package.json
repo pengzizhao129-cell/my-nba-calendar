@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
     "test": "tsx --tsconfig tsconfig.tests.json --test tests/*.test.ts",
-    "export:promo": "node design/promo/export.cjs"
+    "export:promo": "node design/promo/export.cjs",
+    "export:season": "node design/validation/export-season-artifacts.cjs"
   },
   "dependencies": {
     "next": "^15.5.0",

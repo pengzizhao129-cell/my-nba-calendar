@@ -1,15 +1,14 @@
-import type {ReactNode} from 'react';
 import type {PersonalPass} from '@/lib/personalPass';
+import {passShareContext,type PassShareMoment} from '@/lib/passShare';
+import {BrandSeal} from './BrandLockup';
 import {GamePass} from './GamePass';
-import {EncasedPass} from './EncasedPass';
 
-/** Legacy V2.7 standalone study; current promo exports keep the full mobile interface. */
-export function PassShareCard({pass,caption,cityLabel,cityState,children}:{pass:PersonalPass;caption?:string;cityLabel?:string;cityState?:string;children?:ReactNode}) {
- return <figure className="pass-share-card encased-artifact" aria-label="MyGame+ 封装赛事通行证" data-artifact-city={pass.location.city}>
-  <span className="artifact-brand-signature" role="img" aria-label="MyGame+"/>
-  <div className="artifact-context"><span className="artifact-nba">NBA</span><span className="artifact-city" data-artifact-state>{cityLabel??pass.location.city}</span></div>
-  <div className="artifact-display"><EncasedPass team={pass.team}>{children??<GamePass pass={pass} enclosure="none"/>}</EncasedPass></div>
-  {caption&&<figcaption className="artifact-caption" data-artifact-state>{caption}</figcaption>}
-  <p className="artifact-city-state" data-artifact-state>{cityState??`${pass.location.city} · ${pass.location.offset}`}</p>
+/** Sharing has its own fixed composition; the homepage continues to be the full App. */
+export function PassShareCard({pass,moment}:{pass:PersonalPass;moment?:PassShareMoment}){
+ const context=passShareContext(pass,moment);
+ return <figure className="pass-share-card personal-share-card" data-share-moment={context.moment} data-share-team={pass.team.code} aria-label="MyGame+ 个人赛事通行证分享画面">
+  <header className="share-brand"><BrandSeal/><span className="share-signature" role="img" aria-label="MyGame+"/></header>
+  <div className="share-pass-stage"><GamePass pass={pass}/></div>
+  <figcaption className="share-context"><span className="share-moment">{context.label}</span><span className="share-location">{context.location}</span><span className="share-progress">{context.progress}</span></figcaption>
  </figure>;
 }

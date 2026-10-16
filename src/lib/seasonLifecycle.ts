@@ -3,6 +3,8 @@ import type {Season, PersonalSeason} from '../data/seasons';
 import {getTeamIdentity} from '../data/teamIdentities';
 import {resolveGameCompletion} from './gameCompletion';
 import {completedAt, type PassState} from './passStatus';
+import {resolveSeasonMilestone} from './seasonMilestones';
+export {resolveSeasonMilestone,type SeasonMilestone} from './seasonMilestones';
 
 export type UserPass = {readonly passId:string|null};
 export type GamePassRecord = {
@@ -98,7 +100,6 @@ export function resolvePersonalSeason(season:Season,teamCode:string,archive:Seas
  const archivedGameIds=[...new Set(Object.values(archive).filter(pass=>pass.teamCode===teamCode&&pass.seasonId===season.id).map(pass=>pass.gameId))].sort();
  return {seasonId:season.id,seasonCode:season.seasonCode,teamCode,totalGames:season.totalGames,collectedGames:archivedGameIds.length,archivedGameIds};
 }
-export type SeasonMilestone='First Pass'|'Early Season'|'Halfway'|'Season Complete';
 export function seasonFixtures(games:readonly Game[],archive:SeasonArchive,teamCode:string):Game[] {
  const byId=new Map(games.map(game=>[game.id,game]));
  for(const record of Object.values(archive))if(record.teamCode===teamCode){const fixture=record.fixture??byId.get(record.gameId);if(fixture)byId.set(record.gameId,{...fixture,final:true});}
@@ -107,11 +108,4 @@ export function seasonFixtures(games:readonly Game[],archive:SeasonArchive,teamC
 export function seasonSummary(user:UserPass,season:Season,teamCode:string,archive:SeasonArchive) {
  const collection=resolvePersonalSeason(season,teamCode,archive);
  return {user,season:collection,milestone:resolveSeasonMilestone(collection.collectedGames,collection.totalGames),passes:Object.values(archive).filter(pass=>pass.seasonId===season.id&&pass.teamCode===teamCode).sort((a,b)=>(a.gameNumber??Infinity)-(b.gameNumber??Infinity)||a.gameId.localeCompare(b.gameId))};
-}
-export function resolveSeasonMilestone(collectedGames:number,totalGames:number):SeasonMilestone|null {
- if(!Number.isInteger(totalGames)||totalGames<1||!Number.isInteger(collectedGames)||collectedGames<0||collectedGames>totalGames)throw new RangeError('Invalid season progress');
- if(collectedGames===totalGames)return 'Season Complete';
- if(collectedGames>=Math.ceil(totalGames/2))return 'Halfway';
- if(collectedGames>=10)return 'Early Season';
- return collectedGames>=1?'First Pass':null;
 }

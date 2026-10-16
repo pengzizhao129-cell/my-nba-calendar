@@ -11,12 +11,26 @@ export function generatePassId(random:(values:Uint32Array)=>Uint32Array=values=>
 
 // Graceful session fallback if a browser denies storage. Never runs during SSR.
 let sessionId:string|undefined;
-export function readOrCreatePassId(storage:()=>PassStorage=()=>window.localStorage):string {
+let storageWriteDenied=false;
+export function readExistingPassId(storage:()=>PassStorage=()=>window.localStorage):string|null {
+ try {const stored=storage().getItem(PASS_ID_KEY);return isPassId(stored)?stored:storageWriteDenied?sessionId??null:null;}
+ catch{return sessionId??null;}
+}
+export function issuePassIdentity(storage:()=>PassStorage=()=>window.localStorage):{passId:string;issued:boolean} {
+ let store:PassStorage;
  try {
-  const store=storage(),stored=store.getItem(PASS_ID_KEY);
-  if(isPassId(stored)){sessionId=stored;return stored;}
-  const id=generatePassId();sessionId=id;store.setItem(PASS_ID_KEY,id);return id;
+  store=storage();const stored=store.getItem(PASS_ID_KEY);
+  if(isPassId(stored)){sessionId=stored;storageWriteDenied=false;return {passId:stored,issued:false};}
  }catch{
-  sessionId??=generatePassId();return sessionId;
+  if(sessionId)return {passId:sessionId,issued:false};
+  sessionId=generatePassId();return {passId:sessionId,issued:true};
  }
+ if(storageWriteDenied&&sessionId)return {passId:sessionId,issued:false};
+ const passId=generatePassId();sessionId=passId;
+ try{store.setItem(PASS_ID_KEY,passId);}catch{storageWriteDenied=true;/* Retain this issued identity for the session. */}
+ return {passId,issued:true};
+}
+/** Explicit issuance helper retained for deterministic promo/export consumers. */
+export function readOrCreatePassId(storage:()=>PassStorage=()=>window.localStorage):string {
+ return issuePassIdentity(storage).passId;
 }
