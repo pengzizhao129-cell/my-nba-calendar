@@ -1,20 +1,31 @@
-# MyGame+ Promo V1.2 — System Island
+# MyGame+ Promo V1.4 — Luxury Sports Material System
 
-Deep warm graphite belongs to system controls. Sports content remains warm matte paper.
-The existing team identity symbols, schedule data, timezones and brand structure are unchanged.
+System is engineered. Game is tactile.
+V1.4 refines material, color and legibility only. Existing information architecture, team identity symbols, schedule data, timezones and V1.2 contextual interaction logic are unchanged.
 
 ## Shared material and navigation
 
 `src/styles/system-island.css` is used by the real App and both promotional exports.
 
-- Surface: `#1A1B19`; radius: 32px; active segment: white 10%, radius 20px, no border.
-- Top inset: white 11%; bottom inset: black 22%; outside shadow: 0 8px 24px, black 12%; soft edge: white 3.5%.
-- Active icon/Chinese: warm white; English: white 60%; small brand-red dot.
-- Inactive icon/Chinese: white 48%; English: white 32%.
-- Three equal tracks; 20px icons, 1.5px rounded strokes; identical icon and text baselines.
+- Surface: `#181917`; radius: 32px; active segment: white 12%, radius 20px, no border.
+- Top inset: white 10%; bottom inset: black 26%; outside shadow: 0 8px 24px, black 12%; soft edge: white 2.5%.
+- Active icon/Chinese: warm white, Chinese weight 550; English: white 64%; 3.6px signal-red dot.
+- Inactive icon/Chinese: white 54%; English: white 35%.
+- Chinese: 15px/20px, weight 500 (active 550). English: 10px/12px, weight 480, tracking .10em.
+- Three equal tracks; 22px icons, 1.5px rounded strokes with non-scaling paths; identical icon and text baselines. The 80px outer height is retained.
 - Promo island: x=76, y=1334, width=928, height=80, bottom=26 on a 1080×1440 canvas. Schedule ends at y=1296.
-- Mini status surface: x=204, y=192, width=672, height=58, radius=16; warm white 78%, blur 12px, border 4.8%.
-- GAME PASS remains paper, with cutouts, perforation, watermark and subtle team tint. No dark sports surfaces.
+- Mini status surface: x=204, y=192, width=672, height=54 (6.9% reduction), radius=16; warm white 70%, blur 10px, border 4.4%.
+
+## Warm stone, tactile paper, signal color
+
+- Canvas: `#F5F3EF`, a quiet warm-stone editorial background.
+- Paper: `#FBF9F6`; central light `#FDFBF9`; settled edge `#F9F7F4`. The very low-contrast radial light is luminance-only; the pass has no blur or glossy reflection.
+- Paper edge: white 62% top inset, dark 3.2% bottom inset, a 4.8% hairline. A low `drop-shadow(0 3px 6px rgba(20,20,20,.035))` follows the genuinely cut silhouette.
+- Exactly two original 16px side punch positions are retained. The paper surface uses intersecting radial masks; the holes reveal Canvas. A faint white upper arc and darker inner arc describe the cut edge.
+- The tear guide uses a regular 8px pitch (3px mark / 5px gap), 0.65px ink and a restrained 0.5px light edge. It stays centered on the cutouts, without a groove.
+- Identity patches retain 12px radii with no border or shadow. Pale red/purple ink varies only from 1.4% in the center to about 2.4–2.5% at the edge, weaker than the pass lighting.
+- Unified signal red: `#C7343D`; LAL purple: `#76548E`; GSW blue: `#375A83`. Color encodes identity/state. The MyGame+ script silhouette is reused as a mask, changing ink color without reshaping the mark.
+- Ordinary city/identity/schedule regions remain flat. Dividers use 3.8% opacity; no additional boxes or shadows are introduced there.
 
 ## Contextual Island State in the real App
 
@@ -48,7 +59,7 @@ Output:
 
 The exporter verifies dimensions, complete PNG decoding, Geist readiness, text fit, radius and geometry, navigation alignment, equal material parameters and pixel-identical islands.
 It also confirms that differences between the two images occur only in city, GMT, time and city-transition text regions.
-The validation report is written to `/tmp/mygame-promo-v1.2-validation.json` rather than checked in as a generated artifact.
+The validation report is written to `/tmp/mygame-promo-v1.4-validation.json` rather than checked in as a generated artifact.
 
 With the App running locally, run `node design/promo/check-app.cjs` (`MYGAME_APP_URL` defaults to `http://127.0.0.1:3200`).
 This checks real city/team navigation, fixture/no-fixture states, context dismissal, reduced motion and 320/390/480/1080px safe areas.

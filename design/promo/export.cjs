@@ -51,7 +51,8 @@ async function main() {
       const report = await page.evaluate(() => {
         const selectors = ['.top-label', '.brand', '.wordmark', '.subtitle', '.beta', '.city-status', '.identity', '.identity-label', '.pass', '.week', '.schedule', '.dock'];
         const rect = element => { const b = element.getBoundingClientRect(); return { x:b.x, y:b.y, width:b.width, height:b.height }; };
-        const styles = selector => { const s = getComputedStyle(document.querySelector(selector)); return { radius:s.borderRadius, border:s.borderTopWidth + ' ' + s.borderTopColor, background:s.backgroundColor, shadow:s.boxShadow, blur:s.backdropFilter, font:s.fontFamily }; };
+        const styles = selector => { const s = getComputedStyle(document.querySelector(selector)); return { radius:s.borderRadius, border:s.borderTopWidth + ' ' + s.borderTopColor, background:s.backgroundColor, backgroundImage:s.backgroundImage, shadow:s.boxShadow, filter:s.filter, blur:s.backdropFilter, font:s.fontFamily }; };
+        const paper=getComputedStyle(document.querySelector('.pass'),'::before');
         const overflow = [...document.querySelectorAll('[data-fit]')].filter(element => element.scrollWidth > element.clientWidth + 1 || element.scrollHeight > element.clientHeight + 1).map(element => element.className);
         return {
           geometry: Object.fromEntries(selectors.map(selector => [selector, rect(document.querySelector(selector))])),
@@ -62,8 +63,13 @@ async function main() {
           scrollWidth:document.documentElement.scrollWidth, scrollHeight:document.documentElement.scrollHeight,
           overflow,
           texts: [...document.querySelectorAll('[data-state]')].map(element => element.textContent.trim()),
-          navigation: [...document.querySelectorAll('.system-island-item')].map(element=>({rect:rect(element),icon:rect(element.querySelector('svg')),cn:rect(element.querySelector('.island-cn')),en:rect(element.querySelector('.island-en'))})),
+          navigation: [...document.querySelectorAll('.system-island-item')].map(element=>({rect:rect(element),icon:rect(element.querySelector('svg')),cn:rect(element.querySelector('.island-cn')),en:rect(element.querySelector('.island-en')),cnSize:getComputedStyle(element.querySelector('.island-cn')).fontSize,enSize:getComputedStyle(element.querySelector('.island-en')).fontSize,overflow:element.scrollWidth>element.clientWidth+1||element.scrollHeight>element.clientHeight+1})),
           activeBackground:getComputedStyle(document.querySelector('.system-island-item[aria-current]')).backgroundColor,
+          canvas:getComputedStyle(document.body).backgroundColor,
+          wordmarkMask:getComputedStyle(document.querySelector('.wordmark')).maskImage,
+          paperMaterial:{background:paper.backgroundImage,mask:paper.maskImage,composition:paper.maskComposite,edge:paper.boxShadow},
+          notches:[...document.querySelectorAll('.notch')].map(rect),
+          perforation:rect(document.querySelector('.perforation')),
         };
       });
       assert.equal(report.scrollWidth, 1080);
@@ -75,11 +81,20 @@ async function main() {
       assert.equal(report.radius['.pass'], '20px');
       assert.equal(report.radius['.dock'], '32px');
       assert.equal(report.geometry['.beta'].width,672);
-      assert.equal(report.geometry['.beta'].height,58);
-      assert.equal(report.activeBackground,'rgba(255, 255, 255, 0.1)');
+      assert.equal(report.geometry['.beta'].height,54);
+      assert.equal(report.activeBackground,'rgba(255, 255, 255, 0.12)');
+      assert.equal(report.canvas,'rgb(245, 243, 239)');
+      assert.ok(report.wordmarkMask.includes('wordmark.png'),'Keep the original wordmark silhouette');
+      assert.equal(report.notches.length,2,'Retain exactly two ticket cutouts');
+      assert.ok(report.paperMaterial.composition.split(',').every(value=>value.trim()==='intersect'));
+      assert.ok(report.paperMaterial.mask.includes('radial-gradient'),'Paper must be genuinely cut at the sides');
+      for(const notch of report.notches) assert.equal(notch.y+notch.height/2,report.perforation.y);
       for (const item of report.navigation) {
         assert.ok(Math.abs(item.rect.width-report.navigation[0].rect.width)<.02);
         for (const key of ['icon','cn','en']) assert.equal(item[key].y,report.navigation[0][key].y);
+        assert.equal(item.cnSize,'15px'); assert.equal(item.enSize,'10px');
+        assert.equal(item.icon.width,22); assert.equal(item.icon.height,22);
+        assert.ok(!item.overflow,'All navigation labels must fit inside their segment');
       }
       assert.ok(report.geometry['.schedule'].y + report.geometry['.schedule'].height + 24 <= report.geometry['.dock'].y);
       await page.screenshot({ path: path.join(output, names[i]), type:'png', fullPage:false, animations:'disabled' });
@@ -88,6 +103,11 @@ async function main() {
       const stat = await fs.stat(path.join(output, names[i]));
       assert.equal(meta.width,1080); assert.equal(meta.height,1440); assert.equal(meta.format,'png');
       assert.ok(decoded.length > 0 && stat.size > 0);
+      const {data:corners,info:cornerInfo}=await sharp(path.join(output,names[i])).removeAlpha().raw().toBuffer({resolveWithObject:true});
+      for(const [x,y] of [[0,0],[1079,0],[0,1439],[1079,1439]]) {
+        const offset=(y*1080+x)*cornerInfo.channels;
+        assert.deepEqual([...corners.subarray(offset,offset+3)],[245,243,239],'No black borders');
+      }
       report.file = { name:names[i], width:meta.width, height:meta.height, bytes:stat.size, decode:'passed' };
       reports.push(report);
     }
@@ -111,8 +131,8 @@ async function main() {
   const dock = { left:76, top:1334, width:928, height:80 };
   const docks = await Promise.all(names.map(name => sharp(path.join(output,name)).extract(dock).raw().toBuffer()));
   assert.ok(docks[0].equals(docks[1]), 'Dock pixels must match exactly');
-  const result = { version:'MyGame+ Promo V1.2 — System Island', reports, differingPixels, staticDifferences, dockIdentical:true };
-  await fs.writeFile('/tmp/mygame-promo-v1.2-validation.json', JSON.stringify(result,null,2));
+  const result = { version:'MyGame+ Promo V1.4 — Luxury Sports Material System', reports, differingPixels, staticDifferences, dockIdentical:true };
+  await fs.writeFile('/tmp/mygame-promo-v1.4-validation.json', JSON.stringify(result,null,2));
   console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist loaded', radius:reports[0].radius },null,2));
 }
 

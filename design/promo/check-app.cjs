@@ -22,7 +22,7 @@ async function main() {
   assert.equal(await nav.locator('button').count(),3);
   assert.equal(await page.locator('.tipoff-time .quiet-value-current').innerText(),'10:00');
   assert.equal(await nav.locator('[aria-current="page"] .island-cn').innerText(),'首页');
-  assert.equal(await nav.evaluate(element=>getComputedStyle(element).backgroundColor),'rgb(26, 27, 25)');
+  assert.equal(await nav.evaluate(element=>getComputedStyle(element).backgroundColor),'rgb(24, 25, 23)');
 
   await page.selectOption('#city','Europe/London');
   await until(page,()=>document.querySelector('.app-system-island')?.getAttribute('data-context')==='game-day','London should open contextual state');

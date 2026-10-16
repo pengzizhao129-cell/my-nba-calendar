@@ -2,13 +2,14 @@
 <html lang="zh-CN">
 <meta charset="utf-8">
 <meta name="viewport" content="width=1080, initial-scale=1">
-<title>MyGame+ Promo V1.2 — System Island</title>
+<title>MyGame+ Promo V1.4 — Luxury Sports Material System</title>
 <link rel="stylesheet" href="system-island.css">
 <style>
 @font-face{font-family:Geist;src:url('GeistSans.woff2') format('woff2');font-weight:100 900;font-display:block}
 :root{
- --canvas:#f8f7f3;--paper:#fefdf9;--primary:#20211f;--secondary:#666862;--tertiary:#959791;
- --hairline:rgba(20,20,20,.040);--red:#ed2533;--hou:#ed2533;--lal:#7541a0;--gsw:#1d428a;
+ --canvas:#f5f3ef;--paper:#fbf9f6;--paper-center:#fdfbf9;--paper-edge:#f9f7f4;
+ --primary:#262521;--secondary:#6b6a64;--tertiary:#99968f;
+ --hairline:rgba(20,20,20,.038);--red:#c7343d;--hou:#c7343d;--lal:#76548e;--gsw:#375a83;
  --radius-team:12px;--radius-beta:16px;--radius-pass:20px;--radius-dock:32px;
  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;
  --type-time:48px;--promo-time-scale:1.9166666667;
@@ -19,36 +20,37 @@ main{position:relative;width:1080px;height:1440px;isolation:isolate}h1,h2,p{marg
 svg{display:block;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
 svg *{vector-effect:non-scaling-stroke}
 .number{font-variant-numeric:tabular-nums;font-feature-settings:'tnum';font-weight:530;letter-spacing:-.035em;white-space:nowrap}
-.separator{color:rgba(32,33,31,.60)}.micro{color:var(--tertiary);font-size:18px;font-weight:500;letter-spacing:.10em;line-height:24px}
+.separator{color:rgba(38,37,33,.56)}.micro{color:var(--tertiary);font-size:18px;font-weight:500;letter-spacing:.10em;line-height:24px}
 .top-label{position:absolute;left:176px;top:32px;width:728px;height:24px;font-size:20px;line-height:24px;letter-spacing:.035em;font-weight:480;color:var(--secondary)}
 .brand{position:absolute;left:176px;top:64px;width:728px;height:64px;display:flex;align-items:center}
 .brand h1{font-size:46px;line-height:64px;font-weight:600;letter-spacing:-.025em}
-.wordmark{position:absolute;left:288px;top:-10px;width:260px;height:82px;object-fit:contain}
+.wordmark{position:absolute;left:288px;top:-10px;width:260px;height:82px;background:var(--red);mask:url('wordmark.png') center/contain no-repeat}
 .subtitle{position:absolute;left:176px;top:144px;width:728px;height:32px;font-size:26px;line-height:32px;font-weight:450;color:var(--secondary)}
-.beta{position:absolute;left:204px;top:192px;width:672px;height:58px;border-radius:var(--radius-beta);background:rgba(255,254,251,.78);border:1px solid rgba(20,20,20,.048);box-shadow:inset 0 1px 0 rgba(255,255,255,.62);backdrop-filter:blur(12px);display:flex;align-items:center;padding:0 24px;gap:24px}
-.beta-label{font-size:16px;font-weight:500;letter-spacing:.16em;line-height:24px;color:#92948d;white-space:nowrap}
+.beta{position:absolute;left:204px;top:192px;width:672px;height:54px;border-radius:var(--radius-beta);background:rgba(255,253,250,.70);border:1px solid rgba(20,20,20,.044);box-shadow:inset 0 1px 0 rgba(255,255,255,.60);backdrop-filter:blur(10px);display:flex;align-items:center;padding:0 24px;gap:24px}
+.beta-label{font-size:15px;font-weight:500;letter-spacing:.18em;line-height:24px;color:#98948d;white-space:nowrap}
 .divider{width:1px;height:24px;background:rgba(20,20,20,.12);flex:none}
 .beta-copy{font-size:24px;font-weight:500;letter-spacing:-.012em;line-height:32px;white-space:nowrap}
 .city-status{position:absolute;left:176px;top:280px;width:728px;height:32px;font-size:20px;line-height:32px;font-weight:500;color:var(--secondary)}
-.city-status .route{color:#555750}
+.city-status .route{color:#5c5a54}
 .identity{position:absolute;left:176px;top:336px;width:728px;height:112px}
 .identity-label{position:absolute;top:0;left:0;height:28px;width:420px;display:flex;gap:24px;align-items:baseline}
 .identity-label .cn{font-size:24px;letter-spacing:0;line-height:28px;color:var(--secondary);font-weight:500}
 .local-label{position:absolute;right:0;top:0;display:flex;align-items:center;gap:16px;height:28px}
-.local-label svg{width:26px;height:26px;color:#858882}
+.local-label svg{width:26px;height:26px;color:#8b8881}
 .team-preference{position:absolute;left:0;top:40px;display:flex;align-items:center;gap:12px;height:40px;white-space:nowrap}
 .team-preference svg{width:28px;height:28px;color:var(--hou)}
 .team-preference .code{font-size:32px;line-height:40px;font-weight:550;letter-spacing:-.025em;color:var(--hou)}
 .team-preference .name{font-size:28px;line-height:40px;font-weight:550}
 .team-preference .chevron{width:14px;height:14px;margin-left:12px;color:var(--tertiary)}
 .city-control{position:absolute;right:0;top:36px;display:flex;align-items:center;height:48px;gap:12px}
-.city-control .globe{width:26px;height:26px;color:#858882}
+.city-control .globe{width:26px;height:26px;color:#8b8881}
 .city-control .city{font-size:36px;line-height:48px;font-weight:600;min-width:72px}
 .city-control .chevron{width:14px;height:14px;color:var(--tertiary);margin-left:4px}
 .identity-english{position:absolute;left:0;top:88px;width:370px;height:24px;font-size:18px;line-height:24px;font-weight:480;letter-spacing:.07em;color:var(--tertiary)}
 .offset{left:auto;right:0;width:360px;text-align:right;letter-spacing:.025em;font-variant-numeric:tabular-nums}
-.pass{position:absolute;left:176px;top:464px;width:728px;height:576px;border-radius:var(--radius-pass);background:var(--paper);border:1px solid rgba(20,20,20,.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(20,20,20,.020)}
-.paper-texture{position:absolute;inset:1px;z-index:0;background-image:url('paper-material.png');background-repeat:repeat;opacity:.12;border-radius:19px;pointer-events:none}
+.pass{position:absolute;left:176px;top:464px;width:728px;height:576px;border-radius:var(--radius-pass);background:transparent;border:1px solid transparent;filter:drop-shadow(0 3px 6px rgba(20,20,20,.035))}
+/* The paper is physically masked at the two original punch positions. Shadows follow its silhouette. */
+.pass::before{content:'';position:absolute;inset:-1px;z-index:0;border-radius:inherit;border:1px solid rgba(20,20,20,.048);background:radial-gradient(ellipse at 50% 42%,var(--paper-center) 0%,var(--paper) 65%,var(--paper-edge) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.62),inset 0 -1px 0 rgba(20,20,20,.032);mask-image:radial-gradient(circle 8px at 0 505px,transparent 7.35px,#000 8.15px),radial-gradient(circle 8px at 100% 505px,transparent 7.35px,#000 8.15px);mask-composite:intersect}
 .pass-content{position:absolute;inset:0;z-index:1;border-radius:inherit;overflow:hidden}
 .pass-label{position:absolute;left:32px;top:32px}
 .date{position:absolute;left:32px;top:56px;height:64px;display:flex;align-items:baseline;gap:12px}
@@ -59,26 +61,27 @@ svg *{vector-effect:non-scaling-stroke}
 .game-day{position:absolute;right:32px;top:32px;text-align:right}
 .game-status{margin-top:12px;display:flex;align-items:center;justify-content:flex-end;gap:12px;font-size:26px;line-height:32px;font-weight:550}
 .sports-dot{width:10px;height:10px;border-radius:50%;background:var(--hou);flex:none}
-.team-tint{position:absolute;left:32px;top:176px;width:240px;height:144px;border-radius:var(--radius-team);background:rgba(237,37,51,.023)}
-.team-tint.away{left:auto;right:32px;background:rgba(117,65,160,.025);text-align:right}
+.team-tint{position:absolute;left:32px;top:176px;width:240px;height:144px;border-radius:var(--radius-team);background:radial-gradient(ellipse at 50% 42%,rgba(199,52,61,.014),rgba(199,52,61,.024))}
+.team-tint.away{left:auto;right:32px;background:radial-gradient(ellipse at 50% 42%,rgba(118,84,142,.014),rgba(118,84,142,.025));text-align:right}
 .team-symbol{position:absolute;right:16px;top:16px;width:30px;height:30px;color:var(--hou)}
 .away .team-symbol{right:auto;left:16px;color:var(--lal)}
 .team-abbr{position:absolute;left:24px;top:24px;height:64px;font-size:58px;line-height:64px;font-weight:600;letter-spacing:-.035em;color:var(--hou);transform:translateX(1px)}
 .away .team-abbr{left:auto;right:24px;transform:translateX(-1px);color:var(--lal)}
 .team-chinese{position:absolute;left:24px;top:96px;font-size:24px;line-height:32px;font-weight:550;white-space:nowrap}
 .away .team-chinese{left:auto;right:24px}
-.versus{position:absolute;left:328px;top:236px;width:72px;text-align:center;font-size:24px;line-height:32px;color:#878982;font-weight:500;letter-spacing:.02em}
+.versus{position:absolute;left:328px;top:236px;width:72px;text-align:center;font-size:24px;line-height:32px;color:#8b8881;font-weight:500;letter-spacing:.02em}
 .watermark{position:absolute;right:-12px;top:300px;width:470px;height:220px;font-size:232px;line-height:1;font-weight:600;letter-spacing:-.055em;color:var(--hou);opacity:.022;text-align:right;pointer-events:none;user-select:none}
 .tipoff{position:absolute;left:32px;top:344px;width:560px;height:104px;font-size:calc(var(--type-time)*var(--promo-time-scale));line-height:104px}
 .time-caption{position:absolute;left:32px;top:452px;height:32px;display:flex;align-items:baseline;gap:20px}
 .time-caption .caption-state{font-size:24px;line-height:32px;font-weight:500;color:var(--secondary);font-variant-numeric:tabular-nums}
-.perforation{position:absolute;left:32px;right:32px;top:504px;border-top:1px dashed rgba(20,20,20,.085)}
+.perforation{position:absolute;left:32px;right:32px;top:504px;height:2px;background-image:repeating-linear-gradient(90deg,rgba(67,59,48,.075) 0 3px,transparent 3px 8px),repeating-linear-gradient(90deg,rgba(255,255,255,.42) 0 3px,transparent 3px 8px);background-size:8px .65px,8px .5px;background-position:0 0,0 1px;background-repeat:repeat-x}
 .stub{position:absolute;left:32px;right:32px;top:520px;height:40px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .venue{display:flex;gap:24px;align-items:baseline;font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);white-space:nowrap}
 .venue-status{color:var(--tertiary);font-size:20px;font-weight:480}
 .serial{font-size:17px;font-weight:500;letter-spacing:.06em;color:var(--tertiary);white-space:nowrap;font-variant-numeric:tabular-nums}
-.notch{position:absolute;top:496px;width:16px;height:16px;border:1px solid rgba(20,20,20,.05);border-radius:50%;background:var(--canvas);z-index:2}
-.notch.left{left:-9px;border-left-color:transparent}.notch.right{right:-9px;border-right-color:transparent}
+.notch{position:absolute;top:496px;width:16px;height:16px;border-radius:50%;background:transparent;z-index:2;pointer-events:none}
+.notch::before{content:'';position:absolute;inset:0;border:1px solid rgba(43,37,28,.06);border-top-color:rgba(255,255,255,.62);border-bottom-color:rgba(43,37,28,.07);border-radius:inherit}
+.notch.left{left:-9px;clip-path:inset(-1px -1px -1px 50%)}.notch.right{right:-9px;clip-path:inset(-1px 50% -1px -1px)}
 .week{position:absolute;left:176px;top:1072px;width:728px;height:224px}
 .week-label{position:absolute;left:0;top:0;height:24px}
 .week h2{position:absolute;left:0;top:32px;height:48px;font-size:36px;line-height:48px;font-weight:600;letter-spacing:-.025em}
@@ -98,7 +101,7 @@ svg *{vector-effect:non-scaling-stroke}
 .row-venue{font-size:17px;line-height:24px;font-weight:500;color:var(--tertiary);letter-spacing:.07em;text-align:right}
 .row-time{font-size:32px;line-height:40px;font-weight:530;text-align:right}
 .dock{position:absolute;left:76px;top:1334px;width:928px;height:80px}
-@supports not (backdrop-filter:blur(12px)){.beta{background:rgba(255,254,251,.97)}}
+@supports not (backdrop-filter:blur(10px)){.beta{background:rgba(255,253,250,.97)}}
 </style>
 <main aria-label="MyGame+ 宣传图">
  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -112,7 +115,7 @@ svg *{vector-effect:non-scaling-stroke}
   <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 22c.5-5 3.2-8 8-8s7.5 3 8 8"/></symbol>
  </defs></svg>
  <div class="top-label" data-state data-fit id="top-label"></div>
- <header class="brand"><h1>我的主队日历</h1><img class="wordmark" src="wordmark.png" alt="MyGame+"></header>
+ <header class="brand"><h1>我的主队日历</h1><span class="wordmark" role="img" aria-label="MyGame+"></span></header>
  <p class="subtitle" data-fit>NBA 主队赛程<span class="separator"> · </span>本地时间</p>
  <section class="beta" data-fit><span class="beta-label">WEB APP BETA</span><span class="divider"></span><span class="beta-copy">选择主队<span class="separator"> · </span>自动换算当地时间</span></section>
  <p class="city-status" data-state data-fit id="city-status"></p>
@@ -124,7 +127,6 @@ svg *{vector-effect:non-scaling-stroke}
   <div class="identity-english">HOUSTON ROCKETS</div><div class="identity-english offset" data-state data-fit id="offset"></div>
  </section>
  <section class="pass">
-  <div class="paper-texture"></div>
   <div class="pass-content">
    <div class="watermark" aria-hidden="true">HOU</div>
    <div class="pass-label micro">GAME PASS</div>
