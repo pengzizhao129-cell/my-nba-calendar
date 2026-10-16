@@ -1,5 +1,7 @@
 # MyGame+ V2.2 — Personal Pass System
 
+> V2.4 lifecycle and structural rules now live in [Core Pass System](core-pass-system.md). The V2.3-CM palette remains authoritative; earlier emotion/hour-threshold and symmetric-cutout rules are superseded.
+
 Color/material paint is now governed by [V2.3-CM](color-material-tokens.md). Its shared palette, team temperatures and alpha-mask printing supersede the fixed ink values below; V2.2's product model, persistence and ticket ownership rules remain unchanged.
 
 比赛决定内容。城市决定时间。主队决定身份。用户决定编号。赛季决定收藏。

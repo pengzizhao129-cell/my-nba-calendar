@@ -1,4 +1,5 @@
 import type { Game } from '@/data/mockGames';
+import {completedAt} from './passStatus';
 import { dateKey,dayDistance } from './timezone';
 export function getSchedule(games: Game[],team: string,timeZone: string,now: Date) {
  const todayKey=dateKey(now,timeZone);
@@ -6,6 +7,6 @@ export function getSchedule(games: Game[],team: string,timeZone: string,now: Dat
  const today=all.filter(g=>dateKey(new Date(g.startsAt),timeZone)===todayKey);
  // Upcoming seven calendar days includes today and the following six days.
  const week=all.filter(g=>{const d=dayDistance(todayKey,dateKey(new Date(g.startsAt),timeZone));return d>=0&&d<7;});
- const next=all.find(g=>Date.parse(g.startsAt)>=now.getTime());
- return {today,week,next,daysUntilNext:next?dayDistance(todayKey,dateKey(new Date(next.startsAt),timeZone)):null};
+ const next=all.find(g=>!completedAt(g,now)&&Date.parse(g.startsAt)>=now.getTime());
+ return {all,today,week,next,daysUntilNext:next?dayDistance(todayKey,dateKey(new Date(next.startsAt),timeZone)):null};
 }

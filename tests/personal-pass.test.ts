@@ -10,7 +10,7 @@ import {teams} from '../src/data/teams';
 import {mockGames,DEMO_NOW} from '../src/data/mockGames';
 import {GamePass} from '../src/components/GamePass';
 
-const input={passId:'0843',teamCode:'HOU',game:mockGames[0],city:'东京',timezone:'Asia/Tokyo',now:new Date(DEMO_NOW)};
+const input={passId:'0843',teamCode:'HOU',game:mockGames[0],city:'东京',timezone:'Asia/Tokyo',now:new Date(DEMO_NOW),games:mockGames};
 
 test('First local visit issues once, refresh preserves leading zeroes, invalid stored IDs are repaired',()=>{
  const values=new Map<string,string>();let writes=0;
@@ -44,7 +44,7 @@ test('Location changes preserve user, team, game, season and emotion, including 
 test('Changing game changes event content and status, never user or team identity; changing user changes only User',()=>{
  const first=createPersonalPass(input),next=createPersonalPass({...input,game:mockGames[1]});
  for(const key of ['user','team','season'] as const)assert.deepEqual(first[key],next[key]);
- assert.equal(next.game.gameNumber,2);assert.equal(next.game.opponentCode,'GSW');assert.equal(next.game.venue,'大通中心');assert.equal(next.status.emotionMark,'Coming up');
+ assert.equal(next.game.gameNumber,2);assert.equal(next.game.opponentCode,'GSW');assert.equal(next.game.venue,'大通中心');assert.equal(next.status.emotionMark,'Upcoming');
  const otherUser=createPersonalPass({...input,passId:'3621'});
  for(const key of ['team','game','location','season','status'] as const)assert.deepEqual(first[key],otherUser[key]);
  const away=createPersonalPass({...input,teamCode:'GSW',game:mockGames[1]});assert.equal(away.game.gameNumber,null,'Partial fixtures cannot invent another team’s season ordinal');
@@ -60,7 +60,7 @@ test('Selected event persists past its end; default selection is independent of 
  const boston=selectPassGame(mockGames,'BOS','hou-1',input.now);
  assert.ok(boston&&(boston.home==='BOS'||boston.away==='BOS'),'Another team must not retain an unrelated fixture');
  assert.notEqual(boston.id,'hou-1');
- assert.equal(selectPassGame(mockGames,'HOU',null,new Date('2027-01-01T00:00:00Z')),undefined);
+ assert.equal(selectPassGame(mockGames,'HOU',null,new Date('2027-01-01T00:00:00Z'))?.id,'hou-5','The last pass remains a collectible even after the entire known schedule ends');
 });
 
 test('All 30 teams have distinct authored identity and security stock, without foreign fallback symbols',()=>{
@@ -73,17 +73,16 @@ test('All 30 teams have distinct authored identity and security stock, without f
  assert.equal(getTeamIdentity('toString'),undefined);assert.equal(passSecuritySvg('UNKNOWN'),null);
 });
 
-test('Emotion has deterministic boundary priorities and never guesses a finished game from start time',()=>{
+test('Emotion is determined by lifecycle, with explicit completion and no invented end time',()=>{
  const now=new Date(DEMO_NOW),at=(hours:number)=>new Date(now.getTime()+hours*3600000).toISOString();
- assert.equal(resolvePassStatus({startsAt:at(72.001)},now).emotionMark,'Next up');
- assert.equal(resolvePassStatus({startsAt:at(72)},now).emotionMark,'Coming up');
- assert.equal(resolvePassStatus({startsAt:at(24)},now).emotionMark,'Coming up');
- assert.equal(resolvePassStatus({startsAt:at(23.999)},now).emotionMark,'Tip-off');
- assert.equal(resolvePassStatus({startsAt:at(1),homeNight:true},now).emotionMark,'Home night');
- assert.equal(resolvePassStatus({startsAt:at(-5)},now).emotionMark,'Tip-off');
- assert.equal(resolvePassStatus({startsAt:at(-5),endsAt:at(0),homeNight:true},now).emotionMark,'Remember this one');
- assert.equal(resolvePassStatus({startsAt:at(-1),finished:true},now).emotionMark,'Remember this one');
- assert.throws(()=>resolvePassStatus({startsAt:'not-a-date'},now),RangeError);
+ const context={timezone:'Asia/Tokyo',nextGameId:'event'};
+ assert.equal(resolvePassStatus({id:'event',startsAt:at(100)},now,context).emotionMark,'Next up');
+ assert.equal(resolvePassStatus({id:'other',startsAt:at(100)},now,context).emotionMark,'Upcoming');
+ assert.equal(resolvePassStatus({id:'event',startsAt:at(1)},now,context).emotionMark,'Tip-off');
+ assert.equal(resolvePassStatus({id:'event',startsAt:at(-5)},now,context).emotionMark,'Tip-off');
+ assert.equal(resolvePassStatus({id:'event',startsAt:at(-5),endsAt:at(0)},now,context).emotionMark,'Collected');
+ assert.equal(resolvePassStatus({id:'event',startsAt:at(-1),finished:true},now,context).emotionMark,'Collected');
+ assert.throws(()=>resolvePassStatus({id:'event',startsAt:'not-a-date'},now,context),RangeError);
 });
 
 test('Server render has one stub-only emotion and collection stack, without accessing browser storage',()=>{

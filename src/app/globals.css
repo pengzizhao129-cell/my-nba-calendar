@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "../styles/color-material.css";
 @import "../styles/system-island.css";
+@import "../styles/pass-dna.css";
+@import "../styles/pass-app.css";
 
 :root {
   --bg-canvas: var(--canvas-base);
@@ -237,4 +239,3 @@ footer { text-align: center; color: var(--text-tertiary); font-size: var(--type-
 .team-choice { border-color: var(--border-hairline); }
 .team-choice.is-selected { border-color: var(--graphite-15); background: var(--surface-selected); }
 .venue-status .ticket-micro-label { color: inherit; }
-.personal-pass[data-pass-status="finished"] .team-identity { --identity-accent-ink: color-mix(in srgb,var(--team-accent) 85%,var(--graphite-70)); }

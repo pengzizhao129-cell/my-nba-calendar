@@ -114,23 +114,33 @@
   --pass-surface: var(--pass-base);
   --temperature-intensity: .65;
   --serial-ink: var(--text-micro);
+  --timing-ink: var(--graphite-70);
+  --security-visibility: .65;
+  --emotion-visibility: .85;
   --material-pass: linear-gradient(180deg,var(--light-paper-wash),transparent 24%,transparent 78%,var(--light-edge-settle)),radial-gradient(ellipse at var(--light-source-x) var(--light-source-y),var(--pass-highlight) 0%,var(--pass-surface) 48%,var(--pass-edge) 100%);
   --material-stub: linear-gradient(110deg,var(--stub-surface),color-mix(in srgb,var(--stub-surface) 95%,var(--stub-cool)));
 }
-.personal-pass[data-pass-status="coming-up"],.pass[data-pass-status="coming-up"] {
+.personal-pass[data-pass-status="next_up"],.pass[data-pass-status="next_up"] {
   --pass-surface: var(--pass-next-up);
   --temperature-intensity: .8;
+  --timing-ink: var(--graphite-90);
+  --security-visibility: .8;
   --signal-muted-opacity: var(--signal-next-up-opacity);
 }
-.personal-pass[data-pass-status="game-day"],.personal-pass[data-pass-status="started"],.pass[data-pass-status="game-day"],.pass[data-pass-status="started"] {
+.personal-pass[data-pass-status="game_day"],.pass[data-pass-status="game_day"] {
   --pass-surface: var(--pass-highlight);
   --temperature-intensity: 1;
+  --timing-ink: var(--graphite-100);
+  --security-visibility: 1;
+  --emotion-visibility: 1;
 }
-.personal-pass[data-pass-status="finished"],.pass[data-pass-status="finished"] {
+.personal-pass[data-pass-status="archived"],.pass[data-pass-status="archived"] {
   --temperature-intensity: .6;
+  --timing-ink: var(--graphite-70);
+  --security-visibility: .8;
   --serial-ink: var(--spine-text);
 }
-.personal-pass[data-pass-status="finished"] .collection-stack { color:var(--text-tertiary); }
+.personal-pass[data-pass-status="archived"] .collection-stack { color:var(--text-tertiary); }
 .pass-security { --security-team:var(--team-security-ink);position:absolute;inset:0;pointer-events:none;user-select:none; }
 .pass-security::before,.pass-security::after {
   content:'';position:absolute;inset:0;pointer-events:none;
@@ -141,3 +151,10 @@
   background:var(--security-blind);transform:translateY(var(--security-blind-offset));
   mask-image:var(--security-mask),var(--security-blind-light);mask-size:100% 100%;mask-composite:intersect;
 }
+
+/* Private GAME DAY energy bands: no extra labels, geometry or countdown. */
+.personal-pass[data-pass-energy="day"],.pass[data-pass-energy="day"] { --temperature-intensity:.9;--security-visibility:.9;--emotion-visibility:.85;--timing-ink:var(--graphite-90); }
+.personal-pass[data-pass-energy="approaching"],.pass[data-pass-energy="approaching"] { --temperature-intensity:.95;--security-visibility:.95;--emotion-visibility:.92;--timing-ink:var(--graphite-100); }
+
+@property --pass-surface { syntax:"<color>";inherits:true;initial-value:#faf8f4; }
+@property --temperature-intensity { syntax:"<number>";inherits:true;initial-value:.65; }

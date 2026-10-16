@@ -1,0 +1,37 @@
+/* Content stays in the same authored regions as the promo master drawing. */
+.hero.personal-pass { aspect-ratio:var(--dna-ratio);padding:0;border:0;background:none;box-shadow:none;filter:var(--pass-contact-filter);overflow:visible; }
+.personal-pass .ticket-main { position:absolute;inset:0 0 auto;height:calc(var(--dna-main-height) * var(--dna-unit)); }
+.personal-pass .hero-top { position:static;display:block; }
+.personal-pass .date-lockup { position:absolute;left:calc(32 * var(--dna-unit));top:calc(32 * var(--dna-unit));gap:calc(4 * var(--dna-unit)); }
+.personal-pass .pass-label { font-size:calc(20 * var(--dna-unit));line-height:calc(24 * var(--dna-unit)); }
+.personal-pass .pass-date { gap:calc(8 * var(--dna-unit)); }
+.personal-pass .pass-date>strong { width:auto;font-size:calc(64 * var(--dna-unit));line-height:1; }
+.personal-pass .pass-date>div { height:calc(64 * var(--dna-unit));padding-bottom:calc(2 * var(--dna-unit)); }
+.personal-pass .pass-date b { font-size:calc(21 * var(--dna-unit)); }
+.personal-pass .pass-weekday { margin-top:calc(8 * var(--dna-unit));font-size:calc(22 * var(--dna-unit)); }
+.personal-pass .pass-weekday small { font-size:calc(16 * var(--dna-unit)); }
+.personal-pass .game-status { position:absolute;right:calc(32 * var(--dna-unit));top:calc(32 * var(--dna-unit));gap:calc(12 * var(--dna-unit)); }
+.personal-pass .game-status>.eyebrow { font-size:calc(14 * var(--dna-unit));line-height:calc(24 * var(--dna-unit)); }
+.personal-pass .game-status>.sports-signal { font-size:calc(22 * var(--dna-unit));--signal-size:calc(7 * var(--dna-unit));--signal-gap:calc(10 * var(--dna-unit)); }
+.personal-pass .sports-signal[data-type="next"]>.sports-signal-mark { width:calc(2 * var(--dna-unit));height:calc(11 * var(--dna-unit)); }
+.personal-pass .match { position:absolute;left:calc(32 * var(--dna-unit));right:calc(32 * var(--dna-unit));top:calc(176 * var(--dna-unit));height:calc(144 * var(--dna-unit));display:grid;grid-template-columns:240fr 184fr 240fr;margin:0;gap:0; }
+.personal-pass .team-identity { max-width:none;height:100%;min-height:0;border-radius:calc(12 * var(--dna-unit));padding:calc(24 * var(--dna-unit));gap:calc(8 * var(--dna-unit)); }
+.personal-pass .team-identity>strong { font-size:calc(64 * var(--dna-unit)); }
+.personal-pass .team-identity>span { font-size:calc(24 * var(--dna-unit));line-height:1.2;white-space:nowrap; }
+.personal-pass .team-identity>.team-symbol { width:calc(28 * var(--dna-unit));height:calc(28 * var(--dna-unit));right:calc(16 * var(--dna-unit));top:calc(16 * var(--dna-unit)); }
+.personal-pass .team-identity:last-child>.team-symbol { left:calc(16 * var(--dna-unit)); }
+.personal-pass .versus { font-size:calc(24 * var(--dna-unit)); }
+.personal-pass .tipoff { width:calc(560 * var(--dna-unit));height:calc(128 * var(--dna-unit));position:absolute;left:calc(32 * var(--dna-unit));top:calc(332 * var(--dna-unit));margin:0;gap:0; }
+.personal-pass .tipoff-time { font-size:calc(100 * var(--dna-unit));line-height:1; }
+.personal-pass .time-caption { margin-top:calc(-4 * var(--dna-unit));height:calc(32 * var(--dna-unit));gap:calc(16 * var(--dna-unit));flex-wrap:nowrap; }
+.personal-pass .time-caption>.eyebrow { font-size:calc(14 * var(--dna-unit)); }
+.personal-pass .time-caption>span:last-child { font-size:calc(22 * var(--dna-unit)); }
+.personal-pass .venue-detail { width:calc(328 * var(--dna-unit));justify-content:flex-end;position:absolute;right:calc(32 * var(--dna-unit));top:calc(428 * var(--dna-unit));margin:0;gap:calc(12 * var(--dna-unit));height:calc(32 * var(--dna-unit)); }
+.personal-pass .venue-status { width:auto;font-size:calc(17 * var(--dna-unit)); }
+.personal-pass .venue-status>.eyebrow { font:inherit;letter-spacing:inherit; }
+.personal-pass .venue-name { font-size:calc(22 * var(--dna-unit));white-space:nowrap; }
+.personal-pass .ticket-stub { position:absolute;left:0;right:0;top:calc(var(--dna-stub-y) * var(--dna-unit));height:calc(var(--dna-stub-height) * var(--dna-unit));margin:0; }
+.personal-pass .ticket-stub::before,.personal-pass::before,.personal-pass::after { display:none; }
+.personal-pass .collection-stack { width:calc(224 * var(--dna-unit));left:calc(32 * var(--dna-unit));top:calc(14 * var(--dna-unit));font-size:calc(14 * var(--dna-unit));line-height:calc(20 * var(--dna-unit)); }
+.personal-pass .emotion-mark { width:calc(152 * var(--dna-unit));height:calc(24 * var(--dna-unit));text-align:right;right:calc(32 * var(--dna-unit));top:calc(14 * var(--dna-unit));font-size:calc(16 * var(--dna-unit));line-height:calc(24 * var(--dna-unit)); }
+.personal-pass .ticket-number { right:calc(32 * var(--dna-unit));bottom:calc(20 * var(--dna-unit));font-size:calc(14 * var(--dna-unit));line-height:calc(20 * var(--dna-unit)); }

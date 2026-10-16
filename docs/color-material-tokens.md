@@ -1,5 +1,7 @@
 # MyGame+ Color & Material Token Guide — V2.3-CM
 
+> V2.4 lifecycle and structural rules now live in [Core Pass System](core-pass-system.md). The V2.3-CM palette remains authoritative; earlier emotion/hour-threshold and symmetric-cutout rules are superseded.
+
 Premium Sports / Quiet Luxury / Collectible Pass.
 
 Canvas 负责安静。Pass 负责价值。Stub 负责收藏。Graphite 负责系统。Team Color 负责身份。Brand Red 负责状态。Security Ink 负责工艺。Light 负责物体感。

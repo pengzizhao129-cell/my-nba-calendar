@@ -1,5 +1,7 @@
 # MyGame+ Promo — Material and System Reference
 
+> V2.4 lifecycle and structural rules now live in [Core Pass System](core-pass-system.md). The V2.3-CM palette remains authoritative; earlier emotion/hour-threshold and symmetric-cutout rules are superseded.
+
 Current paint authority: [V2.3-CM Color & Material Tokens](color-material-tokens.md). Older concrete color/shadow values below are historical; geometry, type and interaction specifications remain the baseline.
 
 Current product rules are [V2.2 — Personal Pass System](personal-pass.md), building on the [V2.1 ticket construction](collectible-pass.md). V2.2 replaces the demo-only ID with local persistence, moves the sole event annotation into the stub, and introduces typed variable layers. It supersedes older watermark, venue, tear-guide, annotation and stub placement notes below. The V1.9 material, timing, header and navigation rules remain in effect.

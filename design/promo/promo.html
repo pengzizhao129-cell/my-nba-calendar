@@ -2,9 +2,10 @@
 <html lang="zh-CN">
 <meta charset="utf-8">
 <meta name="viewport" content="width=1080, initial-scale=1">
-<title>MyGame+ Promo V2.3-CM — Color & Material System</title>
+<title>MyGame+ Promo V2.4 — Core Pass System</title>
 <link rel="stylesheet" href="color-material.css">
 <link rel="stylesheet" href="system-island.css">
+<link rel="stylesheet" href="pass-dna.css">
 <style>
 @font-face{font-family:Geist;src:url('GeistSans.woff2') format('woff2');font-weight:100 900;font-display:block}
 @font-face{font-family:'MyGame Timing';src:url('timing-500.woff2') format('woff2');font-weight:500;font-display:block}
@@ -71,10 +72,8 @@ svg *{vector-effect:non-scaling-stroke}
 .city-control .chevron{width:18px;height:18px;color:var(--tertiary);margin-left:4px}
 .identity-english{position:absolute;left:0;top:64px;width:370px;height:16px;font-size:14px;line-height:16px;font-weight:450;letter-spacing:.07em;color:var(--micro-ink)}
 .offset{left:auto;right:0;width:280px;text-align:right;letter-spacing:.025em;font-variant-numeric:tabular-nums;color:var(--tertiary)}
-.pass{position:absolute;left:176px;top:456px;width:728px;height:576px;border-radius:var(--radius-pass);background:transparent;border:1px solid transparent;filter:var(--pass-contact-filter)}
-/* The paper is physically masked at the two original punch positions. Shadows follow its silhouette. */
-.pass::before{content:'';position:absolute;inset:-1px;z-index:0;border-radius:inherit;border:1px solid var(--border-paper);background:var(--material-pass);box-shadow:var(--pass-edge-light);mask-image:radial-gradient(circle 11px at 0 481px,transparent 10.45px,var(--pass-base) 11.15px),radial-gradient(circle 11px at 100% 481px,transparent 10.45px,var(--pass-base) 11.15px);mask-composite:intersect}
-.pass-content{position:absolute;inset:0;z-index:1;border-radius:inherit;overflow:hidden}
+.pass{position:absolute;left:176px;top:456px;width:728px;height:576px;border-radius:var(--radius-pass);background:transparent;border:0;filter:var(--pass-contact-filter)}
+.pass-content{z-index:1}
 .pass-main{position:absolute;left:0;right:0;top:0;height:480px}
 .pass-label{position:absolute;left:32px;top:32px;font-size:20px;line-height:24px}
 .date{position:absolute;left:32px;top:56px;height:64px;display:flex;align-items:baseline;gap:8px}
@@ -100,17 +99,13 @@ svg *{vector-effect:non-scaling-stroke}
 .time-caption{position:absolute;left:32px;top:428px;height:32px;display:flex;align-items:baseline;gap:24px}
 .time-caption .micro{font-size:14px;line-height:20px}
 .time-caption .caption-state{font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);font-variant-numeric:tabular-nums}
-.perforation{position:absolute;left:16px;right:16px;top:480px;height:2px;z-index:2;background-image:repeating-linear-gradient(90deg,var(--perforation-dark) 0 3px,transparent 3px 8px),repeating-linear-gradient(90deg,var(--perforation-light) 0 3px,transparent 3px 8px);background-size:8px .7px,8px .5px;background-position:0 0,0 1px;background-repeat:repeat-x}
 .stub{position:absolute;left:0;right:0;top:482px;bottom:0;background:var(--material-stub);box-shadow:var(--stub-edge-light)}
 .collection-stack{position:absolute;left:32px;top:14px;display:flex;flex-direction:column;gap:0;font-family:Geist,sans-serif;font-size:14px;line-height:20px;letter-spacing:.1em;font-weight:500;font-variant-numeric:tabular-nums;color:var(--micro-ink);white-space:nowrap}
 .collection-stack>span:first-child{color:var(--tertiary)}
 .venue{position:absolute;right:32px;top:428px;display:flex;gap:12px;align-items:baseline;font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);white-space:nowrap}
 .venue-status{color:var(--tertiary);font-size:17px;font-weight:450;letter-spacing:.025em}
-.serial{position:absolute;right:32px;bottom:18px;display:inline-flex;align-items:baseline;gap:8px;font-size:14px;line-height:20px;font-weight:500;letter-spacing:.1em;color:var(--micro-ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.serial{position:absolute;right:32px;bottom:20px;display:inline-flex;align-items:baseline;gap:8px;font-size:14px;line-height:20px;font-weight:500;letter-spacing:.1em;color:var(--micro-ink);white-space:nowrap;font-variant-numeric:tabular-nums}
 .serial .separator{color:inherit;opacity:.62;letter-spacing:0}
-.notch{position:absolute;top:469px;width:22px;height:22px;border-radius:50%;background:transparent;z-index:2;pointer-events:none}
-.notch::before{content:'';position:absolute;inset:0;border:1px solid var(--cutout-edge);border-top-color:var(--cutout-highlight);border-bottom-color:var(--cutout-inner);border-radius:inherit}
-.notch.left{left:-12px;clip-path:inset(-1px -1px -1px 50%)}.notch.right{right:-12px;clip-path:inset(-1px 50% -1px -1px)}
 .week{position:absolute;left:176px;top:1080px;width:728px;height:224px}
 .week-label{position:absolute;left:0;top:0;height:24px;font-size:14px;line-height:20px}
 .week h2{position:absolute;left:0;top:32px;height:40px;font-size:30px;line-height:40px;font-weight:500;letter-spacing:-.025em;color:var(--secondary)}
@@ -160,8 +155,8 @@ svg *{vector-effect:non-scaling-stroke}
   </div>
   <div class="identity-english">HOUSTON ROCKETS</div>
  </section>
- <section class="pass" data-pass-status="game-day">
-  <div class="pass-content">
+ <section class="pass" data-pass-status="game_day" data-pass-energy="imminent" data-dna="MG-DNA-1">
+  <div class="pass-content ticket-object"><span class="ticket-paper" aria-hidden="true"></span>
    <div class="pass-main" aria-label="赛事主券">
    <span class="pass-security" id="main-security" aria-hidden="true"></span>
    <div class="pass-label micro">GAME PASS</div>
@@ -175,10 +170,10 @@ svg *{vector-effect:non-scaling-stroke}
    <div class="time-caption"><span class="micro">LOCAL TIME</span><span class="caption-state" data-state id="time-caption"></span></div>
    <div class="venue"><span class="venue-status">HOME<span class="separator"> · </span>主场</span><span>丰田中心</span></div>
    </div>
-   <div class="perforation"></div>
+   <div class="ticket-join" aria-hidden="true"><span class="perforation"></span><span class="mg-bridge" data-dna="bridge"></span></div><span class="collectible-spine" data-dna="spine" aria-hidden="true"></span>
    <div class="stub" aria-label="赛事副券"><span class="pass-security" id="stub-security" aria-hidden="true"></span><div class="collection-stack" id="collection" aria-label="通行证收藏记录" data-fit></div><span class="event-annotation emotion-mark" data-fit></span><span class="serial" data-fit><span>MG+</span><span class="separator"> / </span><span>HOU–LAL</span><span class="separator"> / </span><span>01</span></span></div>
   </div>
-  <span class="notch left"></span><span class="notch right"></span>
+  <svg class="ticket-cut-edges" viewBox="0 0 728 576" preserveAspectRatio="none" aria-hidden="true"></svg>
  </section>
  <section class="week">
   <span class="micro week-label">NEXT 7 DAYS</span><h2>我的一周赛程</h2><div class="count"><span class="number">4</span><span class="text">场比赛</span></div>
@@ -200,6 +195,9 @@ svg *{vector-effect:non-scaling-stroke}
  import {DEMO_SEASON} from './seasons.js';
  import {readOrCreatePassId} from './pass-id.js';
  import {resolvePassStatus} from './pass-status.js';
+ import {PASS_DNA,passDNAProperties} from './pass-dna.js';
+ for(const [name,value] of Object.entries(passDNAProperties()))document.querySelector('.pass').style.setProperty(name,value);
+ for(const d of [PASS_DNA.leftCut,PASS_DNA.rightCut]){const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',d);document.querySelector('.ticket-cut-edges').append(path);}
  const selectedTeam='HOU';
  const applyIdentity=(element,code)=>{
   const identity=getTeamIdentity(code);
@@ -223,7 +221,7 @@ svg *{vector-effect:non-scaling-stroke}
  // Reuse the existing App's demo clock/UTC fixtures and IANA conversion for export.
  // These are presentation samples, not a new schedule or live-score feature.
  const demoNow=new Date('2026-10-25T00:00:00Z');
- const emotion=resolvePassStatus({startsAt:'2026-10-25T01:00:00Z'},demoNow).emotionMark;
+ const emotion=resolvePassStatus({id:'hou-1',startsAt:'2026-10-25T01:00:00Z'},demoNow,{timezone:state.zone,nextGameId:'hou-1'}).emotionMark;
  document.querySelector('.emotion-mark').textContent=emotion;
  document.querySelector('.emotion-mark').dataset.emotion=emotion;
  const localTime=new Intl.DateTimeFormat('en-GB',{timeZone:state.zone,hour:'2-digit',minute:'2-digit',hourCycle:'h23'});

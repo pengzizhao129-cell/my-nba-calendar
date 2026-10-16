@@ -26,7 +26,7 @@ test('Security stock belongs to the selected crest and never falls back to HOU',
  const teams=['HOU','LAL','GSW','DAL','DEN','BOS'];
  const prints=teams.map(team=>passSecuritySvg(team));
  assert.equal(new Set(prints).size,teams.length);
- for(const print of prints){assert.ok(print?.includes('<pattern'));assert.ok(print.includes('mask="url(#clear-ink)"'));}
+ for(const print of prints){assert.ok(print?.includes('<pattern'));assert.ok(print!.includes('mask="url(#clear-ink)"'));}
  for(const team of ['UNKNOWN','toString','__proto__'])assert.equal(passSecuritySvg(team),null);
  assert.notEqual(passSecuritySvg('HOU','main'),passSecuritySvg('HOU','stub'),'Each paper region has its own text-safe printing area');
 });
