@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <meta charset="utf-8">
 <meta name="viewport" content="width=1080, initial-scale=1">
-<title>MyGame+ Promo V1.9 — Final Luxury Focus</title>
+<title>MyGame+ Promo V2.1 — Collectible Pass Structure</title>
 <link rel="stylesheet" href="system-island.css">
 <style>
 @font-face{font-family:Geist;src:url('GeistSans.woff2') format('woff2');font-weight:100 900;font-display:block}
@@ -72,8 +72,10 @@ svg *{vector-effect:non-scaling-stroke}
 .offset{left:auto;right:0;width:280px;text-align:right;letter-spacing:.025em;font-variant-numeric:tabular-nums;color:var(--tertiary)}
 .pass{position:absolute;left:176px;top:456px;width:728px;height:576px;border-radius:var(--radius-pass);background:transparent;border:1px solid transparent;filter:drop-shadow(0 3px 5px rgba(34,29,21,.042))}
 /* The paper is physically masked at the two original punch positions. Shadows follow its silhouette. */
-.pass::before{content:'';position:absolute;inset:-1px;z-index:0;border-radius:inherit;border:1px solid rgba(20,20,20,.008);background:linear-gradient(180deg,rgba(255,255,255,.25),transparent 24%,transparent 78%,rgba(96,76,42,.008)),radial-gradient(ellipse at 32% 28%,var(--paper-center) 0%,var(--paper) 62%,var(--paper-edge) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.72),inset 0 -1px 0 rgba(20,20,20,.032);mask-image:radial-gradient(circle 11px at 0 505px,transparent 10.45px,#000 11.15px),radial-gradient(circle 11px at 100% 505px,transparent 10.45px,#000 11.15px);mask-composite:intersect}
+.pass::before{content:'';position:absolute;inset:-1px;z-index:0;border-radius:inherit;border:1px solid rgba(20,20,20,.008);background:linear-gradient(180deg,rgba(255,255,255,.25),transparent 24%,transparent 78%,rgba(96,76,42,.008)),radial-gradient(ellipse at 32% 28%,var(--paper-center) 0%,var(--paper) 62%,var(--paper-edge) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.72),inset 0 -1px 0 rgba(20,20,20,.032);mask-image:radial-gradient(circle 11px at 0 481px,transparent 10.45px,#000 11.15px),radial-gradient(circle 11px at 100% 481px,transparent 10.45px,#000 11.15px);mask-composite:intersect}
 .pass-content{position:absolute;inset:0;z-index:1;border-radius:inherit;overflow:hidden}
+.pass-main{position:absolute;left:0;right:0;top:0;height:480px}
+.pass-security{position:absolute;inset:0;background-repeat:no-repeat;background-size:100% 100%;pointer-events:none;user-select:none}
 .pass-label{position:absolute;left:32px;top:32px;font-size:20px;line-height:24px}
 .date{position:absolute;left:32px;top:56px;height:64px;display:flex;align-items:baseline;gap:8px}
 .date .day{font-family:'MyGame Timing',Geist,sans-serif;font-size:64px;line-height:64px;font-weight:550;letter-spacing:0;transform:translateX(-1px)}
@@ -93,19 +95,20 @@ svg *{vector-effect:non-scaling-stroke}
 .team-chinese{position:absolute;left:24px;top:96px;font-size:24px;line-height:32px;font-weight:500;white-space:nowrap}
 .away .team-chinese{left:auto;right:24px}
 .versus{position:absolute;left:328px;top:236px;width:72px;text-align:center;font-size:24px;line-height:32px;color:var(--secondary);font-weight:500;letter-spacing:.02em}
-.watermark{position:absolute;right:-12px;top:300px;width:470px;height:220px;font-size:232px;line-height:1;font-weight:600;letter-spacing:-.055em;color:var(--hou);opacity:.009;text-align:right;pointer-events:none;user-select:none}
-.tipoff{position:absolute;left:32px;top:344px;width:560px;height:104px;display:flex;align-items:center;font-size:calc(var(--type-time)*var(--promo-time-scale));line-height:104px}
+.tipoff{position:absolute;left:32px;top:332px;width:560px;height:104px;display:flex;align-items:center;font-size:calc(var(--type-time)*var(--promo-time-scale));line-height:104px}
 .tipoff .timing-run{transform:translate(-2px,-1px)}
-.time-caption{position:absolute;left:32px;top:440px;height:32px;display:flex;align-items:baseline;gap:24px}
+.time-caption{position:absolute;left:32px;top:428px;height:32px;display:flex;align-items:baseline;gap:24px}
 .time-caption .micro{font-size:14px;line-height:20px}
 .time-caption .caption-state{font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);font-variant-numeric:tabular-nums}
-.perforation{position:absolute;left:32px;right:32px;top:504px;height:2px;background-image:repeating-linear-gradient(90deg,rgba(67,59,48,.095) 0 3px,transparent 3px 8px),repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 3px,transparent 3px 8px);background-size:8px .7px,8px .5px;background-position:0 0,0 1px;background-repeat:repeat-x}
-.stub{position:absolute;left:32px;right:32px;top:520px;height:40px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.venue{display:flex;gap:24px;align-items:baseline;font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);white-space:nowrap}
+.perforation{position:absolute;left:16px;right:16px;top:480px;height:2px;z-index:2;background-image:repeating-linear-gradient(90deg,rgba(67,59,48,.095) 0 3px,transparent 3px 8px),repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 3px,transparent 3px 8px);background-size:8px .7px,8px .5px;background-position:0 0,0 1px;background-repeat:repeat-x}
+.stub{position:absolute;left:0;right:0;top:482px;bottom:0;background:rgba(104,98,89,.022);box-shadow:inset 0 1px 0 rgba(255,255,255,.28)}
+.collection-stack{position:absolute;left:32px;top:14px;display:flex;flex-direction:column;gap:0;font-family:Geist,sans-serif;font-size:14px;line-height:20px;letter-spacing:.1em;font-weight:500;font-variant-numeric:tabular-nums;color:var(--micro-ink);white-space:nowrap}
+.collection-stack>span:first-child{color:var(--tertiary)}
+.venue{position:absolute;right:32px;top:428px;display:flex;gap:12px;align-items:baseline;font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);white-space:nowrap}
 .venue-status{color:var(--tertiary);font-size:17px;font-weight:450;letter-spacing:.025em}
-.serial{display:inline-flex;align-items:baseline;gap:8px;font-size:14px;line-height:20px;font-weight:500;letter-spacing:.1em;color:var(--micro-ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.serial{position:absolute;right:32px;bottom:18px;display:inline-flex;align-items:baseline;gap:8px;font-size:14px;line-height:20px;font-weight:500;letter-spacing:.1em;color:var(--micro-ink);white-space:nowrap;font-variant-numeric:tabular-nums}
 .serial .separator{color:inherit;opacity:.62;letter-spacing:0}
-.notch{position:absolute;top:493px;width:22px;height:22px;border-radius:50%;background:transparent;z-index:2;pointer-events:none}
+.notch{position:absolute;top:469px;width:22px;height:22px;border-radius:50%;background:transparent;z-index:2;pointer-events:none}
 .notch::before{content:'';position:absolute;inset:0;border:1px solid rgba(43,37,28,.075);border-top-color:rgba(43,37,28,.115);border-bottom-color:rgba(255,255,255,.82);border-radius:inherit}
 .notch.left{left:-12px;clip-path:inset(-1px -1px -1px 50%)}.notch.right{right:-12px;clip-path:inset(-1px 50% -1px -1px)}
 .week{position:absolute;left:176px;top:1080px;width:728px;height:224px}
@@ -159,7 +162,8 @@ svg *{vector-effect:non-scaling-stroke}
  </section>
  <section class="pass">
   <div class="pass-content">
-   <div class="watermark" aria-hidden="true">HOU</div>
+   <div class="pass-main" aria-label="赛事主券">
+   <span class="pass-security" id="main-security" aria-hidden="true"></span>
    <div class="pass-label micro">GAME PASS</div>
    <div class="date"><span class="day number">25</span><span class="month">OCT</span></div>
    <div class="weekday">星期日<span class="en"><span class="separator"> · </span>SUN</span></div>
@@ -169,8 +173,10 @@ svg *{vector-effect:non-scaling-stroke}
    <div class="team-tint away"><svg class="team-symbol"><use href="#lal"/></svg><div class="team-abbr">LAL</div><div class="team-chinese">洛杉矶湖人</div></div>
    <div class="tipoff number" data-state id="tipoff"></div>
    <div class="time-caption"><span class="micro">LOCAL TIME</span><span class="caption-state" data-state id="time-caption"></span></div>
+   <div class="venue"><span class="venue-status">HOME<span class="separator"> · </span>主场</span><span>丰田中心</span></div>
+   </div>
    <div class="perforation"></div>
-   <div class="stub"><div class="venue"><span class="venue-status">HOME<span class="separator"> · </span>主场</span><span>丰田中心</span></div><span class="serial"><span>MG+</span><span class="separator"> / </span><span>HOU–LAL</span><span class="separator"> / </span><span>01</span></span></div>
+   <div class="stub" aria-label="赛事副券"><span class="pass-security" id="stub-security" aria-hidden="true"></span><div class="collection-stack" id="collection" aria-label="通行证收藏记录" data-fit></div><span class="serial" data-fit><span>MG+</span><span class="separator"> / </span><span>HOU–LAL</span><span class="separator"> / </span><span>01</span></span></div>
   </div>
   <span class="notch left"></span><span class="notch right"></span>
  </section>
@@ -189,7 +195,18 @@ svg *{vector-effect:non-scaling-stroke}
   </div>
  </nav>
 </main>
-<script>
+<script type="module">
+ import {DEMO_PASS_IDENTITY,DEMO_PASS_COLLECTION,formatPassRecord,passSecurityUrl} from './pass-design.js';
+ const selectedTeam='HOU';
+ for(const region of ['main','stub']) {
+  const surface=document.getElementById(region+'-security');
+  const url=passSecurityUrl(selectedTeam,region);
+  surface.dataset.securityTeam=selectedTeam;
+  surface.style.backgroundImage=url?`url("${url}")`:'none';
+ }
+ for(const line of formatPassRecord(DEMO_PASS_IDENTITY,DEMO_PASS_COLLECTION)) {
+  const row=document.createElement('span');row.textContent=line;document.getElementById('collection').append(row);
+ }
  const london = new URLSearchParams(location.search).get('city') === 'london';
  const state = london ? {label:'LONDON · UK',slogan:'换个城市，不换主队。',city:'伦敦',english:'LONDON',country:'UK',zone:'Europe/London'} : {label:'TOKYO · JP',slogan:'无论在哪，主队准时见。',city:'东京',english:'TOKYO',country:'JP',zone:'Asia/Tokyo'};
  // Reuse the existing App's demo clock/UTC fixtures and IANA conversion for export.

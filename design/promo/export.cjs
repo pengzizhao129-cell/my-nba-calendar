@@ -21,6 +21,8 @@ async function prepareAssets() {
 
 async function main() {
   await prepareAssets();
+  const ts=require('typescript');
+  const passModule = ts.transpileModule(await fs.readFile(path.join(repository,'src/lib/passDesign.ts'),'utf8'), {compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2017}}).outputText;
   const routes = new Map([
     ['/promo.html', [path.join(directory,'promo.html'),'text/html; charset=utf-8']],
     ['/wordmark.png', [path.join(directory,'wordmark.png'),'image/png']],
@@ -30,7 +32,9 @@ async function main() {
     ['/system-island.css', [path.join(repository,'src/styles/system-island.css'),'text/css']],
   ]);
   const server = http.createServer(async (request,response) => {
-    const route = routes.get(new URL(request.url,'http://127.0.0.1').pathname);
+    const pathname=new URL(request.url,'http://127.0.0.1').pathname;
+    if(pathname==='/pass-design.js'){response.writeHead(200,{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'no-store'});response.end(passModule);return;}
+    const route = routes.get(pathname);
     if (!route) { response.writeHead(404); response.end(); return; }
     try { const bytes=await fs.readFile(route[0]); response.writeHead(200,{'Content-Type':route[1],'Cache-Control':'no-store'}); response.end(bytes); }
     catch { response.writeHead(500); response.end(); }
@@ -50,7 +54,7 @@ async function main() {
       await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(image => image.decode())); });
       await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       const report = await page.evaluate(() => {
-        const selectors = ['.top-label', '.brand', '.brand h1', '.app-mark', '.wordmark', '.subtitle', '.slogan', '.beta', '.city-status', '.identity', '.identity-label', '.time-system', '.local-label', '.auto-state', '.offset', '.team-preference', '.city-control', '.pass', '.game-status', '.event-annotation', '.team-tint', '.tipoff', '.time-caption', '.week', '.schedule', '.dock'];
+        const selectors = ['.top-label', '.brand', '.brand h1', '.app-mark', '.wordmark', '.subtitle', '.slogan', '.beta', '.city-status', '.identity', '.identity-label', '.time-system', '.local-label', '.auto-state', '.offset', '.team-preference', '.city-control', '.pass', '.pass-main', '.stub', '.collection-stack', '.venue', '.game-status', '.event-annotation', '.team-tint', '.tipoff', '.time-caption', '.week', '.schedule', '.dock'];
         const rect = element => { const b = element.getBoundingClientRect(); return { x:b.x, y:b.y, width:b.width, height:b.height }; };
         const styles = selector => { const s = getComputedStyle(document.querySelector(selector)); return { radius:s.borderRadius, border:s.borderTopWidth + ' ' + s.borderTopColor, background:s.backgroundColor, backgroundImage:s.backgroundImage, shadow:s.boxShadow, filter:s.filter, blur:s.backdropFilter, font:s.fontFamily }; };
         const paper=getComputedStyle(document.querySelector('.pass'),'::before');
@@ -76,6 +80,8 @@ async function main() {
           serialStyle:(()=>{const element=document.querySelector('.serial'),s=getComputedStyle(element);return {size:s.fontSize,line:s.lineHeight,tracking:s.letterSpacing,gap:s.columnGap,parts:[...element.children].map(part=>part.textContent.trim()),separators:[...element.querySelectorAll('.separator')].map(part=>({opacity:getComputedStyle(part).opacity,tracking:getComputedStyle(part).letterSpacing})),rect:rect(element)};})(),
           notches:[...document.querySelectorAll('.notch')].map(rect),
           perforation:rect(document.querySelector('.perforation')),
+          collection:[...document.querySelectorAll('.collection-stack>span')].map(element=>({text:element.textContent,rect:rect(element),font:getComputedStyle(element).fontFamily,size:getComputedStyle(element).fontSize,tracking:getComputedStyle(element).letterSpacing,numerals:getComputedStyle(element).fontVariantNumeric})),
+          security:[...document.querySelectorAll('.pass-security')].map(element=>({team:element.dataset.securityTeam,image:getComputedStyle(element).backgroundImage})),
           content:{slogan:document.querySelector('.slogan').textContent,cityState:document.querySelector('.city-status').textContent,auto:document.querySelector('.auto-state').textContent,serial:document.querySelector('.serial').textContent,time:document.querySelector('#tipoff').textContent,first:document.querySelector('#time-one').textContent,second:document.querySelector('#time-two').textContent},
           markLetters:{m:rect(document.querySelector('.mark-m')),g:rect(document.querySelector('.mark-g')),mLetter:document.querySelector('.mark-m').dataset.letter,gLetter:document.querySelector('.mark-g').dataset.letter,paths:document.querySelectorAll('.mark-glyph path').length,textNodes:document.querySelectorAll('.mark-glyph text').length},
           typography:Object.fromEntries(['.brand h1','.slogan','.subtitle','.nba','.beta-label','.auto-state','.team-abbr','.tipoff'].map(selector=>{const s=getComputedStyle(document.querySelector(selector));return [selector,{size:s.fontSize,weight:s.fontWeight,line:s.lineHeight,tracking:s.letterSpacing,color:s.color}];})),
@@ -112,6 +118,15 @@ async function main() {
       assert.equal(report.geometry['.beta'].height,24);
       assert.deepEqual(report.geometry['.app-mark'],{x:176,y:68,width:56,height:56});
       assert.deepEqual(report.geometry['.pass'],{x:176,y:456,width:728,height:576});
+      assert.equal(report.geometry['.pass-main'].height,480);
+      assert.equal(report.perforation.y,report.geometry['.pass-main'].y+480,'Tear guide ends the main ticket');
+      assert.ok(report.geometry['.venue'].y+report.geometry['.venue'].height+16<=report.perforation.y,'Venue belongs above the tear guide');
+      assert.ok(report.geometry['.time-caption'].y+report.geometry['.time-caption'].height+16<=report.perforation.y);
+      assert.equal(report.geometry['.stub'].y,report.perforation.y+2);
+      assert.deepEqual(report.collection.map(row=>row.text),['PASS 0147','GAME 01 / 82','SEASON 26–27']);
+      for(const row of report.collection){assert.ok(row.rect.y>report.perforation.y);assert.ok(row.rect.y+row.rect.height<=report.geometry['.pass'].y+576-16);assert.equal(row.font,'Geist, sans-serif');assert.equal(row.size,'14px');assert.equal(row.tracking,'1.4px');assert.equal(row.numerals,'tabular-nums');}
+      assert.equal(report.collection[2].rect.y+report.collection[2].rect.height,report.serialStyle.rect.y+report.serialStyle.rect.height,'Collection and serial end on one printed baseline');
+      assert.equal(report.security.length,2);for(const field of report.security){assert.equal(field.team,'HOU');assert.ok(field.image.startsWith('url("data:image/svg+xml,'));}
       assert.deepEqual(report.geometry['.week'],{x:176,y:1080,width:728,height:224});
       assert.deepEqual(report.geometry['.dock'],{x:76,y:1340,width:928,height:72});
       const gap=(above,below)=>report.geometry[below].y-(report.geometry[above].y+report.geometry[above].height);
@@ -198,7 +213,7 @@ async function main() {
         assert.deepEqual([...corners.subarray(offset,offset+3)],[244,242,238],'No black borders');
       }
       report.file = { name:names[i], width:meta.width, height:meta.height, bytes:stat.size, decode:'passed' };
-      const withoutAnnotation = '/tmp/mygame-script-placement-'+city+'-without-note.png';
+      const withoutAnnotation = '/tmp/mygame-v2.1-'+city+'-without-note.png';
       const annotationOffStyle = await page.addStyleTag({content:'.event-annotation{visibility:hidden!important}'});
       const annotationOffGeometry = await page.evaluate(selectors=>Object.fromEntries(selectors.map(selector=>{const b=document.querySelector(selector).getBoundingClientRect();return [selector,{x:b.x,y:b.y,width:b.width,height:b.height}];})),Object.keys(report.geometry));
       assert.deepEqual(annotationOffGeometry,report.geometry,'Removing the signature must leave all functional layout unchanged');
@@ -215,21 +230,43 @@ async function main() {
         }
       }
       assert.ok(notePixels>0,'The annotation must actually render');assert.equal(outsideNoteDifferences,0,'Only the single annotation may change pixels');
-      let annotationOffMatchesBaseline=null;
+      let outsideTicketDifferences=null;
       if(process.env.PROMO_BASELINE_DIR){
         const baseline=await sharp(path.join(process.env.PROMO_BASELINE_DIR,names[i])).removeAlpha().raw().toBuffer();
-        annotationOffMatchesBaseline=baseline.equals(withoutPixels);
-        assert.ok(annotationOffMatchesBaseline,'Without the note, the PNG must exactly match the approved V1.9 image');
+        outsideTicketDifferences=0;
+        const p=report.geometry['.pass'];
+        for(let y=0;y<1440;y++)for(let x=0;x<1080;x++){
+          if(x>=p.x-16&&x<=p.x+p.width+16&&y>=p.y-16&&y<=p.y+p.height+16)continue;
+          const k=(y*1080+x)*3;
+          if(baseline[k]!==canonicalPixels[k]||baseline[k+1]!==canonicalPixels[k+1]||baseline[k+2]!==canonicalPixels[k+2])outsideTicketDifferences++;
+        }
+        assert.equal(outsideTicketDifferences,0,'Everything outside the ticket and its contact shadow must match the approved image');
       }
-      report.annotationReview={withoutAnnotation,notePixels,outsideNoteDifferences,annotationOffMatchesBaseline};
-      const thumbnail = '/tmp/mygame-script-placement-'+city+'-30.png';
+      report.annotationReview={withoutAnnotation,notePixels,outsideNoteDifferences};
+      report.outsideTicketDifferences=outsideTicketDifferences;
+      const withoutSecurity='/tmp/mygame-v2.1-'+city+'-without-security.png';
+      const securityOffStyle=await page.addStyleTag({content:'.pass-security{visibility:hidden!important}'});
+      await page.screenshot({path:withoutSecurity,type:'png',animations:'disabled'});
+      await securityOffStyle.evaluate(element=>element.remove());
+      const unprintedPixels=await sharp(withoutSecurity).removeAlpha().raw().toBuffer();
+      const protectedRects=await page.evaluate(()=>[...document.querySelectorAll('.pass-label,.date,.weekday,.game-day,.event-annotation,.team-tint,.versus,.tipoff,.time-caption,.venue,.collection-stack,.serial')].map(element=>{const b=element.getBoundingClientRect();return{x:b.x,y:b.y,right:b.right,bottom:b.bottom};}));
+      let printPixels=0,protectedDifferences=0,maxChannelDelta=0;
+      for(let y=0;y<1440;y++)for(let x=0;x<1080;x++){
+        const k=(y*1080+x)*3,delta=Math.max(...[0,1,2].map(channel=>Math.abs(canonicalPixels[k+channel]-unprintedPixels[k+channel])));
+        if(delta){printPixels++;maxChannelDelta=Math.max(maxChannelDelta,delta);if(protectedRects.some(r=>x>=r.x&&x<r.right&&y>=r.y&&y<r.bottom))protectedDifferences++;}
+      }
+      assert.ok(printPixels>0,'Security printing must render in paper whitespace');
+      assert.ok(maxChannelDelta<=10,'Security printing must stay below 4% channel contrast');
+      assert.equal(protectedDifferences,0,'Security printing must not cross any core information frame');
+      report.securityReview={printPixels,maxChannelDelta,protectedDifferences,withoutSecurity};
+      const thumbnail = '/tmp/mygame-v2.1-'+city+'-30.png';
       await sharp(path.join(output,names[i])).resize(324,432).png().toFile(thumbnail);
-      const blur = '/tmp/mygame-script-placement-'+city+'-blur.png';
+      const blur = '/tmp/mygame-v2.1-'+city+'-blur.png';
       const blurStyle = await page.addStyleTag({content:'main{filter:blur(5px)}'});
       await page.screenshot({path:blur,type:'png',fullPage:false,animations:'disabled'});
       await sharp(blur).resize(324,432).png().toFile(blur.replace('.png','-30.png'));
       await blurStyle.evaluate(element=>element.remove());
-      const borderless = '/tmp/mygame-script-placement-'+city+'-borderless.png';
+      const borderless = '/tmp/mygame-v2.1-'+city+'-borderless.png';
       const borderlessStyle = await page.addStyleTag({content:'*,*::before,*::after{border-color:transparent!important;outline:none!important}.divider,.perforation{visibility:hidden!important}'});
       const borderlessGeometry = await page.evaluate(selectors=>Object.fromEntries(selectors.map(selector=>{const b=document.querySelector(selector).getBoundingClientRect();return [selector,{x:b.x,y:b.y,width:b.width,height:b.height}];})),Object.keys(report.geometry));
       assert.deepEqual(borderlessGeometry,report.geometry,'Layout must stand without drawn borders');
@@ -261,14 +298,14 @@ async function main() {
   const dock = { left:76, top:1340, width:928, height:72 };
   const docks = await Promise.all(names.map(name => sharp(path.join(output,name)).extract(dock).raw().toBuffer()));
   assert.ok(docks[0].equals(docks[1]), 'Dock pixels must match exactly');
-  const overlay = '/tmp/mygame-script-placement-overlay.png';
+  const overlay = '/tmp/mygame-v2.1-overlay.png';
   const overlayPixels=Buffer.alloc(buffers[0].length);
   for(let i=0;i<overlayPixels.length;i++)overlayPixels[i]=Math.round((buffers[0][i]+buffers[1][i])/2);
   await sharp(overlayPixels,{raw:{width:1080,height:1440,channels:3}}).png().toFile(overlay);
   await sharp(overlay).resize(324,432).png().toFile(overlay.replace('.png','-30.png'));
-  const result = { version:'MyGame+ Signature Script Placement — Ultra Fine Pass (V1.9 base)', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
-  await fs.writeFile('/tmp/mygame-script-placement-validation.json', JSON.stringify(result,null,2));
-  console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing, MyGame Identity and Event Annotation loaded', eventAnnotations:reports.map(report=>({count:report.annotation.count,changedPixels:report.annotationReview.notePixels,outsideChanges:report.annotationReview.outsideNoteDifferences,baselineMatch:report.annotationReview.annotationOffMatchesBaseline})), radius:reports[0].radius },null,2));
+  const result = { version:'MyGame+ Promo V2.1 — Collectible Pass Structure', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
+  await fs.writeFile('/tmp/mygame-v2.1-validation.json', JSON.stringify(result,null,2));
+  console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing, MyGame Identity and Event Annotation loaded', eventAnnotations:reports.map(report=>({count:report.annotation.count,changedPixels:report.annotationReview.notePixels,outsideChanges:report.annotationReview.outsideNoteDifferences,outsideTicketChanges:report.outsideTicketDifferences})), collection:reports[0].collection.map(row=>row.text), security:reports.map(report=>report.securityReview), radius:reports[0].radius },null,2));
 }
 
 main().catch(error=>{ console.error(error); process.exitCode=1; });

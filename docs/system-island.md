@@ -1,4 +1,6 @@
-# MyGame+ Promo V1.9 — Final Luxury Focus
+# MyGame+ Promo — Material and System Reference
+
+Current ticket construction is [V2.1 — Collectible Pass Structure](collectible-pass.md). It supersedes the older watermark, venue, tear-guide and stub placement described below. The V1.9 material, timing, header and navigation rules remain in effect.
 
 System is engineered. Game is tactile.
 V1.9 focuses only on the three header groups, tactile event pass, branded timing numerals, printed team identity areas and thinner system island. It retains the existing composition, logo, slogans, event information, programme, serial and App business logic. No module, information, icon, feature or decorative concept is added.
@@ -11,7 +13,7 @@ System information is printed. Emotional information is signed.
 - Placement is absolute within GAME DAY: right=0, top=76px, 72×24px frame. The note clears match status/red signal by at least 8px and team identity by at least 24px. Nothing is reflowed or moved.
 - Type is 16px/24px, weight 400, zero tracking, warm graphite `#262521` at 50% opacity. There is no underline, glow, shadow, red ink, rotation or added flourish. The natural handwriting differs from the existing large red MyGame+ signature; the brand mask is unchanged.
 - The font is a local `Tip-off` glyph subset of Nothing You Could Do, version 1.005, copyright 2010 Kimberly Geswein, from Google Fonts. It is licensed under [SIL OFL 1.1](../design/promo/event-annotation-OFL.txt). Source: `https://raw.githubusercontent.com/google/fonts/main/ofl/nothingyoucoulddo/NothingYouCouldDo.ttf`; source SHA-256: `1daf8cf79076bf59c5a9117b5efd6ecea35e57a05ef127fe4f95b072b8a5245d`. The local CSS alias is Event Annotation; PNG export needs no external font request.
-- Export checks enforce exactly one script text node, its tone/type, safe placement and identical city geometry. Hiding the note must leave all geometry unchanged and affect pixels only inside its bounds. When `PROMO_BASELINE_DIR` is provided, the no-note PNG must also match the approved V1.9 PNG byte-for-byte after decoding.
+- Export checks enforce exactly one script text node, its tone/type, safe placement and identical city geometry. Hiding the note must leave all geometry unchanged and affect pixels only inside its bounds. V2.1 retains this check; its optional `PROMO_BASELINE_DIR` comparison instead protects all pixels outside the ticket against the approved pre-V2.1 exports.
 - This pass was checked with `/tmp/mygame-script-study/baseline` containing the approved V1.9 exports: exactly 230 changed pixels per city, zero changes elsewhere, and an exact no-note baseline match. At 30% the note recedes while teams and time remain primary.
 
 ## Four brightness tiers and deliberate restraint
@@ -103,7 +105,7 @@ Output:
 The exporter verifies dimensions, complete PNG decoding, all four font families, text fit, radius and geometry, navigation alignment, equal material parameters and pixel-identical islands.
 It also checks all four assigned neutral-ink tiers, the three-layer gaps, unboxed edge-free identity washes, tighter timing-block relationship, sub-1% paper border, fixed serial syntax/spacing/alignment, softer 72px island, unchanged slogans, custom App Mark, equal digit advances, date/time consistency, LOCAL TIME ownership, flat editorial regions and absence of visible URLs.
 Differences between the two images occur only in slogan, city, GMT, time and city-transition text regions.
-The current validation report is `/tmp/mygame-script-placement-validation.json` rather than a checked-in generated artifact. The baseline comparison can be repeated with `PROMO_BASELINE_DIR=/path/to/approved-png-directory node design/promo/export.cjs`.
+The current validation report is `/tmp/mygame-v2.1-validation.json` rather than a checked-in generated artifact. The outside-ticket baseline comparison can be repeated with `PROMO_BASELINE_DIR=/path/to/approved-png-directory node design/promo/export.cjs`.
 Four art-direction reviews are exported only under `/tmp`:
 
 - 30%: 324×432 thumbnails for both cities; verify HOU/LAL, time, ticket silhouette, script signature and navigation survive.
@@ -111,7 +113,7 @@ Four art-direction reviews are exported only under `/tmp`:
 - Border-Off: suppress borders/outlines and both divider/tear-guide drawings while preserving dimensions; every shared layout landmark must remain unchanged, and typography/whitespace/light must retain the order.
 - Tokyo/London Overlay: exact 50/50 pixel average at 1080×1440 and 30%; fixed regions are also compared directly and must have zero differing pixels outside the allowed content regions.
 
-Diagnostics use `/tmp/mygame-script-placement-{tokyo,london}-*.png` and `/tmp/mygame-script-placement-overlay{,-30}.png`. They include the no-note scope check. These are review images, not additional delivery elements or repository artifacts. The final two PNGs retain their required filenames.
+Diagnostics use `/tmp/mygame-v2.1-{tokyo,london}-*.png` and `/tmp/mygame-v2.1-overlay{,-30}.png`. They include the no-note scope check and no-security check. These are review images, not additional delivery elements or repository artifacts. The final two PNGs retain their required filenames.
 
 With the App running locally, run `node design/promo/check-app.cjs` (`MYGAME_APP_URL` defaults to `http://127.0.0.1:3200`).
 This checks real city/team navigation, fixture/no-fixture states, context dismissal, reduced motion and 320/390/480/1080px safe areas.

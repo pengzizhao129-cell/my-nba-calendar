@@ -21,6 +21,9 @@ async function main() {
   assert.equal(await nav.getAttribute('data-context'),'navigation','No unsolicited initial context');
   assert.equal(await nav.locator('button').count(),3);
   assert.equal(await page.locator('.tipoff-time .quiet-value-current').innerText(),'10:00');
+  const initialCollection=await page.locator('.collection-stack>span').allTextContents();
+  assert.deepEqual(initialCollection,['PASS 0147','GAME 01 / 82','SEASON 26–27']);
+  const originalSecurity=await page.locator('.ticket-main>.pass-security').evaluate(element=>element.style.backgroundImage);
   assert.equal(await nav.locator('[aria-current="page"] .island-cn').innerText(),'首页');
   assert.equal(await nav.evaluate(element=>getComputedStyle(element).backgroundColor),'rgb(24, 25, 23)');
 
@@ -29,6 +32,8 @@ async function main() {
   assert.match(await nav.locator('[role="status"]').innerText(),/HOU\s*·\s*GAME DAY\s*·\s*01:00/);
   assert.equal(await page.locator('.zone-label .quiet-value-current').innerText(),'伦敦');
   assert.equal(await page.locator('.tipoff-time .quiet-value-current').innerText(),'01:00');
+  assert.deepEqual(await page.locator('.collection-stack>span').allTextContents(),initialCollection,'Changing city must not issue a different pass');
+  assert.equal(await page.locator('.ticket-main>.pass-security').evaluate(element=>element.style.backgroundImage),originalSecurity,'Timezone must not change team paper identity');
   assert.equal(await nav.locator('button:enabled').count(),3,'Navigation stays available during context');
   await until(page,()=>document.querySelector('.app-system-island')?.getAttribute('data-context')==='navigation','Context should automatically close');
   await until(page,()=>Math.abs(document.querySelector('.app-system-island').getBoundingClientRect().height-72)<.1,'Island should return to its 72px resting height');
@@ -50,6 +55,7 @@ async function main() {
   assert.equal(await nav.getAttribute('data-context'),'navigation');
   assert.equal((await nav.locator('[role="status"]').innerText()).trim(),'');
   assert.match(await page.locator('.game-status').innerText(),/今天无比赛/);
+  assert.equal(await page.locator('.pass-security').count(),0,'Teams without an authored crest must not receive a borrowed watermark');
   await page.locator('.team-select').click();
   await page.locator('.team-choice').filter({hasText:'HOU'}).click();
   await until(page,()=>document.querySelector('.app-system-island')?.getAttribute('data-context')==='game-day','Valid matchday should restore context');
@@ -66,6 +72,18 @@ async function main() {
   await page.getByRole('switch',{name:'使用真实日期'}).click();
   await nav.getByRole('button',{name:/首页/}).click();
 
+  const stock=[];
+  for(const team of ['HOU','LAL','GSW','DAL','DEN']) {
+   await page.locator('.team-select').click();
+   await page.locator('.team-choice').filter({hasText:team}).click();
+   const paper=page.locator('.ticket-main>.pass-security');
+   assert.equal(await paper.getAttribute('data-security-team'),team);
+   stock.push(await paper.evaluate(element=>element.style.backgroundImage));
+   if(await page.locator('.collection-stack').count())assert.equal(await page.locator('.collection-stack>span').first().innerText(),'PASS 0147','Selecting a team must not replace the user identity');
+  }
+  assert.equal(new Set(stock).size,5,'Five authored crests must produce five different security stocks');
+  await page.locator('.team-select').click();await page.locator('.team-choice').filter({hasText:'HOU'}).click();
+
   for(const width of [320,390,480,1080]) {
    await page.setViewportSize({width,height:844});
    await page.evaluate(()=>window.scrollTo(0,document.documentElement.scrollHeight));
@@ -81,9 +99,17 @@ async function main() {
    assert.ok(geometry.viewportHeight-geometry.bottom>=22,'Bottom safe area remains visible');
    assert.ok(geometry.contentBottom<geometry.islandTop,'Bottom content must clear the island');
    for(const item of geometry.items){assert.ok(!item.overflow);for(const key of ['icon','cn','en'])assert.equal(item[key],geometry.items[0][key]);}
+   const ticket=await page.evaluate(()=>{
+    const box=selector=>{const b=document.querySelector(selector).getBoundingClientRect();return {x:b.x,y:b.y,right:b.right,bottom:b.bottom,height:b.height};};
+    return {stub:box('.ticket-stub'),record:box('.collection-stack'),serial:box('.ticket-number'),venue:box('.venue-detail'),rows:[...document.querySelectorAll('.collection-stack>span')].map(element=>({width:element.scrollWidth,available:document.querySelector('.ticket-stub').clientWidth}))};
+   });
+   assert.ok(ticket.venue.bottom<ticket.stub.y,'Venue stays on the main ticket');
+   assert.ok(ticket.record.x>=ticket.stub.x&&ticket.record.bottom<ticket.stub.bottom);
+   assert.ok(ticket.record.right+8<ticket.serial.x,'Printed collection and serial must not collide at mobile widths');
+   assert.equal(ticket.stub.height,82);
   }
   assert.deepEqual(errors,[],'No runtime page errors');
-  console.log('PASS: initial navigation, Tokyo/London contextual times, 1800ms reset, always-available navigation, no-game cancellation, rapid team/timezone changes, reduced motion, real-date no-game state, 320/390/480/1080px layout and bottom safe areas.');
+  console.log('PASS: city/time navigation, contextual reset, reduced motion, no-game handling; independent collection ID, five team-specific security stocks, unknown-team clearing, mobile stub layout, and 320/390/480/1080px navigation safe areas.');
  } finally {await browser.close();}
 }
 

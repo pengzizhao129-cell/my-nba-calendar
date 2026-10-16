@@ -1,9 +1,10 @@
 import { teams } from './teams';
-export interface Game { id: string; home: string; away: string; startsAt: string; venue: string }
+import {DEMO_PASS_COLLECTION,type PassCollection} from '@/lib/passDesign';
+export interface Game { id: string; home: string; away: string; startsAt: string; venue: string; collection?: PassCollection }
 // Fixed demonstration clock keeps the prototype suitable for repeatable screenshots.
 export const DEMO_NOW = '2026-10-25T00:00:00Z';
 const rockets: Game[] = [
- {id:'hou-1',home:'HOU',away:'LAL',startsAt:'2026-10-25T01:00:00Z',venue:'丰田中心'},
+ {id:'hou-1',home:'HOU',away:'LAL',startsAt:'2026-10-25T01:00:00Z',venue:'丰田中心',collection:DEMO_PASS_COLLECTION},
  {id:'hou-2',home:'GSW',away:'HOU',startsAt:'2026-10-27T02:00:00Z',venue:'大通中心'},
  {id:'hou-3',home:'HOU',away:'DAL',startsAt:'2026-10-29T00:00:00Z',venue:'丰田中心'},
  {id:'hou-4',home:'DEN',away:'HOU',startsAt:'2026-10-31T01:00:00Z',venue:'波尔球馆'},
