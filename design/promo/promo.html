@@ -2,18 +2,21 @@
 <html lang="zh-CN">
 <meta charset="utf-8">
 <meta name="viewport" content="width=1080, initial-scale=1">
-<title>MyGame+ Promo V1.6 — Final Art Direction Pass</title>
+<title>MyGame+ Promo V1.7 — Branded Sports Language</title>
 <link rel="stylesheet" href="system-island.css">
 <style>
 @font-face{font-family:Geist;src:url('GeistSans.woff2') format('woff2');font-weight:100 900;font-display:block}
+@font-face{font-family:'MyGame Timing';src:url('timing-500.woff2') format('woff2');font-weight:500;font-display:block}
+@font-face{font-family:'MyGame Timing';src:url('timing-550.woff2') format('woff2');font-weight:550;font-display:block}
+@font-face{font-family:'MyGame Identity';src:url('identity-600.woff2') format('woff2');font-weight:600;font-display:block}
 :root{
- --canvas:#f4f2ee;--paper:#fcfaf7;--paper-center:#fefdfa;--paper-edge:#faf8f4;
+ --canvas:#f4f2ee;--paper:#fcfaf7;--paper-center:#fffefa;--paper-edge:#f8f5ef;
  --primary:#262521;--secondary:#6b6a64;--tertiary:#99968f;
  --hairline:rgba(20,20,20,.038);--red:#c7343d;--hou:#c7343d;--lal:#76548e;--gsw:#375a83;
  --radius-team:12px;--radius-beta:16px;--radius-pass:20px;--radius-dock:32px;
  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;
  --type-time:48px;--promo-time-scale:2.0833333333;
- --system-micro-size:11px;--system-micro-line:16px;--system-micro-tracking:.13em;--system-micro-weight:500;--system-micro-color:#9b958a;
+ --system-micro-size:11px;--system-micro-line:16px;--system-micro-tracking:.13em;--system-micro-weight:500;--system-micro-color:#999184;
 }
 *{box-sizing:border-box}html,body{margin:0;width:1080px;height:1440px;overflow:hidden}
 body{background:var(--canvas);color:var(--primary);font-family:Geist,'Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased;font-synthesis:none}
@@ -21,95 +24,105 @@ main{position:relative;width:1080px;height:1440px;isolation:isolate}h1,h2,p{marg
 svg{display:block;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
 svg *{vector-effect:non-scaling-stroke}
 .number{font-variant-numeric:tabular-nums;font-feature-settings:'tnum';font-weight:530;letter-spacing:-.035em;white-space:nowrap}
-.separator{color:rgba(38,37,33,.56)}.micro{color:var(--tertiary);font-size:18px;font-weight:500;letter-spacing:.10em;line-height:24px}
+.separator{color:rgba(38,37,33,.56)}
+.micro,.beta-label,.auto-state{font-family:Geist,'Noto Sans CJK SC',sans-serif;font-weight:var(--system-micro-weight);letter-spacing:var(--system-micro-tracking);color:var(--system-micro-color)}
+.micro{font-size:14px;line-height:20px}
+.timing-run{display:inline-flex;align-items:center;font-family:'MyGame Timing',Geist,sans-serif;font-variant-numeric:tabular-nums;font-feature-settings:'tnum';font-weight:550;line-height:1;letter-spacing:0;white-space:nowrap}
+.timing-colon{position:relative;display:inline-block;flex:none;width:.18em;height:.74em;margin:0 .03em;opacity:.64;transform:translateY(.01em)}
+.timing-colon::before,.timing-colon::after{content:'';position:absolute;left:50%;width:.064em;height:.064em;border-radius:.012em;background:currentColor;transform:translate(-50%,-50%)}
+.colon-text{font-size:0}
+.timing-colon::before{top:34%}.timing-colon::after{top:64%}
 .top-label{position:absolute;left:176px;top:32px;width:728px;height:24px;font-size:16px;line-height:24px;letter-spacing:.12em;font-weight:500;color:#9b9488}
 .brand{position:absolute;left:176px;top:64px;width:728px;height:64px;display:flex;align-items:center}
-.brand h1{position:absolute;left:72px;top:10px;font-size:34px;line-height:44px;font-weight:500;letter-spacing:-.025em;color:#514d46;white-space:nowrap}
-.app-mark{position:absolute;left:0;top:4px;width:56px;height:56px;border-radius:16px;background:linear-gradient(145deg,#fffefb 0%,#fcfaf6 54%,#f5f1e9 100%);border:1px solid rgba(38,37,33,.06);box-shadow:inset 0 1px 0 rgba(255,255,255,.70),inset 0 -1px 0 rgba(65,54,39,.035),0 1px 3px rgba(34,29,21,.035);color:var(--red)}
+.brand h1{position:absolute;left:72px;top:10px;font-size:34px;line-height:44px;font-weight:500;letter-spacing:-.025em;color:#4b4841;white-space:nowrap}
+.app-mark{position:absolute;left:0;top:4px;width:56px;height:56px;border-radius:16px;background:radial-gradient(ellipse at 30% 22%,#fffefa 10%,#fcfaf6 60%,#f3eee5 100%);border:1px solid rgba(38,37,33,.045);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(65,54,39,.045),0 1px 3px rgba(34,29,21,.04);color:var(--red)}
 .mark-glyph{display:block;width:100%;height:100%}
 .mark-glyph,.mark-glyph *{fill:currentColor;stroke:none}
 .wordmark{position:absolute;left:292px;top:-4px;width:224px;height:70px;background:var(--red);mask:url('wordmark.png') center/contain no-repeat}
-.slogan{position:absolute;left:176px;top:152px;width:728px;height:32px;font-size:26px;line-height:32px;font-weight:500;letter-spacing:.025em;color:#625b50;white-space:nowrap}
-.subtitle{position:absolute;left:176px;top:216px;width:728px;height:32px;display:flex;align-items:center;font-size:19px;line-height:28px;font-weight:450;color:#817a6f}
+.slogan{position:absolute;left:176px;top:192px;width:728px;height:32px;font-size:26px;line-height:32px;font-weight:500;letter-spacing:.025em;color:#625b50;white-space:nowrap}
+.subtitle{position:absolute;left:176px;top:144px;width:728px;height:32px;display:flex;align-items:center;font-size:19px;line-height:28px;font-weight:450;color:#817a6f}
 .subtitle .nba{font-size:30px;line-height:32px;font-weight:650;letter-spacing:.04em;color:#4e4840;margin-right:8px}
 .subtitle .descriptor{white-space:pre}
-.beta{position:absolute;left:176px;top:252px;width:728px;height:32px;border-radius:var(--radius-beta);background:transparent;border:0;display:flex;align-items:center;padding:0;gap:20px}
+.beta{position:absolute;left:176px;top:248px;width:728px;height:32px;border-radius:var(--radius-beta);background:transparent;border:0;display:flex;align-items:center;padding:0;gap:16px}
 .beta-label,.auto-state{font-size:var(--system-micro-size);line-height:var(--system-micro-line);letter-spacing:var(--system-micro-tracking);font-weight:var(--system-micro-weight);color:var(--system-micro-color);white-space:nowrap}
 .divider{width:1px;height:14px;background:rgba(20,20,20,.08);flex:none}
 .beta-copy{font-size:18px;font-weight:450;letter-spacing:0;line-height:24px;color:#8b847a;white-space:nowrap}
 .city-status{position:absolute;left:176px;top:304px;width:728px;height:24px;font-size:17px;line-height:24px;font-weight:500;color:#918a7e}
 .city-status .route{color:#746d62}
 .identity{position:absolute;left:176px;top:352px;width:728px;height:96px}
-.identity-label{position:absolute;top:0;left:0;height:24px;width:420px;display:flex;gap:20px;align-items:baseline}
-.identity-label .micro,.local-label .micro{font-size:14px;line-height:20px;letter-spacing:.12em;color:#9b9488}
+.identity-label{position:absolute;top:0;left:0;height:24px;width:420px;display:flex;gap:16px;align-items:baseline}
+.identity-label .micro,.local-label .micro{font-size:14px;line-height:20px}
 .identity-label .cn{font-size:18px;letter-spacing:0;line-height:24px;color:#8a8379;font-weight:450}
-.local-label{position:absolute;right:0;top:0;display:flex;align-items:center;gap:12px;height:24px}
+.time-system{position:absolute;right:0;top:0;width:280px;height:96px;text-align:right}
+.local-label{position:absolute;right:0;top:0;display:flex;align-items:center;gap:12px;height:20px}
 .local-label svg{width:22px;height:22px;color:#938b7f}
-.auto-state{display:flex;align-items:center;gap:6px}
+.auto-state{position:absolute;right:0;top:80px;display:flex;align-items:center;gap:6px}
 .auto-state::before{content:'';width:2.5px;height:2.5px;border-radius:50%;background:currentColor;opacity:.65;flex:none}
-.team-preference{position:absolute;left:0;top:32px;display:flex;align-items:center;gap:12px;height:40px;white-space:nowrap}
+.team-preference{position:absolute;left:0;top:24px;display:flex;align-items:center;gap:12px;height:36px;white-space:nowrap}
 .team-preference svg{width:24px;height:24px;color:var(--hou)}
-.team-preference .code{font-size:28px;line-height:40px;font-weight:550;letter-spacing:-.025em;color:var(--hou)}
-.team-preference .name{font-size:24px;line-height:40px;font-weight:500}
+.team-preference .code{font-family:'MyGame Identity',Geist,sans-serif;font-size:28px;line-height:36px;font-weight:600;letter-spacing:-.02em;color:var(--hou)}
+.team-preference .name{font-size:24px;line-height:36px;font-weight:500}
 .team-preference .chevron{width:18px;height:18px;margin-left:8px;color:#817a6d}
-.city-control{position:absolute;right:0;top:32px;display:flex;align-items:center;height:40px;gap:12px}
+.city-control{position:absolute;right:0;top:24px;display:flex;align-items:center;height:36px;gap:12px}
 .city-control .globe{width:22px;height:22px;color:#938b7f}
-.city-control .city{font-size:30px;line-height:40px;font-weight:500;min-width:60px}
+.city-control .city{font-size:30px;line-height:36px;font-weight:550;min-width:60px}
 .city-control .chevron{width:18px;height:18px;color:#817a6d;margin-left:4px}
-.identity-english{position:absolute;left:0;top:76px;width:370px;height:20px;font-size:15px;line-height:20px;font-weight:450;letter-spacing:.07em;color:#aaa298}
-.offset{left:auto;right:0;width:360px;text-align:right;letter-spacing:.025em;font-variant-numeric:tabular-nums}
-.pass{position:absolute;left:176px;top:464px;width:728px;height:576px;border-radius:var(--radius-pass);background:transparent;border:1px solid transparent;filter:drop-shadow(0 4px 8px rgba(34,29,21,.043))}
+.identity-english{position:absolute;left:0;top:64px;width:370px;height:16px;font-size:14px;line-height:16px;font-weight:450;letter-spacing:.07em;color:#a29a8e}
+.offset{left:auto;right:0;width:280px;text-align:right;letter-spacing:.025em;font-variant-numeric:tabular-nums;color:#898174}
+.pass{position:absolute;left:176px;top:464px;width:728px;height:576px;border-radius:var(--radius-pass);background:transparent;border:1px solid transparent;filter:drop-shadow(0 4px 9px rgba(34,29,21,.052))}
 /* The paper is physically masked at the two original punch positions. Shadows follow its silhouette. */
-.pass::before{content:'';position:absolute;inset:-1px;z-index:0;border-radius:inherit;border:1px solid rgba(20,20,20,.055);background:radial-gradient(ellipse at 32% 26%,var(--paper-center) 0%,var(--paper) 65%,var(--paper-edge) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.70),inset 0 -1px 0 rgba(20,20,20,.042);mask-image:radial-gradient(circle 10px at 0 505px,transparent 9.45px,#000 10.15px),radial-gradient(circle 10px at 100% 505px,transparent 9.45px,#000 10.15px);mask-composite:intersect}
+.pass::before{content:'';position:absolute;inset:-1px;z-index:0;border-radius:inherit;border:1px solid rgba(20,20,20,.05);background:radial-gradient(ellipse at 32% 24%,var(--paper-center) 0%,var(--paper) 62%,var(--paper-edge) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.76),inset 0 -1px 0 rgba(20,20,20,.05);mask-image:radial-gradient(circle 11px at 0 505px,transparent 10.45px,#000 11.15px),radial-gradient(circle 11px at 100% 505px,transparent 10.45px,#000 11.15px);mask-composite:intersect}
 .pass-content{position:absolute;inset:0;z-index:1;border-radius:inherit;overflow:hidden}
-.pass-label{position:absolute;left:32px;top:32px;font-size:22px;font-weight:550;color:#6b6459;letter-spacing:.10em}
+.pass-label{position:absolute;left:32px;top:32px;font-size:20px;line-height:24px;color:#6b6459}
 .date{position:absolute;left:32px;top:56px;height:64px;display:flex;align-items:baseline;gap:12px}
-.date .day{font-size:64px;line-height:64px}
-.date .month{font-size:24px;line-height:32px;font-weight:500;letter-spacing:.01em;transform:translateY(-1px)}
-.weekday{position:absolute;left:32px;top:128px;height:32px;font-size:24px;line-height:32px;font-weight:500;color:var(--secondary)}
-.weekday .en{font-size:19px;letter-spacing:.06em;font-weight:500;color:var(--tertiary)}
+.date .day{font-family:'MyGame Timing',Geist,sans-serif;font-size:64px;line-height:64px;font-weight:550;letter-spacing:0}
+.date .month{font-size:21px;line-height:28px;font-weight:500;letter-spacing:.12em;transform:translateY(-1px);color:#5a544b}
+.weekday{position:absolute;left:32px;top:128px;height:32px;font-size:22px;line-height:32px;font-weight:450;color:#8b8378}
+.weekday .en{font-size:17px;letter-spacing:.13em;font-weight:500;color:var(--system-micro-color)}
 .game-day{position:absolute;right:32px;top:32px;text-align:right}
 .game-status{margin-top:12px;display:flex;align-items:center;justify-content:flex-end;gap:12px;font-size:22px;line-height:32px;font-weight:500;color:#5a544a}
 .sports-dot{width:8px;height:8px;border-radius:50%;background:var(--hou);flex:none}
 .team-tint{position:absolute;left:32px;top:176px;width:240px;height:144px;border-radius:var(--radius-team);background:radial-gradient(ellipse at 34% 26%,rgba(199,52,61,.012),rgba(199,52,61,.020))}
 .team-tint.away{left:auto;right:32px;background:radial-gradient(ellipse at 34% 26%,rgba(118,84,142,.012),rgba(118,84,142,.021));text-align:right}
-.team-symbol{position:absolute;right:16px;top:16px;width:30px;height:30px;color:var(--hou)}
-.away .team-symbol{right:auto;left:16px;color:var(--lal)}
-.team-abbr{position:absolute;left:24px;top:24px;height:72px;font-size:64px;line-height:72px;font-weight:580;letter-spacing:-.035em;color:var(--hou);transform:translateX(1px)}
+.team-symbol{position:absolute;right:16px;top:16px;width:28px;height:28px;stroke-width:1.5;color:var(--hou)}
+.away .team-symbol{right:auto;left:16px;width:28px;height:28px;color:var(--lal);transform:translateY(1px)}
+.team-abbr{position:absolute;left:24px;top:24px;height:72px;font-family:'MyGame Identity',Geist,sans-serif;font-size:64px;line-height:72px;font-weight:600;letter-spacing:-.025em;color:var(--hou);transform:translateX(1px)}
 .away .team-abbr{left:auto;right:24px;transform:translateX(-1px);color:var(--lal)}
 .team-chinese{position:absolute;left:24px;top:96px;font-size:24px;line-height:32px;font-weight:500;white-space:nowrap}
 .away .team-chinese{left:auto;right:24px}
 .versus{position:absolute;left:328px;top:236px;width:72px;text-align:center;font-size:24px;line-height:32px;color:#8b8881;font-weight:500;letter-spacing:.02em}
 .watermark{position:absolute;right:-12px;top:300px;width:470px;height:220px;font-size:232px;line-height:1;font-weight:600;letter-spacing:-.055em;color:var(--hou);opacity:.016;text-align:right;pointer-events:none;user-select:none}
-.tipoff{position:absolute;left:32px;top:344px;width:560px;height:104px;font-size:calc(var(--type-time)*var(--promo-time-scale));line-height:104px}
+.tipoff{position:absolute;left:32px;top:344px;width:560px;height:104px;display:flex;align-items:center;font-size:calc(var(--type-time)*var(--promo-time-scale));line-height:104px}
 .time-caption{position:absolute;left:32px;top:452px;height:32px;display:flex;align-items:baseline;gap:20px}
-.time-caption .caption-state{font-size:24px;line-height:32px;font-weight:500;color:var(--secondary);font-variant-numeric:tabular-nums}
-.perforation{position:absolute;left:32px;right:32px;top:504px;height:2px;background-image:repeating-linear-gradient(90deg,rgba(67,59,48,.09) 0 3px,transparent 3px 8px),repeating-linear-gradient(90deg,rgba(255,255,255,.45) 0 3px,transparent 3px 8px);background-size:8px .7px,8px .5px;background-position:0 0,0 1px;background-repeat:repeat-x}
+.time-caption .micro{font-size:14px;line-height:20px}
+.time-caption .caption-state{font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);font-variant-numeric:tabular-nums}
+.perforation{position:absolute;left:32px;right:32px;top:504px;height:2px;background-image:repeating-linear-gradient(90deg,rgba(67,59,48,.11) 0 3px,transparent 3px 8px),repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 3px,transparent 3px 8px);background-size:8px .7px,8px .5px;background-position:0 0,0 1px;background-repeat:repeat-x}
 .stub{position:absolute;left:32px;right:32px;top:520px;height:40px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.venue{display:flex;gap:24px;align-items:baseline;font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);white-space:nowrap}
-.venue-status{color:var(--tertiary);font-size:20px;font-weight:480}
+.venue{display:flex;gap:24px;align-items:baseline;font-size:22px;line-height:32px;font-weight:500;color:#70685c;white-space:nowrap}
+.venue-status{color:#aaa193;font-size:17px;font-weight:450;letter-spacing:.025em}
 .serial{font-size:17px;font-weight:500;letter-spacing:.06em;color:var(--tertiary);white-space:nowrap;font-variant-numeric:tabular-nums}
-.notch{position:absolute;top:494px;width:20px;height:20px;border-radius:50%;background:transparent;z-index:2;pointer-events:none}
-.notch::before{content:'';position:absolute;inset:0;border:1px solid rgba(43,37,28,.075);border-top-color:rgba(255,255,255,.72);border-bottom-color:rgba(43,37,28,.09);border-radius:inherit}
-.notch.left{left:-11px;clip-path:inset(-1px -1px -1px 50%)}.notch.right{right:-11px;clip-path:inset(-1px 50% -1px -1px)}
+.notch{position:absolute;top:493px;width:22px;height:22px;border-radius:50%;background:transparent;z-index:2;pointer-events:none}
+.notch::before{content:'';position:absolute;inset:0;border:1px solid rgba(43,37,28,.095);border-top-color:rgba(255,255,255,.78);border-bottom-color:rgba(43,37,28,.11);border-radius:inherit}
+.notch.left{left:-12px;clip-path:inset(-1px -1px -1px 50%)}.notch.right{right:-12px;clip-path:inset(-1px 50% -1px -1px)}
 .week{position:absolute;left:176px;top:1072px;width:728px;height:224px}
-.week-label{position:absolute;left:0;top:0;height:24px;font-size:14px;line-height:20px;letter-spacing:.14em;color:#a19a8e}
+.week-label{position:absolute;left:0;top:0;height:24px;font-size:14px;line-height:20px}
 .week h2{position:absolute;left:0;top:32px;height:40px;font-size:30px;line-height:40px;font-weight:500;letter-spacing:-.025em;color:#696155}
 .count{position:absolute;right:0;top:32px;height:40px;display:flex;align-items:baseline;gap:10px;color:#575046}
-.count .number{font-size:42px;line-height:40px;font-weight:500;transform:translateY(-1px)}
+.count .number{font-family:'MyGame Timing',Geist,sans-serif;font-size:42px;line-height:40px;font-weight:500;transform:translateY(-1px)}
 .count .text{font-size:18px;line-height:24px;font-weight:450}
 .schedule{position:absolute;left:0;top:96px;width:728px;height:128px}
 .schedule-row{height:64px;display:grid;grid-template-columns:96px 1fr 92px 128px;column-gap:16px;align-items:center;position:relative}
 .schedule-row:last-child{border-bottom:0}
 .row-date{height:56px;padding-top:2px;display:flex;flex-direction:column;justify-content:center;gap:0}
-.row-date .number{font-size:24px;line-height:30px;font-weight:450;color:#948b7f}
+.row-date .number{font-family:'MyGame Timing',Geist,sans-serif;font-size:24px;line-height:30px;font-weight:500;letter-spacing:0;color:#948b7f}
 .row-date .sub{font-size:14px;line-height:20px;font-weight:500;color:#aaa195;letter-spacing:.06em}
 .next-line{position:absolute;left:-18px;top:26px;width:2px;height:11px;border-radius:1px;background:var(--hou)}
 .row-team{display:flex;align-items:center;gap:24px;font-size:22px;line-height:32px;font-weight:500;color:#6e665b;white-space:nowrap}
-.row-code{width:56px;font-size:20px;font-weight:550;letter-spacing:-.01em;color:var(--lal)}
+.row-code{width:56px;font-family:'MyGame Identity',Geist,sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em;color:var(--lal)}
 .warriors .row-code{color:var(--gsw)}
 .row-venue{font-size:14px;line-height:24px;font-weight:500;color:#aaa195;letter-spacing:.10em;text-align:right}
-.row-time{font-size:30px;line-height:40px;font-weight:500;color:#5a5348;text-align:right}
+.row-time{display:flex;align-items:center;justify-content:flex-end;font-size:30px;line-height:40px;font-weight:500;color:#5a5348;text-align:right}
+.row-time .timing-run{font-weight:500}.row-time .timing-colon{opacity:.56}
 .dock{position:absolute;left:76px;top:1334px;width:928px;height:80px}
 </style>
 <main aria-label="MyGame+ 宣传图">
@@ -124,17 +137,21 @@ svg *{vector-effect:non-scaling-stroke}
   <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 22c.5-5 3.2-8 8-8s7.5 3 8 8"/></symbol>
  </defs></svg>
  <div class="top-label" data-state data-fit id="top-label"></div>
- <header class="brand"><span class="app-mark" role="img" aria-label="MG+ App Mark" data-fit><svg class="mark-glyph" viewBox="0 0 56 56" aria-hidden="true"><path class="mark-m" data-letter="M" d="M9 29V11.5L10.5 10H13.8L19.4 19.1 25 10H28.2L29.5 11.5V29H25.3V17.6L19.4 26.5 13.2 17.6V29Z"/><g class="mark-g" data-letter="G+"><path d="M40 33.4 37.5 35.8C36.6 34.6 35.4 34 33.8 34H31.8C29.9 34 28.7 35.4 28.7 37.4V40.6C28.7 42.6 29.9 44 31.8 44H34.2C35.1 44 35.9 43.7 36.5 43.1V40.3H32.6V37.2H40V44.5C38.5 46.3 36.5 47.2 34.1 47.2H31.8C27.7 47.2 25.2 44.7 25.2 40.6V37.4C25.2 33.3 27.7 30.8 31.8 30.8H33.8C36.5 30.8 38.4 31.6 40 33.4Z"/><path d="M45.2 34.8H47.8V37.8H50.8V40.4H47.8V43.4H45.2V40.4H42.2V37.8H45.2Z"/></g></svg></span><h1>我的主队日历</h1><span class="wordmark" role="img" aria-label="MyGame+"></span></header>
+ <header class="brand"><span class="app-mark" role="img" aria-label="MG+ App Mark" data-fit><svg class="mark-glyph" viewBox="0 0 56 56" aria-hidden="true"><path class="mark-m" data-letter="M" d="M9 27V11L11 9H14.2L19.8 18.2 25.4 9H28L30 11V27H25.8V16.7L19.8 25.3 13.2 16.7V27Z"/><g class="mark-g" data-letter="G+"><path d="M40 33.4 37.5 35.8C36.6 34.6 35.4 34 33.8 34H31.8C29.9 34 28.7 35.4 28.7 37.4V40.6C28.7 42.6 29.9 44 31.8 44H34.2C35.1 44 35.9 43.7 36.5 43.1V40.3H32.6V37.2H40V44.5C38.5 46.3 36.5 47.2 34.1 47.2H31.8C27.7 47.2 25.2 44.7 25.2 40.6V37.4C25.2 33.3 27.7 30.8 31.8 30.8H33.8C36.5 30.8 38.4 31.6 40 33.4Z"/><path class="mark-plus" d="M45 34H47.6V37H50L51.2 38.2V38.8L50 40H47.6V43H45V40H42V37H45Z"/></g></svg></span><h1>我的主队日历</h1><span class="wordmark" role="img" aria-label="MyGame+"></span></header>
  <p class="subtitle" data-fit><span class="nba">NBA</span><span class="descriptor">主队赛程<span class="separator"> · </span>本地时间</span></p>
  <p class="slogan" data-state data-fit id="slogan"></p>
  <section class="beta" data-fit><span class="beta-label">WEB APP BETA</span><span class="divider"></span><span class="beta-copy">选择主队<span class="separator"> · </span>自动换算当地时间</span></section>
  <p class="city-status" data-state data-fit id="city-status"></p>
  <section class="identity">
   <div class="identity-label"><span class="micro">MY TEAM</span><span class="cn">我的主队</span></div>
-  <div class="local-label"><span class="auto-state" data-fit>AUTO CONVERTED</span><span class="micro">LOCAL TIME</span><svg><use href="#navigation"/></svg></div>
   <div class="team-preference"><svg><use href="#hou"/></svg><span class="code">HOU</span><span class="name">休斯顿火箭</span><svg class="chevron"><use href="#chevron"/></svg></div>
-  <div class="city-control"><svg class="globe"><use href="#globe"/></svg><span class="city" data-state id="city"></span><svg class="chevron"><use href="#chevron"/></svg></div>
-  <div class="identity-english">HOUSTON ROCKETS</div><div class="identity-english offset" data-state data-fit id="offset"></div>
+  <div class="time-system" aria-label="本地时间系统">
+   <div class="local-label"><span class="micro">LOCAL TIME</span><svg><use href="#navigation"/></svg></div>
+   <div class="city-control"><svg class="globe"><use href="#globe"/></svg><span class="city" data-state id="city"></span><svg class="chevron"><use href="#chevron"/></svg></div>
+   <div class="identity-english offset" data-state data-fit id="offset"></div>
+   <span class="auto-state" data-fit>AUTO CONVERTED</span>
+  </div>
+  <div class="identity-english">HOUSTON ROCKETS</div>
  </section>
  <section class="pass">
   <div class="pass-content">
@@ -177,7 +194,10 @@ svg *{vector-effect:non-scaling-stroke}
  const localTime=new Intl.DateTimeFormat('en-GB',{timeZone:state.zone,hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
  const [one,two]=['2026-10-25T01:00:00Z','2026-10-27T02:00:00Z'].map(utc=>localTime.format(new Date(utc)));
  const offset=new Intl.DateTimeFormat('en-US',{timeZone:state.zone,timeZoneName:'shortOffset'}).formatToParts(demoNow).find(part=>part.type==='timeZoneName').value;
- const numbers = value => value.replace(':','<span class="separator">:</span>');
+ const numbers = value => {
+   const [hours, minutes] = value.split(':');
+   return `<span class="timing-run" aria-label="${value}"><span>${hours}</span><span class="timing-colon"><span class="colon-text">:</span></span><span>${minutes}</span></span>`;
+ };
  document.querySelector('#top-label').textContent = state.label;
  document.querySelector('#slogan').textContent = state.slogan;
  document.querySelector('#city-status').innerHTML = london ? '城市切换<span class="separator"> · </span><span class="route">TOKYO → LONDON</span>' : '当前城市<span class="separator"> · </span>TOKYO';

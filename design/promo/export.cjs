@@ -13,7 +13,7 @@ const names = ['mygame-plus-douyin-01-tokyo.png', 'mygame-plus-douyin-02-london.
 
 async function prepareAssets() {
   // Prepared brand and material assets are retained; exports never reconstruct the logo.
-  for (const asset of ['wordmark.png','paper-material.png']) {
+  for (const asset of ['wordmark.png','paper-material.png','timing-500.woff2','timing-550.woff2','identity-600.woff2']) {
     const stat=await fs.stat(path.join(directory,asset));
     assert.ok(stat.size>0, asset+' must exist');
   }
@@ -26,6 +26,7 @@ async function main() {
     ['/wordmark.png', [path.join(directory,'wordmark.png'),'image/png']],
     ['/paper-material.png', [path.join(directory,'paper-material.png'),'image/png']],
     ['/GeistSans.woff2', [path.join(repository,'src/app/fonts/GeistSans.woff2'),'font/woff2']],
+    ...['timing-500.woff2','timing-550.woff2','identity-600.woff2'].map(name=>['/'+name,[path.join(directory,name),'font/woff2']]),
     ['/system-island.css', [path.join(repository,'src/styles/system-island.css'),'text/css']],
   ]);
   const server = http.createServer(async (request,response) => {
@@ -49,7 +50,7 @@ async function main() {
       await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(image => image.decode())); });
       await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       const report = await page.evaluate(() => {
-        const selectors = ['.top-label', '.brand', '.brand h1', '.app-mark', '.wordmark', '.subtitle', '.slogan', '.beta', '.city-status', '.identity', '.identity-label', '.local-label', '.auto-state', '.team-preference', '.city-control', '.pass', '.week', '.schedule', '.dock'];
+        const selectors = ['.top-label', '.brand', '.brand h1', '.app-mark', '.wordmark', '.subtitle', '.slogan', '.beta', '.city-status', '.identity', '.identity-label', '.time-system', '.local-label', '.auto-state', '.offset', '.team-preference', '.city-control', '.pass', '.week', '.schedule', '.dock'];
         const rect = element => { const b = element.getBoundingClientRect(); return { x:b.x, y:b.y, width:b.width, height:b.height }; };
         const styles = selector => { const s = getComputedStyle(document.querySelector(selector)); return { radius:s.borderRadius, border:s.borderTopWidth + ' ' + s.borderTopColor, background:s.backgroundColor, backgroundImage:s.backgroundImage, shadow:s.boxShadow, filter:s.filter, blur:s.backdropFilter, font:s.fontFamily }; };
         const paper=getComputedStyle(document.querySelector('.pass'),'::before');
@@ -59,7 +60,7 @@ async function main() {
           dynamic: [...document.querySelectorAll('[data-state]')].map(rect),
           radius: Object.fromEntries(['.team-tint','.beta','.pass','.dock'].map(selector => [selector, styles(selector).radius])),
           surfaces: Object.fromEntries(['.beta','.pass','.dock'].map(selector => [selector, styles(selector)])),
-          fontsLoaded: document.fonts.check('530 100px Geist'),
+          fontsLoaded: document.fonts.check('530 100px Geist')&&document.fonts.check('550 100px "MyGame Timing"')&&document.fonts.check('500 30px "MyGame Timing"')&&document.fonts.check('600 64px "MyGame Identity"'),
           scrollWidth:document.documentElement.scrollWidth, scrollHeight:document.documentElement.scrollHeight,
           overflow,
           texts: [...document.querySelectorAll('[data-state]')].map(element => element.textContent.trim()),
@@ -73,6 +74,11 @@ async function main() {
           content:{slogan:document.querySelector('.slogan').textContent,cityState:document.querySelector('.city-status').textContent,auto:document.querySelector('.auto-state').textContent,serial:document.querySelector('.serial').textContent,time:document.querySelector('#tipoff').textContent,first:document.querySelector('#time-one').textContent,second:document.querySelector('#time-two').textContent},
           markLetters:{m:rect(document.querySelector('.mark-m')),g:rect(document.querySelector('.mark-g')),mLetter:document.querySelector('.mark-m').dataset.letter,gLetter:document.querySelector('.mark-g').dataset.letter,paths:document.querySelectorAll('.mark-glyph path').length,textNodes:document.querySelectorAll('.mark-glyph text').length},
           typography:Object.fromEntries(['.brand h1','.slogan','.subtitle','.nba','.beta-label','.auto-state','.team-abbr','.tipoff'].map(selector=>{const s=getComputedStyle(document.querySelector(selector));return [selector,{size:s.fontSize,weight:s.fontWeight,line:s.lineHeight,tracking:s.letterSpacing,color:s.color}];})),
+          timing:[...document.querySelectorAll('.timing-run')].map(element=>{const s=getComputedStyle(element);const colon=element.querySelector('.timing-colon'),dot=getComputedStyle(colon,'::before');return {text:element.textContent,label:element.getAttribute('aria-label'),font:s.fontFamily,size:s.fontSize,weight:s.fontWeight,numerals:s.fontVariantNumeric,rect:rect(element),colon:{rect:rect(colon),opacity:getComputedStyle(colon).opacity,width:dot.width,height:dot.height,radius:dot.borderRadius,textSize:getComputedStyle(colon.querySelector('.colon-text')).fontSize}};}),
+          digitAdvances:(()=>{const context=document.createElement('canvas').getContext('2d');return Object.fromEntries([500,550].map(weight=>{context.font=weight+' 100px "MyGame Timing"';return [weight,[...'0123456789'].map(digit=>context.measureText(digit).width)];}));})(),
+          dateFont:getComputedStyle(document.querySelector('.date .day')).fontFamily,
+          localOwnership:document.querySelector('.time-system').contains(document.querySelector('.auto-state')),
+          microLabels:[...document.querySelectorAll('.micro,.beta-label,.auto-state')].map(element=>{const s=getComputedStyle(element);return {text:element.textContent,font:s.fontFamily,weight:s.fontWeight,tracking:parseFloat(s.letterSpacing)/parseFloat(s.fontSize)};}),
           summaryBorders:['.schedule','.schedule-row'].map(selector=>{const s=getComputedStyle(document.querySelector(selector));return {top:s.borderTopWidth,bottom:s.borderBottomWidth};}),
           brandSeal:styles('.app-mark'),
           chevrons:[...document.querySelectorAll('.chevron')].map(element=>({rect:rect(element),color:getComputedStyle(element).color})),
@@ -84,7 +90,7 @@ async function main() {
       });
       assert.equal(report.scrollWidth, 1080);
       assert.equal(report.scrollHeight, 1440);
-      assert.ok(report.fontsLoaded, 'Geist must load');
+      assert.ok(report.fontsLoaded, 'Geist and both branded font subsets must load');
       assert.deepEqual(report.overflow, [], 'Text must fit');
       assert.equal(report.radius['.team-tint'], '12px');
       assert.equal(report.radius['.beta'], '16px');
@@ -96,11 +102,11 @@ async function main() {
       assert.deepEqual(report.geometry['.pass'],{x:176,y:464,width:728,height:576});
       assert.deepEqual(report.geometry['.week'],{x:176,y:1072,width:728,height:224});
       assert.deepEqual(report.geometry['.dock'],{x:76,y:1334,width:928,height:80});
-      assert.ok(report.geometry['.brand'].y+report.geometry['.brand'].height+24<=report.geometry['.slogan'].y);
-      assert.ok(report.geometry['.slogan'].y+report.geometry['.slogan'].height+32<=report.geometry['.subtitle'].y);
-      assert.ok(report.geometry['.subtitle'].y+report.geometry['.subtitle'].height+4<=report.geometry['.beta'].y);
-      assert.ok(report.geometry['.beta'].y+report.geometry['.beta'].height+12<=report.geometry['.city-status'].y);
-      assert.ok(report.geometry['.city-status'].y+report.geometry['.city-status'].height+16<=report.geometry['.identity'].y);
+      assert.equal(report.geometry['.subtitle'].y-(report.geometry['.brand'].y+report.geometry['.brand'].height),16);
+      assert.equal(report.geometry['.slogan'].y-(report.geometry['.subtitle'].y+report.geometry['.subtitle'].height),16);
+      assert.equal(report.geometry['.beta'].y-(report.geometry['.slogan'].y+report.geometry['.slogan'].height),24);
+      assert.equal(report.geometry['.city-status'].y-(report.geometry['.beta'].y+report.geometry['.beta'].height),24);
+      assert.equal(report.geometry['.identity'].y-(report.geometry['.city-status'].y+report.geometry['.city-status'].height),24);
       assert.deepEqual(report.litContent,[],'Only the event pass gets object lighting in content');
       assert.ok(!report.visibleURLs,'No visible website URLs');
       assert.equal(report.content.slogan,city==='tokyo'?'无论在哪，主队准时见。':'换个城市，不换主队。');
@@ -113,11 +119,29 @@ async function main() {
       assert.equal(report.markLetters.mLetter,'M');assert.equal(report.markLetters.gLetter,'G+');
       assert.equal(report.markLetters.paths,3);assert.equal(report.markLetters.textNodes,0,'Brand seal must use custom contours rather than default font text');
       assert.ok(report.markLetters.m.x<report.markLetters.g.x&&report.markLetters.m.y+report.markLetters.m.height<report.markLetters.g.y,'M upper-left, G+ lower-right with negative space');
-      assert.ok(report.brandSeal.backgroundImage.includes('linear-gradient')&&report.brandSeal.shadow!=='none','Brand seal has restrained edge light and contact depth');
+      assert.ok(report.brandSeal.backgroundImage.includes('radial-gradient')&&report.brandSeal.shadow!=='none','Brand seal has restrained edge light and contact depth');
       assert.deepEqual(report.typography['.beta-label'],report.typography['.auto-state'],'System microcopy uses one type language');
       assert.ok(parseFloat(report.typography['.brand h1'].size)<parseFloat(report.typography['.team-abbr'].size));
       assert.ok(parseFloat(report.typography['.team-abbr'].size)<parseFloat(report.typography['.tipoff'].size));
       for(const border of report.summaryBorders) assert.deepEqual(border,{top:'0px',bottom:'0px'},'Premium summary relies on spacing rather than table rules');
+      assert.equal(report.typography['.tipoff'].size,'100px','Do not enlarge the main time');
+      assert.equal(report.timing.length,3);
+      for(const widths of Object.values(report.digitAdvances)) assert.ok(widths.every(width=>Math.abs(width-report.digitAdvances[550][0])<.001),'Every timing numeral has the same advance across both weights');
+      assert.ok(report.dateFont.includes('MyGame Timing'),'Date inherits the timing numeral family');
+      for(const [index,time] of report.timing.entries()) {
+        assert.ok(time.font.includes('MyGame Timing'));assert.equal(time.numerals,'tabular-nums');
+        assert.equal(time.size,index===0?'100px':'30px');assert.equal(time.weight,index===0?'550':'500');
+        assert.equal(time.colon.opacity,index===0?'0.64':'0.56');
+        assert.equal(time.colon.textSize,'0px','Colon must be drawn from its own two dots, not a font glyph');
+        assert.equal(time.colon.width,time.colon.height);assert.equal(time.text,time.label);
+      }
+      assert.ok(report.localOwnership,'AUTO CONVERTED belongs inside the LOCAL TIME group');
+      for(const selector of ['.local-label','.city-control','.offset','.auto-state']) {
+        const b=report.geometry[selector],group=report.geometry['.time-system'];
+        assert.ok(b.x>=group.x&&b.y>=group.y&&b.x+b.width<=group.x+group.width+.1&&b.y+b.height<=group.y+group.height+.1);
+        assert.equal(b.x+b.width,group.x+group.width,'Time-system details share their right alignment axis');
+      }
+      for(const micro of report.microLabels){assert.ok(micro.font.startsWith('Geist'));assert.equal(micro.weight,'500');assert.ok(Math.abs(micro.tracking-.13)<.0001);}
       assert.equal(report.chevrons.length,2);
       for(const chevron of report.chevrons){assert.equal(chevron.rect.width,18);assert.equal(chevron.rect.height,18);assert.equal(chevron.color,'rgb(129, 122, 109)');}
       assert.equal(report.activeBackground,'rgba(255, 255, 255, 0.12)');
@@ -126,11 +150,11 @@ async function main() {
       assert.equal(report.notches.length,2,'Retain exactly two ticket cutouts');
       assert.ok(report.paperMaterial.composition.split(',').every(value=>value.trim()==='intersect'));
       assert.ok(report.paperMaterial.mask.includes('radial-gradient'),'Paper must be genuinely cut at the sides');
-      for(const notch of report.notches) {assert.equal(notch.width,20);assert.equal(notch.height,20);assert.equal(notch.y+notch.height/2,report.perforation.y);}
+      for(const notch of report.notches) {assert.equal(notch.width,22);assert.equal(notch.height,22);assert.equal(notch.y+notch.height/2,report.perforation.y);}
       for (const item of report.navigation) {
         assert.ok(Math.abs(item.rect.width-report.navigation[0].rect.width)<.02);
         for (const key of ['icon','cn','en']) assert.equal(item[key].y,report.navigation[0][key].y);
-        assert.equal(item.cnSize,'16px'); assert.equal(item.enSize,'10px');
+        assert.equal(item.cnSize,'22px'); assert.equal(item.enSize,'10px');
         assert.equal(item.icon.width,22); assert.equal(item.icon.height,22);
         assert.ok(!item.overflow,'All navigation labels must fit inside their segment');
       }
@@ -147,16 +171,18 @@ async function main() {
         assert.deepEqual([...corners.subarray(offset,offset+3)],[244,242,238],'No black borders');
       }
       report.file = { name:names[i], width:meta.width, height:meta.height, bytes:stat.size, decode:'passed' };
-      const thumbnail = '/tmp/mygame-promo-v1.6-'+city+'-30.png';
+      const thumbnail = '/tmp/mygame-promo-v1.7-'+city+'-30.png';
       await sharp(path.join(output,names[i])).resize(324,432).png().toFile(thumbnail);
-      const borderless = '/tmp/mygame-promo-v1.6-'+city+'-borderless.png';
-      const borderlessStyle = await page.addStyleTag({content:'*,*::before,*::after{border-color:transparent!important;outline:none!important}'});
+      const borderless = '/tmp/mygame-promo-v1.7-'+city+'-borderless.png';
+      const borderlessStyle = await page.addStyleTag({content:'*,*::before,*::after{border-color:transparent!important;outline:none!important}.divider,.perforation{visibility:hidden!important}'});
       const borderlessGeometry = await page.evaluate(selectors=>Object.fromEntries(selectors.map(selector=>{const b=document.querySelector(selector).getBoundingClientRect();return [selector,{x:b.x,y:b.y,width:b.width,height:b.height}];})),Object.keys(report.geometry));
       assert.deepEqual(borderlessGeometry,report.geometry,'Layout must stand without drawn borders');
+      const dividersSuppressed = await page.evaluate(()=>[...document.querySelectorAll('.divider,.perforation')].every(element=>getComputedStyle(element).visibility==='hidden'));
+      assert.ok(dividersSuppressed,'Border-Off must also suppress drawn divider and perforation rules');
       await page.screenshot({path:borderless,type:'png',fullPage:false,animations:'disabled'});
       await sharp(borderless).resize(324,432).png().toFile(borderless.replace('.png','-30.png'));
       await borderlessStyle.evaluate(element=>element.remove());
-      report.review={thumbnail,borderless,borderlessGeometryStable:true};
+      report.review={thumbnail,borderless,borderlessGeometryStable:true,dividersSuppressed};
       reports.push(report);
     }
   } finally { await browser.close(); await new Promise(resolve=>server.close(resolve)); }
@@ -179,9 +205,9 @@ async function main() {
   const dock = { left:76, top:1334, width:928, height:80 };
   const docks = await Promise.all(names.map(name => sharp(path.join(output,name)).extract(dock).raw().toBuffer()));
   assert.ok(docks[0].equals(docks[1]), 'Dock pixels must match exactly');
-  const result = { version:'MyGame+ Promo V1.6 — Final Art Direction Pass', reports, differingPixels, staticDifferences, dockIdentical:true };
-  await fs.writeFile('/tmp/mygame-promo-v1.6-validation.json', JSON.stringify(result,null,2));
-  console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist loaded', radius:reports[0].radius },null,2));
+  const result = { version:'MyGame+ Promo V1.7 — Branded Sports Language', reports, differingPixels, staticDifferences, dockIdentical:true };
+  await fs.writeFile('/tmp/mygame-promo-v1.7-validation.json', JSON.stringify(result,null,2));
+  console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing and MyGame Identity loaded', radius:reports[0].radius },null,2));
 }
 
 main().catch(error=>{ console.error(error); process.exitCode=1; });

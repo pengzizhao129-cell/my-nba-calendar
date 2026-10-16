@@ -4,7 +4,7 @@
   --island-active-radius: 20px;
   --island-active-surface: rgba(255,255,255,.12);
   --island-text-active: #f7f5f0;
-  --island-text-inactive: rgba(255,255,255,.54);
+  --island-text-inactive: rgba(255,255,255,.58);
   --island-label-active: rgba(255,255,255,.64);
   --island-label-inactive: rgba(255,255,255,.35);
   --island-signal: #c7343d;
@@ -37,13 +37,13 @@
   border-radius: var(--island-active-radius);
   color: var(--island-text-inactive);
   min-width: 0;
-  padding: 2px 0;
+  padding: 1px 0;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 1px;
   text-align: center;
   font: inherit;
   transition: background-color var(--island-motion), opacity 140ms ease-out;
@@ -60,7 +60,7 @@
   stroke-linejoin: round;
 }
 .system-island-item svg * { vector-effect: non-scaling-stroke; }
-.system-island-item .island-cn { font-size: 16px; line-height: 22px; font-weight: 500; }
+.system-island-item .island-cn { font-size: 22px; line-height: 26px; font-weight: 500; }
 .system-island-item .island-en { font-size: 10px; line-height: 12px; font-weight: 480; letter-spacing: .10em; color: var(--island-label-inactive); }
 .system-island-item[aria-current="page"] { background: var(--island-active-surface); color: var(--island-text-active); }
 .system-island-item[aria-current="page"] .island-cn { font-weight: 550; }
