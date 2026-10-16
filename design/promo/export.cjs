@@ -69,6 +69,9 @@ async function main() {
           canvas:getComputedStyle(document.body).backgroundColor,
           wordmarkMask:getComputedStyle(document.querySelector('.wordmark')).maskImage,
           paperMaterial:{background:paper.backgroundImage,mask:paper.maskImage,composition:paper.maskComposite,edge:paper.boxShadow},
+          paperBorder:paper.borderTopColor,
+          inkLevels:Object.fromEntries(Object.entries({primary:['.tipoff','.date .day','.date .month','.team-chinese','.game-status','.row-time','.count'],secondary:['.brand h1','.slogan','.city-control .city','.venue','.row-team','.week h2','.versus','.time-caption .caption-state'],tertiary:['.subtitle','.subtitle .nba','.city-status','.identity-label .cn','.team-preference .chevron','.city-control .chevron','.offset','.weekday','.row-date .number','.row-venue','.venue-status'],micro:['.top-label','.beta-label','.auto-state','.identity>.identity-english','.micro','.serial','.row-date .sub','.weekday .en']}).map(([level,selectors])=>[level,Object.fromEntries(selectors.map(selector=>[selector,[...new Set([...document.querySelectorAll(selector)].map(element=>getComputedStyle(element).color))]]))])),
+          serialStyle:(()=>{const element=document.querySelector('.serial'),s=getComputedStyle(element);return {size:s.fontSize,line:s.lineHeight,tracking:s.letterSpacing,gap:s.columnGap,parts:[...element.children].map(part=>part.textContent.trim()),separators:[...element.querySelectorAll('.separator')].map(part=>({opacity:getComputedStyle(part).opacity,tracking:getComputedStyle(part).letterSpacing})),rect:rect(element)};})(),
           notches:[...document.querySelectorAll('.notch')].map(rect),
           perforation:rect(document.querySelector('.perforation')),
           content:{slogan:document.querySelector('.slogan').textContent,cityState:document.querySelector('.city-status').textContent,auto:document.querySelector('.auto-state').textContent,serial:document.querySelector('.serial').textContent,time:document.querySelector('#tipoff').textContent,first:document.querySelector('#time-one').textContent,second:document.querySelector('#time-two').textContent},
@@ -95,24 +98,29 @@ async function main() {
       assert.equal(report.radius['.team-tint'], '12px');
       assert.equal(report.radius['.beta'], '16px');
       assert.equal(report.radius['.pass'], '20px');
-      assert.equal(report.radius['.dock'], '32px');
+      assert.equal(report.radius['.dock'], '30px');
       assert.equal(report.geometry['.beta'].width,728);
-      assert.equal(report.geometry['.beta'].height,32);
+      assert.equal(report.geometry['.beta'].height,24);
       assert.deepEqual(report.geometry['.app-mark'],{x:176,y:68,width:56,height:56});
-      assert.deepEqual(report.geometry['.pass'],{x:176,y:464,width:728,height:576});
-      assert.deepEqual(report.geometry['.week'],{x:176,y:1072,width:728,height:224});
-      assert.deepEqual(report.geometry['.dock'],{x:76,y:1334,width:928,height:80});
-      assert.equal(report.geometry['.subtitle'].y-(report.geometry['.brand'].y+report.geometry['.brand'].height),16);
-      assert.equal(report.geometry['.slogan'].y-(report.geometry['.subtitle'].y+report.geometry['.subtitle'].height),16);
-      assert.equal(report.geometry['.beta'].y-(report.geometry['.slogan'].y+report.geometry['.slogan'].height),24);
-      assert.equal(report.geometry['.city-status'].y-(report.geometry['.beta'].y+report.geometry['.beta'].height),24);
-      assert.equal(report.geometry['.identity'].y-(report.geometry['.city-status'].y+report.geometry['.city-status'].height),24);
+      assert.deepEqual(report.geometry['.pass'],{x:176,y:456,width:728,height:576});
+      assert.deepEqual(report.geometry['.week'],{x:176,y:1080,width:728,height:224});
+      assert.deepEqual(report.geometry['.dock'],{x:76,y:1336,width:928,height:76});
+      const gap=(above,below)=>report.geometry[below].y-(report.geometry[above].y+report.geometry[above].height);
+      report.verticalRhythm=[gap('.top-label','.brand'),gap('.brand','.subtitle'),gap('.subtitle','.slogan'),gap('.slogan','.beta'),gap('.beta','.city-status'),gap('.city-status','.identity'),gap('.identity','.pass'),gap('.pass','.week'),gap('.week','.dock')];
+      assert.deepEqual(report.verticalRhythm,[8,8,24,16,32,8,32,48,32],'Dense semantic groups alternate with deliberate open section gaps');
       assert.deepEqual(report.litContent,[],'Only the event pass gets object lighting in content');
       assert.ok(!report.visibleURLs,'No visible website URLs');
       assert.equal(report.content.slogan,city==='tokyo'?'无论在哪，主队准时见。':'换个城市，不换主队。');
       assert.equal(report.content.cityState,city==='tokyo'?'当前城市 · TOKYO':'城市切换 · TOKYO → LONDON');
       assert.equal(report.content.auto,'AUTO CONVERTED');
       assert.equal(report.content.serial,'MG+ / HOU–LAL / 01');
+      assert.equal(report.serialStyle.size,'14px');assert.equal(report.serialStyle.line,'20px');assert.equal(report.serialStyle.tracking,'1.4px');assert.equal(report.serialStyle.gap,'8px');
+      assert.deepEqual(report.serialStyle.parts,['MG+','/','HOU–LAL','/','01']);
+      for(const separator of report.serialStyle.separators){assert.equal(separator.opacity,'0.62');assert.equal(separator.tracking,'normal');}
+      assert.equal(report.serialStyle.rect.x+report.serialStyle.rect.width,report.geometry['.pass'].x+report.geometry['.pass'].width-33,'Serial stays on the ticket stub right alignment');
+      const inks={primary:'rgb(38, 37, 33)',secondary:'rgb(104, 98, 89)',tertiary:'rgb(148, 140, 128)',micro:'rgb(170, 163, 151)'};
+      for(const [level,selectors] of Object.entries(report.inkLevels))for(const [selector,colors]of Object.entries(selectors))assert.deepEqual(colors,[inks[level]],selector+' must use its assigned brightness tier');
+      assert.ok(parseFloat(report.paperBorder.split(',').at(-1))<=.02,'The frame must be only a minimal support for the illuminated paper');
       assert.equal(report.content.time,city==='tokyo'?'10:00':'01:00');
       assert.equal(report.content.first,report.content.time);
       assert.equal(report.content.second,city==='tokyo'?'11:00':'02:00');
@@ -143,8 +151,8 @@ async function main() {
       }
       for(const micro of report.microLabels){assert.ok(micro.font.startsWith('Geist'));assert.equal(micro.weight,'500');assert.ok(Math.abs(micro.tracking-.13)<.0001);}
       assert.equal(report.chevrons.length,2);
-      for(const chevron of report.chevrons){assert.equal(chevron.rect.width,18);assert.equal(chevron.rect.height,18);assert.equal(chevron.color,'rgb(129, 122, 109)');}
-      assert.equal(report.activeBackground,'rgba(255, 255, 255, 0.12)');
+      for(const chevron of report.chevrons){assert.equal(chevron.rect.width,18);assert.equal(chevron.rect.height,18);assert.equal(chevron.color,inks.tertiary);}
+      assert.ok(Math.abs(parseFloat(report.activeBackground.split(',').at(-1))-.085)<=.002,'Active segment remains a soft 8.5% brightness layer');
       assert.equal(report.canvas,'rgb(244, 242, 238)');
       assert.ok(report.wordmarkMask.includes('wordmark.png'),'Keep the original wordmark silhouette');
       assert.equal(report.notches.length,2,'Retain exactly two ticket cutouts');
@@ -171,9 +179,14 @@ async function main() {
         assert.deepEqual([...corners.subarray(offset,offset+3)],[244,242,238],'No black borders');
       }
       report.file = { name:names[i], width:meta.width, height:meta.height, bytes:stat.size, decode:'passed' };
-      const thumbnail = '/tmp/mygame-promo-v1.7-'+city+'-30.png';
+      const thumbnail = '/tmp/mygame-promo-v1.8-'+city+'-30.png';
       await sharp(path.join(output,names[i])).resize(324,432).png().toFile(thumbnail);
-      const borderless = '/tmp/mygame-promo-v1.7-'+city+'-borderless.png';
+      const blur = '/tmp/mygame-promo-v1.8-'+city+'-blur.png';
+      const blurStyle = await page.addStyleTag({content:'main{filter:blur(5px)}'});
+      await page.screenshot({path:blur,type:'png',fullPage:false,animations:'disabled'});
+      await sharp(blur).resize(324,432).png().toFile(blur.replace('.png','-30.png'));
+      await blurStyle.evaluate(element=>element.remove());
+      const borderless = '/tmp/mygame-promo-v1.8-'+city+'-borderless.png';
       const borderlessStyle = await page.addStyleTag({content:'*,*::before,*::after{border-color:transparent!important;outline:none!important}.divider,.perforation{visibility:hidden!important}'});
       const borderlessGeometry = await page.evaluate(selectors=>Object.fromEntries(selectors.map(selector=>{const b=document.querySelector(selector).getBoundingClientRect();return [selector,{x:b.x,y:b.y,width:b.width,height:b.height}];})),Object.keys(report.geometry));
       assert.deepEqual(borderlessGeometry,report.geometry,'Layout must stand without drawn borders');
@@ -182,7 +195,7 @@ async function main() {
       await page.screenshot({path:borderless,type:'png',fullPage:false,animations:'disabled'});
       await sharp(borderless).resize(324,432).png().toFile(borderless.replace('.png','-30.png'));
       await borderlessStyle.evaluate(element=>element.remove());
-      report.review={thumbnail,borderless,borderlessGeometryStable:true,dividersSuppressed};
+      report.review={thumbnail,blur,blurRadius:5,borderless,borderlessGeometryStable:true,dividersSuppressed};
       reports.push(report);
     }
   } finally { await browser.close(); await new Promise(resolve=>server.close(resolve)); }
@@ -202,11 +215,16 @@ async function main() {
     }
   }
   assert.equal(staticDifferences, 0, 'Only slogan, city state, GMT and time content may differ');
-  const dock = { left:76, top:1334, width:928, height:80 };
+  const dock = { left:76, top:1336, width:928, height:76 };
   const docks = await Promise.all(names.map(name => sharp(path.join(output,name)).extract(dock).raw().toBuffer()));
   assert.ok(docks[0].equals(docks[1]), 'Dock pixels must match exactly');
-  const result = { version:'MyGame+ Promo V1.7 — Branded Sports Language', reports, differingPixels, staticDifferences, dockIdentical:true };
-  await fs.writeFile('/tmp/mygame-promo-v1.7-validation.json', JSON.stringify(result,null,2));
+  const overlay = '/tmp/mygame-promo-v1.8-overlay.png';
+  const overlayPixels=Buffer.alloc(buffers[0].length);
+  for(let i=0;i<overlayPixels.length;i++)overlayPixels[i]=Math.round((buffers[0][i]+buffers[1][i])/2);
+  await sharp(overlayPixels,{raw:{width:1080,height:1440,channels:3}}).png().toFile(overlay);
+  await sharp(overlay).resize(324,432).png().toFile(overlay.replace('.png','-30.png'));
+  const result = { version:'MyGame+ Promo V1.8 — Luxury Precision Pass', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
+  await fs.writeFile('/tmp/mygame-promo-v1.8-validation.json', JSON.stringify(result,null,2));
   console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing and MyGame Identity loaded', radius:reports[0].radius },null,2));
 }
 
