@@ -1,0 +1,36 @@
+/* Review compositions are opt-in. The production ticket remains unchanged. */
+.art-pass { --art-u:calc(100cqw / 728);position:relative;container-type:inline-size;width:100%;aspect-ratio:728/576;margin:0;padding:0;background:none;color:var(--graphite-100);font-family:var(--font-geist),sans-serif;isolation:isolate; }
+.art-pass * { box-sizing:border-box; }
+.art-pass .art-surface { position:absolute;inset:0; }
+.art-pass svg { overflow:visible; }
+.art-pass .art-timing { display:inline-block;--numeric-weight:450;font-family:var(--font-timing),var(--font-geist),sans-serif;font-weight:450;font-variant-numeric:tabular-nums;line-height:1; }
+.art-pass .art-timing .timing-run { font-weight:450; }
+.art-pass .art-serial { font-variant-numeric:tabular-nums; }
+.art-pass .art-season-edge { display:flex;align-items:center;gap:calc(12 * var(--art-u)); }
+.art-pass .art-season-edge>svg { flex:1;min-width:0;height:100%; }
+.art-pass .art-season-edge line { stroke:var(--spine-line);stroke-width:.9; }
+.art-pass .art-season-edge line[data-current] { stroke:var(--team-accent);stroke-width:2.6; }
+.art-pass .art-season-ordinal { color:var(--graphite-50);font-size:calc(9 * var(--art-u));white-space:nowrap; }
+.art-pass .art-scale-rule,.art-pass .art-scale-tick { fill:none;stroke:var(--spine-line);stroke-width:.8; }
+.art-pass .art-time-scale text { font-family:var(--font-geist),sans-serif;font-size:10px;font-weight:500;fill:var(--graphite-50);font-variant-numeric:tabular-nums; }
+.art-pass .art-scale-marker { fill:var(--team-accent); }
+.art-pass .art-scale-hairline { stroke:var(--team-accent);stroke-width:1; }
+.art-pass .art-match-mark { stroke:currentColor;stroke-width:1.3; }
+
+.art-review { min-height:100dvh;background:var(--canvas-base); }
+.art-review-tools { padding:12px 20px;margin:auto;max-width:900px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12px;color:var(--text-secondary); }
+.art-review-tools nav { display:flex;gap:16px;align-items:center; }
+.art-review-tools button,.art-review-tools a { padding:4px 0;color:var(--text-secondary);border-bottom:1px solid transparent; }
+.art-review-tools [aria-current="page"] { color:var(--text-primary);border-bottom-color:var(--text-primary); }
+.art-review[data-capture="true"]>.art-review-tools { display:none; }
+.art-direction-overview { padding:32px;max-width:1600px;margin:auto; }
+.art-direction-overview>header { display:flex;justify-content:space-between;gap:24px;align-items:baseline;margin-bottom:32px; }
+.art-direction-overview h1 { font-size:22px;font-weight:500; }
+.art-direction-overview p { font-size:12px;color:var(--text-secondary); }
+.art-direction-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px; }
+.art-direction-grid article>header { margin-bottom:16px;display:flex;align-items:baseline;gap:12px; }
+.art-direction-grid article h2 { font-size:12px;font-weight:500;letter-spacing:.06em; }
+.art-direction-grid article a { display:inline-block;margin-top:16px;font-size:12px;text-decoration:underline;text-underline-offset:3px; }
+.art-review-city-controls { display:flex;gap:16px; }
+.art-review-city-controls button[aria-pressed="true"] { color:var(--text-primary);text-decoration:underline;text-underline-offset:3px; }
+@media(max-width:899px) { .art-direction-grid { grid-template-columns:1fr;gap:40px; } .art-direction-overview { padding:24px; } .art-review-tools { flex-wrap:wrap; } }

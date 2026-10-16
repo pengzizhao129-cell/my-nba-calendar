@@ -15,11 +15,17 @@ import {TimeRoute} from './TimeRoute';
 import {PASS_DNA,passDNAProperties} from '@/lib/passDNA';
 import {MobilePassEnclosure} from './MobilePassEnclosure';
 import {resolvePassPresentation,type PassEventState} from '@/lib/passPresentation';
+import {EditorialPass} from './art-directions/EditorialPass';
+import {InstrumentPass} from './art-directions/InstrumentPass';
+import {CollectiblePass} from './art-directions/CollectiblePass';
 
-export type GamePassVariant='full'|'compact'|'collection';
+export type GamePassVariant='full'|'compact'|'collection'|'editorial'|'instrument'|'collectible';
 /** Future viewing records must be supplied explicitly; selecting a city never claims a watched game. */
 export type PassCommemoration={readonly score?:{readonly team:number;readonly opponent:number};readonly watchedFrom?:string};
 export function GamePass({pass,enclosure='none',variant='full',issuance,commemoration,event}:{pass:PersonalPass;isToday?:boolean;enclosure?:'mobile'|'none';variant?:GamePassVariant;issuance?:string|null;commemoration?:PassCommemoration;event?:PassEventState}) {
+ if(variant==='editorial')return <EditorialPass pass={pass}/>;
+ if(variant==='instrument')return <InstrumentPass pass={pass}/>;
+ if(variant==='collectible')return <CollectiblePass pass={pass}/>;
  const {team,game,location,status}=pass;
  const presentation=resolvePassPresentation(pass,event??(status.phase==='archived'&&commemoration?.score?{state:'final',score:commemoration.score}:undefined));
  const active=status.phase==='game_day';

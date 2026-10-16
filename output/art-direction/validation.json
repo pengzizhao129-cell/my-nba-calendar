@@ -1,0 +1,4252 @@
+{
+  "version": "PHASE 3 — ART DIRECTION BREAKTHROUGH",
+  "viewport": {
+    "width": 600,
+    "height": 800,
+    "dpr": 1.8
+  },
+  "selection": "No direction promoted to the homepage",
+  "sharedIdentity": {
+    "gameId": "hou-1",
+    "team": "HOU",
+    "opponent": "LAL",
+    "passId": "0147",
+    "issue": "047295",
+    "gameNumber": "1",
+    "season": "2026-27"
+  },
+  "review": {
+    "automated": [
+      "Six real mobile screenshots decode at 1080×1440",
+      "Same data, frame and peripheral geometry across all six",
+      "All 82 marks exist independently with one current event",
+      "Each Tokyo/London pair moves a real local-clock marker",
+      "No horizontal scrollbar, hydration errors or schedule/navigation overlap",
+      "320 / 390 / 480px responsive checks for each direction",
+      "Approved homepage pixel-identical to its committed Phase 2 screenshot",
+      "A / B / C review switch preserves London, event and personal identity",
+      "Each art direction supports LAL / GSW team changes without issuing another PASS ID"
+    ],
+    "humanRequired": [
+      "Graphic impact and sports recognition",
+      "Collectible desire: only user feedback can establish save/share intent",
+      "Silhouette, sports-masked, ticket-label-hidden and brand-hidden review"
+    ]
+  },
+  "homepageFreeze": {
+    "baseline": "output/douyin/mygame-plus-douyin-01-tokyo.png",
+    "width": 1080,
+    "height": 1440,
+    "pixelDifferences": 0
+  },
+  "frozenPage": [
+    {
+      "city": "tokyo",
+      "compared": "A / B",
+      "outsideTicketPixelDifferences": 0
+    },
+    {
+      "city": "tokyo",
+      "compared": "A / C",
+      "outsideTicketPixelDifferences": 0
+    },
+    {
+      "city": "london",
+      "compared": "A / B",
+      "outsideTicketPixelDifferences": 0
+    },
+    {
+      "city": "london",
+      "compared": "A / C",
+      "outsideTicketPixelDifferences": 0
+    }
+  ],
+  "responsive": [
+    {
+      "direction": "editorial",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "pass": {
+        "left": 16,
+        "right": 304,
+        "width": 288,
+        "height": 227.859375
+      }
+    },
+    {
+      "direction": "editorial",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "pass": {
+        "left": 24,
+        "right": 366,
+        "width": 342,
+        "height": 270.578125
+      }
+    },
+    {
+      "direction": "editorial",
+      "viewport": 480,
+      "scrollWidth": 480,
+      "pass": {
+        "left": 24,
+        "right": 456,
+        "width": 432,
+        "height": 341.796875
+      }
+    },
+    {
+      "direction": "instrument",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "pass": {
+        "left": 16,
+        "right": 304,
+        "width": 288,
+        "height": 227.859375
+      }
+    },
+    {
+      "direction": "instrument",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "pass": {
+        "left": 24,
+        "right": 366,
+        "width": 342,
+        "height": 270.578125
+      }
+    },
+    {
+      "direction": "instrument",
+      "viewport": 480,
+      "scrollWidth": 480,
+      "pass": {
+        "left": 24,
+        "right": 456,
+        "width": 432,
+        "height": 341.796875
+      }
+    },
+    {
+      "direction": "collectible",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "pass": {
+        "left": 16,
+        "right": 304,
+        "width": 288,
+        "height": 227.859375
+      }
+    },
+    {
+      "direction": "collectible",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "pass": {
+        "left": 24,
+        "right": 366,
+        "width": 342,
+        "height": 270.578125
+      }
+    },
+    {
+      "direction": "collectible",
+      "viewport": 480,
+      "scrollWidth": 480,
+      "pass": {
+        "left": 24,
+        "right": 456,
+        "width": 432,
+        "height": 341.796875
+      }
+    }
+  ],
+  "reviewInteractions": [
+    {
+      "action": "switch-B",
+      "snapshot": {
+        "direction": "instrument",
+        "team": "HOU",
+        "opponent": "LAL",
+        "game": "hou-1",
+        "issue": "047295",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:00",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    },
+    {
+      "action": "switch-C",
+      "snapshot": {
+        "direction": "collectible",
+        "team": "HOU",
+        "opponent": "LAL",
+        "game": "hou-1",
+        "issue": "047295",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:00",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    },
+    {
+      "action": "editorial-select-LAL",
+      "snapshot": {
+        "direction": "editorial",
+        "team": "LAL",
+        "opponent": "HOU",
+        "game": "hou-1",
+        "issue": "070562",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:00",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    },
+    {
+      "action": "editorial-select-GSW",
+      "snapshot": {
+        "direction": "editorial",
+        "team": "GSW",
+        "opponent": "MIL",
+        "game": "GSW-0",
+        "issue": "012688",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:30",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    },
+    {
+      "action": "editorial-restore-HOU",
+      "snapshot": {
+        "direction": "editorial",
+        "team": "HOU",
+        "opponent": "LAL",
+        "game": "hou-1",
+        "issue": "047295",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:00",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    },
+    {
+      "action": "instrument-select-LAL",
+      "snapshot": {
+        "direction": "instrument",
+        "team": "LAL",
+        "opponent": "HOU",
+        "game": "hou-1",
+        "issue": "070562",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:00",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    },
+    {
+      "action": "instrument-select-GSW",
+      "snapshot": {
+        "direction": "instrument",
+        "team": "GSW",
+        "opponent": "MIL",
+        "game": "GSW-0",
+        "issue": "012688",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:30",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    },
+    {
+      "action": "instrument-restore-HOU",
+      "snapshot": {
+        "direction": "instrument",
+        "team": "HOU",
+        "opponent": "LAL",
+        "game": "hou-1",
+        "issue": "047295",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:00",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    },
+    {
+      "action": "collectible-select-LAL",
+      "snapshot": {
+        "direction": "collectible",
+        "team": "LAL",
+        "opponent": "HOU",
+        "game": "hou-1",
+        "issue": "070562",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:00",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    },
+    {
+      "action": "collectible-select-GSW",
+      "snapshot": {
+        "direction": "collectible",
+        "team": "GSW",
+        "opponent": "MIL",
+        "game": "GSW-0",
+        "issue": "012688",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:30",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    },
+    {
+      "action": "collectible-restore-HOU",
+      "snapshot": {
+        "direction": "collectible",
+        "team": "HOU",
+        "opponent": "LAL",
+        "game": "hou-1",
+        "issue": "047295",
+        "passId": "0147",
+        "city": "london",
+        "time": "01:00",
+        "gmt": "GMT",
+        "season": "2026-27",
+        "ordinal": "1",
+        "storedId": "0147"
+      }
+    }
+  ],
+  "reviewIdentityWrites": [],
+  "reports": [
+    {
+      "letter": "a",
+      "direction": "editorial",
+      "label": "EDITORIAL SPORTS TICKET",
+      "city": "tokyo",
+      "files": {
+        "phone": "output/art-direction/a-editorial-tokyo.png",
+        "pass": "output/art-direction/a-editorial-tokyo-pass.png",
+        "diagnostics": [
+          "output/art-direction/a-editorial-tokyo-sports-test.png",
+          "output/art-direction/a-editorial-tokyo-ticket-test.png",
+          "output/art-direction/a-editorial-tokyo-brand-test.png"
+        ]
+      },
+      "phone": {
+        "width": 1080,
+        "height": 1440,
+        "bytes": 120225
+      },
+      "isolated": {
+        "width": 1080,
+        "height": 856,
+        "bytes": 152761
+      },
+      "identity": {
+        "gameId": "hou-1",
+        "team": "HOU",
+        "opponent": "LAL",
+        "passId": "0147",
+        "issue": "047295",
+        "gameNumber": "1",
+        "season": "2026-27"
+      },
+      "location": {
+        "cityId": "tokyo",
+        "timezone": "Asia/Tokyo",
+        "localTime": "10:00",
+        "gmt": "GMT+9"
+      },
+      "frame": {
+        "x": 88,
+        "y": 225.15625,
+        "width": 424,
+        "height": 335.46875,
+        "right": 512,
+        "bottom": 560.625
+      },
+      "viewport": {
+        "width": 600,
+        "height": 800,
+        "dpr": 1.7999999523162842,
+        "scrollWidth": 600
+      },
+      "team": {
+        "x": 101.96875,
+        "y": 282.8125,
+        "width": 214.546875,
+        "height": 103.515625,
+        "right": 316.515625,
+        "bottom": 386.328125
+      },
+      "opponent": {
+        "x": 334.90625,
+        "y": 378.328125,
+        "width": 164.28125,
+        "height": 94.296875,
+        "right": 499.1875,
+        "bottom": 472.625
+      },
+      "nav": {
+        "x": 184,
+        "y": 742,
+        "width": 232,
+        "height": 38,
+        "right": 416,
+        "bottom": 780
+      },
+      "rows": [
+        {
+          "x": 88,
+          "y": 628.625,
+          "width": 424,
+          "height": 41,
+          "right": 512,
+          "bottom": 669.625
+        },
+        {
+          "x": 88,
+          "y": 669.625,
+          "width": 424,
+          "height": 40,
+          "right": 512,
+          "bottom": 709.625
+        }
+      ],
+      "seasonTicks": [
+        {
+          "ordinal": "1",
+          "x": "2",
+          "y": "25",
+          "current": "true"
+        },
+        {
+          "ordinal": "2",
+          "x": "9.851851851851851",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "3",
+          "x": "17.703703703703702",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "4",
+          "x": "25.555555555555557",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "5",
+          "x": "33.407407407407405",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "6",
+          "x": "41.25925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "7",
+          "x": "49.111111111111114",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "8",
+          "x": "56.96296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "9",
+          "x": "64.81481481481481",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "10",
+          "x": "72.66666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "11",
+          "x": "80.51851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "12",
+          "x": "88.37037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "13",
+          "x": "96.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "14",
+          "x": "104.07407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "15",
+          "x": "111.92592592592592",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "16",
+          "x": "119.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "17",
+          "x": "127.62962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "18",
+          "x": "135.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "19",
+          "x": "143.33333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "20",
+          "x": "151.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "21",
+          "x": "159.03703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "22",
+          "x": "166.88888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "23",
+          "x": "174.74074074074073",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "24",
+          "x": "182.59259259259258",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "25",
+          "x": "190.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "26",
+          "x": "198.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "27",
+          "x": "206.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "28",
+          "x": "214",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "29",
+          "x": "221.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "30",
+          "x": "229.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "31",
+          "x": "237.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "32",
+          "x": "245.40740740740742",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "33",
+          "x": "253.25925925925927",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "34",
+          "x": "261.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "35",
+          "x": "268.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "36",
+          "x": "276.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "37",
+          "x": "284.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "38",
+          "x": "292.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "39",
+          "x": "300.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "40",
+          "x": "308.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "41",
+          "x": "316.0740740740741",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "42",
+          "x": "323.9259259259259",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "43",
+          "x": "331.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "44",
+          "x": "339.6296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "45",
+          "x": "347.48148148148147",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "46",
+          "x": "355.3333333333333",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "47",
+          "x": "363.18518518518516",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "48",
+          "x": "371.037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "49",
+          "x": "378.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "50",
+          "x": "386.74074074074076",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "51",
+          "x": "394.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "52",
+          "x": "402.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "53",
+          "x": "410.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "54",
+          "x": "418.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "55",
+          "x": "426",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "56",
+          "x": "433.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "57",
+          "x": "441.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "58",
+          "x": "449.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "59",
+          "x": "457.4074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "60",
+          "x": "465.25925925925924",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "61",
+          "x": "473.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "62",
+          "x": "480.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "63",
+          "x": "488.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "64",
+          "x": "496.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "65",
+          "x": "504.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "66",
+          "x": "512.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "67",
+          "x": "520.2222222222222",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "68",
+          "x": "528.074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "69",
+          "x": "535.925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "70",
+          "x": "543.7777777777778",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "71",
+          "x": "551.6296296296297",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "72",
+          "x": "559.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "73",
+          "x": "567.3333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "74",
+          "x": "575.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "75",
+          "x": "583.0370370370371",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "76",
+          "x": "590.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "77",
+          "x": "598.7407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "78",
+          "x": "606.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "79",
+          "x": "614.4444444444445",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "80",
+          "x": "622.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "81",
+          "x": "630.1481481481482",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "82",
+          "x": "638",
+          "y": "25",
+          "current": null
+        }
+      ],
+      "seasonEdge": {
+        "x": 107.796875,
+        "y": 547.8125,
+        "width": 385.578125,
+        "height": 6.40625,
+        "right": 493.375,
+        "bottom": 554.21875
+      },
+      "marker": "<path class=\"art-scale-marker\" data-time-marker=\"true\" d=\"M199 2H205V9H199Z\"></path>",
+      "instrument": {
+        "x": 108.953125,
+        "y": 411.515625,
+        "width": 127.546875,
+        "height": 11.640625,
+        "right": 236.5,
+        "bottom": 423.15625
+      },
+      "text": "25OCT2026NBA / GAME PASSHOME / TOYOTA CENTERHOU休斯顿火箭LAL洛杉矶湖人00030609121518212410:00TOKYO · JPGMT+901 / 82GAME / SEASON 26–27PASS 0147ISSUEDMG+ Nº04729501 / 82",
+      "peripheral": {
+        ".brand-header": {
+          "x": 60,
+          "y": 0,
+          "width": 480,
+          "height": 137.15625,
+          "right": 540,
+          "bottom": 137.15625
+        },
+        ".brand-lockup": {
+          "x": 88,
+          "y": 45,
+          "width": 424,
+          "height": 44.15625,
+          "right": 512,
+          "bottom": 89.15625
+        },
+        ".preferences": {
+          "x": 88,
+          "y": 153.15625,
+          "width": 424,
+          "height": 56,
+          "right": 512,
+          "bottom": 209.15625
+        },
+        ".week": {
+          "x": 88,
+          "y": 584.625,
+          "width": 424,
+          "height": 125,
+          "right": 512,
+          "bottom": 709.625
+        },
+        ".app-system-island": {
+          "x": 184,
+          "y": 742,
+          "width": 232,
+          "height": 38,
+          "right": 416,
+          "bottom": 780
+        }
+      }
+    },
+    {
+      "letter": "a",
+      "direction": "editorial",
+      "label": "EDITORIAL SPORTS TICKET",
+      "city": "london",
+      "files": {
+        "phone": "output/art-direction/a-editorial-london.png",
+        "pass": "output/art-direction/a-editorial-london-pass.png",
+        "diagnostics": []
+      },
+      "phone": {
+        "width": 1080,
+        "height": 1440,
+        "bytes": 121277
+      },
+      "isolated": {
+        "width": 1080,
+        "height": 856,
+        "bytes": 152961
+      },
+      "identity": {
+        "gameId": "hou-1",
+        "team": "HOU",
+        "opponent": "LAL",
+        "passId": "0147",
+        "issue": "047295",
+        "gameNumber": "1",
+        "season": "2026-27"
+      },
+      "location": {
+        "cityId": "london",
+        "timezone": "Europe/London",
+        "localTime": "01:00",
+        "gmt": "GMT"
+      },
+      "frame": {
+        "x": 88,
+        "y": 225.15625,
+        "width": 424,
+        "height": 335.46875,
+        "right": 512,
+        "bottom": 560.625
+      },
+      "viewport": {
+        "width": 600,
+        "height": 800,
+        "dpr": 1.7999999523162842,
+        "scrollWidth": 600
+      },
+      "team": {
+        "x": 101.96875,
+        "y": 282.8125,
+        "width": 214.546875,
+        "height": 103.515625,
+        "right": 316.515625,
+        "bottom": 386.328125
+      },
+      "opponent": {
+        "x": 334.90625,
+        "y": 378.328125,
+        "width": 164.28125,
+        "height": 94.296875,
+        "right": 499.1875,
+        "bottom": 472.625
+      },
+      "nav": {
+        "x": 184,
+        "y": 742,
+        "width": 232,
+        "height": 38,
+        "right": 416,
+        "bottom": 780
+      },
+      "rows": [
+        {
+          "x": 88,
+          "y": 628.625,
+          "width": 424,
+          "height": 41,
+          "right": 512,
+          "bottom": 669.625
+        },
+        {
+          "x": 88,
+          "y": 669.625,
+          "width": 424,
+          "height": 40,
+          "right": 512,
+          "bottom": 709.625
+        }
+      ],
+      "seasonTicks": [
+        {
+          "ordinal": "1",
+          "x": "2",
+          "y": "25",
+          "current": "true"
+        },
+        {
+          "ordinal": "2",
+          "x": "9.851851851851851",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "3",
+          "x": "17.703703703703702",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "4",
+          "x": "25.555555555555557",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "5",
+          "x": "33.407407407407405",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "6",
+          "x": "41.25925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "7",
+          "x": "49.111111111111114",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "8",
+          "x": "56.96296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "9",
+          "x": "64.81481481481481",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "10",
+          "x": "72.66666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "11",
+          "x": "80.51851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "12",
+          "x": "88.37037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "13",
+          "x": "96.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "14",
+          "x": "104.07407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "15",
+          "x": "111.92592592592592",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "16",
+          "x": "119.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "17",
+          "x": "127.62962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "18",
+          "x": "135.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "19",
+          "x": "143.33333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "20",
+          "x": "151.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "21",
+          "x": "159.03703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "22",
+          "x": "166.88888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "23",
+          "x": "174.74074074074073",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "24",
+          "x": "182.59259259259258",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "25",
+          "x": "190.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "26",
+          "x": "198.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "27",
+          "x": "206.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "28",
+          "x": "214",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "29",
+          "x": "221.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "30",
+          "x": "229.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "31",
+          "x": "237.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "32",
+          "x": "245.40740740740742",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "33",
+          "x": "253.25925925925927",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "34",
+          "x": "261.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "35",
+          "x": "268.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "36",
+          "x": "276.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "37",
+          "x": "284.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "38",
+          "x": "292.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "39",
+          "x": "300.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "40",
+          "x": "308.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "41",
+          "x": "316.0740740740741",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "42",
+          "x": "323.9259259259259",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "43",
+          "x": "331.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "44",
+          "x": "339.6296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "45",
+          "x": "347.48148148148147",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "46",
+          "x": "355.3333333333333",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "47",
+          "x": "363.18518518518516",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "48",
+          "x": "371.037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "49",
+          "x": "378.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "50",
+          "x": "386.74074074074076",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "51",
+          "x": "394.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "52",
+          "x": "402.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "53",
+          "x": "410.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "54",
+          "x": "418.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "55",
+          "x": "426",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "56",
+          "x": "433.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "57",
+          "x": "441.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "58",
+          "x": "449.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "59",
+          "x": "457.4074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "60",
+          "x": "465.25925925925924",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "61",
+          "x": "473.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "62",
+          "x": "480.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "63",
+          "x": "488.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "64",
+          "x": "496.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "65",
+          "x": "504.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "66",
+          "x": "512.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "67",
+          "x": "520.2222222222222",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "68",
+          "x": "528.074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "69",
+          "x": "535.925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "70",
+          "x": "543.7777777777778",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "71",
+          "x": "551.6296296296297",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "72",
+          "x": "559.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "73",
+          "x": "567.3333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "74",
+          "x": "575.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "75",
+          "x": "583.0370370370371",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "76",
+          "x": "590.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "77",
+          "x": "598.7407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "78",
+          "x": "606.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "79",
+          "x": "614.4444444444445",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "80",
+          "x": "622.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "81",
+          "x": "630.1481481481482",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "82",
+          "x": "638",
+          "y": "25",
+          "current": null
+        }
+      ],
+      "seasonEdge": {
+        "x": 107.796875,
+        "y": 547.8125,
+        "width": 385.578125,
+        "height": 6.40625,
+        "right": 493.375,
+        "bottom": 554.21875
+      },
+      "marker": "<path class=\"art-scale-marker\" data-time-marker=\"true\" d=\"M28 2H34V9H28Z\"></path>",
+      "instrument": {
+        "x": 108.953125,
+        "y": 411.515625,
+        "width": 127.546875,
+        "height": 11.640625,
+        "right": 236.5,
+        "bottom": 423.15625
+      },
+      "text": "25OCT2026NBA / GAME PASSHOME / TOYOTA CENTERHOU休斯顿火箭LAL洛杉矶湖人00030609121518212401:00LONDON · UKGMT01 / 82GAME / SEASON 26–27PASS 0147ISSUEDMG+ Nº04729501 / 82",
+      "peripheral": {
+        ".brand-header": {
+          "x": 60,
+          "y": 0,
+          "width": 480,
+          "height": 137.15625,
+          "right": 540,
+          "bottom": 137.15625
+        },
+        ".brand-lockup": {
+          "x": 88,
+          "y": 45,
+          "width": 424,
+          "height": 44.15625,
+          "right": 512,
+          "bottom": 89.15625
+        },
+        ".preferences": {
+          "x": 88,
+          "y": 153.15625,
+          "width": 424,
+          "height": 56,
+          "right": 512,
+          "bottom": 209.15625
+        },
+        ".week": {
+          "x": 88,
+          "y": 584.625,
+          "width": 424,
+          "height": 125,
+          "right": 512,
+          "bottom": 709.625
+        },
+        ".app-system-island": {
+          "x": 184,
+          "y": 742,
+          "width": 232,
+          "height": 38,
+          "right": 416,
+          "bottom": 780
+        }
+      }
+    },
+    {
+      "letter": "b",
+      "direction": "instrument",
+      "label": "PRECISION TIME INSTRUMENT",
+      "city": "tokyo",
+      "files": {
+        "phone": "output/art-direction/b-instrument-tokyo.png",
+        "pass": "output/art-direction/b-instrument-tokyo-pass.png",
+        "diagnostics": [
+          "output/art-direction/b-instrument-tokyo-sports-test.png",
+          "output/art-direction/b-instrument-tokyo-ticket-test.png",
+          "output/art-direction/b-instrument-tokyo-brand-test.png"
+        ]
+      },
+      "phone": {
+        "width": 1080,
+        "height": 1440,
+        "bytes": 134312
+      },
+      "isolated": {
+        "width": 1080,
+        "height": 856,
+        "bytes": 183166
+      },
+      "identity": {
+        "gameId": "hou-1",
+        "team": "HOU",
+        "opponent": "LAL",
+        "passId": "0147",
+        "issue": "047295",
+        "gameNumber": "1",
+        "season": "2026-27"
+      },
+      "location": {
+        "cityId": "tokyo",
+        "timezone": "Asia/Tokyo",
+        "localTime": "10:00",
+        "gmt": "GMT+9"
+      },
+      "frame": {
+        "x": 88,
+        "y": 225.15625,
+        "width": 424,
+        "height": 335.46875,
+        "right": 512,
+        "bottom": 560.625
+      },
+      "viewport": {
+        "width": 600,
+        "height": 800,
+        "dpr": 1.7999999523162842,
+        "scrollWidth": 600
+      },
+      "team": {
+        "x": 104.875,
+        "y": 260.09375,
+        "width": 80.515625,
+        "height": 43.09375,
+        "right": 185.390625,
+        "bottom": 303.1875
+      },
+      "opponent": {
+        "x": 337.28125,
+        "y": 260.09375,
+        "width": 69.28125,
+        "height": 43.09375,
+        "right": 406.5625,
+        "bottom": 303.1875
+      },
+      "nav": {
+        "x": 184,
+        "y": 742,
+        "width": 232,
+        "height": 38,
+        "right": 416,
+        "bottom": 780
+      },
+      "rows": [
+        {
+          "x": 88,
+          "y": 628.625,
+          "width": 424,
+          "height": 41,
+          "right": 512,
+          "bottom": 669.625
+        },
+        {
+          "x": 88,
+          "y": 669.625,
+          "width": 424,
+          "height": 40,
+          "right": 512,
+          "bottom": 709.625
+        }
+      ],
+      "seasonTicks": [
+        {
+          "ordinal": "1",
+          "x": "2",
+          "y": "25",
+          "current": "true"
+        },
+        {
+          "ordinal": "2",
+          "x": "9.851851851851851",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "3",
+          "x": "17.703703703703702",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "4",
+          "x": "25.555555555555557",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "5",
+          "x": "33.407407407407405",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "6",
+          "x": "41.25925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "7",
+          "x": "49.111111111111114",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "8",
+          "x": "56.96296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "9",
+          "x": "64.81481481481481",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "10",
+          "x": "72.66666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "11",
+          "x": "80.51851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "12",
+          "x": "88.37037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "13",
+          "x": "96.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "14",
+          "x": "104.07407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "15",
+          "x": "111.92592592592592",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "16",
+          "x": "119.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "17",
+          "x": "127.62962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "18",
+          "x": "135.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "19",
+          "x": "143.33333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "20",
+          "x": "151.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "21",
+          "x": "159.03703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "22",
+          "x": "166.88888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "23",
+          "x": "174.74074074074073",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "24",
+          "x": "182.59259259259258",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "25",
+          "x": "190.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "26",
+          "x": "198.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "27",
+          "x": "206.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "28",
+          "x": "214",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "29",
+          "x": "221.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "30",
+          "x": "229.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "31",
+          "x": "237.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "32",
+          "x": "245.40740740740742",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "33",
+          "x": "253.25925925925927",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "34",
+          "x": "261.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "35",
+          "x": "268.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "36",
+          "x": "276.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "37",
+          "x": "284.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "38",
+          "x": "292.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "39",
+          "x": "300.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "40",
+          "x": "308.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "41",
+          "x": "316.0740740740741",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "42",
+          "x": "323.9259259259259",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "43",
+          "x": "331.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "44",
+          "x": "339.6296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "45",
+          "x": "347.48148148148147",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "46",
+          "x": "355.3333333333333",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "47",
+          "x": "363.18518518518516",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "48",
+          "x": "371.037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "49",
+          "x": "378.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "50",
+          "x": "386.74074074074076",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "51",
+          "x": "394.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "52",
+          "x": "402.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "53",
+          "x": "410.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "54",
+          "x": "418.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "55",
+          "x": "426",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "56",
+          "x": "433.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "57",
+          "x": "441.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "58",
+          "x": "449.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "59",
+          "x": "457.4074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "60",
+          "x": "465.25925925925924",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "61",
+          "x": "473.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "62",
+          "x": "480.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "63",
+          "x": "488.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "64",
+          "x": "496.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "65",
+          "x": "504.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "66",
+          "x": "512.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "67",
+          "x": "520.2222222222222",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "68",
+          "x": "528.074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "69",
+          "x": "535.925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "70",
+          "x": "543.7777777777778",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "71",
+          "x": "551.6296296296297",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "72",
+          "x": "559.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "73",
+          "x": "567.3333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "74",
+          "x": "575.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "75",
+          "x": "583.0370370370371",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "76",
+          "x": "590.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "77",
+          "x": "598.7407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "78",
+          "x": "606.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "79",
+          "x": "614.4444444444445",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "80",
+          "x": "622.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "81",
+          "x": "630.1481481481482",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "82",
+          "x": "638",
+          "y": "25",
+          "current": null
+        }
+      ],
+      "seasonEdge": {
+        "x": 105.46875,
+        "y": 539.078125,
+        "width": 298.1875,
+        "height": 13.96875,
+        "right": 403.65625,
+        "bottom": 553.046875
+      },
+      "marker": "<g class=\"instrument-local-cursor\" data-time-marker=\"local-clock\" data-value=\"600\"><path d=\"M232.80700290125256 67.58074498093112L219.79576620083952 36.168840875547374\"></path><rect x=\"214.88234903901406\" y=\"28.54944321299095\" width=\"6\" height=\"6\" transform=\"rotate(247.5 217.88234903901406 31.54944321299095)\"></rect></g>",
+      "instrument": {
+        "x": 88,
+        "y": 315.421875,
+        "width": 333.140625,
+        "height": 216.65625,
+        "right": 421.140625,
+        "bottom": 532.078125
+      },
+      "text": "NBA / GAME PASSHOMEHOULAL休斯顿火箭洛杉矶湖人000306091215182124WATCHING FROMTOKYO / JP10:00LOCAL TIMEGMT+9TOYOTA CENTERTYO / HOU01 / 8225OCT202601 / 82SEASON 26–27PASS 0147MG+ Nº047295PERSONAL ISSUETip-offMG+ / HOU–LAL",
+      "peripheral": {
+        ".brand-header": {
+          "x": 60,
+          "y": 0,
+          "width": 480,
+          "height": 137.15625,
+          "right": 540,
+          "bottom": 137.15625
+        },
+        ".brand-lockup": {
+          "x": 88,
+          "y": 45,
+          "width": 424,
+          "height": 44.15625,
+          "right": 512,
+          "bottom": 89.15625
+        },
+        ".preferences": {
+          "x": 88,
+          "y": 153.15625,
+          "width": 424,
+          "height": 56,
+          "right": 512,
+          "bottom": 209.15625
+        },
+        ".week": {
+          "x": 88,
+          "y": 584.625,
+          "width": 424,
+          "height": 125,
+          "right": 512,
+          "bottom": 709.625
+        },
+        ".app-system-island": {
+          "x": 184,
+          "y": 742,
+          "width": 232,
+          "height": 38,
+          "right": 416,
+          "bottom": 780
+        }
+      }
+    },
+    {
+      "letter": "b",
+      "direction": "instrument",
+      "label": "PRECISION TIME INSTRUMENT",
+      "city": "london",
+      "files": {
+        "phone": "output/art-direction/b-instrument-london.png",
+        "pass": "output/art-direction/b-instrument-london-pass.png",
+        "diagnostics": []
+      },
+      "phone": {
+        "width": 1080,
+        "height": 1440,
+        "bytes": 132314
+      },
+      "isolated": {
+        "width": 1080,
+        "height": 856,
+        "bytes": 183343
+      },
+      "identity": {
+        "gameId": "hou-1",
+        "team": "HOU",
+        "opponent": "LAL",
+        "passId": "0147",
+        "issue": "047295",
+        "gameNumber": "1",
+        "season": "2026-27"
+      },
+      "location": {
+        "cityId": "london",
+        "timezone": "Europe/London",
+        "localTime": "01:00",
+        "gmt": "GMT"
+      },
+      "frame": {
+        "x": 88,
+        "y": 225.15625,
+        "width": 424,
+        "height": 335.46875,
+        "right": 512,
+        "bottom": 560.625
+      },
+      "viewport": {
+        "width": 600,
+        "height": 800,
+        "dpr": 1.7999999523162842,
+        "scrollWidth": 600
+      },
+      "team": {
+        "x": 104.875,
+        "y": 260.09375,
+        "width": 80.515625,
+        "height": 43.09375,
+        "right": 185.390625,
+        "bottom": 303.1875
+      },
+      "opponent": {
+        "x": 337.28125,
+        "y": 260.09375,
+        "width": 69.28125,
+        "height": 43.09375,
+        "right": 406.5625,
+        "bottom": 303.1875
+      },
+      "nav": {
+        "x": 184,
+        "y": 742,
+        "width": 232,
+        "height": 38,
+        "right": 416,
+        "bottom": 780
+      },
+      "rows": [
+        {
+          "x": 88,
+          "y": 628.625,
+          "width": 424,
+          "height": 41,
+          "right": 512,
+          "bottom": 669.625
+        },
+        {
+          "x": 88,
+          "y": 669.625,
+          "width": 424,
+          "height": 40,
+          "right": 512,
+          "bottom": 709.625
+        }
+      ],
+      "seasonTicks": [
+        {
+          "ordinal": "1",
+          "x": "2",
+          "y": "25",
+          "current": "true"
+        },
+        {
+          "ordinal": "2",
+          "x": "9.851851851851851",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "3",
+          "x": "17.703703703703702",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "4",
+          "x": "25.555555555555557",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "5",
+          "x": "33.407407407407405",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "6",
+          "x": "41.25925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "7",
+          "x": "49.111111111111114",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "8",
+          "x": "56.96296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "9",
+          "x": "64.81481481481481",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "10",
+          "x": "72.66666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "11",
+          "x": "80.51851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "12",
+          "x": "88.37037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "13",
+          "x": "96.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "14",
+          "x": "104.07407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "15",
+          "x": "111.92592592592592",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "16",
+          "x": "119.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "17",
+          "x": "127.62962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "18",
+          "x": "135.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "19",
+          "x": "143.33333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "20",
+          "x": "151.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "21",
+          "x": "159.03703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "22",
+          "x": "166.88888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "23",
+          "x": "174.74074074074073",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "24",
+          "x": "182.59259259259258",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "25",
+          "x": "190.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "26",
+          "x": "198.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "27",
+          "x": "206.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "28",
+          "x": "214",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "29",
+          "x": "221.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "30",
+          "x": "229.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "31",
+          "x": "237.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "32",
+          "x": "245.40740740740742",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "33",
+          "x": "253.25925925925927",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "34",
+          "x": "261.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "35",
+          "x": "268.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "36",
+          "x": "276.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "37",
+          "x": "284.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "38",
+          "x": "292.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "39",
+          "x": "300.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "40",
+          "x": "308.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "41",
+          "x": "316.0740740740741",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "42",
+          "x": "323.9259259259259",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "43",
+          "x": "331.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "44",
+          "x": "339.6296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "45",
+          "x": "347.48148148148147",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "46",
+          "x": "355.3333333333333",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "47",
+          "x": "363.18518518518516",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "48",
+          "x": "371.037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "49",
+          "x": "378.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "50",
+          "x": "386.74074074074076",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "51",
+          "x": "394.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "52",
+          "x": "402.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "53",
+          "x": "410.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "54",
+          "x": "418.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "55",
+          "x": "426",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "56",
+          "x": "433.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "57",
+          "x": "441.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "58",
+          "x": "449.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "59",
+          "x": "457.4074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "60",
+          "x": "465.25925925925924",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "61",
+          "x": "473.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "62",
+          "x": "480.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "63",
+          "x": "488.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "64",
+          "x": "496.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "65",
+          "x": "504.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "66",
+          "x": "512.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "67",
+          "x": "520.2222222222222",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "68",
+          "x": "528.074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "69",
+          "x": "535.925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "70",
+          "x": "543.7777777777778",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "71",
+          "x": "551.6296296296297",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "72",
+          "x": "559.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "73",
+          "x": "567.3333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "74",
+          "x": "575.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "75",
+          "x": "583.0370370370371",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "76",
+          "x": "590.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "77",
+          "x": "598.7407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "78",
+          "x": "606.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "79",
+          "x": "614.4444444444445",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "80",
+          "x": "622.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "81",
+          "x": "630.1481481481482",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "82",
+          "x": "638",
+          "y": "25",
+          "current": null
+        }
+      ],
+      "seasonEdge": {
+        "x": 105.46875,
+        "y": 539.078125,
+        "width": 298.1875,
+        "height": 13.96875,
+        "right": 403.65625,
+        "bottom": 553.046875
+      },
+      "marker": "<g class=\"instrument-local-cursor\" data-time-marker=\"local-clock\" data-value=\"60\"><path d=\"M170.4257238899462 273.2242623897247L142.15575707165965 292.1136503123912\"></path><rect x=\"134.99840901014693\" y=\"291.8915014774892\" width=\"6\" height=\"6\" transform=\"rotate(146.25 137.99840901014693 294.8915014774892)\"></rect></g>",
+      "instrument": {
+        "x": 88,
+        "y": 315.421875,
+        "width": 333.140625,
+        "height": 216.65625,
+        "right": 421.140625,
+        "bottom": 532.078125
+      },
+      "text": "NBA / GAME PASSHOMEHOULAL休斯顿火箭洛杉矶湖人000306091215182124WATCHING FROMLONDON / UK01:00LOCAL TIMEGMTTOYOTA CENTERLON / HOU01 / 8225OCT202601 / 82SEASON 26–27PASS 0147MG+ Nº047295PERSONAL ISSUETip-offMG+ / HOU–LAL",
+      "peripheral": {
+        ".brand-header": {
+          "x": 60,
+          "y": 0,
+          "width": 480,
+          "height": 137.15625,
+          "right": 540,
+          "bottom": 137.15625
+        },
+        ".brand-lockup": {
+          "x": 88,
+          "y": 45,
+          "width": 424,
+          "height": 44.15625,
+          "right": 512,
+          "bottom": 89.15625
+        },
+        ".preferences": {
+          "x": 88,
+          "y": 153.15625,
+          "width": 424,
+          "height": 56,
+          "right": 512,
+          "bottom": 209.15625
+        },
+        ".week": {
+          "x": 88,
+          "y": 584.625,
+          "width": 424,
+          "height": 125,
+          "right": 512,
+          "bottom": 709.625
+        },
+        ".app-system-island": {
+          "x": 184,
+          "y": 742,
+          "width": 232,
+          "height": 38,
+          "right": 416,
+          "bottom": 780
+        }
+      }
+    },
+    {
+      "letter": "c",
+      "direction": "collectible",
+      "label": "MODERN COLLECTIBLE STUB",
+      "city": "tokyo",
+      "files": {
+        "phone": "output/art-direction/c-collectible-tokyo.png",
+        "pass": "output/art-direction/c-collectible-tokyo-pass.png",
+        "diagnostics": [
+          "output/art-direction/c-collectible-tokyo-sports-test.png",
+          "output/art-direction/c-collectible-tokyo-ticket-test.png",
+          "output/art-direction/c-collectible-tokyo-brand-test.png"
+        ]
+      },
+      "phone": {
+        "width": 1080,
+        "height": 1440,
+        "bytes": 124601
+      },
+      "isolated": {
+        "width": 1080,
+        "height": 856,
+        "bytes": 170212
+      },
+      "identity": {
+        "gameId": "hou-1",
+        "team": "HOU",
+        "opponent": "LAL",
+        "passId": "0147",
+        "issue": "047295",
+        "gameNumber": "1",
+        "season": "2026-27"
+      },
+      "location": {
+        "cityId": "tokyo",
+        "timezone": "Asia/Tokyo",
+        "localTime": "10:00",
+        "gmt": "GMT+9"
+      },
+      "frame": {
+        "x": 88,
+        "y": 225.15625,
+        "width": 424,
+        "height": 335.46875,
+        "right": 512,
+        "bottom": 560.625
+      },
+      "viewport": {
+        "width": 600,
+        "height": 800,
+        "dpr": 1.7999999523162842,
+        "scrollWidth": 600
+      },
+      "team": {
+        "x": 142.734375,
+        "y": 314.84375,
+        "width": 114.71875,
+        "height": 59.125,
+        "right": 257.453125,
+        "bottom": 373.96875
+      },
+      "opponent": {
+        "x": 266.90625,
+        "y": 353.28125,
+        "width": 98.296875,
+        "height": 59.125,
+        "right": 365.203125,
+        "bottom": 412.40625
+      },
+      "nav": {
+        "x": 184,
+        "y": 742,
+        "width": 232,
+        "height": 38,
+        "right": 416,
+        "bottom": 780
+      },
+      "rows": [
+        {
+          "x": 88,
+          "y": 628.625,
+          "width": 424,
+          "height": 41,
+          "right": 512,
+          "bottom": 669.625
+        },
+        {
+          "x": 88,
+          "y": 669.625,
+          "width": 424,
+          "height": 40,
+          "right": 512,
+          "bottom": 709.625
+        }
+      ],
+      "seasonTicks": [
+        {
+          "ordinal": "1",
+          "x": "2",
+          "y": "25",
+          "current": "true"
+        },
+        {
+          "ordinal": "2",
+          "x": "9.851851851851851",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "3",
+          "x": "17.703703703703702",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "4",
+          "x": "25.555555555555557",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "5",
+          "x": "33.407407407407405",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "6",
+          "x": "41.25925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "7",
+          "x": "49.111111111111114",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "8",
+          "x": "56.96296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "9",
+          "x": "64.81481481481481",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "10",
+          "x": "72.66666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "11",
+          "x": "80.51851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "12",
+          "x": "88.37037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "13",
+          "x": "96.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "14",
+          "x": "104.07407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "15",
+          "x": "111.92592592592592",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "16",
+          "x": "119.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "17",
+          "x": "127.62962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "18",
+          "x": "135.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "19",
+          "x": "143.33333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "20",
+          "x": "151.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "21",
+          "x": "159.03703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "22",
+          "x": "166.88888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "23",
+          "x": "174.74074074074073",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "24",
+          "x": "182.59259259259258",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "25",
+          "x": "190.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "26",
+          "x": "198.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "27",
+          "x": "206.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "28",
+          "x": "214",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "29",
+          "x": "221.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "30",
+          "x": "229.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "31",
+          "x": "237.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "32",
+          "x": "245.40740740740742",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "33",
+          "x": "253.25925925925927",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "34",
+          "x": "261.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "35",
+          "x": "268.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "36",
+          "x": "276.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "37",
+          "x": "284.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "38",
+          "x": "292.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "39",
+          "x": "300.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "40",
+          "x": "308.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "41",
+          "x": "316.0740740740741",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "42",
+          "x": "323.9259259259259",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "43",
+          "x": "331.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "44",
+          "x": "339.6296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "45",
+          "x": "347.48148148148147",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "46",
+          "x": "355.3333333333333",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "47",
+          "x": "363.18518518518516",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "48",
+          "x": "371.037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "49",
+          "x": "378.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "50",
+          "x": "386.74074074074076",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "51",
+          "x": "394.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "52",
+          "x": "402.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "53",
+          "x": "410.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "54",
+          "x": "418.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "55",
+          "x": "426",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "56",
+          "x": "433.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "57",
+          "x": "441.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "58",
+          "x": "449.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "59",
+          "x": "457.4074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "60",
+          "x": "465.25925925925924",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "61",
+          "x": "473.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "62",
+          "x": "480.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "63",
+          "x": "488.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "64",
+          "x": "496.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "65",
+          "x": "504.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "66",
+          "x": "512.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "67",
+          "x": "520.2222222222222",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "68",
+          "x": "528.074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "69",
+          "x": "535.925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "70",
+          "x": "543.7777777777778",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "71",
+          "x": "551.6296296296297",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "72",
+          "x": "559.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "73",
+          "x": "567.3333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "74",
+          "x": "575.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "75",
+          "x": "583.0370370370371",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "76",
+          "x": "590.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "77",
+          "x": "598.7407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "78",
+          "x": "606.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "79",
+          "x": "614.4444444444445",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "80",
+          "x": "622.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "81",
+          "x": "630.1481481481482",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "82",
+          "x": "638",
+          "y": "25",
+          "current": null
+        }
+      ],
+      "seasonEdge": {
+        "x": 138.65625,
+        "y": 544.3125,
+        "width": 223.0625,
+        "height": 13.390625,
+        "right": 361.71875,
+        "bottom": 557.703125
+      },
+      "marker": "<path class=\"art-scale-marker\" data-time-marker=\"true\" d=\"M199 2H205V9H199Z\"></path>",
+      "instrument": {
+        "x": 143.90625,
+        "y": 493.640625,
+        "width": 215.484375,
+        "height": 19.796875,
+        "right": 359.390625,
+        "bottom": 513.4375
+      },
+      "text": "MG+HOUHOMENBA GAME PASS25OCT2026HOU休斯顿火箭LAL洛杉矶湖人WATCHING FROMTOKYO · JP10:00GMT+9000306091215182124HOMETOYOTA CENTERMYGAME+ PERSONAL ISSUEGAME01/ 82SEASON26—27PASS0147MG+ Nº047295HOU—LAL25 OCT 202601 / 82",
+      "peripheral": {
+        ".brand-header": {
+          "x": 60,
+          "y": 0,
+          "width": 480,
+          "height": 137.15625,
+          "right": 540,
+          "bottom": 137.15625
+        },
+        ".brand-lockup": {
+          "x": 88,
+          "y": 45,
+          "width": 424,
+          "height": 44.15625,
+          "right": 512,
+          "bottom": 89.15625
+        },
+        ".preferences": {
+          "x": 88,
+          "y": 153.15625,
+          "width": 424,
+          "height": 56,
+          "right": 512,
+          "bottom": 209.15625
+        },
+        ".week": {
+          "x": 88,
+          "y": 584.625,
+          "width": 424,
+          "height": 125,
+          "right": 512,
+          "bottom": 709.625
+        },
+        ".app-system-island": {
+          "x": 184,
+          "y": 742,
+          "width": 232,
+          "height": 38,
+          "right": 416,
+          "bottom": 780
+        }
+      }
+    },
+    {
+      "letter": "c",
+      "direction": "collectible",
+      "label": "MODERN COLLECTIBLE STUB",
+      "city": "london",
+      "files": {
+        "phone": "output/art-direction/c-collectible-london.png",
+        "pass": "output/art-direction/c-collectible-london-pass.png",
+        "diagnostics": []
+      },
+      "phone": {
+        "width": 1080,
+        "height": 1440,
+        "bytes": 125457
+      },
+      "isolated": {
+        "width": 1080,
+        "height": 856,
+        "bytes": 170410
+      },
+      "identity": {
+        "gameId": "hou-1",
+        "team": "HOU",
+        "opponent": "LAL",
+        "passId": "0147",
+        "issue": "047295",
+        "gameNumber": "1",
+        "season": "2026-27"
+      },
+      "location": {
+        "cityId": "london",
+        "timezone": "Europe/London",
+        "localTime": "01:00",
+        "gmt": "GMT"
+      },
+      "frame": {
+        "x": 88,
+        "y": 225.15625,
+        "width": 424,
+        "height": 335.46875,
+        "right": 512,
+        "bottom": 560.625
+      },
+      "viewport": {
+        "width": 600,
+        "height": 800,
+        "dpr": 1.7999999523162842,
+        "scrollWidth": 600
+      },
+      "team": {
+        "x": 142.734375,
+        "y": 314.84375,
+        "width": 114.71875,
+        "height": 59.125,
+        "right": 257.453125,
+        "bottom": 373.96875
+      },
+      "opponent": {
+        "x": 266.90625,
+        "y": 353.28125,
+        "width": 98.296875,
+        "height": 59.125,
+        "right": 365.203125,
+        "bottom": 412.40625
+      },
+      "nav": {
+        "x": 184,
+        "y": 742,
+        "width": 232,
+        "height": 38,
+        "right": 416,
+        "bottom": 780
+      },
+      "rows": [
+        {
+          "x": 88,
+          "y": 628.625,
+          "width": 424,
+          "height": 41,
+          "right": 512,
+          "bottom": 669.625
+        },
+        {
+          "x": 88,
+          "y": 669.625,
+          "width": 424,
+          "height": 40,
+          "right": 512,
+          "bottom": 709.625
+        }
+      ],
+      "seasonTicks": [
+        {
+          "ordinal": "1",
+          "x": "2",
+          "y": "25",
+          "current": "true"
+        },
+        {
+          "ordinal": "2",
+          "x": "9.851851851851851",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "3",
+          "x": "17.703703703703702",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "4",
+          "x": "25.555555555555557",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "5",
+          "x": "33.407407407407405",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "6",
+          "x": "41.25925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "7",
+          "x": "49.111111111111114",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "8",
+          "x": "56.96296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "9",
+          "x": "64.81481481481481",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "10",
+          "x": "72.66666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "11",
+          "x": "80.51851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "12",
+          "x": "88.37037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "13",
+          "x": "96.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "14",
+          "x": "104.07407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "15",
+          "x": "111.92592592592592",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "16",
+          "x": "119.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "17",
+          "x": "127.62962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "18",
+          "x": "135.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "19",
+          "x": "143.33333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "20",
+          "x": "151.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "21",
+          "x": "159.03703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "22",
+          "x": "166.88888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "23",
+          "x": "174.74074074074073",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "24",
+          "x": "182.59259259259258",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "25",
+          "x": "190.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "26",
+          "x": "198.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "27",
+          "x": "206.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "28",
+          "x": "214",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "29",
+          "x": "221.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "30",
+          "x": "229.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "31",
+          "x": "237.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "32",
+          "x": "245.40740740740742",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "33",
+          "x": "253.25925925925927",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "34",
+          "x": "261.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "35",
+          "x": "268.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "36",
+          "x": "276.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "37",
+          "x": "284.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "38",
+          "x": "292.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "39",
+          "x": "300.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "40",
+          "x": "308.22222222222223",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "41",
+          "x": "316.0740740740741",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "42",
+          "x": "323.9259259259259",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "43",
+          "x": "331.77777777777777",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "44",
+          "x": "339.6296296296296",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "45",
+          "x": "347.48148148148147",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "46",
+          "x": "355.3333333333333",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "47",
+          "x": "363.18518518518516",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "48",
+          "x": "371.037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "49",
+          "x": "378.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "50",
+          "x": "386.74074074074076",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "51",
+          "x": "394.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "52",
+          "x": "402.44444444444446",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "53",
+          "x": "410.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "54",
+          "x": "418.14814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "55",
+          "x": "426",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "56",
+          "x": "433.85185185185185",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "57",
+          "x": "441.7037037037037",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "58",
+          "x": "449.55555555555554",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "59",
+          "x": "457.4074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "60",
+          "x": "465.25925925925924",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "61",
+          "x": "473.1111111111111",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "62",
+          "x": "480.962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "63",
+          "x": "488.81481481481484",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "64",
+          "x": "496.6666666666667",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "65",
+          "x": "504.51851851851853",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "66",
+          "x": "512.3703703703704",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "67",
+          "x": "520.2222222222222",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "68",
+          "x": "528.074074074074",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "69",
+          "x": "535.925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "70",
+          "x": "543.7777777777778",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "71",
+          "x": "551.6296296296297",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "72",
+          "x": "559.4814814814815",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "73",
+          "x": "567.3333333333334",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "74",
+          "x": "575.1851851851852",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "75",
+          "x": "583.0370370370371",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "76",
+          "x": "590.8888888888889",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "77",
+          "x": "598.7407407407408",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "78",
+          "x": "606.5925925925926",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "79",
+          "x": "614.4444444444445",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "80",
+          "x": "622.2962962962963",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "81",
+          "x": "630.1481481481482",
+          "y": "25",
+          "current": null
+        },
+        {
+          "ordinal": "82",
+          "x": "638",
+          "y": "25",
+          "current": null
+        }
+      ],
+      "seasonEdge": {
+        "x": 138.65625,
+        "y": 544.3125,
+        "width": 223.0625,
+        "height": 13.390625,
+        "right": 361.71875,
+        "bottom": 557.703125
+      },
+      "marker": "<path class=\"art-scale-marker\" data-time-marker=\"true\" d=\"M28 2H34V9H28Z\"></path>",
+      "instrument": {
+        "x": 143.90625,
+        "y": 493.640625,
+        "width": 215.484375,
+        "height": 19.796875,
+        "right": 359.390625,
+        "bottom": 513.4375
+      },
+      "text": "MG+HOUHOMENBA GAME PASS25OCT2026HOU休斯顿火箭LAL洛杉矶湖人WATCHING FROMLONDON · UK01:00GMT000306091215182124HOMETOYOTA CENTERMYGAME+ PERSONAL ISSUEGAME01/ 82SEASON26—27PASS0147MG+ Nº047295HOU—LAL25 OCT 202601 / 82",
+      "peripheral": {
+        ".brand-header": {
+          "x": 60,
+          "y": 0,
+          "width": 480,
+          "height": 137.15625,
+          "right": 540,
+          "bottom": 137.15625
+        },
+        ".brand-lockup": {
+          "x": 88,
+          "y": 45,
+          "width": 424,
+          "height": 44.15625,
+          "right": 512,
+          "bottom": 89.15625
+        },
+        ".preferences": {
+          "x": 88,
+          "y": 153.15625,
+          "width": 424,
+          "height": 56,
+          "right": 512,
+          "bottom": 209.15625
+        },
+        ".week": {
+          "x": 88,
+          "y": 584.625,
+          "width": 424,
+          "height": 125,
+          "right": 512,
+          "bottom": 709.625
+        },
+        ".app-system-island": {
+          "x": 184,
+          "y": 742,
+          "width": 232,
+          "height": 38,
+          "right": 416,
+          "bottom": 780
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "nonArtworkRequests": [
+    {
+      "url": "http://127.0.0.1:5210/favicon.ico",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ]
+}

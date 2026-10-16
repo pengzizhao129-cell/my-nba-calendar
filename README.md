@@ -45,6 +45,10 @@ npm start
 
 当前票面精修见 [Phase 2 — From Ticket to Collectible](docs/collectible-ticket.md)：MG-DNA-3 保持主副券比例，使用微冲切撕线、紧邻场次的横向 82 个独立刻度、真实 GMT 坐标与更清楚的 Personal Issue。编号沿用已签发的语义 serial，不重新生成用户身份；普通票面收起重复收藏进度，原有数据与归档逻辑保留。
 
+[Phase 3 — Art Direction Review](docs/art-direction-review.md) 并行提供 Editorial / Instrument / Collectible 三套独立构图。开发评审入口为 `/review/art-direction`，支持总览与 A / B / C 切换；尚未选择正式方向，首页继续使用 Phase 2。`GamePass` 的新增 variant 共享真实 `PersonalPass` 数据，六位 `047295` 仅是现有 serial 的补零印刷格式。
+
+生产服务启动后，设置 `MYGAME_APP_URL` 并执行 `npm run export:art`，可重现六张完整手机截图、独立票面与七项评审诊断。输出位于 `output/art-direction/`；旧 `output/douyin/` 成品保留用于首页像素一致性检查。
+
 `npm run export:promo` 直接截取生产 App，导出 1080×1440 东京／伦敦完整手机宣传图，不使用独立海报模板。Share Artifact 与首页截图用途不同：复用真实 Pass 数据，原生适配 1080×1440 与 1080×1920，不包含导航、未来赛程、二维码或广告 CTA，也不虚构比分与观看记录。
 
 ## V2.9 Personal Season Collection

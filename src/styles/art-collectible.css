@@ -1,0 +1,68 @@
+/* C — modern event memorabilia. A cut paper field and a dense machine-printed
+ * detachable stub, rather than a second UI card beside the main information. */
+.art-pass--collectible .art-surface { background:transparent;overflow:visible; }
+.art-pass--collectible .c-stock { position:absolute;inset:0;width:100%;height:100%;overflow:visible; }
+.art-pass--collectible .c-stock-main { fill:var(--pass-base); }
+.art-pass--collectible .c-stock-stub { fill:var(--stub-cool); }
+.art-pass--collectible .c-stock-ink { fill:var(--team-accent); }
+.art-pass--collectible .c-stock-edge { fill:none;stroke:var(--light-top-edge);stroke-width:.75; }
+.art-pass--collectible .c-perforation { fill:none;stroke:var(--perforation-dark);stroke-width:1.2;stroke-linecap:round; }
+.art-pass--collectible .c-punch-light { stroke:var(--perforation-light);stroke-width:.8; }
+.art-pass--collectible .c-bridge { fill:none;stroke:var(--deboss-upper);stroke-width:1; }
+.art-pass--collectible .c-bridge-light { stroke:var(--deboss-lower); }
+.art-pass--collectible .c-registration { fill:none;stroke:var(--graphite-30);stroke-width:.65; }
+.art-pass--collectible .c-rail { position:absolute;left:0;top:0;width:calc(58 * var(--art-u));height:100%;color:var(--pass-highlight); }
+.art-pass--collectible .c-rail-brand { position:absolute;left:calc(15 * var(--art-u));top:calc(18 * var(--art-u));font-size:calc(16 * var(--art-u));font-weight:600;letter-spacing:-.07em; }
+.art-pass--collectible .c-rail-code { position:absolute;left:calc(12 * var(--art-u));top:calc(346 * var(--art-u));transform:rotate(-90deg);transform-origin:top left;font-family:var(--font-identity),sans-serif;font-size:calc(38 * var(--art-u));line-height:1;font-weight:600;letter-spacing:.1em; }
+.art-pass--collectible .c-rail-home { position:absolute;left:calc(19 * var(--art-u));bottom:calc(30 * var(--art-u));font-size:calc(9 * var(--art-u));line-height:1;writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.2em; }
+.art-pass--collectible .c-ticket-label { position:absolute;left:calc(96 * var(--art-u));top:calc(28 * var(--art-u));font-size:calc(11 * var(--art-u));line-height:1;font-weight:600;letter-spacing:.07em; }
+.art-pass--collectible .c-ticket-label span { margin-left:calc(12 * var(--art-u));font-weight:450;font-size:calc(9 * var(--art-u));letter-spacing:.15em;color:var(--text-tertiary); }
+.art-pass--collectible .c-date { position:absolute;left:calc(96 * var(--art-u));top:calc(70 * var(--art-u));display:flex;align-items:center;gap:calc(12 * var(--art-u)); }
+.art-pass--collectible .c-date>strong { font-weight:450;font-size:calc(59 * var(--art-u));line-height:.92;letter-spacing:-.055em;font-variant-numeric:tabular-nums; }
+.art-pass--collectible .c-date>span { display:flex;flex-direction:column;gap:calc(5 * var(--art-u));font-size:calc(18 * var(--art-u));font-weight:500;letter-spacing:.055em;line-height:1; }
+.art-pass--collectible .c-date small { font-size:calc(12 * var(--art-u));font-weight:450;letter-spacing:.08em;color:var(--text-tertiary); }
+.art-pass--collectible .c-match { position:absolute;left:calc(94 * var(--art-u));top:calc(154 * var(--art-u));width:calc(382 * var(--art-u));height:calc(180 * var(--art-u)); }
+.art-pass--collectible .c-club { position:absolute; }
+.art-pass--collectible .c-club>strong { display:block;font-family:var(--font-identity),sans-serif;font-size:calc(108 * var(--art-u));line-height:.94;font-weight:600;letter-spacing:-.065em; }
+.art-pass--collectible .c-club>span { --identity-accent-ink:var(--text-secondary);display:flex;align-items:center;gap:calc(5 * var(--art-u));margin-top:calc(5 * var(--art-u));font-size:calc(13 * var(--art-u));line-height:1.2;color:var(--text-secondary);font-weight:500;white-space:nowrap; }
+.art-pass--collectible .c-club .team-symbol { flex:none;width:calc(16 * var(--art-u));height:calc(16 * var(--art-u));color:var(--text-secondary); }
+.art-pass--collectible .c-club--team { left:0;top:0; }
+.art-pass--collectible .c-club--team>strong { color:var(--team-accent); }
+.art-pass--collectible .c-club--opponent { right:0;top:calc(66 * var(--art-u)); }
+.art-pass--collectible .c-club--opponent>span { justify-content:flex-end; }
+.art-pass--collectible .c-match-line { position:absolute;left:calc(3 * var(--art-u));top:calc(120 * var(--art-u));width:calc(139 * var(--art-u));height:calc(42 * var(--art-u));color:var(--graphite-100); }
+.art-pass--collectible .c-city { position:absolute;left:calc(96 * var(--art-u));top:calc(355 * var(--art-u));display:flex;align-items:baseline;gap:calc(12 * var(--art-u));max-width:calc(380 * var(--art-u)); }
+.art-pass--collectible .c-city>span { font-size:calc(8 * var(--art-u));font-weight:500;letter-spacing:.13em;color:var(--text-tertiary);white-space:nowrap; }
+.art-pass--collectible .c-city>strong { font-size:calc(18 * var(--art-u));font-weight:550;letter-spacing:-.025em;line-height:1;white-space:nowrap; }
+.art-pass--collectible .c-city small { font-size:calc(10 * var(--art-u));font-weight:450;letter-spacing:.04em;color:var(--text-tertiary); }
+.art-pass--collectible .c-clock { position:absolute;left:calc(94 * var(--art-u));top:calc(384 * var(--art-u));display:flex;gap:calc(16 * var(--art-u));align-items:baseline; }
+.art-pass--collectible .c-clock .art-timing { font-size:calc(65 * var(--art-u));line-height:1;letter-spacing:-.04em;font-weight:450; }
+.art-pass--collectible .c-clock>span { font-size:calc(13 * var(--art-u));font-weight:450;letter-spacing:.02em;color:var(--text-secondary); }
+.art-pass--collectible .c-world-time { position:absolute;left:calc(96 * var(--art-u));top:calc(461 * var(--art-u));width:calc(370 * var(--art-u));height:calc(34 * var(--art-u)); }
+.art-pass--collectible .c-world-time .art-time-scale { width:100%;height:100%; }
+.art-pass--collectible .c-world-time .art-time-scale svg { width:100%;height:100%; }
+.art-pass--collectible .c-venue { position:absolute;left:calc(96 * var(--art-u));top:calc(513 * var(--art-u));display:flex;align-items:baseline;gap:calc(12 * var(--art-u));max-width:calc(380 * var(--art-u)); }
+.art-pass--collectible .c-venue>span { color:var(--text-tertiary);font-size:calc(9 * var(--art-u));letter-spacing:.09em; }
+.art-pass--collectible .c-venue>strong { font-size:calc(12 * var(--art-u));line-height:1;font-weight:500;letter-spacing:.025em;white-space:nowrap; }
+.art-pass--collectible .c-stub { position:absolute;left:calc(500 * var(--art-u));top:0;width:calc(228 * var(--art-u));height:100%;font-variant-numeric:tabular-nums; }
+.art-pass--collectible .c-stub-title { position:absolute;left:calc(21 * var(--art-u));top:calc(20 * var(--art-u));right:calc(18 * var(--art-u));display:flex;justify-content:space-between;color:var(--pass-highlight);font-size:calc(9 * var(--art-u));font-weight:550;letter-spacing:.055em;line-height:1; }
+.art-pass--collectible .c-stub-title>span { font-size:calc(7 * var(--art-u));font-weight:450;letter-spacing:.08em; }
+.art-pass--collectible .c-game-index { position:absolute;left:calc(24 * var(--art-u));top:calc(73 * var(--art-u)); }
+.art-pass--collectible .c-game-index>span { display:block;font-size:calc(9 * var(--art-u));letter-spacing:.13em;line-height:1;color:var(--text-secondary);font-weight:500; }
+.art-pass--collectible .c-game-index>strong { display:block;margin-top:calc(10 * var(--art-u));font-size:calc(63 * var(--art-u));font-weight:450;line-height:.9;letter-spacing:-.08em; }
+.art-pass--collectible .c-game-index small { margin-left:calc(12 * var(--art-u));font-size:calc(27 * var(--art-u));font-weight:400;letter-spacing:-.05em;color:var(--text-secondary); }
+.art-pass--collectible .c-season { position:absolute;left:calc(24 * var(--art-u));top:calc(177 * var(--art-u));right:calc(24 * var(--art-u));display:flex;align-items:baseline;justify-content:space-between; }
+.art-pass--collectible .c-season>span,.art-pass--collectible .c-pass-id>span { font-size:calc(9 * var(--art-u));font-weight:450;letter-spacing:.1em;line-height:1;color:var(--text-tertiary); }
+.art-pass--collectible .c-season>strong { font-size:calc(18 * var(--art-u));font-weight:500;letter-spacing:-.04em;line-height:1; }
+.art-pass--collectible .c-pass-id { position:absolute;left:calc(24 * var(--art-u));top:calc(216 * var(--art-u));right:calc(24 * var(--art-u));display:flex;align-items:baseline;justify-content:space-between; }
+.art-pass--collectible .c-pass-id>strong { font-size:calc(18 * var(--art-u));font-weight:450;letter-spacing:.12em;line-height:1; }
+.art-pass--collectible .c-serial { position:absolute;left:calc(179 * var(--art-u));top:calc(273 * var(--art-u));width:calc(238 * var(--art-u));transform:rotate(90deg);transform-origin:top left; }
+.art-pass--collectible .c-serial .art-serial { display:flex;flex-direction:column;align-items:flex-start;gap:calc(9 * var(--art-u)); }
+.art-pass--collectible .c-serial .art-serial>small { font-size:calc(11 * var(--art-u));line-height:1;font-weight:500;letter-spacing:.12em;color:var(--text-secondary); }
+.art-pass--collectible .c-serial .art-serial>strong { font-family:var(--font-geist),sans-serif;font-size:calc(50 * var(--art-u));line-height:1;letter-spacing:-.035em;font-weight:450;color:var(--text-primary); }
+.art-pass--collectible .c-stub-reference { position:absolute;left:calc(24 * var(--art-u));top:calc(290 * var(--art-u));font-size:calc(10 * var(--art-u));line-height:1.6;font-weight:500;writing-mode:vertical-rl;letter-spacing:.06em; }
+.art-pass--collectible .c-stub-reference>span { color:var(--text-tertiary);font-size:calc(9 * var(--art-u));font-weight:450; }
+.art-pass--collectible .c-season-edge { position:absolute;left:calc(87 * var(--art-u));top:calc(548 * var(--art-u));width:calc(383 * var(--art-u));height:calc(23 * var(--art-u)); }
+.art-pass--collectible .c-season-edge .art-season-edge { width:100%;height:100%; }
+.art-pass--collectible .c-season-edge .art-season-edge svg { width:100%;height:100%; }
+.art-pass--collectible .c-season-edge .art-season-ordinal { display:none; }

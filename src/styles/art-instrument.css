@@ -1,0 +1,58 @@
+/* B — a 270-degree local wall-clock instrument, not a watch face or map. */
+.art-pass--instrument { --instrument-rule:var(--graphite-15);--instrument-ink:var(--graphite-100);--instrument-muted:var(--graphite-50); }
+.art-pass--instrument .art-surface { overflow:hidden;clip-path:polygon(0 0,77.9% 0,79.1% 1.6%,80.3% 0,100% 0,100% 100%,80.3% 100%,79.1% 98.4%,77.9% 100%,0 100%);background:var(--pass-base); }
+.art-pass--instrument .instrument-stock { position:absolute;inset:0;background:linear-gradient(90deg,var(--pass-base) 0 79.1%,var(--stub-cool) 79.1% 100%);box-shadow:inset 0 calc(1 * var(--art-u)) 0 var(--light-top-edge),inset 0 calc(-1 * var(--art-u)) 0 var(--light-bottom-edge); }
+.art-pass--instrument .instrument-edge-ink { position:absolute;left:0;top:0;width:calc(8 * var(--art-u));height:100%;background:var(--team-accent); }
+.art-pass--instrument .instrument-topline { position:absolute;left:calc(30 * var(--art-u));top:calc(27 * var(--art-u));width:calc(511 * var(--art-u));display:flex;justify-content:space-between;font-size:calc(11 * var(--art-u));line-height:1;font-weight:500;letter-spacing:.12em;color:var(--instrument-muted); }
+.art-pass--instrument .instrument-match { position:absolute;left:calc(29 * var(--art-u));top:calc(59 * var(--art-u));width:calc(518 * var(--art-u));display:flex;align-items:center;justify-content:space-between;gap:calc(12 * var(--art-u)); }
+.art-pass--instrument .instrument-match>strong { font-family:var(--font-identity),var(--font-geist),sans-serif;font-size:calc(74 * var(--art-u));font-weight:600;line-height:1;letter-spacing:-.05em;color:var(--instrument-ink); }
+.art-pass--instrument .instrument-match>strong.instrument-own-team { color:var(--team-accent); }
+.art-pass--instrument .instrument-match-mark { width:calc(134 * var(--art-u));height:calc(76 * var(--art-u));color:var(--team-accent);flex:none; }
+.art-pass--instrument .instrument-team-names { position:absolute;left:calc(30 * var(--art-u));top:calc(141 * var(--art-u));width:calc(511 * var(--art-u));display:flex;justify-content:space-between;font-size:calc(12 * var(--art-u));line-height:1.2;color:var(--text-secondary); }
+.art-pass--instrument .instrument-clock-index { position:absolute;left:0;top:calc(155 * var(--art-u));width:calc(572 * var(--art-u));height:calc(372 * var(--art-u));overflow:visible; }
+.art-pass--instrument .instrument-index-track { fill:none;stroke:var(--instrument-rule);stroke-width:.8; }
+.art-pass--instrument .instrument-hour-sector { fill:none;stroke:var(--team-accent);stroke-width:5; }
+.art-pass--instrument .instrument-index-tick { fill:none;stroke:var(--instrument-muted);stroke-width:.7; }
+.art-pass--instrument .instrument-index-tick.is-major { stroke:var(--instrument-ink);stroke-width:1.15; }
+.art-pass--instrument .instrument-hour-label { fill:var(--text-secondary);font-family:var(--font-geist),sans-serif;font-size:13px;font-weight:450;font-variant-numeric:tabular-nums;letter-spacing:-.02em; }
+.art-pass--instrument .instrument-local-cursor { fill:var(--team-accent);stroke:var(--team-accent);stroke-width:2; }
+.art-pass--instrument .instrument-city { position:absolute;left:calc(125 * var(--art-u));top:calc(256 * var(--art-u));width:calc(318 * var(--art-u));text-align:center; }
+.art-pass--instrument .instrument-city>span { display:block;margin-bottom:calc(7 * var(--art-u));font-size:calc(9 * var(--art-u));font-weight:500;line-height:1;letter-spacing:.14em;color:var(--instrument-muted); }
+.art-pass--instrument .instrument-city>strong { display:block;font-size:calc(27 * var(--art-u));font-weight:500;line-height:1;letter-spacing:-.025em;color:var(--instrument-ink); }
+.art-pass--instrument .instrument-city small { font-size:calc(12 * var(--art-u));font-weight:450;letter-spacing:0;color:var(--instrument-muted); }
+.art-pass--instrument .instrument-local-time { position:absolute;left:calc(99 * var(--art-u));top:calc(310 * var(--art-u));width:calc(370 * var(--art-u));display:flex;justify-content:center; }
+.art-pass--instrument .instrument-local-time .art-timing { font-size:calc(103 * var(--art-u));line-height:1;font-weight:450;letter-spacing:-.02em;color:var(--instrument-ink); }
+.art-pass--instrument .instrument-local-time .timing-run { font-weight:450; }
+.art-pass--instrument .instrument-offset { position:absolute;left:calc(167 * var(--art-u));top:calc(423 * var(--art-u));width:calc(235 * var(--art-u));display:flex;align-items:center;justify-content:center;gap:calc(11 * var(--art-u));line-height:1; }
+.art-pass--instrument .instrument-offset>span { font-size:calc(9 * var(--art-u));font-weight:500;letter-spacing:.1em;color:var(--instrument-muted); }
+.art-pass--instrument .instrument-offset>strong { font-size:calc(16 * var(--art-u));font-weight:450;font-variant-numeric:tabular-nums;letter-spacing:-.025em;color:var(--instrument-ink); }
+.art-pass--instrument .instrument-offset>i { width:calc(4 * var(--art-u));height:calc(4 * var(--art-u));background:var(--team-accent); }
+.art-pass--instrument .instrument-venue { position:absolute;left:calc(30 * var(--art-u));top:calc(515 * var(--art-u));width:calc(512 * var(--art-u));display:flex;justify-content:space-between;font-size:calc(10 * var(--art-u));font-weight:500;letter-spacing:.06em;line-height:1;color:var(--instrument-muted); }
+.art-pass--instrument .instrument-season-edge { position:absolute;left:calc(30 * var(--art-u));top:calc(539 * var(--art-u));width:calc(512 * var(--art-u));height:calc(24 * var(--art-u)); }
+.art-pass--instrument .instrument-season-edge .art-season-edge { width:100%;height:100%; }
+.art-pass--instrument .instrument-season-edge .art-season-edge svg { display:block;width:100%;height:100%; }
+.art-pass--instrument .instrument-season-edge .art-season-ordinal { color:var(--instrument-muted);font-size:calc(9 * var(--art-u));line-height:1; }
+.art-pass--instrument .instrument-tear { position:absolute;inset:0;width:100%;height:100%;pointer-events:none; }
+.art-pass--instrument .instrument-punch-shade { stroke:var(--perforation-dark);stroke-width:1.5;stroke-linecap:round; }
+.art-pass--instrument .instrument-punch-light { stroke:var(--perforation-light);stroke-width:1;stroke-linecap:round; }
+.art-pass--instrument .instrument-bridge { fill:none;stroke:var(--emboss-shadow);stroke-width:1; }
+.art-pass--instrument .instrument-stub { position:absolute;left:calc(594 * var(--art-u));top:0;width:calc(115 * var(--art-u));height:100%; }
+.art-pass--instrument .instrument-date { position:absolute;left:0;top:calc(31 * var(--art-u));display:flex;align-items:flex-start;gap:calc(8 * var(--art-u));color:var(--instrument-ink); }
+.art-pass--instrument .instrument-date>strong { font-size:calc(51 * var(--art-u));font-weight:450;line-height:.9;letter-spacing:-.065em;font-variant-numeric:tabular-nums; }
+.art-pass--instrument .instrument-date>div { padding-top:calc(2 * var(--art-u)); }
+.art-pass--instrument .instrument-date b { display:block;font-size:calc(14 * var(--art-u));font-weight:500;line-height:1.2;letter-spacing:.02em; }
+.art-pass--instrument .instrument-date span { display:block;margin-top:calc(7 * var(--art-u));font-size:calc(11 * var(--art-u));font-weight:450;line-height:1;letter-spacing:.02em;color:var(--instrument-muted); }
+.art-pass--instrument .instrument-stub-game { position:absolute;left:0;top:calc(119 * var(--art-u)); }
+.art-pass--instrument .instrument-stub-game>strong { display:block;font-size:calc(29 * var(--art-u));line-height:1;font-weight:500;letter-spacing:-.05em;color:var(--instrument-ink);font-variant-numeric:tabular-nums; }
+.art-pass--instrument .instrument-stub-game>strong>span { font-size:calc(18 * var(--art-u));font-weight:450;color:var(--instrument-muted); }
+.art-pass--instrument .instrument-stub-game>small { display:block;margin-top:calc(9 * var(--art-u));font-size:calc(9 * var(--art-u));font-weight:500;line-height:1;letter-spacing:.06em;color:var(--instrument-muted); }
+.art-pass--instrument .instrument-user-id { position:absolute;left:0;top:calc(190 * var(--art-u));font-size:calc(11 * var(--art-u));font-weight:450;line-height:1;letter-spacing:.08em;color:var(--instrument-muted);font-variant-numeric:tabular-nums; }
+.art-pass--instrument .instrument-user-id>b { font-weight:500;color:var(--text-secondary); }
+.art-pass--instrument .instrument-serial { position:absolute;left:calc(91 * var(--art-u));top:calc(244 * var(--art-u));width:calc(239 * var(--art-u));transform:rotate(90deg);transform-origin:0 0; }
+.art-pass--instrument .instrument-serial .art-serial { display:flex;flex-direction:column;gap:calc(4 * var(--art-u)); }
+.art-pass--instrument .instrument-serial .art-serial small { font-size:calc(12 * var(--art-u));font-weight:500;letter-spacing:.06em;line-height:1;color:var(--instrument-muted); }
+.art-pass--instrument .instrument-serial .art-serial strong { display:block;font-family:var(--font-geist),sans-serif;font-size:calc(43 * var(--art-u));font-weight:450;letter-spacing:.035em;line-height:1.05;font-variant-numeric:tabular-nums;color:var(--instrument-ink); }
+.art-pass--instrument .instrument-personal-issue { display:block;margin-top:calc(7 * var(--art-u));font-size:calc(8 * var(--art-u));font-weight:500;letter-spacing:.14em;line-height:1;color:var(--instrument-muted); }
+.art-pass--instrument .instrument-stub-signature { position:absolute;left:0;top:calc(518 * var(--art-u));width:100%;height:calc(39 * var(--art-u)); }
+.art-pass--instrument .instrument-stub-signature .emotion-mark { position:static;display:block;margin-bottom:calc(8 * var(--art-u));font-size:calc(15 * var(--art-u));line-height:1;color:var(--annotation-ink); }
+.art-pass--instrument .instrument-stub-signature>span:not(.emotion-mark) { display:block;font-size:calc(8 * var(--art-u));font-weight:450;line-height:1;letter-spacing:.04em;color:var(--instrument-muted); }

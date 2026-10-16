@@ -9,6 +9,10 @@
 @import "../styles/personal-season.css";
 @import "../styles/pass-share.css";
 @import "../styles/ticket-home.css";
+@import "../styles/art-directions.css";
+@import "../styles/art-editorial.css";
+@import "../styles/art-instrument.css";
+@import "../styles/art-collectible.css";
 
 :root {
   --bg-canvas: var(--canvas-base);

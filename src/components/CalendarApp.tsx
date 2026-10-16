@@ -9,7 +9,7 @@ import {getSchedule} from '@/lib/schedule';
 import {SportsSignal} from './SportsSignal';
 import {NumericValue} from './NumericValue';
 import {SystemIsland,type IslandTab} from './SystemIsland';
-import {GamePass} from './GamePass';
+import {GamePass,type GamePassVariant} from './GamePass';
 import {HomeHeader,HomeCoordinates} from './HomeIdentity';
 import {getTeamIdentity,teamMaterialProperties} from '@/data/teamIdentities';
 import {createPersonalPass,selectPassGame} from '@/lib/personalPass';
@@ -21,7 +21,7 @@ import {completedAt} from '@/lib/passStatus';
 
 const debugUI = process.env.NEXT_PUBLIC_DEBUG_UI === 'true';
 
-export default function CalendarApp(){
+export default function CalendarApp({passVariant='full'}:{passVariant?:GamePassVariant}={}){
  const [teamId,setTeamId]=useState('HOU');const [cityId,setCityId]=useState(DEFAULT_CITY.id);const city=cityById(cityId)??DEFAULT_CITY,zone=city.timezone;const [tab,setTab]=useState<IslandTab>('首页');const [teamPicker,setTeamPicker]=useState(false);const [notice,setNotice]=useState('');const [live,setLive]=useState(false);
  const {passId,ready:identityReady,issuance,confirmIdentity}=usePassId();const [selectedGameId,setSelectedGameId]=useState<string|null>(null);
  const [selectionReady,setSelectionReady]=useState(false);const now=usePassClock(live);const {archive,ready:archiveReady}=useSeasonArchive(teamId,now,selectionReady&&identityReady&&passId!==null);const availableGames=seasonFixtures(mockGames,archive,teamId);const team=getTeam(teamId);const archivedIds=new Set(Object.values(archive).filter(item=>item.teamCode===teamId).map(item=>item.gameId));const schedule=getSchedule(availableGames,teamId,zone,now,archivedIds);
@@ -50,7 +50,7 @@ export default function CalendarApp(){
  <HomeCoordinates team={team} city={city} offset={offset} onTeam={()=>setTeamPicker(true)} onCity={selectCity} onLocate={locate}/>
  {notice&&<p role="status" className="notice">{notice}</p>}
  <div className="content">{tab==='我的'?<section className="profile"><span className="eyebrow">PROFILE</span><h2>我的看球偏好</h2><div className="card space-y-5 p-5"><p className="flex justify-between text-sm"><span className="ink-secondary">主队</span><span>{team.city}{team.name}</span></p><p className="flex justify-between gap-3 text-sm"><span className="ink-secondary">时区</span><span className="break-all">{zone}</span></p><div className="flex items-center justify-between gap-3"><div><p className="text-sm">使用真实日期</p>{debugUI&&<p className="mt-1 text-[11px] ink-secondary">关闭时展示 2026.10.25 演示赛程</p>}</div><button role="switch" aria-checked={live} aria-label="使用真实日期" onClick={()=>{setLive(!live);setSelectedGameId(null)}} className={`h-6 w-10 shrink-0 rounded-full p-1 preference-switch ${live?'is-on':''}`}><span className={`block h-4 w-4 rounded-full switch-thumb transition-transform ${live?'translate-x-4':''}`}/></button></div>{debugUI&&<p className="border-t border-semantic pt-4 text-xs leading-6 ink-secondary">所有比赛均为本地模拟数据，不代表 NBA 官方赛程。比赛时间按 IANA 时区转换，自动处理夏令时。</p>}</div></section>:<>
- {tab==='首页'&&(pass?<GamePass pass={pass} issuance={issuance}/>:<section className="rest-state"><p>暂无后续赛程</p></section>)}
+ {tab==='首页'&&(pass?<GamePass pass={pass} issuance={issuance} variant={passVariant}/>:<section className="rest-state"><p>暂无后续赛程</p></section>)}
  <section className="week"><div className="section-heading"><div><span className="eyebrow">{tab==='赛程'?'SCHEDULE':'NEXT 7 DAYS'}</span><h2>{tab==='赛程'?'我的赛程':'未来比赛索引'}</h2></div><div className="week-count"><strong><NumericValue value={visibleGames.length}/></strong><span>场</span>{tab==='首页'&&<button className="schedule-link" aria-label="查看我的赛程" onClick={()=>setTab('赛程')}>全部</button>}</div></div><div className="schedule-list">{previewGames.map(game=>{const start=new Date(game.startsAt);const opponent=getTeam(game.home===teamId?game.away:game.home);const today=dateKey(start,zone)===dateKey(now,zone);return <button type="button" className="schedule-row" key={game.id} data-game-id={game.id} aria-pressed={selected?.id===game.id} aria-label={`查看 ${formatDate(start,zone,{month:'numeric',day:'numeric'})} 对阵${opponent.name}的比赛通行证`} onClick={()=>selectGame(game.id)}><div className="row-date"><b>{formatDate(start,zone,{month:'2-digit',day:'2-digit'}).replace('/','.').replace('月','.').replace('日','')}</b><small>{schedule.next?.id===game.id?<SportsSignal type="next" label="NEXT"/>:today?'今天':formatDate(start,zone,{weekday:'short'})}</small></div><div className="row-team"><small className="team-chip" style={{...teamMaterialProperties(getTeamIdentity(opponent.id)!),color:'var(--team-print-ink)'} as React.CSSProperties}>{opponent.abbr}</small><strong>{opponent.name}</strong></div><span className={`venue-tag ${game.home===teamId?'is-home':''}`}>{game.home===teamId?'HOME':'AWAY'}</span><b className="row-time"><NumericValue value={time(start)}/></b></button>})}{!visibleGames.length&&<p className="empty-week">未来 7 天暂无比赛</p>}</div></section>
 </>}
  {debugUI&&<footer>本地模拟数据 · {live?'真实日期模式':'演示日期 2026.10.25'} · 非官方赛程</footer>}</div>
