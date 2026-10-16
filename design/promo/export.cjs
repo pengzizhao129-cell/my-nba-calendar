@@ -13,7 +13,7 @@ const names = ['mygame-plus-douyin-01-tokyo.png', 'mygame-plus-douyin-02-london.
 
 async function prepareAssets() {
   // Prepared brand and material assets are retained; exports never reconstruct the logo.
-  for (const asset of ['wordmark.png','paper-material.png','timing-500.woff2','timing-550.woff2','identity-600.woff2']) {
+  for (const asset of ['wordmark.png','paper-material.png','timing-500.woff2','timing-550.woff2','identity-600.woff2','event-annotation.woff2']) {
     const stat=await fs.stat(path.join(directory,asset));
     assert.ok(stat.size>0, asset+' must exist');
   }
@@ -26,7 +26,7 @@ async function main() {
     ['/wordmark.png', [path.join(directory,'wordmark.png'),'image/png']],
     ['/paper-material.png', [path.join(directory,'paper-material.png'),'image/png']],
     ['/GeistSans.woff2', [path.join(repository,'src/app/fonts/GeistSans.woff2'),'font/woff2']],
-    ...['timing-500.woff2','timing-550.woff2','identity-600.woff2'].map(name=>['/'+name,[path.join(directory,name),'font/woff2']]),
+    ...['timing-500.woff2','timing-550.woff2','identity-600.woff2','event-annotation.woff2'].map(name=>['/'+name,[path.join(directory,name),'font/woff2']]),
     ['/system-island.css', [path.join(repository,'src/styles/system-island.css'),'text/css']],
   ]);
   const server = http.createServer(async (request,response) => {
@@ -50,7 +50,7 @@ async function main() {
       await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(image => image.decode())); });
       await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       const report = await page.evaluate(() => {
-        const selectors = ['.top-label', '.brand', '.brand h1', '.app-mark', '.wordmark', '.subtitle', '.slogan', '.beta', '.city-status', '.identity', '.identity-label', '.time-system', '.local-label', '.auto-state', '.offset', '.team-preference', '.city-control', '.pass', '.tipoff', '.time-caption', '.week', '.schedule', '.dock'];
+        const selectors = ['.top-label', '.brand', '.brand h1', '.app-mark', '.wordmark', '.subtitle', '.slogan', '.beta', '.city-status', '.identity', '.identity-label', '.time-system', '.local-label', '.auto-state', '.offset', '.team-preference', '.city-control', '.pass', '.game-status', '.event-annotation', '.team-tint', '.tipoff', '.time-caption', '.week', '.schedule', '.dock'];
         const rect = element => { const b = element.getBoundingClientRect(); return { x:b.x, y:b.y, width:b.width, height:b.height }; };
         const styles = selector => { const s = getComputedStyle(document.querySelector(selector)); return { radius:s.borderRadius, border:s.borderTopWidth + ' ' + s.borderTopColor, background:s.backgroundColor, backgroundImage:s.backgroundImage, shadow:s.boxShadow, filter:s.filter, blur:s.backdropFilter, font:s.fontFamily }; };
         const paper=getComputedStyle(document.querySelector('.pass'),'::before');
@@ -61,7 +61,8 @@ async function main() {
           radius: Object.fromEntries(['.team-tint','.beta','.pass','.dock'].map(selector => [selector, styles(selector).radius])),
           surfaces: Object.fromEntries(['.beta','.pass','.dock'].map(selector => [selector, styles(selector)])),
           identityPatches: ['.team-tint:not(.away)','.team-tint.away'].map(styles),
-          fontsLoaded: document.fonts.check('530 100px Geist')&&document.fonts.check('550 100px "MyGame Timing"')&&document.fonts.check('500 30px "MyGame Timing"')&&document.fonts.check('600 64px "MyGame Identity"'),
+          fontsLoaded: document.fonts.check('530 100px Geist')&&document.fonts.check('550 100px "MyGame Timing"')&&document.fonts.check('500 30px "MyGame Timing"')&&document.fonts.check('600 64px "MyGame Identity"')&&document.fonts.check('400 16px "Event Annotation"','Tip-off'),
+          annotation:(()=>{const element=document.querySelector('.event-annotation'),s=getComputedStyle(element);return {text:element.textContent,font:s.fontFamily,size:s.fontSize,line:s.lineHeight,weight:s.fontWeight,color:s.color,opacity:s.opacity,decoration:s.textDecorationLine,shadow:s.textShadow,count:document.querySelectorAll('.pass .event-annotation').length,scriptText:[...document.querySelectorAll('.pass *')].filter(node=>getComputedStyle(node).fontFamily.includes('Event Annotation')).map(node=>node.textContent)};})(),
           scrollWidth:document.documentElement.scrollWidth, scrollHeight:document.documentElement.scrollHeight,
           overflow,
           texts: [...document.querySelectorAll('[data-state]')].map(element => element.textContent.trim()),
@@ -96,6 +97,13 @@ async function main() {
       assert.equal(report.scrollHeight, 1440);
       assert.ok(report.fontsLoaded, 'Geist and both branded font subsets must load');
       assert.deepEqual(report.overflow, [], 'Text must fit');
+      assert.equal(report.annotation.count,1,'Exactly one event annotation; no second handwritten cue');
+      assert.equal(report.annotation.text,'Tip-off');assert.deepEqual(report.annotation.scriptText,['Tip-off'],'All technical information stays printed');
+      assert.equal(report.annotation.size,'16px');assert.equal(report.annotation.line,'24px');assert.equal(report.annotation.weight,'400');
+      assert.equal(report.annotation.color,'rgb(38, 37, 33)');assert.equal(report.annotation.opacity,'0.5');
+      assert.equal(report.annotation.decoration,'none');assert.equal(report.annotation.shadow,'none');
+      assert.ok(report.geometry['.event-annotation'].y>=report.geometry['.game-status'].y+report.geometry['.game-status'].height+8,'Annotation must clear the red signal and match status');
+      assert.ok(report.geometry['.event-annotation'].y+report.geometry['.event-annotation'].height+24<=report.geometry['.team-tint'].y,'Handwriting must stay away from team identity');
       assert.equal(report.radius['.team-tint'], '12px');
       assert.equal(report.radius['.beta'], '16px');
       assert.equal(report.radius['.pass'], '20px');
@@ -190,14 +198,38 @@ async function main() {
         assert.deepEqual([...corners.subarray(offset,offset+3)],[244,242,238],'No black borders');
       }
       report.file = { name:names[i], width:meta.width, height:meta.height, bytes:stat.size, decode:'passed' };
-      const thumbnail = '/tmp/mygame-promo-v1.9-'+city+'-30.png';
+      const withoutAnnotation = '/tmp/mygame-script-placement-'+city+'-without-note.png';
+      const annotationOffStyle = await page.addStyleTag({content:'.event-annotation{visibility:hidden!important}'});
+      const annotationOffGeometry = await page.evaluate(selectors=>Object.fromEntries(selectors.map(selector=>{const b=document.querySelector(selector).getBoundingClientRect();return [selector,{x:b.x,y:b.y,width:b.width,height:b.height}];})),Object.keys(report.geometry));
+      assert.deepEqual(annotationOffGeometry,report.geometry,'Removing the signature must leave all functional layout unchanged');
+      await page.screenshot({path:withoutAnnotation,type:'png',fullPage:false,animations:'disabled'});
+      await annotationOffStyle.evaluate(element=>element.remove());
+      const canonicalPixels=await sharp(path.join(output,names[i])).removeAlpha().raw().toBuffer();
+      const withoutPixels=await sharp(withoutAnnotation).removeAlpha().raw().toBuffer();
+      const note=report.geometry['.event-annotation'];let notePixels=0,outsideNoteDifferences=0;
+      for(let y=0;y<1440;y++)for(let x=0;x<1080;x++){
+        const offset=(y*1080+x)*3;
+        if(canonicalPixels[offset]!==withoutPixels[offset]||canonicalPixels[offset+1]!==withoutPixels[offset+1]||canonicalPixels[offset+2]!==withoutPixels[offset+2]){
+          notePixels++;
+          if(x<note.x-3||x>note.x+note.width+3||y<note.y-3||y>note.y+note.height+3)outsideNoteDifferences++;
+        }
+      }
+      assert.ok(notePixels>0,'The annotation must actually render');assert.equal(outsideNoteDifferences,0,'Only the single annotation may change pixels');
+      let annotationOffMatchesBaseline=null;
+      if(process.env.PROMO_BASELINE_DIR){
+        const baseline=await sharp(path.join(process.env.PROMO_BASELINE_DIR,names[i])).removeAlpha().raw().toBuffer();
+        annotationOffMatchesBaseline=baseline.equals(withoutPixels);
+        assert.ok(annotationOffMatchesBaseline,'Without the note, the PNG must exactly match the approved V1.9 image');
+      }
+      report.annotationReview={withoutAnnotation,notePixels,outsideNoteDifferences,annotationOffMatchesBaseline};
+      const thumbnail = '/tmp/mygame-script-placement-'+city+'-30.png';
       await sharp(path.join(output,names[i])).resize(324,432).png().toFile(thumbnail);
-      const blur = '/tmp/mygame-promo-v1.9-'+city+'-blur.png';
+      const blur = '/tmp/mygame-script-placement-'+city+'-blur.png';
       const blurStyle = await page.addStyleTag({content:'main{filter:blur(5px)}'});
       await page.screenshot({path:blur,type:'png',fullPage:false,animations:'disabled'});
       await sharp(blur).resize(324,432).png().toFile(blur.replace('.png','-30.png'));
       await blurStyle.evaluate(element=>element.remove());
-      const borderless = '/tmp/mygame-promo-v1.9-'+city+'-borderless.png';
+      const borderless = '/tmp/mygame-script-placement-'+city+'-borderless.png';
       const borderlessStyle = await page.addStyleTag({content:'*,*::before,*::after{border-color:transparent!important;outline:none!important}.divider,.perforation{visibility:hidden!important}'});
       const borderlessGeometry = await page.evaluate(selectors=>Object.fromEntries(selectors.map(selector=>{const b=document.querySelector(selector).getBoundingClientRect();return [selector,{x:b.x,y:b.y,width:b.width,height:b.height}];})),Object.keys(report.geometry));
       assert.deepEqual(borderlessGeometry,report.geometry,'Layout must stand without drawn borders');
@@ -229,14 +261,14 @@ async function main() {
   const dock = { left:76, top:1340, width:928, height:72 };
   const docks = await Promise.all(names.map(name => sharp(path.join(output,name)).extract(dock).raw().toBuffer()));
   assert.ok(docks[0].equals(docks[1]), 'Dock pixels must match exactly');
-  const overlay = '/tmp/mygame-promo-v1.9-overlay.png';
+  const overlay = '/tmp/mygame-script-placement-overlay.png';
   const overlayPixels=Buffer.alloc(buffers[0].length);
   for(let i=0;i<overlayPixels.length;i++)overlayPixels[i]=Math.round((buffers[0][i]+buffers[1][i])/2);
   await sharp(overlayPixels,{raw:{width:1080,height:1440,channels:3}}).png().toFile(overlay);
   await sharp(overlay).resize(324,432).png().toFile(overlay.replace('.png','-30.png'));
-  const result = { version:'MyGame+ Promo V1.9 — Final Luxury Focus', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
-  await fs.writeFile('/tmp/mygame-promo-v1.9-validation.json', JSON.stringify(result,null,2));
-  console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing and MyGame Identity loaded', radius:reports[0].radius },null,2));
+  const result = { version:'MyGame+ Signature Script Placement — Ultra Fine Pass (V1.9 base)', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
+  await fs.writeFile('/tmp/mygame-script-placement-validation.json', JSON.stringify(result,null,2));
+  console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing, MyGame Identity and Event Annotation loaded', eventAnnotations:reports.map(report=>({count:report.annotation.count,changedPixels:report.annotationReview.notePixels,outsideChanges:report.annotationReview.outsideNoteDifferences,baselineMatch:report.annotationReview.annotationOffMatchesBaseline})), radius:reports[0].radius },null,2));
 }
 
 main().catch(error=>{ console.error(error); process.exitCode=1; });

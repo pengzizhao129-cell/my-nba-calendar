@@ -9,6 +9,7 @@
 @font-face{font-family:'MyGame Timing';src:url('timing-500.woff2') format('woff2');font-weight:500;font-display:block}
 @font-face{font-family:'MyGame Timing';src:url('timing-550.woff2') format('woff2');font-weight:550;font-display:block}
 @font-face{font-family:'MyGame Identity';src:url('identity-600.woff2') format('woff2');font-weight:600;font-display:block}
+@font-face{font-family:'Event Annotation';src:url('event-annotation.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
 :root{
  --canvas:#f4f2ee;--paper:#fcfaf7;--paper-center:#fffefb;--paper-edge:#f8f6f1;
  --primary:#262521;--secondary:#686259;--tertiary:#948c80;--micro-ink:#aaa397;
@@ -81,6 +82,7 @@ svg *{vector-effect:non-scaling-stroke}
 .weekday .en{font-size:17px;letter-spacing:.13em;font-weight:500;color:var(--system-micro-color)}
 .game-day{position:absolute;right:32px;top:32px;text-align:right}
 .game-status{margin-top:12px;display:flex;align-items:center;justify-content:flex-end;gap:12px;font-size:22px;line-height:32px;font-weight:500;color:var(--primary)}
+.event-annotation{position:absolute;right:0;top:76px;width:72px;height:24px;font-family:'Event Annotation',cursive;font-size:16px;line-height:24px;font-weight:400;font-style:normal;letter-spacing:0;color:var(--primary);opacity:.5;text-align:right;text-decoration:none;pointer-events:none}
 .sports-dot{width:8px;height:8px;border-radius:50%;background:var(--hou);flex:none}
 .team-tint{position:absolute;left:32px;top:176px;width:240px;height:144px;border-radius:var(--radius-team);background:radial-gradient(ellipse at 42% 48%,rgba(199,52,61,.016) 0%,rgba(199,52,61,.008) 45%,rgba(199,52,61,0) 75%);border:0;box-shadow:none}
 .team-tint.away{left:auto;right:32px;background:radial-gradient(ellipse at 58% 48%,rgba(118,84,142,.015) 0%,rgba(118,84,142,.007) 45%,rgba(118,84,142,0) 75%);text-align:right}
@@ -161,7 +163,7 @@ svg *{vector-effect:non-scaling-stroke}
    <div class="pass-label micro">GAME PASS</div>
    <div class="date"><span class="day number">25</span><span class="month">OCT</span></div>
    <div class="weekday">星期日<span class="en"><span class="separator"> · </span>SUN</span></div>
-   <div class="game-day"><span class="micro">GAME DAY</span><div class="game-status"><span class="sports-dot"></span><span>今天有比赛</span></div></div>
+   <div class="game-day"><span class="micro">GAME DAY</span><div class="game-status"><span class="sports-dot"></span><span>今天有比赛</span></div><span class="event-annotation" data-fit>Tip-off</span></div>
    <div class="team-tint"><svg class="team-symbol"><use href="#hou"/></svg><div class="team-abbr">HOU</div><div class="team-chinese">休斯顿火箭</div></div>
    <div class="versus">VS</div>
    <div class="team-tint away"><svg class="team-symbol"><use href="#lal"/></svg><div class="team-abbr">LAL</div><div class="team-chinese">洛杉矶湖人</div></div>
