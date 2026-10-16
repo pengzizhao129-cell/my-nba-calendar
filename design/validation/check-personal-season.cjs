@@ -22,7 +22,7 @@ async function main(){
   await p.getByRole('dialog',{name:'选择我的主队'}).waitFor();
   assert.equal(await p.evaluate(()=>localStorage.getItem('mygame_pass_id')),null);assert.equal(await p.evaluate(()=>window.__idWrites.length),0);
   assert.equal(await p.locator('.issue-state').textContent(),'','Preview must not claim an issued identity');
-  await p.getByRole('button',{name:'关闭球队选择'}).click();await p.selectOption('#city','Europe/London');assert.equal(await p.evaluate(()=>localStorage.getItem('mygame_pass_id')),null);
+  await p.getByRole('button',{name:'关闭球队选择'}).click();await p.selectOption('#city','london');assert.equal(await p.evaluate(()=>localStorage.getItem('mygame_pass_id')),null);
   await p.reload({waitUntil:'networkidle'});await p.getByRole('dialog').waitFor();assert.equal(await p.evaluate(()=>localStorage.getItem('mygame_pass_id')),null);
   await p.clock.install({time:new Date('2026-10-25T00:00:00Z')});await p.clock.pauseAt(new Date('2026-10-25T00:01:00Z'));
   const before=await geometry(p);await p.locator('.team-choice').filter({hasText:'HOU'}).click({force:true});await p.locator('.personal-pass[data-issuance]').waitFor();
@@ -35,7 +35,7 @@ async function main(){
   await p.clock.runFor(799);assert.equal(await p.locator('.personal-pass[data-issuance]').count(),1);await p.clock.runFor(21);await p.waitForFunction(()=>!document.querySelector('.personal-pass[data-issuance]'));
   assert.equal(await p.locator('.pass-issued-note').count(),0);assert.deepEqual(await geometry(p),before);assert.equal(await p.locator('.ticket-milestone').textContent(),'FIRST PASS');await p.clock.resume();
   await p.reload({waitUntil:'networkidle'});assert.equal(await p.getByRole('dialog').count(),0);assert.equal(await p.locator('.pass-issued-note').count(),0);assert.equal(await p.evaluate(()=>localStorage.getItem('mygame_pass_id')),id);assert.equal(await p.evaluate(()=>window.__idWrites.length),0);
-  await p.selectOption('#city','Europe/London');await p.locator('.system-island-item').filter({hasText:'赛程'}).click();await p.locator('.schedule-row[data-game-id="hou-2"]').click();
+  await p.selectOption('#city','london');await p.locator('.system-island-item').filter({hasText:'赛程'}).click();await p.locator('.schedule-row[data-game-id="hou-2"]').click();
   await p.locator('.team-select').click();await p.locator('.team-choice').filter({hasText:'LAL'}).click();assert.equal(await p.evaluate(()=>localStorage.getItem('mygame_pass_id')),id);assert.equal(await p.locator('.pass-issued-note').count(),0);assert.equal(await p.evaluate(()=>window.__idWrites.length),0);
   checks.push('No identity on load/dismiss/location/refresh; explicit team confirmation issues once; 800ms stages preserve every DNA frame; refresh/city/game/team never reissue');
   await context.close();

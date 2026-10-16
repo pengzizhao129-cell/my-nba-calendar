@@ -7,10 +7,10 @@ import {EmotionMark} from './EmotionMark';
 import {CollectionProgress} from './CollectionProgress';
 import {SerialMark} from './SerialMark';
 
-export function TicketStub({pass,watchedFrom}:{pass:PersonalPass;watchedFrom?:string}) {
+export function TicketStub({pass,watchedFrom,lifecycle}:{pass:PersonalPass;watchedFrom?:string;lifecycle?:string}) {
  return <div className="ticket-stub" aria-label="赛事副券">
   <TeamSecurityPattern teamId={pass.team.code} region="stub"/>
-  <span className="issue-state" data-pass-layer="issue-state">{pass.user.passId?(pass.status.phase==='archived'?'COLLECTED':'ISSUED'):''}</span>
+  <span className="issue-state" data-pass-layer="issue-state">{pass.user.passId?(lifecycle??(pass.status.phase==='archived'?'COLLECTED':'ISSUED')):''}</span>
   <div className="collection-stack" aria-label="通行证收藏记录"><PassId value={pass.user.passId}/><GameNumber value={pass.game.gameNumber} total={pass.season.totalGames}/><SeasonCode value={pass.season.seasonCode}/></div>
   <EmotionMark status={pass.status}/>
   <CollectionProgress pass={pass}/>

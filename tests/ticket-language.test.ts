@@ -29,7 +29,7 @@ test('82 separate ticks identify an ordinal, not completion progress; every stat
   assert.equal((html.match(/data-current="true"/g)??[]).length,1);
   assert.ok(html.includes('data-season-tick="1" data-current="true"'));
   assert.ok(html.includes(`data-dna="${PASS_DNA.version}"`));
-  assert.ok(html.includes('class="time-route"')&&html.includes('TOKYO')&&html.includes('ISSUE'));
+  assert.ok(html.includes('class="time-route"')&&html.includes('TOKYO')&&html.includes('REF.')&&html.includes('data-reference="MG26-HOU-LAL-001-JPTYO-'));
   assert.doesNotMatch(html,/mobile-pass-enclosure|\bGATE\b|\bSEAT\b|\bFLIGHT\b|barcode/i);
  }
  assert.equal(PASS_DNA.main.height,PASS_DNA.height);assert.equal(PASS_DNA.stub.height,PASS_DNA.height);

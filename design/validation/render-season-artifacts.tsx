@@ -14,6 +14,10 @@ if(name==='series'){
 }else if(name==='variants'){
  const pass=seriesPass(0,new Date(DEMO_NOW));
  content=<main className="variant-preview">{(['full','compact','collection'] as const).map(variant=><div key={variant}><p>{variant}</p><GamePass pass={pass} variant={variant}/></div>)}</main>;
+}else if(name==='kobe'||name==='tokyo-story'||name==='london-story'||name==='kobe-story'){
+ const london=name==='london-story',kobe=name==='kobe'||name==='kobe-story';
+ const pass=createPersonalPass({passId:'0147',teamCode:'HOU',game:mockGames[0],games:mockGames,now:new Date(DEMO_NOW),city:london?'伦敦':kobe?'神户':'东京',timezone:london?'Europe/London':'Asia/Tokyo'});
+ content=<PassShareCard pass={pass} format={name.endsWith('-story')?'story':'feed'}/>;
 }else{
  let pass=seriesPass(0,new Date(DEMO_NOW));
  if(name==='next-up')pass=seriesPass(0,new Date(Date.parse(games[0].startsAt)-10*86400000));

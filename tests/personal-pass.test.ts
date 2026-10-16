@@ -32,7 +32,7 @@ test('Location changes preserve user, team, game, season and emotion, including 
  const tokyo=createPersonalPass(input),london=createPersonalPass({...input,city:'伦敦',timezone:'Europe/London'});
  for(const key of ['user','team','game','season','status'] as const)assert.deepEqual(tokyo[key],london[key]);
  assert.equal(tokyo.location.localTime,'10:00');assert.equal(tokyo.location.offset,'GMT+9');
- assert.equal(london.location.localTime,'01:00');assert.equal(london.location.offset,'GMT+1');
+ assert.equal(london.location.localTime,'01:00');assert.equal(london.location.offset,'GMT','The event instant is after London’s DST fall-back, even though the demo clock is before it');
  assert.equal(tokyo.game.gameNumber,1);assert.equal(tokyo.season.totalGames,82);assert.equal(tokyo.season.seasonCode,'26–27');
  const pacific=createPersonalPass({...input,city:'洛杉矶',timezone:'America/Los_Angeles'});
  assert.equal(pacific.location.dateKey,'2026-10-24');assert.equal(pacific.game.id,tokyo.game.id,'Local calendar date may cross midnight, event identity never does');

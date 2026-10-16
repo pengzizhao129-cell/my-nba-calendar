@@ -1,4 +1,5 @@
 import type {PersonalPass} from './personalPass';
+import {resolvePassReference} from './passReference';
 
 /** A stable local edition number, not a globally unique or authenticated certificate. */
 export function ticketIssueNumber(pass:PersonalPass):string|null {
@@ -9,7 +10,8 @@ export function ticketIssueNumber(pass:PersonalPass):string|null {
  return String(hash%1000000).padStart(6,'0');
 }
 export function locationCoordinate(pass:PersonalPass){
- const city=pass.location.timezone.split('/').pop()!.replaceAll('_',' ').toUpperCase();
- const countries:Record<string,string>={'Asia/Tokyo':'JP','Europe/London':'UK','America/Los_Angeles':'US','America/New_York':'US'};
- return {city,country:countries[pass.location.timezone]??null};
+ return {city:pass.location.cityName,country:pass.location.countryCode};
+}
+export function personalPassReference(pass:PersonalPass){
+ return resolvePassReference({passId:pass.user.passId,teamCode:pass.team.code,opponentCode:pass.game.opponentCode,gameId:pass.game.id,gameNumber:pass.game.gameNumber,seasonCode:pass.game.seasonCode,seasonId:pass.game.seasonId,countryCode:pass.location.countryCode,cityCode:pass.location.cityCode});
 }

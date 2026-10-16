@@ -48,8 +48,12 @@
 .personal-pass .collection-stack [data-pass-layer="season"] { top:calc(162 * var(--dna-unit));font-size:calc(19 * var(--dna-unit)); }
 .personal-pass .collection-stack .pass-id { top:calc(244 * var(--dna-unit));font-size:calc(22 * var(--dna-unit)); }
 .personal-pass .issue-state { position:absolute;left:calc(20 * var(--dna-unit));top:calc(36 * var(--dna-unit));font-size:calc(11 * var(--dna-unit));letter-spacing:.12em;color:var(--text-tertiary); }
-.personal-pass .serial-mark { position:absolute;left:calc(20 * var(--dna-unit));top:calc(326 * var(--dna-unit));font-size:calc(16 * var(--dna-unit));line-height:1.5;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--serial-ink); }
+.personal-pass .serial-mark { position:absolute;left:calc(20 * var(--dna-unit));top:calc(326 * var(--dna-unit));width:calc(104 * var(--dna-unit));font-size:calc(16 * var(--dna-unit));line-height:1.5;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--serial-ink); }
 .serial-mark>small { display:block;font-size:calc(10 * var(--dna-unit));letter-spacing:.12em; }
+.serial-mark>span { display:block;white-space:nowrap; }
+.serial-mark>.reference-short { font-size:calc(12 * var(--dna-unit));letter-spacing:.02em;line-height:calc(20 * var(--dna-unit)); }
+.serial-mark>.reference-coordinate { font-size:calc(10 * var(--dna-unit));letter-spacing:.08em;line-height:calc(18 * var(--dna-unit)); }
+.serial-mark>.reference-serial { font-size:calc(16 * var(--dna-unit));line-height:calc(24 * var(--dna-unit)); }
 .personal-pass .ticket-stub .collection-progress { left:calc(20 * var(--dna-unit));top:calc(410 * var(--dna-unit));width:calc(104 * var(--dna-unit));height:calc(44 * var(--dna-unit));font-size:calc(9 * var(--dna-unit));line-height:calc(16 * var(--dna-unit));letter-spacing:.04em; }
 .personal-pass .emotion-mark { width:calc(104 * var(--dna-unit));height:calc(24 * var(--dna-unit));left:calc(20 * var(--dna-unit));right:auto;top:calc(496 * var(--dna-unit));font-size:calc(15 * var(--dna-unit));line-height:calc(24 * var(--dna-unit));text-align:left; }
 .personal-pass .ticket-number { left:calc(20 * var(--dna-unit));right:auto;bottom:calc(20 * var(--dna-unit));font-size:calc(9 * var(--dna-unit));line-height:calc(16 * var(--dna-unit));letter-spacing:.03em;white-space:nowrap; }

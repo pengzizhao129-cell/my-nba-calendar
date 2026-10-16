@@ -1,8 +1,15 @@
 import {isPassId} from './passIdentity';
 import type {PersonalPass} from './personalPass';
 import {resolveSeasonMilestone} from './seasonMilestones';
+import {locationCoordinate} from './ticketIdentity';
 
 export type PassShareMoment='upcoming'|'next_up'|'game_day'|'collected'|'milestone'|'season_complete';
+export type PassShareFormat='feed'|'story';
+/** Export canvases have separate compositions while retaining the same Pass drawing. */
+export const PASS_SHARE_FORMATS=Object.freeze({
+ feed:Object.freeze({width:1080,height:1440}),
+ story:Object.freeze({width:1080,height:1920}),
+});
 /** Snapshot-only presentation: no clock, fixture lookup or alternative share data. */
 export function passShareContext(pass:PersonalPass,requested?:PassShareMoment){
  const {season,game,status}=pass;
@@ -15,5 +22,10 @@ export function passShareContext(pass:PersonalPass,requested?:PassShareMoment){
   ||(moment==='next_up'&&status.phase!=='next_up')||(moment==='upcoming'&&status.phase!=='upcoming')
   ||(moment==='milestone'&&!milestone)||(moment==='season_complete'&&(status.phase!=='archived'||season.collectedGames!==season.totalGames)))throw new RangeError('Share moment must be supported by the Pass lifecycle');
  const label=moment==='season_complete'?'SEASON COMPLETE':moment==='milestone'?milestone!.toUpperCase():status.label;
- return {moment,label,location:`${pass.location.city} · ${pass.location.offset}`,progress:`${String(season.collectedGames).padStart(2,'0')} / ${season.totalGames} COLLECTED`};
+ const {city,country}=locationCoordinate(pass);
+ const location=pass.location as PersonalPass['location']&{readonly abbreviation?:string};
+ const artifactLabel=moment==='milestone'||moment==='season_complete'||status.phase==='archived'?label:'ISSUED';
+ return {moment,label,artifactLabel,city,location:country?`${city} · ${country}`:city,
+  localTime:[...new Set(['LOCAL '+location.localTime,location.abbreviation,location.offset].filter(Boolean))].join(' / '),
+  season:`SEASON ${season.seasonCode}`,progress:`${String(season.collectedGames).padStart(2,'0')} / ${season.totalGames} COLLECTED`};
 }

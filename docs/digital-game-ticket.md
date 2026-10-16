@@ -1,5 +1,7 @@
 # MyGame+ — Digital Game Ticket / Visual Constitution
 
+> 历史实施记录：本文件记录 `MG-DNA-2` 的几何、样式与当时验收结果。最高产品／视觉约束已更新为 [MG+ Product & Visual Bible V1.0](product-visual-bible.md)。城市身份、语义 Reference、生命周期名称、Beta 1 范围与开发顺序以 Bible 为准；下文的六位 ISSUE 示例不再定义主要身份系统。固定几何仍可复用，历史验收记录不代表后续版本已重新验证。
+
 本轮明确重建视觉骨架为 `MG-DNA-2`，取代旧的横向主券／底部副券。原有个人身份、IANA 时区、比赛选择、状态判断、自动归档、赛季数据与首次签发行为不变。首页仍是真实 Next.js 页面，宣传图直接截取该页面。
 
 ## 产品与构图
