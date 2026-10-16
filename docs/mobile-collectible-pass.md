@@ -1,0 +1,70 @@
+# MyGame+ V2.8 — Collectible Pass Inside Real Mobile UI
+
+The current promo is the complete 1080 × 1440 mobile product composition in `design/promo/promo.html`. Its top brand/product/state groups, MY TEAM / LOCAL TIME selectors, WEB APP BETA, AUTO CONVERTED, NEXT 7 DAYS and Bottom System Island remain in their approved positions. There is no standalone studio setting or poster conversion.
+
+## One local material upgrade
+
+`MobilePassEnclosure` is a decorative, pointer-transparent SVG sibling **behind** the paper. The same component is used by the real `GamePass` and server-rendered into the promo source. It never covers the timing face or introduces a backdrop filter. Native UI stays responsive; the SVG follows the original Pass aspect ratio without changing its layout footprint.
+
+The surrounding App remains flat warm stone. The original soft ivory main ticket and slightly cooler archival stub retain paper lighting, printed identities and security stock. Only the outer edge receives hard clear optics: a narrow front bevel, a faint mounting seam, restrained corner returns and a lower/right sidewall. Contact depth is weaker than the earlier paper-only shadow. No broad reflection crosses the paper.
+
+All paint remains in `src/styles/color-material.css`; `mobile-pass-enclosure.css` consumes only semantic tokens. Team ink is inherited from the existing TeamIdentity pack, including inside SVG gradient stops.
+
+## Fixed shell architecture
+
+`MOBILE_PASS_ENCLOSURE` in `src/lib/passEnclosure.ts` is separate from immutable `PASS_DNA`.
+
+| Element | Master units |
+| --- | --- |
+| Unchanged internal paper | 728 × 576 at page x176, y456 |
+| Compact casing | 752 × 598 at page x164, y445 |
+| Paper slot | x12, y11 inside casing |
+| Hard rim / mounting edge | 6 |
+| Clear air gap after rim | 6 horizontal / 5 vertical |
+| Fixed upper-right cut | 45° segment from (734, 1) to (751, 18) |
+| Neutral plus indentation | centred at (734, 12), 6 × 6 |
+
+The casing grows 3.30% in width and 3.82% in height. Its narrow sidewall remains inside the 4% total physical budget. The upper-right micro cut and almost invisible plus are fixed for every team, city, game, state and season. They are optical structure, not a badge.
+
+Paper master geometry, cutouts, bridge, spine, security window, timing sanctuary, main/stub ratio, typography and all print coordinates are unchanged. At full promo scale there are 25px between the identity group and casing, and 37px between casing and the weekly programme.
+
+## Team and state inputs
+
+Two unequal optical edge paths cover **25.59%** of the casing perimeter. The rest stays neutral. A directional gradient varies restrained team ink; no full-color rim, luminous blur or metallic effect is used.
+
+State changes only the refraction opacity:
+
+| State | Refraction energy |
+| --- | --- |
+| UPCOMING | .65 |
+| NEXT UP | .70 |
+| GAME DAY | .84 — 20% above NEXT UP |
+| COLLECTED | .55 |
+
+Existing status signals, paper luminance, emotion and record emphasis still come from the state engine. No state changes any shell or ticket coordinate. HOU → LAL changes inherited warm-red ink to violet-grey, with the same shell drawing. Location changes retain user ID, game/season records, stock and structure.
+
+## Reproduce and validate
+
+```bash
+npm test
+npm run build
+npm run start -- --port 4600
+# In a second terminal:
+MYGAME_APP_URL=http://127.0.0.1:4600 node design/promo/check-app.cjs
+npm run export:promo
+```
+
+Only these two current deliverables are replaced:
+
+- `output/douyin/mygame-plus-douyin-01-tokyo.png`
+- `output/douyin/mygame-plus-douyin-02-london.png`
+
+The export reuses approved local fonts, source brand assets and ticket markup. Its browser seeds demonstration PASS 0147; the real product still generates/persists each user's ID. Both cities keep GAME 01 / 82 and SEASON 26–27.
+
+The exporter checks full PNG decoding, 1080 × 1440, nonzero size, no overflow/black borders, complete visible UI, paper/stub luminance, protected security-print masks, geometry and exact city-static pixels. `review-mobile-enclosure.cjs` additionally verifies shell size, partial perimeter coverage, permanent cut/plus, four-state geometry, zero paper-interior changes with casing hidden, and a rim-only team swap that cannot recolor paper. A `PROMO_BASELINE_DIR` containing approved PNGs plus `validation.json` enables exact original-landmark/type/copy checks and unchanged surrounding UI pixel crops. The revised contact shadow changes at most one 8-bit step in the final 8px below the identity group.
+
+The live App regression includes 320/390/480/1080px layouts; six team stocks; Tokyo local GAME DAY while London is NEXT UP; automatic post-end archive; reload persistence; ID deduplication; isolated team/season archives; and pixel-identical four-state paper DNA. Its architecture fingerprint also includes the casing, signature and all SVG paths. Unit rendering checks that no variable can redraw the casing or add a second shell.
+
+Diagnostics are written to `/tmp/mygame-v2.8-validation.json` and `/tmp/mygame-v2.8-*-without-shell.png`; the existing 30% thumbnail, grayscale, saturation, blur, border-off, material-only and true 50% overlay diagnostics retain their `/tmp/mygame-v2.4-*` filenames. At 30%, HOU/LAL, main time, pass outline, MyGame+ and the complete System Island remain visible; acrylic engraving and collection microcopy recede.
+
+The V2.7 standalone study is historical only. Its explicit renderer writes to `output/studies/v2.7/` and cannot overwrite this delivery.

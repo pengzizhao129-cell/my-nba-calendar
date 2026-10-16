@@ -11,12 +11,14 @@ import {MainTicket} from './MainTicket';
 import {TicketStub} from './TicketStub';
 import {CollectibleSpine,TicketJoin,TicketCutEdges} from './PassArchitecture';
 import {PASS_DNA,passDNAProperties} from '@/lib/passDNA';
+import {MobilePassEnclosure} from './MobilePassEnclosure';
 
-export function GamePass({pass}:{pass:PersonalPass;isToday?:boolean}) {
+export function GamePass({pass,enclosure='mobile'}:{pass:PersonalPass;isToday?:boolean;enclosure?:'mobile'|'none'}) {
  const {team,game,location,status}=pass;
  const active=status.phase==='game_day';
  const label=status.phase==='archived'?'比赛已收藏':active?'今天有比赛':status.phase==='next_up'?'下一场比赛':'未来赛程';
- return <section className={`hero personal-pass${active?' is-matchday':''}`} aria-label={`${team.code} 对阵 ${game.opponentCode} 比赛通行证`} data-dna={PASS_DNA.version} data-game-id={game.id} data-team={team.code} data-season={pass.season.seasonId} data-collected-games={pass.season.collectedGames} data-pass-status={status.phase} data-pass-energy={status.energy} style={{...teamMaterialProperties(team),...passDNAProperties()} as CSSProperties}>
+ return <section className={`hero personal-pass${enclosure==='mobile'?' has-mobile-enclosure':''}${active?' is-matchday':''}`} aria-label={`${team.code} 对阵 ${game.opponentCode} 比赛通行证`} data-dna={PASS_DNA.version} data-game-id={game.id} data-team={team.code} data-season={pass.season.seasonId} data-collected-games={pass.season.collectedGames} data-pass-status={status.phase} data-pass-energy={status.energy} style={{...teamMaterialProperties(team),...passDNAProperties()} as CSSProperties}>
+  {enclosure==='mobile'&&<MobilePassEnclosure/>}
   <div className="ticket-object"><span className="ticket-paper" aria-hidden="true"/>
   <MainTicket teamId={team.code}>
    <div className="hero-top">

@@ -1,0 +1,24 @@
+/* Phone UI remains flat. Only the existing GAME PASS receives a protective shell. */
+.mobile-pass-enclosure {
+ position:absolute;left:var(--mobile-shell-left);top:var(--mobile-shell-top);
+ width:var(--mobile-shell-width);height:var(--mobile-shell-height);
+ overflow:visible;pointer-events:none;user-select:none;z-index:0;
+ stroke:none;stroke-linecap:round;stroke-linejoin:round;
+}
+.has-mobile-enclosure>.ticket-object { z-index:1; }
+.has-mobile-enclosure>.ticket-cut-edges { z-index:2; }
+.hero.personal-pass.has-mobile-enclosure,.pass.has-mobile-enclosure { filter:var(--mobile-enclosed-contact); }
+.mobile-shell-plane { fill:var(--mobile-acrylic-plane); }
+.mobile-shell-side { stroke:var(--mobile-acrylic-side);stroke-width:2; }
+.mobile-shell-bevel { stroke-width:3; }
+.mobile-bevel-light { stop-color:var(--mobile-acrylic-light); }
+.mobile-bevel-middle { stop-color:var(--mobile-acrylic-middle); }
+.mobile-bevel-rest { stop-color:var(--mobile-acrylic-rest); }
+.mobile-shell-mount { stroke:var(--mobile-acrylic-mount);stroke-width:.65; }
+.mobile-shell-corner { stroke:var(--mobile-acrylic-corner);stroke-width:.7; }
+.mobile-shell-refraction { color:var(--mobile-acrylic-team);opacity:var(--mobile-refraction-energy);stroke-width:1.6;transition:opacity 240ms ease-out; }
+.mobile-refraction-gradient { color:var(--mobile-acrylic-team); }
+.mobile-shell-cut-light { stroke:var(--mobile-acrylic-cut-light);stroke-width:.8; }
+.mobile-shell-engraving-shadow { stroke:var(--mobile-acrylic-engraving-dark);stroke-width:.65; }
+.mobile-shell-engraving-light { stroke:var(--mobile-acrylic-engraving-light);stroke-width:.5; }
+@media(prefers-reduced-motion:reduce) { .mobile-shell-refraction { transition:none; } }

@@ -2,6 +2,8 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const http = require('node:http');
+const {execFileSync}=require('node:child_process');
+const {reviewMobileEnclosure}=require('./review-mobile-enclosure.cjs');
 const directory = __dirname;
 const repository = path.resolve(directory,'../..');
 const sharp = require(path.join(repository,'node_modules/sharp'));
@@ -21,6 +23,8 @@ async function prepareAssets() {
 
 async function main() {
   await prepareAssets();
+  const enclosure=execFileSync(process.execPath,[path.join(repository,'node_modules/tsx/dist/cli.mjs'),'--tsconfig',path.join(repository,'tsconfig.tests.json'),path.join(directory,'render-mobile-enclosure.tsx')],{cwd:repository,encoding:'utf8'});
+  const source=(await fs.readFile(path.join(directory,'promo.html'),'utf8')).replace('<!--mygame-mobile-enclosure-->',enclosure);
   const ts=require('typescript');
   const modules=new Map();
   for(const [url,name] of [['/pass-design.js','passDesign'],['/pass-status.js','passStatus'],['/game-completion.js','gameCompletion'],['/pass-id.js','passIdentity'],['/pass-dna.js','passDNA']])modules.set(url,ts.transpileModule(await fs.readFile(path.join(repository,`src/lib/${name}.ts`),'utf8'), {compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2017}}).outputText.replaceAll('../data/teamIdentities','./team-identities.js').replaceAll("'./passDNA'","'./pass-dna.js'").replaceAll("'./gameCompletion'","'./game-completion.js'"));
@@ -35,9 +39,11 @@ async function main() {
     ['/system-island.css', [path.join(repository,'src/styles/system-island.css'),'text/css']],
     ['/pass-dna.css', [path.join(repository,'src/styles/pass-dna.css'),'text/css']],
     ['/color-material.css', [path.join(repository,'src/styles/color-material.css'),'text/css']],
+    ['/mobile-pass-enclosure.css', [path.join(repository,'src/styles/mobile-pass-enclosure.css'),'text/css']],
   ]);
   const server = http.createServer(async (request,response) => {
     const pathname=new URL(request.url,'http://127.0.0.1').pathname;
+    if(pathname==='/promo.html'){response.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});response.end(source);return;}
     if(modules.has(pathname)){response.writeHead(200,{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'no-store'});response.end(modules.get(pathname));return;}
     const route = routes.get(pathname);
     if (!route) { response.writeHead(404); response.end(); return; }
@@ -305,6 +311,7 @@ async function main() {
       assert.ok(center>canvas+.02&&center<canvas+.06,'Clean ivory remains distinct from the matte canvas without a spotlight');
       assert.ok(center-stub>=.01&&center-stub<=.03,'Stub stays within the 1–3% archival-paper material difference');
       report.materialReview={materialOnly,curvature,center,stub,canvas,stubDifference:center-stub};
+      report.enclosureReview=await reviewMobileEnclosure({page,sharp,report,canonicalPixels,city,baselineDirectory:process.env.PROMO_BASELINE_DIR});
       reports.push(report);
     }
   } finally { await browser.close(); await new Promise(resolve=>server.close(resolve)); }
@@ -332,9 +339,10 @@ async function main() {
   for(let i=0;i<overlayPixels.length;i++)overlayPixels[i]=Math.round((buffers[0][i]+buffers[1][i])/2);
   await sharp(overlayPixels,{raw:{width:1080,height:1440,channels:3}}).png().toFile(overlay);
   await sharp(overlay).resize(324,432).png().toFile(overlay.replace('.png','-30.png'));
-  const result = { version:'MyGame+ Promo V2.3-CM — Color & Material System', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
+  const result = { version:'MyGame+ V2.8 — Collectible Pass Inside Real Mobile UI', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
   await fs.writeFile('/tmp/mygame-v2.4-validation.json', JSON.stringify(result,null,2));
-  console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing, MyGame Identity and Event Annotation loaded', eventAnnotations:reports.map(report=>({count:report.annotation.count,changedPixels:report.annotationReview.notePixels,outsideChanges:report.annotationReview.outsideNoteDifferences,layoutMatchesV22:report.baselineGeometryMatch})), collection:reports[0].collection.map(row=>row.text), security:reports.map(report=>report.securityReview), material:reports.map(report=>report.materialReview), radius:reports[0].radius },null,2));
+  await fs.writeFile('/tmp/mygame-v2.8-validation.json', JSON.stringify(result,null,2));
+  console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing, MyGame Identity and Event Annotation loaded', eventAnnotations:reports.map(report=>({count:report.annotation.count,changedPixels:report.annotationReview.notePixels,outsideChanges:report.annotationReview.outsideNoteDifferences,layoutMatchesV22:report.baselineGeometryMatch})), collection:reports[0].collection.map(row=>row.text), security:reports.map(report=>report.securityReview), material:reports.map(report=>report.materialReview), enclosure:reports.map(r=>({geometry:r.enclosureReview.geometry['.mobile-pass-enclosure'],coverage:r.enclosureReview.rimCoverage,paperDifferences:r.enclosureReview.paperDifferences,phases:r.enclosureReview.phases})), radius:reports[0].radius },null,2));
 }
 
 main().catch(error=>{ console.error(error); process.exitCode=1; });

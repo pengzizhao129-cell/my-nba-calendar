@@ -8,7 +8,8 @@ const sharp=require('sharp');
 let chromium;try{({chromium}=require('playwright'));}catch{({chromium}=require('/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'));}
 const directory=__dirname,repository=path.resolve(directory,'../..');
 const names=['mygame-plus-douyin-01-tokyo.png','mygame-plus-douyin-02-london.png'];
-const output=path.join(repository,'output/douyin');
+// Historical study: never overwrite the current full-mobile delivery.
+const output=path.join(repository,'output/studies/v2.7');
 async function contract(page){return page.locator('.pass').evaluate(pass=>{
  const origin=pass.getBoundingClientRect(),scale=origin.width/parseFloat(getComputedStyle(pass).width);
  const selectors=['.pass-main','.stub','.date','.game-day','.team-tint','.team-tint.away','.versus','.tipoff','.time-caption','.venue','.collection-stack','.serial','.emotion-mark','.mg-bridge','.collectible-spine','.perforation'];
@@ -20,9 +21,9 @@ async function contract(page){return page.locator('.pass').evaluate(pass=>{
  };
 });}
 async function main(){
- const source=await fs.readFile(path.join(directory,'promo.html'),'utf8');
+ const source=(await fs.readFile(path.join(directory,'promo.html'),'utf8')).replace('<link rel="stylesheet" href="mobile-pass-enclosure.css">','').replace('class="pass has-mobile-enclosure"','class="pass"');
  const frames=await Promise.all(['tokyo','london'].map(async city=>(await promisify(execFile)(process.execPath,[path.join(repository,'node_modules/tsx/dist/cli.mjs'),'--tsconfig',path.join(repository,'tsconfig.tests.json'),path.join(directory,'render-encased-frame.tsx'),city],{cwd:repository,maxBuffer:1024*1024})).stdout));
- const pages=frames.map(frame=>source.replace('<title>MyGame+ Promo V2.4 — Core Pass System</title>','<title>MyGame+ V2.7 — Encased Pass Artifact</title>').replace('<link rel="stylesheet" href="pass-dna.css">','<link rel="stylesheet" href="pass-dna.css"><link rel="stylesheet" href="encased-pass.css">').replace('<main aria-label="MyGame+ 宣传图">',`<main class="encased-export-mode" aria-label="MyGame+ 封装赛事通行证">${frame}`));
+ const pages=frames.map(frame=>source.replace(/<title>[^<]*<\/title>/,'<title>MyGame+ V2.7 — Encased Pass Artifact</title>').replace('<link rel="stylesheet" href="pass-dna.css">','<link rel="stylesheet" href="pass-dna.css"><link rel="stylesheet" href="encased-pass.css">').replace('<main aria-label="MyGame+ 宣传图">',`<main class="encased-export-mode" aria-label="MyGame+ 封装赛事通行证">${frame}`));
  const ts=require('typescript'),modules=new Map();
  for(const [url,name] of [['/pass-design.js','passDesign'],['/pass-status.js','passStatus'],['/game-completion.js','gameCompletion'],['/pass-id.js','passIdentity'],['/pass-dna.js','passDNA']])modules.set(url,ts.transpileModule(await fs.readFile(path.join(repository,`src/lib/${name}.ts`),'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2017}}).outputText.replaceAll('../data/teamIdentities','./team-identities.js').replaceAll("'./passDNA'","'./pass-dna.js'").replaceAll("'./gameCompletion'","'./game-completion.js'"));
  for(const [url,file] of [['/seasons.js','seasons'],['/team-identities.js','teamIdentities']])modules.set(url,ts.transpileModule(await fs.readFile(path.join(repository,`src/data/${file}.ts`),'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2017}}).outputText);
@@ -36,6 +37,7 @@ async function main(){
  ]);
  const server=http.createServer(async(req,res)=>{try{
   const url=new URL(req.url,'http://127.0.0.1');
+  if(url.pathname==='/promo.html'){res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});res.end(source);return;}
   if(url.pathname==='/encased.html'){res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});res.end(pages[url.searchParams.get('city')==='london'?1:0]);return;}
   if(modules.has(url.pathname)){res.writeHead(200,{'Content-Type':'text/javascript'});res.end(modules.get(url.pathname));return;}
   const asset=assets.get(url.pathname);if(!asset){res.writeHead(404);res.end();return;}res.writeHead(200,{'Content-Type':asset[1]});res.end(await fs.readFile(asset[0]));

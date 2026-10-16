@@ -1,6 +1,6 @@
 # MyGame+ V2.7 — Encased Pass Artifact
 
-This is the current 1080 × 1440 promo/share composition. The App UI, Pass DNA, state engine and season archive rules remain unchanged. The reusable `PassShareCard` now presents the existing `GamePass` inside `EncasedPass`.
+**Historical V2.7 standalone study, superseded by [V2.8 mobile presentation](mobile-collectible-pass.md).** Current exports must retain top UI, selectors, weekly schedule and navigation. The descriptions and measured values below document the historical study only.
 
 ## Three physical materials
 
@@ -47,15 +47,15 @@ Tokyo/London share the environment, casing, scale, lighting and paper constructi
 ```bash
 npm test
 npm run build
-npm run export:promo
+node design/promo/export-encased.cjs
 ```
 
-Current outputs:
+Historical study outputs (separate from current delivery):
 
-- `output/douyin/mygame-plus-douyin-01-tokyo.png`
-- `output/douyin/mygame-plus-douyin-02-london.png`
+- `output/studies/v2.7/mygame-plus-douyin-01-tokyo.png`
+- `output/studies/v2.7/mygame-plus-douyin-02-london.png`
 
-The original `design/promo/export.cjs` remains an internal full-UI reference renderer; running it intentionally replaces these output filenames with the earlier UI composition. `npm run export:promo` is the V2.7 artifact export command.
+`npm run export:promo` now runs `design/promo/export.cjs` and produces the full mobile V2.8 composition in `output/douyin/`. The old standalone renderer is never called by the default export.
 
 ## Validation
 

@@ -187,3 +187,25 @@
  --acrylic-bottom-material:linear-gradient(180deg,var(--acrylic-side-dark),var(--acrylic-mid-edge) 76%,var(--acrylic-inner-rest));
 }
 .encased-pass { --acrylic-team-refraction:color-mix(in srgb,var(--team-accent) 14%,transparent); }
+
+/* V2.8 mobile casing: neutral hard edges; no optical wash over the paper or App. */
+:root {
+ --mobile-acrylic-plane:rgba(252,251,248,.025);
+ --mobile-acrylic-light:rgba(252,251,248,.78);
+ --mobile-acrylic-middle:rgba(252,251,248,.24);
+ --mobile-acrylic-rest:rgba(27,28,26,.13);
+ --mobile-acrylic-side:rgba(27,28,26,.085);
+ --mobile-acrylic-mount:rgba(118,119,113,.13);
+ --mobile-acrylic-corner:rgba(252,251,248,.72);
+ --mobile-acrylic-cut-light:rgba(252,251,248,.62);
+ --mobile-acrylic-engraving-dark:rgba(75,76,72,.12);
+ --mobile-acrylic-engraving-light:rgba(252,251,248,.56);
+ --mobile-enclosed-contact:drop-shadow(0 2px 5px rgba(26,26,23,.035)) drop-shadow(0 10px 24px rgba(26,26,23,.04));
+}
+.has-mobile-enclosure {
+ --mobile-acrylic-team:color-mix(in srgb,var(--team-accent) 14%,transparent);
+ --mobile-refraction-energy:.65;
+}
+.has-mobile-enclosure[data-pass-status="next_up"] { --mobile-refraction-energy:.70; }
+.has-mobile-enclosure[data-pass-status="game_day"] { --mobile-refraction-energy:.84; }
+.has-mobile-enclosure[data-pass-status="archived"] { --mobile-refraction-energy:.55; }
