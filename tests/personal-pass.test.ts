@@ -88,7 +88,7 @@ test('Emotion is determined by lifecycle, with explicit completion and no invent
 test('Server render has one stub-only emotion and collection stack, without accessing browser storage',()=>{
  for(const hours of [100,48,1,-5]){
   const startsAt=new Date(input.now.getTime()+hours*3600000).toISOString();
-  const pass=createPersonalPass({...input,game:{...mockGames[0],startsAt,endsAt:new Date(Date.parse(startsAt)+3*3600000).toISOString()}});
+  const pass=createPersonalPass({...input,game:{...mockGames[0],startsAt,estimatedEndTime:new Date(Date.parse(startsAt)+3*3600000).toISOString()}});
   const html=renderToStaticMarkup(createElement(GamePass,{pass,isToday:true}));
   assert.equal((html.match(/class="emotion-mark"/g)??[]).length,1);
   const [main,stub]=html.split('class="ticket-stub"');assert.ok(stub.includes('emotion-mark'));assert.ok(!main.includes('emotion-mark'));

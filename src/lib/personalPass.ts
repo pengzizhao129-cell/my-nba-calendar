@@ -2,7 +2,7 @@ import type {Game} from '@/data/mockGames';
 import {seasons,type PersonalSeason} from '@/data/seasons';
 import {getTeamIdentity,type TeamIdentity} from './passDesign';
 import {dateKey,formatDate} from './timezone';
-import {nextTeamGameId,resolvePassStatus,type PassStatus} from './passStatus';
+import {completedAt,nextTeamGameId,resolvePassStatus,type PassStatus} from './passStatus';
 import {archiveEntryKey,resolvePersonalSeason,type SeasonArchive,type UserPass,type GamePassRecord} from './seasonLifecycle';
 
 export type PassUser=UserPass;
@@ -13,7 +13,7 @@ export type PersonalPass={readonly user:PassUser;readonly team:TeamIdentity;read
 /** Selection is event state, never a side effect of the viewer's timezone. */
 export function selectPassGame(games:readonly Game[],teamCode:string,selectedId:string|null,now:Date):Game|undefined {
  const participating=games.filter(game=>game.home===teamCode||game.away===teamCode);
- return participating.find(game=>game.id===selectedId)??participating.filter(game=>!game.finished&&(Date.parse(game.startsAt)>=now.getTime()||(game.endsAt&&Date.parse(game.endsAt)>now.getTime()))).sort((a,b)=>Date.parse(a.startsAt)-Date.parse(b.startsAt))[0]??participating.sort((a,b)=>Date.parse(b.startsAt)-Date.parse(a.startsAt))[0];
+ return participating.find(game=>game.id===selectedId)??participating.filter(game=>!game.final&&!game.finished&&!completedAt(game,now)).sort((a,b)=>Date.parse(a.startsAt)-Date.parse(b.startsAt))[0]??participating.sort((a,b)=>Date.parse(b.startsAt)-Date.parse(a.startsAt))[0];
 }
 
 export function resolvePassLocation(startsAt:string,city:string,timezone:string,now:Date):PassLocation {
@@ -34,7 +34,7 @@ export function createPersonalPass({passId,teamCode,game,city,timezone,now,games
   user:{passId},team:identity,
   game:{id:game.id,startsAt:game.startsAt,opponentCode:home?game.away:game.home,homeAway:home?'HOME':'AWAY',venue:game.venue,gameNumber,seasonId:season.id,seasonCode:season.seasonCode},
   location:resolvePassLocation(game.startsAt,city,timezone,now),season:resolvePersonalSeason(season,teamCode,archive),
-  status:resolvePassStatus(game,now,{timezone,nextGameId:nextTeamGameId(games.filter(item=>item.home===teamCode||item.away===teamCode),now,new Set(Object.values(archive).filter(item=>item.teamCode===teamCode).map(item=>item.gameId))),archivedAt:archive[archiveEntryKey(teamCode,game.id,season.id)]?.archivedAt}),
+  status:resolvePassStatus(game,now,{timezone,nextGameId:nextTeamGameId(games,teamCode,now,new Set(Object.values(archive).filter(item=>item.teamCode===teamCode).map(item=>item.gameId))),archived:!!archive[archiveEntryKey(teamCode,game.id,season.id)],archivedAt:archive[archiveEntryKey(teamCode,game.id,season.id)]?.archivedAt}),
  };
 }
 

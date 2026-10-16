@@ -23,7 +23,7 @@ Perforation stops across 32 units at the centre. This unpunched bridge physicall
 
 ## State engine
 
-`resolvePassStatus()` accepts an explicit event clock and `{timezone, nextGameId, archivedAt, focused}`. `nextTeamGameId()` finds the earliest participating future fixture, independent of the viewer's local date and irrespective of how many days away it is. `createPersonalPass()` supplies the selected team's schedule and persisted archive.
+`resolvePassStatus()` accepts an explicit event clock and `{timezone, nextGameId, archived, archivedAt, focused}`. `nextTeamGameId(games, selectedTeam, now, archivedIds)` filters by the selected team, excludes final/ended, archived and already-started fixtures, then orders by start time with a stable game-ID tie break. It is shared by the pass resolver and programme NEXT marker and uses no hour threshold. `createPersonalPass()` supplies the selected team's schedule and persisted archive.
 
 Priority is **persisted/confirmed completion → local game date or ongoing event → next fixture → other future fixture**.
 
@@ -38,7 +38,7 @@ GAME DAY compares the fixture's date and the current date **in the selected IANA
 
 Private GAME DAY energy bands are `day` (>6h), `approaching` (3–6h), and `imminent` (<3h/ongoing). These add no public labels, counters or animations. They only change a few semantic paint/opacity tokens. All three retain Tip-off. Archive priority also means moving a demo clock backwards cannot uncollect a persisted ticket.
 
-Completion uses an explicit `finished` flag or an explicit `endsAt` supplied by the data. Start time alone never implies completion. Current synthetic fixtures include mock end times; this is not live NBA game-status detection.
+Completion is isolated in `src/lib/gameCompletion.ts`. Real `final` or `endTime` data has priority; mock fixtures explicitly opt into `estimatedEndTime`. A real-feed `final: false` suppresses stale estimates, and a real end time supersedes an estimate. Neither missing completion data nor tip-off itself implies COLLECTED. Legacy `finished` / `endsAt` fields are read for existing snapshots. Replacing estimates with real completion data requires no state/UI/storage rewrite.
 
 Motion: paper light 180ms, timing crossfade 180ms, temperature 240ms, security opacity 240ms, signal 140ms, annotation 200ms, all ease-out. Reduced motion disables transitions. No geometry, font metrics, bounce, flip, glow or scale animation changes across states.
 
@@ -48,24 +48,25 @@ Motion: paper light 180ms, timing crossfade 180ms, temperature 240ms, security o
 
 - `UserPass`: the browser-owned four-digit `passId`.
 - `GamePassRecord`: game ID, selected-team ordinal, season ID/code, state and archive timestamp.
-- `ArchivedPass`: a record plus an immutable-content fixture snapshot (matchup, instant, venue and team-specific ordinal).
+- `ArchivedPass`: an authoritative collected game ID, with optional archive time and immutable fixture snapshot (matchup, instant, venue and team-specific ordinal). Missing optional snapshot metadata never removes the collected ID.
 - `PersonalSeason`: season ID/code, team code, total games, unique archived IDs and derived `collectedGames`.
 
-`useSeasonArchive()` catches up completed fixtures on first entry and on the existing 30-second real-clock updates. A key is composed of **season ID + team code + game ID**. Refreshing never increments a counter; progress is recalculated from unique archived IDs. Another selected team's same fixture does not increment the first team's progress.
+`useSeasonArchive()` catches up completed fixtures on first entry and on the existing 30-second real-clock updates. Storage is partitioned by **team + season**, and each ID array deduplicates by game ID. Refreshing never increments a counter; progress is recalculated from unique archived IDs. Another selected team's same fixture does not increment the first team's progress.
 
 Local storage:
 
 | Key | Meaning |
 | --- | --- |
 | `mygame_pass_id` | Existing persistent user ID; unchanged by game/team/city/season |
-| `mygame_archived_games_26_27` | Versioned archive records and fixture snapshots for 26–27 |
+| `mygame_archived_games:HOU:26-27` | Authoritative JSON array of unique game IDs, e.g. `["hou-1", "hou-2"]`; no counter |
+| `mygame_pass_records:HOU:26-27` | Optional versioned fixture snapshots / archive timestamps for those IDs |
 | `mygame_current_season` | Current product season code, currently 26–27 |
 | `mygame_selected_game` | Retains the focused pass, including after completion/reload |
 | `mygame_selected_team` | Restores the team that owns that focused pass |
 
-Each season has a separate archive file. Old season definitions remain in the season registry. A new season uses a new definition/file, starts with zero collected games, and receives its own authored game ordinals; it never rewrites old pass season codes. PASS ID is independent of these files. The current UI still uses the 26–27 demo season; no season selector is introduced.
+Each team/season pair has a separate ID array and snapshot file. Old season definitions remain in the season registry. A new season uses a new definition/file, starts with zero collected games, and receives its own authored game ordinals; it never rewrites old pass season codes. PASS ID is independent of these files. The current UI still uses the 26–27 demo season; no season selector is introduced.
 
-The writer merges stored records before writing, deduplicates by identity, and skips identical serialized output. Storage events merge another tab's records. Corrupt entries are validated/ignored. When storage is denied, the page keeps session identity and in-memory collection; cross-refresh persistence is unavailable in that browser mode.
+The writer reads and merges only the selected team/season, writes snapshots before IDs, and skips identical serialized output. Collection progress is derived solely from the ID set. In-memory caches and storage-event listeners are also scoped by team. Version-1 `mygame_archived_games_26_27` shared snapshots migrate only the selected team into the new keys, without deleting or rewriting the legacy data. An existing new ID array is authoritative; stale snapshot-only records cannot inflate it. Storage events merge another tab's same-scope records. Corrupt entries are validated/ignored. When storage is denied, the page keeps session identity and in-memory collection; cross-refresh persistence is unavailable in that browser mode.
 
 `seasonFixtures()` restores archived fixture snapshots even if the current schedule no longer contains those games. A selected completed pass stays rendered using the same `GamePass`, `MainTicket` and `TicketStub`. The existing schedule tab can select known archived fixtures again; no second history-card template is introduced. Unknown opponent-team game ordinals continue to print an em dash rather than fabricated numbering.
 
@@ -91,4 +92,6 @@ node design/promo/export.cjs
 
 Export diagnostics under `/tmp/mygame-v2.4-*` include 30% thumbnails, grayscale, 10% saturation, blur, border-off, material-only and Tokyo/London overlay. The export verifies dimensions/decoding, identical static geometry/dock, zero security ink over protected text, maximum security contrast, paper luminance and unchanged content.
 
-Validated in this workspace: 28 unit tests, production build, and seven browser regression groups passed with no runtime/hydration errors. Promo output is 1080 × 1440 for both cities; static-area pixel differences are zero and the docks match exactly. Security ink changes at most 6/255 per channel (2.35%) with zero protected-text pixel differences. Unprinted paper curvature is 2.33%; main/stub luminance difference is 2.30%.
+Validated in this workspace: 31 unit tests, production build, and eight browser regression groups passed with no runtime/hydration errors. Promo output is 1080 × 1440 for both cities; static-area pixel differences are zero and the docks match exactly. Security ink changes at most 6/255 per channel (2.35%) with zero protected-text pixel differences. Unprinted paper curvature is 2.33%; main/stub luminance difference is 2.30%.
+
+Boundary regression additionally exercises Tokyo game-day / London pre-game-day at `2026-10-24T16:00Z`, exact tip-off without collection, repeated archive ticks/reload, foreign-team key-read tracing, untouched 27–28 storage while processing 26–27, and paint-neutral four-state DNA raster comparison (silhouette, bridge, main/stub, spine, security window and timing sanctuary).

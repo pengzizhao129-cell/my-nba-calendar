@@ -4,7 +4,7 @@ const sharp=require('sharp');
 let chromium;
 try{({chromium}=require('playwright'));}catch{({chromium}=require('/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'));}
 const baseURL=process.env.MYGAME_APP_URL||'http://127.0.0.1:4000';
-const archiveKey='mygame_archived_games_26_27';
+const archiveKey='mygame_archived_games:HOU:26-27';
 const errors=[];
 async function open(context){const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));page.on('console',e=>{if(e.type()==='error'&&/hydration|did not match/i.test(e.text()))errors.push(e.text());});assert.equal((await page.goto(baseURL,{waitUntil:'networkidle'})).status(),200);await page.waitForFunction(()=>/^PASS \d{4}$/.test(document.querySelector('.pass-id')?.textContent));await page.evaluate(()=>document.fonts.ready);return page;}
 async function team(page,code){await page.locator('.team-select').click();await page.locator('.team-choice').filter({hasText:code}).click();}
@@ -21,8 +21,31 @@ async function fingerprint(page){return page.locator('.personal-pass').evaluate(
   stencil:pass.querySelector('.perforation')?getComputedStyle(pass.querySelector('.perforation')).maskImage:'',
  };
 });}
-async function live(page){await page.locator('.system-island-item').filter({hasText:'我的'}).click();await page.getByRole('switch',{name:'使用真实日期'}).click();await page.locator('.system-island-item').filter({hasText:'首页'}).click();}
+async function live(page){await page.locator('.system-island-item').filter({hasText:'我的'}).click();const control=page.getByRole('switch',{name:'使用真实日期'});if(await control.getAttribute('aria-checked')!=='true')await control.click();await page.locator('.system-island-item').filter({hasText:'首页'}).click();}
 async function clock(page,time){await page.clock.setSystemTime(new Date(time));await page.clock.fastForward(31000);}
+/** Paint-neutral diagnostics reveal geometry; these styles never reach exported artwork. */
+async function dnaRaster(page,name){
+ const style=await page.addStyleTag({content:`
+ .personal-pass{filter:none!important}
+ .personal-pass *,.personal-pass *::before,.personal-pass *::after{visibility:hidden!important;transition:none!important;animation:none!important}
+ .personal-pass .ticket-paper{visibility:visible!important;background:var(--pass-base)!important;box-shadow:none!important;border-color:transparent!important}
+ .personal-pass .perforation,.personal-pass .mg-bridge,.personal-pass .collectible-spine{visibility:visible!important;background:var(--graphite-100)!important;opacity:1!important}
+ .personal-pass .ticket-cut-edges,.personal-pass .ticket-cut-edges path{visibility:visible!important;stroke:var(--graphite-100)!important}
+ .personal-pass .dna-probe{visibility:visible!important;background:var(--graphite-70)!important;position:absolute!important}
+ `});
+ try{
+  await page.locator('.personal-pass').evaluate(pass=>{
+   const css=getComputedStyle(pass),unit=pass.getBoundingClientRect().width/Number(css.getPropertyValue('--dna-master-width'));
+   for(const region of ['security','timing']){
+    const frame=document.createElement('span');frame.className='dna-probe';
+    for(const [field,property] of [['x','left'],['y','top'],['width','width'],['height','height']])frame.style[property]=`${Number(css.getPropertyValue(`--dna-${region}-${field}`))*unit}px`;
+    pass.querySelector('.ticket-object').append(frame);
+   }
+  });
+  const png=await page.locator('.personal-pass').screenshot({path:`/tmp/mygame-v2.4-dna-${name}.png`,animations:'disabled'});
+  return sharp(png).ensureAlpha().raw().toBuffer();
+ }finally{await page.locator('.dna-probe').evaluateAll(nodes=>nodes.forEach(node=>node.remove()));await style.evaluate(node=>node.remove());}
+}
 async function main({materialOnly=false}={}){
  errors.length=0;
  const browser=await chromium.launch({executablePath:process.env.PROMO_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
@@ -55,28 +78,46 @@ async function main({materialOnly=false}={}){
   await page.selectOption('#city','Europe/London');await page.screenshot({path:'/tmp/mygame-v2.4-app-london.png',fullPage:true});await context.close();
 
   const timed=await browser.newContext({viewport:{width:390,height:844},locale:'zh-CN',reducedMotion:'reduce'});await timed.addInitScript(()=>localStorage.setItem('mygame_pass_id','0147'));
-  const p=await timed.newPage();p.on('pageerror',e=>errors.push(e.message));await p.clock.install({time:new Date('2026-10-01T00:00:00Z')});await p.goto(baseURL,{waitUntil:'networkidle'});await live(p);await state(p,'next_up');const next=await fingerprint(p);await p.locator(".personal-pass").screenshot({path:"/tmp/mygame-v2.4-next-material.png"});
-  await p.locator('.system-island-item').filter({hasText:'赛程'}).click();await p.locator('.schedule-row[data-game-id="hou-2"]').click();await state(p,'upcoming');const upcoming=await fingerprint(p);await p.locator(".personal-pass").screenshot({path:"/tmp/mygame-v2.4-upcoming-material.png"});
+  const p=await timed.newPage();p.on('pageerror',e=>errors.push(e.message));await p.clock.install({time:new Date('2026-10-01T00:00:00Z')});await p.goto(baseURL,{waitUntil:'networkidle'});await live(p);await state(p,'next_up');const next=await fingerprint(p);const nextDNA=await dnaRaster(p,'next_up');await p.locator(".personal-pass").screenshot({path:"/tmp/mygame-v2.4-next-material.png"});
+  await p.locator('.system-island-item').filter({hasText:'赛程'}).click();await p.locator('.schedule-row[data-game-id="hou-2"]').click();await state(p,'upcoming');const upcoming=await fingerprint(p);const upcomingDNA=await dnaRaster(p,'upcoming');await p.locator(".personal-pass").screenshot({path:"/tmp/mygame-v2.4-upcoming-material.png"});
   await p.locator('.system-island-item').filter({hasText:'赛程'}).click();await p.locator('.schedule-row[data-game-id="hou-1"]').click();await state(p,'next_up');
-  await clock(p,'2026-10-24T16:00:00Z');await state(p,'game_day','day');const day=await fingerprint(p);await p.locator(".personal-pass").screenshot({path:"/tmp/mygame-v2.4-day-material.png"});
+  await clock(p,'2026-10-24T16:00:00Z');await state(p,'game_day','day');const day=await fingerprint(p);const dayDNA=await dnaRaster(p,'game_day');await p.locator(".personal-pass").screenshot({path:"/tmp/mygame-v2.4-day-material.png"});
   await p.selectOption('#city','Europe/London');await state(p,'next_up');const londonBefore=await fingerprint(p);assert.deepEqual(londonBefore.architecture,day.architecture);assert.deepEqual(londonBefore.record,day.record);
   await p.selectOption('#city','Asia/Tokyo');await state(p,'game_day','day');
   await clock(p,'2026-10-24T19:00:00Z');await state(p,'game_day','approaching');const approaching=await fingerprint(p);await p.locator(".personal-pass").screenshot({path:"/tmp/mygame-v2.4-approaching-material.png"});
   await clock(p,'2026-10-24T22:00:01Z');await state(p,'game_day','imminent');const imminent=await fingerprint(p);await p.locator(".personal-pass").screenshot({path:"/tmp/mygame-v2.4-imminent-material.png"});
-  await clock(p,'2026-10-25T04:00:00Z');await state(p,'archived');await p.waitForFunction(()=>document.querySelector('.personal-pass').dataset.collectedGames==='1');const collected=await fingerprint(p);await p.locator(".personal-pass").screenshot({path:"/tmp/mygame-v2.4-collected-material.png"});
+  await clock(p,'2026-10-25T01:00:00Z');await state(p,'game_day');assert.equal((await fingerprint(p)).collected,0,'Tip-off does not archive');
+  await clock(p,'2026-10-25T04:00:00Z');await state(p,'archived');await p.waitForFunction(()=>document.querySelector('.personal-pass').dataset.collectedGames==='1');const collected=await fingerprint(p);const collectedDNA=await dnaRaster(p,'archived');
+  for(const raster of [nextDNA,dayDNA,collectedDNA])assert.ok(raster.equals(upcomingDNA),'All four states must have identical silhouette/bridge/spine/security/timing geometry pixels');await p.locator(".personal-pass").screenshot({path:"/tmp/mygame-v2.4-collected-material.png"});
   assert.equal(collected.id,'hou-1');assert.equal(collected.emotion,'Collected');assert.equal(collected.signal.type,'completed');assert.equal(collected.signal.color,'rgba(0, 0, 0, 0)');
   assert.equal(upcoming.phase,'upcoming');assert.equal(next.phase,'next_up');assert.notEqual(upcoming.paper.surface,next.paper.surface);assert.ok(Number(upcoming.paper.security)<Number(next.paper.security));
   for(const item of [next,day,approaching,imminent,collected]){assert.deepEqual(item.architecture,upcoming.architecture);assert.equal(item.canvas,upcoming.canvas);assert.equal(item.island,upcoming.island);}
   for(const item of [day,approaching,imminent,collected])assert.deepEqual(item.record,next.record);
   assert.ok(Number(day.paper.temperature)<Number(imminent.paper.temperature));assert.notEqual(collected.paper.time,imminent.paper.time);assert.notEqual(collected.accent,imminent.accent);
-  const raw=await p.evaluate(key=>localStorage.getItem(key),archiveKey);assert.equal(JSON.parse(raw).passes.length,1);
+  const raw=await p.evaluate(key=>localStorage.getItem(key),archiveKey);assert.deepEqual(JSON.parse(raw),['hou-1']);
   await p.reload({waitUntil:'networkidle'});await state(p,'archived');assert.equal(await p.evaluate(key=>localStorage.getItem(key),archiveKey),raw);assert.equal((await fingerprint(p)).collected,1);
+  await live(p);await p.locator('.system-island-item').filter({hasText:'赛程'}).click();await p.locator('.schedule-row[data-game-id="hou-1"]').click();await state(p,'archived');
+  for(let i=0;i<3;i++)await p.clock.fastForward(31000);
+  assert.equal((await fingerprint(p)).collected,1);assert.equal(await p.evaluate(key=>localStorage.getItem(key),archiveKey),raw);
+  await p.evaluate(()=>{
+   localStorage.setItem('mygame_archived_games:LAL:26-27',JSON.stringify(['lal-only']));
+   localStorage.setItem('mygame_archived_games:HOU:27-28',JSON.stringify(['next-season-only']));
+   const original=Storage.prototype.getItem;window.archiveReads=[];
+   Storage.prototype.getItem=function(key){if(key.startsWith('mygame_archived_games:')||key.startsWith('mygame_pass_records:'))window.archiveReads.push(key);return original.call(this,key);};
+  });
+  await team(p,'GSW');await p.waitForFunction(()=>document.querySelector('.personal-pass').dataset.team==='GSW'&&document.querySelector('.personal-pass').dataset.collectedGames==='0');
+  assert.deepEqual(await p.evaluate(()=>window.archiveReads.filter(key=>key.includes(':HOU:')||key.includes(':LAL:'))),[],'Switching teams must never read another team archive');
+  assert.deepEqual(JSON.parse(await p.evaluate(()=>localStorage.getItem('mygame_archived_games:LAL:26-27'))),['lal-only']);
+  assert.deepEqual(JSON.parse(await p.evaluate(()=>localStorage.getItem('mygame_archived_games:HOU:27-28'))),['next-season-only']);
+  await team(p,'HOU');await p.locator('.system-island-item').filter({hasText:'赛程'}).click();await p.locator('.schedule-row[data-game-id="hou-1"]').click();await state(p,'archived');
+  checks.push('Tip-off cannot collect; repeated archive stays at one; team key reads and other-season bytes stay isolated');
   const other=await open(timed);await state(other,'archived');assert.equal((await fingerprint(other)).collected,1);await other.close();
   await p.locator('.system-island-item').filter({hasText:'赛程'}).click();await p.locator('.schedule-row[data-game-id="hou-2"]').click();await p.locator('.system-island-item').filter({hasText:'赛程'}).click();await p.locator('.schedule-row[data-game-id="hou-1"]').click();await state(p,'archived');
   await live(p);await p.locator('.system-island-item').filter({hasText:'赛程'}).click();await p.locator('.schedule-row[data-game-id="hou-1"]').click();await clock(p,'2026-11-04T00:00:00Z');await p.waitForFunction(()=>document.querySelector('.personal-pass').dataset.collectedGames==='5');assert.equal((await fingerprint(p)).id,'hou-1');
-  checks.push('Ranking-based NEXT UP, timezone-local GAME DAY, three private energy bands, automatic COLLECTED and unchanged DNA');
+  checks.push('Ranking-based NEXT UP, timezone-local GAME DAY, private energy bands, automatic COLLECTED; four-state DNA raster pixels match exactly');
   checks.push('Archive persists across reload/tabs, deduplicates IDs, retains selected pass after end, and remains reachable from the existing schedule');
   report.states={upcoming,next,day,approaching,imminent,collected,londonBefore};
+  report.dnaRaster={compared:['upcoming','next_up','game_day','archived'],pixelDifferences:0};
   assert.equal(collected.canvas,'rgb(241, 239, 234)');assert.equal(collected.island,'rgb(27, 28, 26)');
   await timed.close();
 
@@ -89,7 +130,7 @@ async function main({materialOnly=false}={}){
    });
    const history=await open(historic);await state(history,'archived');assert.equal((await fingerprint(history)).id,'hou-history-17');assert.equal((await fingerprint(history)).record[1],'GAME 17 / 82');
    await history.reload({waitUntil:'networkidle'});await state(history,'archived');assert.equal((await fingerprint(history)).id,'hou-history-17');await historic.close();checks.push('A focused historical pass restores from its archive snapshot even after removal from the current fixture data');
-   const damaged=await browser.newContext({viewport:{width:390,height:844}});await damaged.addInitScript(()=>{localStorage.setItem('mygame_pass_id','0843');localStorage.setItem('mygame_archived_games_26_27','bad data');});const d=await open(damaged);assert.equal((await fingerprint(d)).record[0],'PASS 0843');assert.equal((await fingerprint(d)).phase,'game_day');await damaged.close();
+   const damaged=await browser.newContext({viewport:{width:390,height:844}});await damaged.addInitScript(()=>{localStorage.setItem('mygame_pass_id','0843');localStorage.setItem('mygame_archived_games:HOU:26-27','bad data');});const d=await open(damaged);assert.equal((await fingerprint(d)).record[0],'PASS 0843');assert.equal((await fingerprint(d)).phase,'game_day');await damaged.close();
    const denied=await browser.newContext({viewport:{width:390,height:844}});await denied.addInitScript(()=>Object.defineProperty(window,'localStorage',{get(){throw new DOMException('Denied','SecurityError');}}));const deniedPage=await open(denied);const before=(await fingerprint(deniedPage)).record[0];await deniedPage.selectOption('#city','Europe/London');assert.equal((await fingerprint(deniedPage)).record[0],before);await denied.close();checks.push('Leading zeroes, corrupt archive and unavailable storage do not crash or replace session identity');
   }
   assert.deepEqual(errors,[]);await fs.writeFile(`/tmp/mygame-v2.4-${materialOnly?'material':'app'}-validation.json`,JSON.stringify({checks,...report,errors},null,2));console.log(JSON.stringify({passed:checks.length,checks,errors},null,2));
