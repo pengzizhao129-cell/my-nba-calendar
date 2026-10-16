@@ -24,7 +24,7 @@
   grid-template-columns: repeat(3,minmax(0,1fr));
   gap: 8px;
   padding: 4px 8px;
-  height: 72px;
+  height: 68px;
 }
 .system-island-item {
   appearance: none;
@@ -33,7 +33,7 @@
   border-radius: var(--island-active-radius);
   color: var(--island-text-inactive);
   min-width: 0;
-  padding: 1px 0;
+  padding: 0;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -46,8 +46,8 @@
 }
 .system-island-item svg {
   display: block;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex: none;
   fill: none;
   stroke: currentColor;

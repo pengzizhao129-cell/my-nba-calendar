@@ -6,14 +6,16 @@ async function enclosureSnapshot(page){return page.evaluate(()=>{
  const rect=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height};};
  const root=document.querySelector('.mobile-pass-enclosure');
  const selectors=['.pass','.ticket-object','.pass-main','.stub','.ticket-join','.mg-bridge','.collectible-spine','.pass-security','.tipoff','.mobile-pass-enclosure','.mobile-shell-signature'];
- const perimeter=root.querySelector('.mobile-shell-bevel').getTotalLength();
+ const perimeter=root.querySelector('.mobile-shell-master').getTotalLength();
  const rim=[...root.querySelectorAll('.mobile-shell-refraction path')].reduce((n,p)=>n+p.getTotalLength(),0);
  return {geometry:Object.fromEntries(selectors.map(s=>[s,rect(s)])),version:root.dataset.enclosureDna,
   signature:[...root.querySelectorAll('.mobile-shell-signature path')].map(p=>p.getAttribute('d')),
   rimCoverage:rim/perimeter,rimInk:getComputedStyle(root.querySelector('.mobile-shell-refraction')).color,
   gradientInk:getComputedStyle(root.querySelector('.mobile-refraction-gradient stop')).stopColor,
   rimOpacity:Number(getComputedStyle(root.querySelector('.mobile-shell-refraction')).opacity),
-  planeOpacity:getComputedStyle(root.querySelector('.mobile-shell-plane')).fill,
+  bevelCoverage:[...root.querySelectorAll('.mobile-shell-bevel')].reduce((n,p)=>n+p.getTotalLength(),0)/perimeter,
+  mountingCoverage:root.querySelector('.mobile-shell-mount').getTotalLength()/perimeter,
+  closedPaintPaths:[...root.querySelectorAll(':scope>path,:scope>g path')].filter(p=>/Z\s*$/i.test(p.getAttribute('d'))).length,
   backdrop:getComputedStyle(root).backdropFilter,filter:getComputedStyle(root).filter,
   visibleUI:['.top-label','.brand','.app-mark','.subtitle','.slogan','.beta','.city-status','.identity','.time-system','.auto-state','.week','.schedule','.dock'].every(s=>{const e=document.querySelector(s),r=e.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden';}),
   forbidden:!!document.querySelector('.encased-artifact,.artifact-display'),
@@ -27,6 +29,7 @@ async function reviewMobileEnclosure({page,sharp,report,canonicalPixels,city,bas
  assert.ok(shell.width/paper.width>=1.03&&shell.width/paper.width<=1.04);
  assert.ok(shell.height/paper.height>=1.03&&shell.height/paper.height<=1.04);
  assert.ok(detail.rimCoverage>=.2&&detail.rimCoverage<=.3,'Team ink belongs to only 20–30% of the perimeter');
+ assert.ok(detail.bevelCoverage<.2&&detail.mountingCoverage<.1,'Bevel and mounting are local edge cues, never a continuous double frame');assert.equal(detail.closedPaintPaths,0,'No closed outline or transparent face plane may recreate a plastic sleeve');
  assert.equal(detail.backdrop,'none');assert.equal(detail.filter,'none','The optical frame never filters the printed face');
  assert.equal(detail.gradientInk,detail.rimInk,'SVG gradient stops must use the team optical ink, never inherited primary text ink');
  assert.ok(shell.y>=report.geometry['.identity'].y+report.geometry['.identity'].height+24);
@@ -43,7 +46,7 @@ async function reviewMobileEnclosure({page,sharp,report,canonicalPixels,city,bas
  assert.ok(phases.archived.rimOpacity<phases.next_up.rimOpacity,'Collected casing becomes quiet');
  await page.locator('.pass').evaluate(e=>{e.dataset.passStatus='game_day';e.dataset.passEnergy='imminent';});
 
- const withoutShell=`/tmp/mygame-v2.8-${city}-without-shell.png`;
+ const withoutShell=`/tmp/mygame-refine-${city}-without-shell.png`;
  const off=await page.addStyleTag({content:'.mobile-pass-enclosure{visibility:hidden!important}'});
  await page.screenshot({path:withoutShell,type:'png',animations:'disabled'});
  await off.evaluate(e=>e.remove());
@@ -59,7 +62,7 @@ async function reviewMobileEnclosure({page,sharp,report,canonicalPixels,city,bas
  assert.ok(shellPixels>1000,'The clear enclosure must actually render, not disappear into the canvas');
  // A rim-only team input must not recolor paper, timing, the App or navigation.
  const ticketBefore=await sharp(await page.screenshot({animations:'disabled'})).extract({left:paper.x+20,top:paper.y+20,width:paper.width-40,height:paper.height-40}).raw().toBuffer();
- await page.locator('.pass').evaluate(e=>e.style.setProperty('--mobile-acrylic-team','color-mix(in srgb,var(--lal-accent) 14%,transparent)'));
+ await page.locator('.pass').evaluate(e=>e.style.setProperty('--mobile-acrylic-team','color-mix(in srgb,var(--lal-accent) 6.5%,transparent)'));
  const lal=await enclosureSnapshot(page);
  assert.notEqual(lal.rimInk,detail.rimInk);assert.deepEqual(lal.geometry,detail.geometry);
  const ticketAfter=await sharp(await page.screenshot({animations:'disabled'})).extract({left:paper.x+20,top:paper.y+20,width:paper.width-40,height:paper.height-40}).raw().toBuffer();
@@ -69,14 +72,9 @@ async function reviewMobileEnclosure({page,sharp,report,canonicalPixels,city,bas
  let baselineGeometryMatch=null;
  if(baselineDirectory){
   const baseline=JSON.parse(await fs.readFile(path.join(baselineDirectory,'validation.json'),'utf8')).reports[city==='tokyo'?0:1];
-  assert.deepEqual(report.geometry,baseline.geometry,'Every approved mobile UI landmark remains unchanged');
-  const old=await sharp(path.join(baselineDirectory,report.file.name)).removeAlpha().raw().toBuffer();
-  for(const [label,b] of [['brand',{x:160,y:24,width:760,height:272}],['identity',{x:160,y:292,width:760,height:116}],['schedule',{x:160,y:1116,width:760,height:188}],['dock',{x:60,y:1330,width:960,height:100}]]){
-   for(let y=b.y;y<b.y+b.height;y++)for(let x=b.x;x<b.x+b.width;x++){const k=(y*1080+x)*3;assert.ok(old[k]===canonicalPixels[k]&&old[k+1]===canonicalPixels[k+1]&&old[k+2]===canonicalPixels[k+2],`Approved ${label} pixels must stay unchanged`);}
-  }
-  // The enclosure's softer contact shadow can reach the last 8px below identity.
-  for(let y=408;y<416;y++)for(let x=160;x<920;x++){const k=(y*1080+x)*3;assert.ok([0,1,2].every(c=>Math.abs(old[k+c]-canonicalPixels[k+c])<=1),'Ambient contact change stays below one 8-bit step');}
-  baselineGeometryMatch=true;
+  for(const [selector,rect] of Object.entries(report.geometry))if(!['.brand h1','.app-mark','.wordmark','.dock','.team-preference'].includes(selector))assert.deepEqual(rect,baseline.geometry[selector],'Brand refinements must leave all content architecture intact');
+  const preference=report.geometry['.team-preference'],oldPreference=baseline.geometry['.team-preference'];for(const axis of ['x','y','height'])assert.equal(preference[axis],oldPreference[axis]);assert.ok(Math.abs(preference.width-oldPreference.width)<1,'Identity font refinement may only change the selector width by a subpixel');
+        baselineGeometryMatch=true;
  }
  return {...detail,phases:Object.fromEntries(Object.entries(phases).map(([p,s])=>[p,{rimOpacity:s.rimOpacity,geometryIdentical:true}])),paperDifferences,shellPixels,maxShellDelta,withoutShell,baselineGeometryMatch,lalRimInk:lal.rimInk};
 }

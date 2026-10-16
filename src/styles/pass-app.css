@@ -5,7 +5,7 @@
 .personal-pass .date-lockup { position:absolute;left:calc(32 * var(--dna-unit));top:calc(32 * var(--dna-unit));gap:calc(4 * var(--dna-unit)); }
 .personal-pass .pass-label { font-size:calc(20 * var(--dna-unit));line-height:calc(24 * var(--dna-unit)); }
 .personal-pass .pass-date { gap:calc(8 * var(--dna-unit)); }
-.personal-pass .pass-date>strong { width:auto;font-size:calc(64 * var(--dna-unit));line-height:1; }
+.personal-pass .pass-date>strong { width:auto;font-family:var(--font-timing),var(--font-geist),sans-serif;font-size:calc(64 * var(--dna-unit));line-height:1; }
 .personal-pass .pass-date>div { height:calc(64 * var(--dna-unit));padding-bottom:calc(2 * var(--dna-unit)); }
 .personal-pass .pass-date b { font-size:calc(21 * var(--dna-unit)); }
 .personal-pass .pass-weekday { margin-top:calc(8 * var(--dna-unit));font-size:calc(22 * var(--dna-unit)); }
@@ -16,9 +16,10 @@
 .personal-pass .sports-signal[data-type="next"]>.sports-signal-mark { width:calc(2 * var(--dna-unit));height:calc(11 * var(--dna-unit)); }
 .personal-pass .match { position:absolute;left:calc(32 * var(--dna-unit));right:calc(32 * var(--dna-unit));top:calc(176 * var(--dna-unit));height:calc(144 * var(--dna-unit));display:grid;grid-template-columns:240fr 184fr 240fr;margin:0;gap:0; }
 .personal-pass .team-identity { max-width:none;height:100%;min-height:0;border-radius:calc(12 * var(--dna-unit));padding:calc(24 * var(--dna-unit));gap:calc(8 * var(--dna-unit)); }
-.personal-pass .team-identity>strong { font-size:calc(64 * var(--dna-unit)); }
-.personal-pass .team-identity>span { font-size:calc(24 * var(--dna-unit));line-height:1.2;white-space:nowrap; }
-.personal-pass .team-identity>.team-symbol { width:calc(28 * var(--dna-unit));height:calc(28 * var(--dna-unit));right:calc(16 * var(--dna-unit));top:calc(16 * var(--dna-unit)); }
+.personal-pass .team-identity>strong { position:absolute;left:calc(24 * var(--dna-unit));top:calc(24 * var(--dna-unit));font-family:var(--font-identity),var(--font-geist),sans-serif;font-size:calc(64 * var(--dna-unit));line-height:calc(72 * var(--dna-unit));letter-spacing:-.026em; }
+.personal-pass .team-identity>span { position:absolute;left:calc(24 * var(--dna-unit));top:calc(96 * var(--dna-unit));font-size:calc(22 * var(--dna-unit));line-height:calc(32 * var(--dna-unit));color:var(--text-secondary);white-space:nowrap; }
+.personal-pass .team-identity:last-child>strong,.personal-pass .team-identity:last-child>span { left:auto;right:calc(24 * var(--dna-unit)); }
+.personal-pass .team-identity>.team-symbol { width:calc(26 * var(--dna-unit));height:calc(26 * var(--dna-unit));right:calc(16 * var(--dna-unit));top:calc(18 * var(--dna-unit)); }
 .personal-pass .team-identity:last-child>.team-symbol { left:calc(16 * var(--dna-unit)); }
 .personal-pass .versus { font-size:calc(24 * var(--dna-unit)); }
 .personal-pass .tipoff { width:calc(560 * var(--dna-unit));height:calc(128 * var(--dna-unit));position:absolute;left:calc(32 * var(--dna-unit));top:calc(332 * var(--dna-unit));margin:0;gap:0; }

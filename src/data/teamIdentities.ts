@@ -67,6 +67,7 @@ export const getTeamIdentity=(code:string):TeamIdentity|undefined=>Object.hasOwn
 /** Only data-layer paint enters a component; components consume named inputs. */
 export const teamMaterialProperties=(team:TeamIdentity)=>({
  '--team-accent':team.primaryColor,
+ '--team-print-ink':`color-mix(in srgb,${team.primaryColor} 90%,var(--graphite-70))`,
  '--team-temperature-tint':team.temperatureTint,
  '--team-security-ink':team.securityInk,
 });

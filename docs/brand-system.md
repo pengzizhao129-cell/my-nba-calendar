@@ -1,5 +1,7 @@
 # MyGame+ Quiet Motion — V2.7 Homepage Brand Final
 
+> Historical brand notes. Current fixed Brand Lockup, printed team ink, timing and four-level hierarchy are specified in [Precision Refinement](precision-refinement.md); current lifecycle rules are in [Core Pass System](core-pass-system.md).
+
 ## Brand semantics
 
 - Team colors identify teams and, sparingly, changing sports states.

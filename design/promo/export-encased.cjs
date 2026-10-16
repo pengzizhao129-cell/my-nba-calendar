@@ -33,7 +33,7 @@ async function main(){
   ['/brand/mygame-plus.png',[path.join(repository,'public/brand/mygame-plus.png'),'image/png']],
   ['/GeistSans.woff2',[path.join(repository,'src/app/fonts/GeistSans.woff2'),'font/woff2']],
   ...['timing-500.woff2','timing-550.woff2','identity-600.woff2','event-annotation.woff2'].map(name=>['/'+name,[path.join(directory,name),'font/woff2']]),
-  ...['color-material.css','pass-dna.css','system-island.css','encased-pass.css'].map(name=>['/'+name,[path.join(repository,'src/styles',name),'text/css']]),
+  ...['color-material.css','pass-dna.css','system-island.css','encased-pass.css','brand-lockup.css'].map(name=>['/'+name,[path.join(repository,'src/styles',name),'text/css']]),
  ]);
  const server=http.createServer(async(req,res)=>{try{
   const url=new URL(req.url,'http://127.0.0.1');

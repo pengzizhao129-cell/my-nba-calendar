@@ -17,8 +17,10 @@ export const MOBILE_PASS_ENCLOSURE=Object.freeze({
  // 6 units of hard rim, then 6 horizontal / 5 vertical units of clear air.
  rim:6,airGap:Object.freeze({x:6,y:5}),
  outline:'M26 1H734L751 18V572Q751 597 726 597H26Q1 597 1 572V26Q1 1 26 1Z',
- inner:'M27 6H732L746 20V571Q746 592 725 592H27Q6 592 6 571V27Q6 6 27 6Z',
- side:'M751 30V572Q751 597 726 597H30',
+ // The master outline is construction geometry, not a visible perimeter frame.
+ bevel:Object.freeze(['M1 90V26Q1 1 26 1H164','M676 1H734L751 18V56','M751 516V572Q751 597 726 597H660']),
+ inner:'M6 44V27Q6 6 27 6H46M746 548V571Q746 592 725 592H710',
+ side:'M751 540V572Q751 597 726 597H682',
  refraction:Object.freeze(['M2 180V27Q2 2 27 2H220','M750 418V571Q750 596 725 596H626']),
  signature:Object.freeze({cut:'M734 1L751 18',plus:'M734 9V15M731 12H737'}),
 });

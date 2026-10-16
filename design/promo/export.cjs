@@ -24,7 +24,8 @@ async function prepareAssets() {
 async function main() {
   await prepareAssets();
   const enclosure=execFileSync(process.execPath,[path.join(repository,'node_modules/tsx/dist/cli.mjs'),'--tsconfig',path.join(repository,'tsconfig.tests.json'),path.join(directory,'render-mobile-enclosure.tsx')],{cwd:repository,encoding:'utf8'});
-  const source=(await fs.readFile(path.join(directory,'promo.html'),'utf8')).replace('<!--mygame-mobile-enclosure-->',enclosure);
+  const brand=execFileSync(process.execPath,[path.join(repository,'node_modules/tsx/dist/cli.mjs'),'--tsconfig',path.join(repository,'tsconfig.tests.json'),path.join(directory,'render-brand-lockup.tsx')],{cwd:repository,encoding:'utf8'});
+  const source=(await fs.readFile(path.join(directory,'promo.html'),'utf8')).replace('<!--mygame-mobile-enclosure-->',enclosure).replace('<!--mygame-brand-lockup-->',brand);
   const ts=require('typescript');
   const modules=new Map();
   for(const [url,name] of [['/pass-design.js','passDesign'],['/pass-status.js','passStatus'],['/game-completion.js','gameCompletion'],['/pass-id.js','passIdentity'],['/pass-dna.js','passDNA']])modules.set(url,ts.transpileModule(await fs.readFile(path.join(repository,`src/lib/${name}.ts`),'utf8'), {compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2017}}).outputText.replaceAll('../data/teamIdentities','./team-identities.js').replaceAll("'./passDNA'","'./pass-dna.js'").replaceAll("'./gameCompletion'","'./game-completion.js'"));
@@ -33,6 +34,7 @@ async function main() {
   const routes = new Map([
     ['/promo.html', [path.join(directory,'promo.html'),'text/html; charset=utf-8']],
     ['/wordmark.png', [path.join(directory,'wordmark.png'),'image/png']],
+    ['/brand/mygame-plus.png', [path.join(repository,'public/brand/mygame-plus.png'),'image/png']],
     ['/paper-material.png', [path.join(directory,'paper-material.png'),'image/png']],
     ['/GeistSans.woff2', [path.join(repository,'src/app/fonts/GeistSans.woff2'),'font/woff2']],
     ...['timing-500.woff2','timing-550.woff2','identity-600.woff2','event-annotation.woff2'].map(name=>['/'+name,[path.join(directory,name),'font/woff2']]),
@@ -40,6 +42,7 @@ async function main() {
     ['/pass-dna.css', [path.join(repository,'src/styles/pass-dna.css'),'text/css']],
     ['/color-material.css', [path.join(repository,'src/styles/color-material.css'),'text/css']],
     ['/mobile-pass-enclosure.css', [path.join(repository,'src/styles/mobile-pass-enclosure.css'),'text/css']],
+    ['/brand-lockup.css', [path.join(repository,'src/styles/brand-lockup.css'),'text/css']],
   ]);
   const server = http.createServer(async (request,response) => {
     const pathname=new URL(request.url,'http://127.0.0.1').pathname;
@@ -91,7 +94,7 @@ async function main() {
           wordmarkMask:getComputedStyle(document.querySelector('.wordmark')).maskImage,
           paperMaterial:{background:paper.backgroundImage,mask:getComputedStyle(document.querySelector('.ticket-object')).maskImage,composition:getComputedStyle(document.querySelector('.ticket-object')).maskComposite,edge:paper.boxShadow},
           paperBorder:paper.borderTopColor,
-          inkLevels:Object.fromEntries(Object.entries({primary:['.brand h1','.tipoff','.date .day','.date .month','.team-chinese','.game-status','.row-time','.count'],secondary:['.slogan','.city-control .city','.venue','.row-team','.week h2','.versus','.time-caption .caption-state'],tertiary:['.subtitle','.subtitle .nba','.city-status','.identity-label .cn','.team-preference .chevron','.city-control .chevron','.offset','.weekday','.row-date .number','.row-venue','.venue-status'],micro:['.top-label','.beta-label','.auto-state','.identity>.identity-english','.micro','.serial','.row-date .sub','.weekday .en']}).map(([level,selectors])=>[level,Object.fromEntries(selectors.map(selector=>[selector,[...new Set([...document.querySelectorAll(selector)].map(element=>getComputedStyle(element).color))]]))])),
+          inkLevels:Object.fromEntries(Object.entries({primary:['.brand h1','.tipoff','.date .day','.date .month','.city-control .city','.week h2','.count'],secondary:['.subtitle','.subtitle .nba','.slogan','.venue','.row-team','.row-time','.team-chinese','.team-preference .name','.game-status','.versus','.time-caption .caption-state'],tertiary:['.city-status','.identity-label .cn','.team-preference .chevron','.city-control .chevron','.offset','.weekday','.row-date .number','.row-venue','.venue-status','.beta-label','.micro'],micro:['.top-label','.auto-state','.identity>.identity-english','.serial','.collection-stack','.row-date .sub','.weekday .en']}).map(([level,selectors])=>[level,Object.fromEntries(selectors.map(selector=>[selector,[...new Set([...document.querySelectorAll(selector)].map(element=>getComputedStyle(element).color))]]))])),
           serialStyle:(()=>{const element=document.querySelector('.serial'),s=getComputedStyle(element);return {size:s.fontSize,line:s.lineHeight,tracking:s.letterSpacing,gap:s.columnGap,parts:[...element.children].map(part=>part.textContent.trim()),separators:[...element.querySelectorAll('.separator')].map(part=>({opacity:getComputedStyle(part).opacity,tracking:getComputedStyle(part).letterSpacing})),rect:rect(element)};})(),
           dna:{version:document.querySelector('.pass').dataset.dna,bridge:rect(document.querySelector('.mg-bridge')),spine:rect(document.querySelector('.collectible-spine')),cutPaths:[...document.querySelectorAll('.ticket-cut-edges path')].map(e=>e.getAttribute('d')),join:rect(document.querySelector('.ticket-join'))},
           perforation:rect(document.querySelector('.perforation')),
@@ -131,7 +134,7 @@ async function main() {
       assert.equal(report.radius['.dock'], '28px');
       assert.equal(report.geometry['.beta'].width,728);
       assert.equal(report.geometry['.beta'].height,24);
-      assert.deepEqual(report.geometry['.app-mark'],{x:176,y:68,width:56,height:56});
+      assert.deepEqual(report.geometry['.app-mark'],{x:176,y:70,width:52,height:52});
       assert.deepEqual(report.geometry['.pass'],{x:176,y:456,width:728,height:576});
       assert.equal(report.geometry['.pass-main'].height,480);
       assert.equal(report.perforation.y,report.geometry['.pass-main'].y+480,'Tear guide ends the main ticket');
@@ -143,10 +146,10 @@ async function main() {
       assert.equal(report.collection[2].rect.y+report.collection[2].rect.height,report.serialStyle.rect.y+report.serialStyle.rect.height,'Collection and serial end on one printed baseline');
       assert.equal(report.security.length,2);for(const field of report.security){assert.equal(field.team,'HOU');assert.ok(field.image.startsWith('url("data:image/svg+xml,'));}
       assert.deepEqual(report.geometry['.week'],{x:176,y:1080,width:728,height:224});
-      assert.deepEqual(report.geometry['.dock'],{x:76,y:1340,width:928,height:72});
+      assert.deepEqual(report.geometry['.dock'],{x:76,y:1344,width:928,height:68});
       const gap=(above,below)=>report.geometry[below].y-(report.geometry[above].y+report.geometry[above].height);
       report.verticalRhythm=[gap('.top-label','.brand'),gap('.brand','.subtitle'),gap('.subtitle','.slogan'),gap('.slogan','.beta'),gap('.beta','.city-status'),gap('.city-status','.identity'),gap('.identity','.pass'),gap('.pass','.week'),gap('.week','.dock')];
-      assert.deepEqual(report.verticalRhythm,[8,32,4,32,8,8,36,48,36],'Dense semantic groups alternate with deliberate open section gaps');
+      assert.deepEqual(report.verticalRhythm,[8,32,4,32,8,8,36,48,40],'Dense semantic groups alternate with deliberate open section gaps');
       assert.equal(gap('.brand','.subtitle'),32,'Separate Brand from Product');
       assert.equal(gap('.subtitle','.slogan'),4,'Product descriptor and slogan form one group');
       assert.equal(gap('.slogan','.beta'),32,'Separate Product from System');
@@ -176,7 +179,7 @@ async function main() {
       assert.equal(report.markLetters.paths,3);assert.equal(report.markLetters.textNodes,0,'Brand seal must use custom contours rather than default font text');
       assert.ok(report.markLetters.m.x<report.markLetters.g.x&&report.markLetters.m.y+report.markLetters.m.height<report.markLetters.g.y,'M upper-left, G+ lower-right with negative space');
       assert.ok(report.brandSeal.backgroundImage.includes('radial-gradient')&&report.brandSeal.shadow!=='none','Brand seal has restrained edge light and contact depth');
-      assert.deepEqual(report.typography['.beta-label'],report.typography['.auto-state'],'System microcopy uses one type language');
+      for(const key of ['size','weight','line','tracking'])assert.equal(report.typography['.beta-label'][key],report.typography['.auto-state'][key],'System microcopy shares type metrics while its semantic ink tier differs');
       assert.ok(parseFloat(report.typography['.brand h1'].size)<parseFloat(report.typography['.team-abbr'].size));
       assert.ok(parseFloat(report.typography['.brand h1'].size)>parseFloat(report.typography['.slogan'].size));
       assert.ok(parseFloat(report.typography['.slogan'].size)>parseFloat(report.typography['.subtitle'].size));
@@ -184,14 +187,15 @@ async function main() {
       for(const border of report.summaryBorders) assert.deepEqual(border,{top:'0px',bottom:'0px'},'Premium summary relies on spacing rather than table rules');
       assert.equal(report.typography['.tipoff'].size,'100px','Do not enlarge the main time');
       assert.equal(report.timing.length,3);
+      assert.ok(report.digitAdvances[550][0]<55&&report.digitAdvances[550][0]>53,'Timing numerals refine width without increasing cap height');
       for(const widths of Object.values(report.digitAdvances)) assert.ok(widths.every(width=>Math.abs(width-report.digitAdvances[550][0])<.001),'Every timing numeral has the same advance across both weights');
       assert.ok(report.dateFont.includes('MyGame Timing'),'Date inherits the timing numeral family');
       for(const [index,time] of report.timing.entries()) {
         assert.ok(time.font.includes('MyGame Timing'));assert.equal(time.numerals,'tabular-nums');
         assert.equal(time.size,index===0?'100px':'30px');assert.equal(time.weight,index===0?'550':'500');
-        assert.equal(time.colon.opacity,index===0?'0.6':'0.56');
+        assert.equal(time.colon.opacity,index===0?'0.6':'0.52');
         assert.equal(time.colon.textSize,'0px','Colon must be drawn from its own two dots, not a font glyph');
-        assert.equal(time.colon.width,time.colon.height);assert.equal(time.text,time.label);
+        assert.equal(time.colon.width,time.colon.height);assert.ok(parseFloat(time.colon.width)/parseFloat(time.size)<.05,'Timing dots must stay precise and smaller than 5% of the em');assert.equal(time.text,time.label);
       }
       assert.ok(report.localOwnership,'AUTO CONVERTED belongs inside the LOCAL TIME group');
       for(const selector of ['.local-label','.city-control','.offset','.auto-state']) {
@@ -202,9 +206,9 @@ async function main() {
       for(const micro of report.microLabels){assert.ok(micro.font.startsWith('Geist'));assert.equal(micro.weight,'500');assert.ok(Math.abs(micro.tracking-.13)<.0001);}
       assert.equal(report.chevrons.length,2);
       for(const chevron of report.chevrons){assert.equal(chevron.rect.width,18);assert.equal(chevron.rect.height,18);assert.equal(chevron.color,inks.tertiary);}
-      assert.ok(Math.abs(parseFloat(report.activeBackground.split(',').at(-1))-.08)<=.002,'Active segment uses the shared 8% brightness layer');
+      assert.ok(Math.abs(parseFloat(report.activeBackground.split(',').at(-1))-.05)<=.002,'Active segment uses the restrained 5% brightness layer');
       assert.equal(report.canvas,report.paints['--canvas-base']);assert.equal(report.canvas,'rgb(241, 239, 234)');
-      assert.ok(report.wordmarkMask.includes('wordmark.png'),'Keep the original wordmark silhouette');
+      assert.ok(report.wordmarkMask.includes('mygame-plus.png'),'Keep the original wordmark silhouette');
       assert.equal(report.dna.cutPaths.length,2,'Retain exactly two structural cutouts');
       assert.notEqual(report.dna.cutPaths[0],report.dna.cutPaths[1]);
       assert.equal(report.dna.version,'MG-DNA-1');
@@ -218,7 +222,7 @@ async function main() {
         assert.ok(Math.abs(item.rect.width-report.navigation[0].rect.width)<.02);
         for (const key of ['icon','cn','en']) assert.equal(item[key].y,report.navigation[0][key].y);
         assert.equal(item.cnSize,'22px'); assert.equal(item.enSize,'10px');
-        assert.equal(item.icon.width,22); assert.equal(item.icon.height,22);
+        assert.equal(item.icon.width,20); assert.equal(item.icon.height,20);
         assert.ok(!item.overflow,'All navigation labels must fit inside their segment');
       }
       assert.ok(report.geometry['.schedule'].y + report.geometry['.schedule'].height + 24 <= report.geometry['.dock'].y);
@@ -254,9 +258,10 @@ async function main() {
       let baselineGeometryMatch=null;
       if(process.env.PROMO_BASELINE_DIR){
         const baseline=JSON.parse(await fs.readFile(path.join(process.env.PROMO_BASELINE_DIR,'validation.json'),'utf8')).reports[i];
-        assert.deepEqual(report.geometry,baseline.geometry,'Color/material work must preserve every approved layout landmark');
+        for(const [selector,rect] of Object.entries(report.geometry))if(!['.brand h1','.app-mark','.wordmark','.dock','.team-preference'].includes(selector))assert.deepEqual(rect,baseline.geometry[selector],'Refinement must preserve every content section and ticket landmark');
         assert.deepEqual(report.content,baseline.content,'All approved copy, event information and location logic stay unchanged');
-        for(const [selector,type] of Object.entries(report.typography))for(const key of ['size','weight','line','tracking'])assert.equal(type[key],baseline.typography[selector][key],'Typography must not be redesigned');
+        for(const [selector,type] of Object.entries(report.typography))for(const key of ['size','weight','line','tracking'])if(!(selector==='.brand h1'&&key==='weight')&&!(selector==='.team-abbr'&&key==='tracking'))assert.equal(type[key],baseline.typography[selector][key],'Only the approved Chinese brand weight may change among these font metrics');
+        const preference=report.geometry['.team-preference'],oldPreference=baseline.geometry['.team-preference'];for(const axis of ['x','y','height'])assert.equal(preference[axis],oldPreference[axis]);assert.ok(Math.abs(preference.width-oldPreference.width)<1,'Identity font refinement may only change the selector width by a subpixel');
         baselineGeometryMatch=true;
       }
       report.annotationReview={withoutAnnotation,notePixels,outsideNoteDifferences};
@@ -331,7 +336,7 @@ async function main() {
     }
   }
   assert.equal(staticDifferences, 0, 'Only slogan, city state, GMT and time content may differ');
-  const dock = { left:76, top:1340, width:928, height:72 };
+  const dock = { left:76, top:1344, width:928, height:68 };
   const docks = await Promise.all(names.map(name => sharp(path.join(output,name)).extract(dock).raw().toBuffer()));
   assert.ok(docks[0].equals(docks[1]), 'Dock pixels must match exactly');
   const overlay = '/tmp/mygame-v2.4-overlay.png';
@@ -339,9 +344,9 @@ async function main() {
   for(let i=0;i<overlayPixels.length;i++)overlayPixels[i]=Math.round((buffers[0][i]+buffers[1][i])/2);
   await sharp(overlayPixels,{raw:{width:1080,height:1440,channels:3}}).png().toFile(overlay);
   await sharp(overlay).resize(324,432).png().toFile(overlay.replace('.png','-30.png'));
-  const result = { version:'MyGame+ V2.8 — Collectible Pass Inside Real Mobile UI', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
+  const result = { version:'MyGame+ — Material & Brand Refinement', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
   await fs.writeFile('/tmp/mygame-v2.4-validation.json', JSON.stringify(result,null,2));
-  await fs.writeFile('/tmp/mygame-v2.8-validation.json', JSON.stringify(result,null,2));
+  await fs.writeFile('/tmp/mygame-refine-validation.json', JSON.stringify(result,null,2));
   console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing, MyGame Identity and Event Annotation loaded', eventAnnotations:reports.map(report=>({count:report.annotation.count,changedPixels:report.annotationReview.notePixels,outsideChanges:report.annotationReview.outsideNoteDifferences,layoutMatchesV22:report.baselineGeometryMatch})), collection:reports[0].collection.map(row=>row.text), security:reports.map(report=>report.securityReview), material:reports.map(report=>report.materialReview), enclosure:reports.map(r=>({geometry:r.enclosureReview.geometry['.mobile-pass-enclosure'],coverage:r.enclosureReview.rimCoverage,paperDifferences:r.enclosureReview.paperDifferences,phases:r.enclosureReview.phases})), radius:reports[0].radius },null,2));
 }
 

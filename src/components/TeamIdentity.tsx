@@ -13,7 +13,7 @@ export const teamEnglishNames:Record<string,string> = {
 export function TeamSymbol({team,size=16}:{team:Team;size?:number}) {
  const geometry = teamSymbolGeometry[team.id];
  if (!geometry) return null;
- return <svg className="team-symbol" data-team={team.id} aria-hidden="true" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{'--team-accent':team.primaryColor,color:'var(--identity-accent-ink,var(--team-accent))'} as React.CSSProperties}>{geometry.paths.map(d=><path key={d} d={d}/>)}{geometry.dot&&<circle cx="12" cy="12" r=".75" fill="currentColor" stroke="none"/>}</svg>;
+ return <svg className="team-symbol" data-team={team.id} aria-hidden="true" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{'--team-accent':team.primaryColor,color:'var(--identity-accent-ink,var(--team-print-ink,var(--team-accent)))'} as React.CSSProperties}>{geometry.paths.map(d=><path key={d} d={d}/>)}{geometry.dot&&<circle cx="12" cy="12" r=".75" fill="currentColor" stroke="none"/>}</svg>;
 }
 
 export function TeamIdentityBlock({team}:{team:Team}) {

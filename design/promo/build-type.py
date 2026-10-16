@@ -101,7 +101,7 @@ def build(family, weight, text, x_scale, destination):
     # Modified font families use their own names; retain upstream copyright/OFL.
     for name_id in (1, 2, 3, 4, 6, 16, 17):
         font["name"].removeNames(nameID=name_id)
-    version = "1.9" if family == "MyGame Timing" else "1.7"
+    version = "2.8.1"
     labels = {1: family, 2: "Regular", 3: family + "-" + str(weight) + "-" + version,
               4: family + " " + str(weight), 6: family.replace(" ", "") + "-" + str(weight),
               16: family, 17: str(weight)}
@@ -119,5 +119,5 @@ def build(family, weight, text, x_scale, destination):
 
 if __name__ == "__main__":
     for weight in (500, 550):
-        build("MyGame Timing", weight, "0123456789. ", .90, f"timing-{weight}.woff2")
-    build("MyGame Identity", 600, "HOULAGSW ", .94, "identity-600.woff2")
+        build("MyGame Timing", weight, "0123456789. ", .875, f"timing-{weight}.woff2")
+    build("MyGame Identity", 600, "ABCDEFGHIJKLMNOPQRSTUVWXYZ ", .93, "identity-600.woff2")

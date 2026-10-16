@@ -15,7 +15,7 @@ test('Product components cannot introduce paint literals or Tailwind palette byp
  const violations=[];
  for(const path of sources){const source=await readFile(path,'utf8');if(/#[a-f\d]{3,8}\b|rgba?\(|(?:bg|text|border)-(?:white|black|gray|slate|red)(?:[\s\-/\]"']|$)/i.test(source))violations.push(path);}
  assert.deepEqual(violations,[],'Components must consume semantic tokens or TeamIdentity inputs');
- for(const path of ['src/app/globals.css','src/styles/system-island.css','src/styles/mobile-pass-enclosure.css','design/promo/promo.html'])assert.doesNotMatch(await readFile(path,'utf8'),/#[a-f\d]{3,8}\b|rgba?\(/i,'All global paint literals belong in color-material.css');
+ for(const path of ['src/app/globals.css','src/styles/system-island.css','src/styles/mobile-pass-enclosure.css','src/styles/brand-lockup.css','design/promo/promo.html'])assert.doesNotMatch(await readFile(path,'utf8'),/#[a-f\d]{3,8}\b|rgba?\(/i,'All global paint literals belong in color-material.css');
 });
 
 test('Approved base materials stay warm, nonwhite and nonblack, with a fixed graphite hierarchy',async()=>{

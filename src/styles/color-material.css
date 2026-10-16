@@ -62,7 +62,8 @@
   --stub-edge-light: inset 0 1px 0 rgba(255,255,255,.30),inset 0 -1px 0 color-mix(in srgb,var(--stub-edge) 35%,transparent);
   --seal-surface: radial-gradient(ellipse at var(--light-source-x) var(--light-source-y),var(--pass-highlight),var(--pass-base) 65%,var(--pass-edge));
   --seal-edge: rgba(40,40,36,.025);
-  --seal-shadow: inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(50,48,43,.025),0 1px 3px rgba(26,26,23,.025);
+  --seal-shadow: inset 0 1px 0 rgba(255,255,255,.40),inset 0 -1px 0 rgba(50,48,43,.018),0 1px 2px rgba(26,26,23,.018);
+  --brand-signature-ink:color-mix(in srgb,var(--brand-red) 90%,var(--graphite-70));
 
   --security-ink-dark: rgba(40,40,36,.025);
   --security-blind: rgba(255,255,255,.22);
@@ -84,12 +85,12 @@
   --spine-team-opacity: .06;
 
   --island-surface: var(--graphite-100);
-  --island-active-surface: rgba(255,255,255,.08);
-  --island-active-light: inset 0 1px 0 rgba(255,255,255,.03);
-  --island-top-light: rgba(255,255,255,.07);
+  --island-active-surface: rgba(255,255,255,.05);
+  --island-active-light: inset 0 1px 0 rgba(255,255,255,.02);
+  --island-top-light: rgba(255,255,255,.035);
   --island-bottom-edge: rgba(0,0,0,.12);
-  --island-shadow: 0 10px 28px rgba(20,20,18,.14);
-  --island-edge: rgba(255,255,255,.025);
+  --island-shadow: 0 6px 18px rgba(20,20,18,.085);
+  --island-edge: rgba(255,255,255,.016);
   --island-material-shadow: inset 0 1px 0 var(--island-top-light),inset 0 -1px 0 var(--island-bottom-edge),var(--island-shadow),0 0 0 1px var(--island-edge);
   --island-focus: color-mix(in srgb,var(--pass-highlight) 65%,transparent);
 
@@ -114,6 +115,7 @@
   --pass-surface: var(--pass-base);
   --temperature-intensity: .65;
   --serial-ink: var(--text-micro);
+  --record-ink: var(--text-micro);
   --timing-ink: var(--graphite-70);
   --security-visibility: .65;
   --emotion-visibility: .85;
@@ -139,8 +141,12 @@
   --timing-ink: var(--graphite-70);
   --security-visibility: .8;
   --serial-ink: var(--spine-text);
+  --record-ink: var(--text-tertiary);
 }
-.personal-pass[data-pass-status="archived"] .collection-stack { color:var(--text-tertiary); }
+.team-identity,.team-tint {
+ --identity-accent-ink:var(--team-print-ink);
+ --identity-temperature-ink:color-mix(in srgb,var(--team-temperature-tint) calc(var(--temperature-intensity) * 70%),transparent);
+}
 .pass-security { --security-team:var(--team-security-ink);position:absolute;inset:0;pointer-events:none;user-select:none; }
 .pass-security::before,.pass-security::after {
   content:'';position:absolute;inset:0;pointer-events:none;
@@ -190,20 +196,18 @@
 
 /* V2.8 mobile casing: neutral hard edges; no optical wash over the paper or App. */
 :root {
- --mobile-acrylic-plane:rgba(252,251,248,.025);
- --mobile-acrylic-light:rgba(252,251,248,.78);
- --mobile-acrylic-middle:rgba(252,251,248,.24);
- --mobile-acrylic-rest:rgba(27,28,26,.13);
- --mobile-acrylic-side:rgba(27,28,26,.085);
- --mobile-acrylic-mount:rgba(118,119,113,.13);
- --mobile-acrylic-corner:rgba(252,251,248,.72);
- --mobile-acrylic-cut-light:rgba(252,251,248,.62);
+ --mobile-acrylic-light:rgba(248,250,249,.44);
+ --mobile-acrylic-middle:rgba(248,250,249,.10);
+ --mobile-acrylic-rest:rgba(75,76,72,.07);
+ --mobile-acrylic-side:rgba(98,104,102,.065);
+ --mobile-acrylic-mount:rgba(98,104,102,.055);
+ --mobile-acrylic-cut-light:rgba(248,250,249,.38);
  --mobile-acrylic-engraving-dark:rgba(75,76,72,.12);
  --mobile-acrylic-engraving-light:rgba(252,251,248,.56);
- --mobile-enclosed-contact:drop-shadow(0 2px 5px rgba(26,26,23,.035)) drop-shadow(0 10px 24px rgba(26,26,23,.04));
+ --mobile-enclosed-contact:drop-shadow(0 2px 4px rgba(26,26,23,.028)) drop-shadow(0 8px 20px rgba(26,26,23,.032));
 }
 .has-mobile-enclosure {
- --mobile-acrylic-team:color-mix(in srgb,var(--team-accent) 14%,transparent);
+ --mobile-acrylic-team:color-mix(in srgb,var(--team-accent) 6.5%,transparent);
  --mobile-refraction-energy:.65;
 }
 .has-mobile-enclosure[data-pass-status="next_up"] { --mobile-refraction-energy:.70; }
