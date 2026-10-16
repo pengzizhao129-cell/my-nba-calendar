@@ -1,5 +1,6 @@
+import {getTeamIdentity} from '@/lib/passDesign';
 export interface Team { id: string; name: string; city: string; abbr: string; color: string; primaryColor: string }
 export const teams: Team[] = [
 ['ATL','老鹰','亚特兰大','#c8102e'],['BOS','凯尔特人','波士顿','#007a33'],['BKN','篮网','布鲁克林','#343434'],['CHA','黄蜂','夏洛特','#00788c'],['CHI','公牛','芝加哥','#ce1141'],['CLE','骑士','克利夫兰','#860038'],['DAL','独行侠','达拉斯','#00538c'],['DEN','掘金','丹佛','#244780'],['DET','活塞','底特律','#c8102e'],['GSW','勇士','金州','#ca941c'],['HOU','火箭','休斯顿','#ed3b35'],['IND','步行者','印第安纳','#bc8b00'],['LAC','快船','洛杉矶','#c8102e'],['LAL','湖人','洛杉矶','#7541a0'],['MEM','灰熊','孟菲斯','#5d76a9'],['MIA','热火','迈阿密','#98002e'],['MIL','雄鹿','密尔沃基','#00471b'],['MIN','森林狼','明尼苏达','#236192'],['NOP','鹈鹕','新奥尔良','#85714d'],['NYK','尼克斯','纽约','#e36b21'],['OKC','雷霆','俄克拉荷马城','#007ac1'],['ORL','魔术','奥兰多','#0077c0'],['PHI','76人','费城','#006bb6'],['PHX','太阳','菲尼克斯','#b95c22'],['POR','开拓者','波特兰','#e03a3e'],['SAC','国王','萨克拉门托','#5a2d81'],['SAS','马刺','圣安东尼奥','#647178'],['TOR','猛龙','多伦多','#ce1141'],['UTA','爵士','犹他','#384c95'],['WAS','奇才','华盛顿','#344b71']
-].map(([id,name,city,color])=>({id,name,city,abbr:id,color,primaryColor:id==='GSW'?'#1d428a':color}));
+].map(([id,name,city,color])=>({id,name,city,abbr:id,color,primaryColor:getTeamIdentity(id)!.primaryColor}));
 export const getTeam = (id: string) => teams.find(t=>t.id===id)!;

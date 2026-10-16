@@ -1,6 +1,6 @@
 # MyGame+ Promo — Material and System Reference
 
-Current ticket construction is [V2.1 — Collectible Pass Structure](collectible-pass.md). It supersedes the older watermark, venue, tear-guide and stub placement described below. The V1.9 material, timing, header and navigation rules remain in effect.
+Current product rules are [V2.2 — Personal Pass System](personal-pass.md), building on the [V2.1 ticket construction](collectible-pass.md). V2.2 replaces the demo-only ID with local persistence, moves the sole event annotation into the stub, and introduces typed variable layers. It supersedes older watermark, venue, tear-guide, annotation and stub placement notes below. The V1.9 material, timing, header and navigation rules remain in effect.
 
 System is engineered. Game is tactile.
 V1.9 focuses only on the three header groups, tactile event pass, branded timing numerals, printed team identity areas and thinner system island. It retains the existing composition, logo, slogans, event information, programme, serial and App business logic. No module, information, icon, feature or decorative concept is added.

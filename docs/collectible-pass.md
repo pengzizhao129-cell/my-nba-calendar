@@ -1,5 +1,7 @@
 # MyGame+ Promo V2.1 — Collectible Pass Structure
 
+Historical construction reference. [V2.2 — Personal Pass System](personal-pass.md) now provides persistent local identity, separate game/season data, all 30 identity packs and one status-driven stub annotation. Its rules supersede V2.1's fixed user sample and five-team-only registry.
+
 Main ticket: the game. Stub: the owner and collection. Security stock: the selected team.
 
 ## Construction

@@ -1,5 +1,5 @@
 import type {Team} from '@/data/teams';
-import {teamSymbolGeometry} from '@/lib/passDesign';
+import {getTeamIdentity,teamSymbolGeometry} from '@/lib/passDesign';
 
 // English display names are presentation only; team selection stays in data/teams.
 export const teamEnglishNames:Record<string,string> = {
@@ -17,7 +17,8 @@ export function TeamSymbol({team,size=16}:{team:Team;size?:number}) {
 }
 
 export function TeamIdentityBlock({team}:{team:Team}) {
- return <div className="team-identity" style={{'--identity-color':team.primaryColor} as React.CSSProperties}>
+ const identity=getTeamIdentity(team.id)!;
+ return <div className="team-identity" data-identity={identity.symbol} data-temperature={identity.temperature} style={{'--identity-color':identity.primaryColor,'--identity-tint-ink':identity.secondaryTint} as React.CSSProperties}>
   <TeamSymbol team={team}/>
   <strong style={{color:team.primaryColor}}>{team.abbr}</strong>
   <span>{team.city}{team.name}</span>
