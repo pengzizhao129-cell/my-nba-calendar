@@ -50,7 +50,7 @@ async function main() {
       await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(image => image.decode())); });
       await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       const report = await page.evaluate(() => {
-        const selectors = ['.top-label', '.brand', '.brand h1', '.app-mark', '.wordmark', '.subtitle', '.slogan', '.beta', '.city-status', '.identity', '.identity-label', '.time-system', '.local-label', '.auto-state', '.offset', '.team-preference', '.city-control', '.pass', '.week', '.schedule', '.dock'];
+        const selectors = ['.top-label', '.brand', '.brand h1', '.app-mark', '.wordmark', '.subtitle', '.slogan', '.beta', '.city-status', '.identity', '.identity-label', '.time-system', '.local-label', '.auto-state', '.offset', '.team-preference', '.city-control', '.pass', '.tipoff', '.time-caption', '.week', '.schedule', '.dock'];
         const rect = element => { const b = element.getBoundingClientRect(); return { x:b.x, y:b.y, width:b.width, height:b.height }; };
         const styles = selector => { const s = getComputedStyle(document.querySelector(selector)); return { radius:s.borderRadius, border:s.borderTopWidth + ' ' + s.borderTopColor, background:s.backgroundColor, backgroundImage:s.backgroundImage, shadow:s.boxShadow, filter:s.filter, blur:s.backdropFilter, font:s.fontFamily }; };
         const paper=getComputedStyle(document.querySelector('.pass'),'::before');
@@ -60,6 +60,7 @@ async function main() {
           dynamic: [...document.querySelectorAll('[data-state]')].map(rect),
           radius: Object.fromEntries(['.team-tint','.beta','.pass','.dock'].map(selector => [selector, styles(selector).radius])),
           surfaces: Object.fromEntries(['.beta','.pass','.dock'].map(selector => [selector, styles(selector)])),
+          identityPatches: ['.team-tint:not(.away)','.team-tint.away'].map(styles),
           fontsLoaded: document.fonts.check('530 100px Geist')&&document.fonts.check('550 100px "MyGame Timing"')&&document.fonts.check('500 30px "MyGame Timing"')&&document.fonts.check('600 64px "MyGame Identity"'),
           scrollWidth:document.documentElement.scrollWidth, scrollHeight:document.documentElement.scrollHeight,
           overflow,
@@ -70,7 +71,7 @@ async function main() {
           wordmarkMask:getComputedStyle(document.querySelector('.wordmark')).maskImage,
           paperMaterial:{background:paper.backgroundImage,mask:paper.maskImage,composition:paper.maskComposite,edge:paper.boxShadow},
           paperBorder:paper.borderTopColor,
-          inkLevels:Object.fromEntries(Object.entries({primary:['.tipoff','.date .day','.date .month','.team-chinese','.game-status','.row-time','.count'],secondary:['.brand h1','.slogan','.city-control .city','.venue','.row-team','.week h2','.versus','.time-caption .caption-state'],tertiary:['.subtitle','.subtitle .nba','.city-status','.identity-label .cn','.team-preference .chevron','.city-control .chevron','.offset','.weekday','.row-date .number','.row-venue','.venue-status'],micro:['.top-label','.beta-label','.auto-state','.identity>.identity-english','.micro','.serial','.row-date .sub','.weekday .en']}).map(([level,selectors])=>[level,Object.fromEntries(selectors.map(selector=>[selector,[...new Set([...document.querySelectorAll(selector)].map(element=>getComputedStyle(element).color))]]))])),
+          inkLevels:Object.fromEntries(Object.entries({primary:['.brand h1','.tipoff','.date .day','.date .month','.team-chinese','.game-status','.row-time','.count'],secondary:['.slogan','.city-control .city','.venue','.row-team','.week h2','.versus','.time-caption .caption-state'],tertiary:['.subtitle','.subtitle .nba','.city-status','.identity-label .cn','.team-preference .chevron','.city-control .chevron','.offset','.weekday','.row-date .number','.row-venue','.venue-status'],micro:['.top-label','.beta-label','.auto-state','.identity>.identity-english','.micro','.serial','.row-date .sub','.weekday .en']}).map(([level,selectors])=>[level,Object.fromEntries(selectors.map(selector=>[selector,[...new Set([...document.querySelectorAll(selector)].map(element=>getComputedStyle(element).color))]]))])),
           serialStyle:(()=>{const element=document.querySelector('.serial'),s=getComputedStyle(element);return {size:s.fontSize,line:s.lineHeight,tracking:s.letterSpacing,gap:s.columnGap,parts:[...element.children].map(part=>part.textContent.trim()),separators:[...element.querySelectorAll('.separator')].map(part=>({opacity:getComputedStyle(part).opacity,tracking:getComputedStyle(part).letterSpacing})),rect:rect(element)};})(),
           notches:[...document.querySelectorAll('.notch')].map(rect),
           perforation:rect(document.querySelector('.perforation')),
@@ -98,16 +99,24 @@ async function main() {
       assert.equal(report.radius['.team-tint'], '12px');
       assert.equal(report.radius['.beta'], '16px');
       assert.equal(report.radius['.pass'], '20px');
-      assert.equal(report.radius['.dock'], '30px');
+      assert.equal(report.radius['.dock'], '28px');
       assert.equal(report.geometry['.beta'].width,728);
       assert.equal(report.geometry['.beta'].height,24);
       assert.deepEqual(report.geometry['.app-mark'],{x:176,y:68,width:56,height:56});
       assert.deepEqual(report.geometry['.pass'],{x:176,y:456,width:728,height:576});
       assert.deepEqual(report.geometry['.week'],{x:176,y:1080,width:728,height:224});
-      assert.deepEqual(report.geometry['.dock'],{x:76,y:1336,width:928,height:76});
+      assert.deepEqual(report.geometry['.dock'],{x:76,y:1340,width:928,height:72});
       const gap=(above,below)=>report.geometry[below].y-(report.geometry[above].y+report.geometry[above].height);
       report.verticalRhythm=[gap('.top-label','.brand'),gap('.brand','.subtitle'),gap('.subtitle','.slogan'),gap('.slogan','.beta'),gap('.beta','.city-status'),gap('.city-status','.identity'),gap('.identity','.pass'),gap('.pass','.week'),gap('.week','.dock')];
-      assert.deepEqual(report.verticalRhythm,[8,8,24,16,32,8,32,48,32],'Dense semantic groups alternate with deliberate open section gaps');
+      assert.deepEqual(report.verticalRhythm,[8,32,4,32,8,8,36,48,36],'Dense semantic groups alternate with deliberate open section gaps');
+      assert.equal(gap('.brand','.subtitle'),32,'Separate Brand from Product');
+      assert.equal(gap('.subtitle','.slogan'),4,'Product descriptor and slogan form one group');
+      assert.equal(gap('.slogan','.beta'),32,'Separate Product from System');
+      for(const patch of report.identityPatches) {
+        assert.ok(patch.border.startsWith('0px'));assert.equal(patch.shadow,'none');assert.equal(patch.blur,'none');
+        assert.ok(patch.backgroundImage.includes(', 0)')&&patch.backgroundImage.includes('75%'),'Team temperature dissolves before the patch edge');
+      }
+      assert.equal(report.geometry['.time-caption'].y-report.geometry['.tipoff'].y,96,'Local-time detail stays close to the main timing block');
       assert.deepEqual(report.litContent,[],'Only the event pass gets object lighting in content');
       assert.ok(!report.visibleURLs,'No visible website URLs');
       assert.equal(report.content.slogan,city==='tokyo'?'无论在哪，主队准时见。':'换个城市，不换主队。');
@@ -120,7 +129,7 @@ async function main() {
       assert.equal(report.serialStyle.rect.x+report.serialStyle.rect.width,report.geometry['.pass'].x+report.geometry['.pass'].width-33,'Serial stays on the ticket stub right alignment');
       const inks={primary:'rgb(38, 37, 33)',secondary:'rgb(104, 98, 89)',tertiary:'rgb(148, 140, 128)',micro:'rgb(170, 163, 151)'};
       for(const [level,selectors] of Object.entries(report.inkLevels))for(const [selector,colors]of Object.entries(selectors))assert.deepEqual(colors,[inks[level]],selector+' must use its assigned brightness tier');
-      assert.ok(parseFloat(report.paperBorder.split(',').at(-1))<=.02,'The frame must be only a minimal support for the illuminated paper');
+      assert.ok(parseFloat(report.paperBorder.split(',').at(-1))<=.01,'The frame must be only a minimal support for the illuminated paper');
       assert.equal(report.content.time,city==='tokyo'?'10:00':'01:00');
       assert.equal(report.content.first,report.content.time);
       assert.equal(report.content.second,city==='tokyo'?'11:00':'02:00');
@@ -130,6 +139,8 @@ async function main() {
       assert.ok(report.brandSeal.backgroundImage.includes('radial-gradient')&&report.brandSeal.shadow!=='none','Brand seal has restrained edge light and contact depth');
       assert.deepEqual(report.typography['.beta-label'],report.typography['.auto-state'],'System microcopy uses one type language');
       assert.ok(parseFloat(report.typography['.brand h1'].size)<parseFloat(report.typography['.team-abbr'].size));
+      assert.ok(parseFloat(report.typography['.brand h1'].size)>parseFloat(report.typography['.slogan'].size));
+      assert.ok(parseFloat(report.typography['.slogan'].size)>parseFloat(report.typography['.subtitle'].size));
       assert.ok(parseFloat(report.typography['.team-abbr'].size)<parseFloat(report.typography['.tipoff'].size));
       for(const border of report.summaryBorders) assert.deepEqual(border,{top:'0px',bottom:'0px'},'Premium summary relies on spacing rather than table rules');
       assert.equal(report.typography['.tipoff'].size,'100px','Do not enlarge the main time');
@@ -139,7 +150,7 @@ async function main() {
       for(const [index,time] of report.timing.entries()) {
         assert.ok(time.font.includes('MyGame Timing'));assert.equal(time.numerals,'tabular-nums');
         assert.equal(time.size,index===0?'100px':'30px');assert.equal(time.weight,index===0?'550':'500');
-        assert.equal(time.colon.opacity,index===0?'0.64':'0.56');
+        assert.equal(time.colon.opacity,index===0?'0.6':'0.56');
         assert.equal(time.colon.textSize,'0px','Colon must be drawn from its own two dots, not a font glyph');
         assert.equal(time.colon.width,time.colon.height);assert.equal(time.text,time.label);
       }
@@ -152,7 +163,7 @@ async function main() {
       for(const micro of report.microLabels){assert.ok(micro.font.startsWith('Geist'));assert.equal(micro.weight,'500');assert.ok(Math.abs(micro.tracking-.13)<.0001);}
       assert.equal(report.chevrons.length,2);
       for(const chevron of report.chevrons){assert.equal(chevron.rect.width,18);assert.equal(chevron.rect.height,18);assert.equal(chevron.color,inks.tertiary);}
-      assert.ok(Math.abs(parseFloat(report.activeBackground.split(',').at(-1))-.085)<=.002,'Active segment remains a soft 8.5% brightness layer');
+      assert.ok(Math.abs(parseFloat(report.activeBackground.split(',').at(-1))-.07)<=.002,'Active segment remains a soft 7% brightness layer');
       assert.equal(report.canvas,'rgb(244, 242, 238)');
       assert.ok(report.wordmarkMask.includes('wordmark.png'),'Keep the original wordmark silhouette');
       assert.equal(report.notches.length,2,'Retain exactly two ticket cutouts');
@@ -179,14 +190,14 @@ async function main() {
         assert.deepEqual([...corners.subarray(offset,offset+3)],[244,242,238],'No black borders');
       }
       report.file = { name:names[i], width:meta.width, height:meta.height, bytes:stat.size, decode:'passed' };
-      const thumbnail = '/tmp/mygame-promo-v1.8-'+city+'-30.png';
+      const thumbnail = '/tmp/mygame-promo-v1.9-'+city+'-30.png';
       await sharp(path.join(output,names[i])).resize(324,432).png().toFile(thumbnail);
-      const blur = '/tmp/mygame-promo-v1.8-'+city+'-blur.png';
+      const blur = '/tmp/mygame-promo-v1.9-'+city+'-blur.png';
       const blurStyle = await page.addStyleTag({content:'main{filter:blur(5px)}'});
       await page.screenshot({path:blur,type:'png',fullPage:false,animations:'disabled'});
       await sharp(blur).resize(324,432).png().toFile(blur.replace('.png','-30.png'));
       await blurStyle.evaluate(element=>element.remove());
-      const borderless = '/tmp/mygame-promo-v1.8-'+city+'-borderless.png';
+      const borderless = '/tmp/mygame-promo-v1.9-'+city+'-borderless.png';
       const borderlessStyle = await page.addStyleTag({content:'*,*::before,*::after{border-color:transparent!important;outline:none!important}.divider,.perforation{visibility:hidden!important}'});
       const borderlessGeometry = await page.evaluate(selectors=>Object.fromEntries(selectors.map(selector=>{const b=document.querySelector(selector).getBoundingClientRect();return [selector,{x:b.x,y:b.y,width:b.width,height:b.height}];})),Object.keys(report.geometry));
       assert.deepEqual(borderlessGeometry,report.geometry,'Layout must stand without drawn borders');
@@ -215,16 +226,16 @@ async function main() {
     }
   }
   assert.equal(staticDifferences, 0, 'Only slogan, city state, GMT and time content may differ');
-  const dock = { left:76, top:1336, width:928, height:76 };
+  const dock = { left:76, top:1340, width:928, height:72 };
   const docks = await Promise.all(names.map(name => sharp(path.join(output,name)).extract(dock).raw().toBuffer()));
   assert.ok(docks[0].equals(docks[1]), 'Dock pixels must match exactly');
-  const overlay = '/tmp/mygame-promo-v1.8-overlay.png';
+  const overlay = '/tmp/mygame-promo-v1.9-overlay.png';
   const overlayPixels=Buffer.alloc(buffers[0].length);
   for(let i=0;i<overlayPixels.length;i++)overlayPixels[i]=Math.round((buffers[0][i]+buffers[1][i])/2);
   await sharp(overlayPixels,{raw:{width:1080,height:1440,channels:3}}).png().toFile(overlay);
   await sharp(overlay).resize(324,432).png().toFile(overlay.replace('.png','-30.png'));
-  const result = { version:'MyGame+ Promo V1.8 — Luxury Precision Pass', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
-  await fs.writeFile('/tmp/mygame-promo-v1.8-validation.json', JSON.stringify(result,null,2));
+  const result = { version:'MyGame+ Promo V1.9 — Final Luxury Focus', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
+  await fs.writeFile('/tmp/mygame-promo-v1.9-validation.json', JSON.stringify(result,null,2));
   console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing and MyGame Identity loaded', radius:reports[0].radius },null,2));
 }
 

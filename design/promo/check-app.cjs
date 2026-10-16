@@ -31,7 +31,7 @@ async function main() {
   assert.equal(await page.locator('.tipoff-time .quiet-value-current').innerText(),'01:00');
   assert.equal(await nav.locator('button:enabled').count(),3,'Navigation stays available during context');
   await until(page,()=>document.querySelector('.app-system-island')?.getAttribute('data-context')==='navigation','Context should automatically close');
-  await until(page,()=>Math.abs(document.querySelector('.app-system-island').getBoundingClientRect().height-76)<.1,'Island should return to its 76px resting height');
+  await until(page,()=>Math.abs(document.querySelector('.app-system-island').getBoundingClientRect().height-72)<.1,'Island should return to its 72px resting height');
   assert.equal(await page.locator('.quiet-value-old').count(),0,'Old values must leave the DOM after crossfade');
 
   await page.selectOption('#city','Asia/Tokyo');

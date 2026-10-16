@@ -19,26 +19,39 @@ SOURCE = HERE.parents[1] / "src/app/fonts/GeistSans.woff2"
 def timing_zero(weight):
     # Long, upright flanks and controlled shoulders; solid, continuous strokes.
     # The counter opens at the lighter schedule weight, preserving small-size ink.
-    inset = 94 if weight == 500 else 101
+    inset = 90 if weight == 500 else 97
     p = TTGlyphPen(None)
-    p.moveTo((280, 726))
-    p.lineTo((338, 726))
-    p.qCurveTo((570, 726), (570, 494))
-    p.lineTo((570, 216))
-    p.qCurveTo((570, -16), (338, -16))
-    p.lineTo((280, -16))
-    p.qCurveTo((48, -16), (48, 216))
-    p.lineTo((48, 494))
-    p.qCurveTo((48, 726), (280, 726))
+    p.moveTo((277, 726))
+    p.lineTo((341, 726))
+    p.qCurveTo((560, 726), (560, 502))
+    p.lineTo((560, 208))
+    p.qCurveTo((560, -16), (341, -16))
+    p.lineTo((277, -16))
+    p.qCurveTo((58, -16), (58, 208))
+    p.lineTo((58, 502))
+    p.qCurveTo((58, 726), (277, 726))
     p.closePath()
-    p.moveTo((280, 726 - inset))
-    p.qCurveTo((48 + inset, 726 - inset), (48 + inset, 494))
-    p.lineTo((48 + inset, 216))
-    p.qCurveTo((48 + inset, -16 + inset), (280, -16 + inset))
-    p.lineTo((338, -16 + inset))
-    p.qCurveTo((570 - inset, -16 + inset), (570 - inset, 216))
-    p.lineTo((570 - inset, 494))
-    p.qCurveTo((570 - inset, 726 - inset), (338, 726 - inset))
+    p.moveTo((277, 726 - inset))
+    p.qCurveTo((58 + inset, 726 - inset), (58 + inset, 502))
+    p.lineTo((58 + inset, 208))
+    p.qCurveTo((58 + inset, -16 + inset), (277, -16 + inset))
+    p.lineTo((341, -16 + inset))
+    p.qCurveTo((560 - inset, -16 + inset), (560 - inset, 208))
+    p.lineTo((560 - inset, 502))
+    p.qCurveTo((560 - inset, 726 - inset), (341, 726 - inset))
+    p.closePath()
+    return p.glyph()
+
+
+def timing_one(weight):
+    # A continuous shoulder and a shorter, balanced timing-device foot.
+    stem_left, stem_right, foot = (282, 374, 82) if weight == 500 else (278, 376, 88)
+    p = TTGlyphPen(None)
+    p.moveTo((124, 0))
+    for point in [(124, foot), (stem_left, foot), (stem_left, 583),
+                  (165, 517), (165, 618), (302, 710), (stem_right, 710),
+                  (stem_right, foot), (504, foot), (504, 0)]:
+        p.lineTo(point)
     p.closePath()
     return p.glyph()
 
@@ -66,7 +79,10 @@ def build(family, weight, text, x_scale, destination):
             font["hmtx"][name + ".tf"] = metrics
         for name in ["zero", "zero.tf"]:
             font["glyf"][name] = timing_zero(weight)
-            font["hmtx"][name] = (618, 48)
+            font["hmtx"][name] = (618, 58)
+        for name in ["one", "one.tf"]:
+            font["glyf"][name] = timing_one(weight)
+            font["hmtx"][name] = (618, 124)
     options = subset.Options()
     options.layout_features = ["tnum", "kern"]
     sub = subset.Subsetter(options=options)
@@ -85,7 +101,8 @@ def build(family, weight, text, x_scale, destination):
     # Modified font families use their own names; retain upstream copyright/OFL.
     for name_id in (1, 2, 3, 4, 6, 16, 17):
         font["name"].removeNames(nameID=name_id)
-    labels = {1: family, 2: "Regular", 3: family + "-" + str(weight) + "-1.7",
+    version = "1.9" if family == "MyGame Timing" else "1.7"
+    labels = {1: family, 2: "Regular", 3: family + "-" + str(weight) + "-" + version,
               4: family + " " + str(weight), 6: family.replace(" ", "") + "-" + str(weight),
               16: family, 17: str(weight)}
     for name_id, value in labels.items():
@@ -102,5 +119,5 @@ def build(family, weight, text, x_scale, destination):
 
 if __name__ == "__main__":
     for weight in (500, 550):
-        build("MyGame Timing", weight, "0123456789. ", .92, f"timing-{weight}.woff2")
+        build("MyGame Timing", weight, "0123456789. ", .90, f"timing-{weight}.woff2")
     build("MyGame Identity", 600, "HOULAGSW ", .94, "identity-600.woff2")

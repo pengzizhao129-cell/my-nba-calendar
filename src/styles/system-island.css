@@ -1,8 +1,8 @@
 :root {
   --island-surface: #181917;
-  --island-radius: 30px;
-  --island-active-radius: 20px;
-  --island-active-surface: rgba(255,255,255,.085);
+  --island-radius: 28px;
+  --island-active-radius: 18px;
+  --island-active-surface: rgba(255,255,255,.07);
   --island-text-active: #f7f5f0;
   --island-text-inactive: rgba(255,255,255,.60);
   --island-label-active: rgba(255,255,255,.62);
@@ -17,9 +17,9 @@
   border: 0;
   border-radius: var(--island-radius);
   color: var(--island-text-active);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.08),
-    inset 0 -1px 0 rgba(0,0,0,.18),
-    0 4px 12px rgba(15,15,15,.07),
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -1px 0 rgba(0,0,0,.14),
+    0 3px 10px rgba(15,15,15,.05),
     0 0 0 1px rgba(255,255,255,.02);
   isolation: isolate;
 }
@@ -27,8 +27,8 @@
   display: grid;
   grid-template-columns: repeat(3,minmax(0,1fr));
   gap: 8px;
-  padding: 6px 8px;
-  height: 76px;
+  padding: 4px 8px;
+  height: 72px;
 }
 .system-island-item {
   appearance: none;
