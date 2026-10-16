@@ -14,7 +14,6 @@ export interface IslandGameContext {
  /** Selected team, timezone and fixture identity, supplied by existing schedule logic. */
  key:string;
  team:string;
- color:string;
  time:string;
 }
 
@@ -41,7 +40,7 @@ export function SystemIsland({tab,onSelect,context}:{
   <div className="island-context-row">
    <div className="island-context-clip">
     <div className="island-context-label" role="status" aria-live="polite" aria-atomic="true">
-     {visible&&context&&<><span className="island-context-dot" style={{background:context.color}} aria-hidden="true"/><span>{context.team}</span><span className="island-context-separator" aria-hidden="true">·</span><span>GAME DAY</span><span className="island-context-separator" aria-hidden="true">·</span><NumericValue value={context.time}/></>}
+     {visible&&context&&<><span className="island-context-dot" aria-hidden="true"/><span>{context.team}</span><span className="island-context-separator" aria-hidden="true">·</span><span>GAME DAY</span><span className="island-context-separator" aria-hidden="true">·</span><NumericValue value={context.time}/></>}
     </div>
    </div>
   </div>

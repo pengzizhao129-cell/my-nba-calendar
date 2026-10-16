@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <meta charset="utf-8">
 <meta name="viewport" content="width=1080, initial-scale=1">
-<title>MyGame+ Promo V2.2 — Personal Pass System</title>
+<title>MyGame+ Promo V2.3-CM — Color & Material System</title>
+<link rel="stylesheet" href="color-material.css">
 <link rel="stylesheet" href="system-island.css">
 <style>
 @font-face{font-family:Geist;src:url('GeistSans.woff2') format('woff2');font-weight:100 900;font-display:block}
@@ -11,9 +12,9 @@
 @font-face{font-family:'MyGame Identity';src:url('identity-600.woff2') format('woff2');font-weight:600;font-display:block}
 @font-face{font-family:'Event Annotation';src:url('event-annotation.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
 :root{
- --canvas:#f4f2ee;--paper:#fcfaf7;--paper-center:#fffefb;--paper-edge:#f8f6f1;
- --primary:#262521;--secondary:#686259;--tertiary:#948c80;--micro-ink:#aaa397;
- --hairline:rgba(20,20,20,.028);--red:#c7343d;--hou:#c7343d;--lal:#76548e;--gsw:#375a83;
+ --canvas:var(--canvas-base);--paper:var(--pass-base);--paper-center:var(--pass-highlight);--paper-edge:var(--pass-edge);
+ --primary:var(--text-primary);--secondary:var(--text-secondary);--tertiary:var(--text-tertiary);--micro-ink:var(--text-micro);
+ --hairline:var(--border-program);--red:var(--brand-red);
  --radius-team:12px;--radius-beta:16px;--radius-pass:20px;--radius-dock:28px;
  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;
  --type-time:48px;--promo-time-scale:2.0833333333;
@@ -36,7 +37,7 @@ svg *{vector-effect:non-scaling-stroke}
 .top-label{position:absolute;left:176px;top:32px;width:728px;height:24px;font-size:16px;line-height:24px;letter-spacing:.12em;font-weight:500;color:var(--micro-ink)}
 .brand{position:absolute;left:176px;top:64px;width:728px;height:64px;display:flex;align-items:center}
 .brand h1{position:absolute;left:72px;top:11px;font-size:34px;line-height:44px;font-weight:500;letter-spacing:-.025em;color:var(--primary);white-space:nowrap}
-.app-mark{position:absolute;left:0;top:4px;width:56px;height:56px;border-radius:16px;background:radial-gradient(ellipse at 30% 22%,#fffefa 10%,#fcfaf6 60%,#f3eee5 100%);border:1px solid rgba(38,37,33,.025);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 0 rgba(65,54,39,.025),0 1px 3px rgba(34,29,21,.025);color:var(--red)}
+.app-mark{position:absolute;left:0;top:4px;width:56px;height:56px;border-radius:16px;background:var(--seal-surface);border:1px solid var(--seal-edge);box-shadow:var(--seal-shadow);color:var(--red)}
 .mark-glyph{display:block;width:100%;height:100%}
 .mark-glyph,.mark-glyph *{fill:currentColor;stroke:none}
 .wordmark{position:absolute;left:292px;top:-2px;width:224px;height:70px;background:var(--red);mask:url('wordmark.png') center/contain no-repeat}
@@ -46,7 +47,7 @@ svg *{vector-effect:non-scaling-stroke}
 .subtitle .descriptor{white-space:pre}
 .beta{position:absolute;left:176px;top:260px;width:728px;height:24px;border-radius:var(--radius-beta);background:transparent;border:0;display:flex;align-items:center;padding:0;gap:16px}
 .beta-label,.auto-state{font-size:var(--system-micro-size);line-height:var(--system-micro-line);letter-spacing:var(--system-micro-tracking);font-weight:var(--system-micro-weight);color:var(--system-micro-color);white-space:nowrap}
-.divider{width:1px;height:14px;background:rgba(20,20,20,.04);flex:none}
+.divider{width:1px;height:14px;background:var(--border-system-divider);flex:none}
 .beta-copy{font-size:18px;font-weight:450;letter-spacing:0;line-height:24px;color:var(--tertiary);white-space:nowrap}
 .city-status{position:absolute;left:176px;top:292px;width:728px;height:24px;font-size:17px;line-height:24px;font-weight:500;color:var(--tertiary)}
 .city-status .route{color:inherit}
@@ -60,8 +61,8 @@ svg *{vector-effect:non-scaling-stroke}
 .auto-state{position:absolute;right:0;top:80px;display:flex;align-items:center;gap:6px}
 .auto-state::before{content:'';width:2.5px;height:2.5px;border-radius:50%;background:currentColor;opacity:.65;flex:none}
 .team-preference{position:absolute;left:0;top:24px;display:flex;align-items:center;gap:12px;height:36px;white-space:nowrap}
-.team-preference svg{width:24px;height:24px;color:var(--hou)}
-.team-preference .code{font-family:'MyGame Identity',Geist,sans-serif;font-size:28px;line-height:36px;font-weight:600;letter-spacing:-.02em;color:var(--hou)}
+.team-preference svg{width:24px;height:24px;color:var(--team-accent)}
+.team-preference .code{font-family:'MyGame Identity',Geist,sans-serif;font-size:28px;line-height:36px;font-weight:600;letter-spacing:-.02em;color:var(--team-accent)}
 .team-preference .name{font-size:24px;line-height:36px;font-weight:500}
 .team-preference .chevron{width:18px;height:18px;margin-left:8px;color:var(--tertiary)}
 .city-control{position:absolute;right:0;top:24px;display:flex;align-items:center;height:36px;gap:12px}
@@ -70,12 +71,11 @@ svg *{vector-effect:non-scaling-stroke}
 .city-control .chevron{width:18px;height:18px;color:var(--tertiary);margin-left:4px}
 .identity-english{position:absolute;left:0;top:64px;width:370px;height:16px;font-size:14px;line-height:16px;font-weight:450;letter-spacing:.07em;color:var(--micro-ink)}
 .offset{left:auto;right:0;width:280px;text-align:right;letter-spacing:.025em;font-variant-numeric:tabular-nums;color:var(--tertiary)}
-.pass{position:absolute;left:176px;top:456px;width:728px;height:576px;border-radius:var(--radius-pass);background:transparent;border:1px solid transparent;filter:drop-shadow(0 3px 5px rgba(34,29,21,.042))}
+.pass{position:absolute;left:176px;top:456px;width:728px;height:576px;border-radius:var(--radius-pass);background:transparent;border:1px solid transparent;filter:var(--pass-contact-filter)}
 /* The paper is physically masked at the two original punch positions. Shadows follow its silhouette. */
-.pass::before{content:'';position:absolute;inset:-1px;z-index:0;border-radius:inherit;border:1px solid rgba(20,20,20,.008);background:linear-gradient(180deg,rgba(255,255,255,.25),transparent 24%,transparent 78%,rgba(96,76,42,.008)),radial-gradient(ellipse at 32% 28%,var(--paper-center) 0%,var(--paper) 62%,var(--paper-edge) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.72),inset 0 -1px 0 rgba(20,20,20,.032);mask-image:radial-gradient(circle 11px at 0 481px,transparent 10.45px,#000 11.15px),radial-gradient(circle 11px at 100% 481px,transparent 10.45px,#000 11.15px);mask-composite:intersect}
+.pass::before{content:'';position:absolute;inset:-1px;z-index:0;border-radius:inherit;border:1px solid var(--border-paper);background:var(--material-pass);box-shadow:var(--pass-edge-light);mask-image:radial-gradient(circle 11px at 0 481px,transparent 10.45px,var(--pass-base) 11.15px),radial-gradient(circle 11px at 100% 481px,transparent 10.45px,var(--pass-base) 11.15px);mask-composite:intersect}
 .pass-content{position:absolute;inset:0;z-index:1;border-radius:inherit;overflow:hidden}
 .pass-main{position:absolute;left:0;right:0;top:0;height:480px}
-.pass-security{position:absolute;inset:0;background-repeat:no-repeat;background-size:100% 100%;pointer-events:none;user-select:none}
 .pass-label{position:absolute;left:32px;top:32px;font-size:20px;line-height:24px}
 .date{position:absolute;left:32px;top:56px;height:64px;display:flex;align-items:baseline;gap:8px}
 .date .day{font-family:'MyGame Timing',Geist,sans-serif;font-size:64px;line-height:64px;font-weight:550;letter-spacing:0;transform:translateX(-1px)}
@@ -84,14 +84,14 @@ svg *{vector-effect:non-scaling-stroke}
 .weekday .en{font-size:17px;letter-spacing:.13em;font-weight:500;color:var(--system-micro-color)}
 .game-day{position:absolute;right:32px;top:32px;text-align:right}
 .game-status{margin-top:12px;display:flex;align-items:center;justify-content:flex-end;gap:12px;font-size:22px;line-height:32px;font-weight:500;color:var(--primary)}
-.event-annotation{position:absolute;right:32px;top:14px;width:152px;height:24px;font-family:'Event Annotation',cursive;font-size:16px;line-height:24px;font-weight:400;font-style:normal;letter-spacing:0;color:var(--primary);opacity:.5;text-align:right;text-decoration:none;pointer-events:none}
-.sports-dot{width:8px;height:8px;border-radius:50%;background:var(--hou);flex:none}
-.team-tint{position:absolute;left:32px;top:176px;width:240px;height:144px;border-radius:var(--radius-team);background:radial-gradient(ellipse at 42% 48%,rgba(199,52,61,.016) 0%,rgba(199,52,61,.008) 45%,rgba(199,52,61,0) 75%);border:0;box-shadow:none}
-.team-tint.away{left:auto;right:32px;background:radial-gradient(ellipse at 58% 48%,rgba(118,84,142,.015) 0%,rgba(118,84,142,.007) 45%,rgba(118,84,142,0) 75%);text-align:right}
-.team-symbol{position:absolute;right:16px;top:16px;width:28px;height:28px;stroke-width:1.5;color:var(--hou)}
-.away .team-symbol{right:auto;left:16px;width:28px;height:28px;color:var(--lal);transform:translateY(1px)}
-.team-abbr{position:absolute;left:24px;top:24px;height:72px;font-family:'MyGame Identity',Geist,sans-serif;font-size:64px;line-height:72px;font-weight:600;font-kerning:normal;letter-spacing:-.032em;color:var(--hou);transform:translateX(1px)}
-.away .team-abbr{left:auto;right:24px;transform:translateX(-1px);color:var(--lal)}
+.event-annotation{position:absolute;right:32px;top:14px;width:152px;height:24px;font-family:'Event Annotation',cursive;font-size:16px;line-height:24px;font-weight:400;font-style:normal;letter-spacing:0;color:var(--annotation-ink);opacity:1;text-align:right;text-decoration:none;pointer-events:none}
+.sports-dot{width:8px;height:8px;border-radius:50%;background:var(--signal-active);flex:none}
+.team-tint{position:absolute;left:32px;top:176px;width:240px;height:144px;border-radius:var(--radius-team);background:radial-gradient(ellipse at 42% 48%,var(--team-temperature-tint),transparent 75%);border:0;box-shadow:none}
+.team-tint.away{left:auto;right:32px;background:radial-gradient(ellipse at 58% 48%,var(--team-temperature-tint),transparent 75%);text-align:right}
+.team-symbol{position:absolute;right:16px;top:16px;width:28px;height:28px;stroke-width:1.5;color:var(--team-accent)}
+.away .team-symbol{right:auto;left:16px;width:28px;height:28px;color:var(--team-accent);transform:translateY(1px)}
+.team-abbr{position:absolute;left:24px;top:24px;height:72px;font-family:'MyGame Identity',Geist,sans-serif;font-size:64px;line-height:72px;font-weight:600;font-kerning:normal;letter-spacing:-.032em;color:var(--team-accent);transform:translateX(1px)}
+.away .team-abbr{left:auto;right:24px;transform:translateX(-1px);color:var(--team-accent)}
 .team-chinese{position:absolute;left:24px;top:96px;font-size:24px;line-height:32px;font-weight:500;white-space:nowrap}
 .away .team-chinese{left:auto;right:24px}
 .versus{position:absolute;left:328px;top:236px;width:72px;text-align:center;font-size:24px;line-height:32px;color:var(--secondary);font-weight:500;letter-spacing:.02em}
@@ -100,8 +100,8 @@ svg *{vector-effect:non-scaling-stroke}
 .time-caption{position:absolute;left:32px;top:428px;height:32px;display:flex;align-items:baseline;gap:24px}
 .time-caption .micro{font-size:14px;line-height:20px}
 .time-caption .caption-state{font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);font-variant-numeric:tabular-nums}
-.perforation{position:absolute;left:16px;right:16px;top:480px;height:2px;z-index:2;background-image:repeating-linear-gradient(90deg,rgba(67,59,48,.095) 0 3px,transparent 3px 8px),repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 3px,transparent 3px 8px);background-size:8px .7px,8px .5px;background-position:0 0,0 1px;background-repeat:repeat-x}
-.stub{position:absolute;left:0;right:0;top:482px;bottom:0;background:rgba(104,98,89,.022);box-shadow:inset 0 1px 0 rgba(255,255,255,.28)}
+.perforation{position:absolute;left:16px;right:16px;top:480px;height:2px;z-index:2;background-image:repeating-linear-gradient(90deg,var(--perforation-dark) 0 3px,transparent 3px 8px),repeating-linear-gradient(90deg,var(--perforation-light) 0 3px,transparent 3px 8px);background-size:8px .7px,8px .5px;background-position:0 0,0 1px;background-repeat:repeat-x}
+.stub{position:absolute;left:0;right:0;top:482px;bottom:0;background:var(--material-stub);box-shadow:var(--stub-edge-light)}
 .collection-stack{position:absolute;left:32px;top:14px;display:flex;flex-direction:column;gap:0;font-family:Geist,sans-serif;font-size:14px;line-height:20px;letter-spacing:.1em;font-weight:500;font-variant-numeric:tabular-nums;color:var(--micro-ink);white-space:nowrap}
 .collection-stack>span:first-child{color:var(--tertiary)}
 .venue{position:absolute;right:32px;top:428px;display:flex;gap:12px;align-items:baseline;font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);white-space:nowrap}
@@ -109,7 +109,7 @@ svg *{vector-effect:non-scaling-stroke}
 .serial{position:absolute;right:32px;bottom:18px;display:inline-flex;align-items:baseline;gap:8px;font-size:14px;line-height:20px;font-weight:500;letter-spacing:.1em;color:var(--micro-ink);white-space:nowrap;font-variant-numeric:tabular-nums}
 .serial .separator{color:inherit;opacity:.62;letter-spacing:0}
 .notch{position:absolute;top:469px;width:22px;height:22px;border-radius:50%;background:transparent;z-index:2;pointer-events:none}
-.notch::before{content:'';position:absolute;inset:0;border:1px solid rgba(43,37,28,.075);border-top-color:rgba(43,37,28,.115);border-bottom-color:rgba(255,255,255,.82);border-radius:inherit}
+.notch::before{content:'';position:absolute;inset:0;border:1px solid var(--cutout-edge);border-top-color:var(--cutout-highlight);border-bottom-color:var(--cutout-inner);border-radius:inherit}
 .notch.left{left:-12px;clip-path:inset(-1px -1px -1px 50%)}.notch.right{right:-12px;clip-path:inset(-1px 50% -1px -1px)}
 .week{position:absolute;left:176px;top:1080px;width:728px;height:224px}
 .week-label{position:absolute;left:0;top:0;height:24px;font-size:14px;line-height:20px}
@@ -123,10 +123,10 @@ svg *{vector-effect:non-scaling-stroke}
 .row-date{height:56px;padding-top:2px;display:flex;flex-direction:column;justify-content:center;gap:0}
 .row-date .number{font-family:'MyGame Timing',Geist,sans-serif;font-size:24px;line-height:30px;font-weight:500;letter-spacing:0;color:var(--tertiary)}
 .row-date .sub{font-size:14px;line-height:20px;font-weight:500;color:var(--micro-ink);letter-spacing:.06em}
-.next-line{position:absolute;left:-18px;top:26px;width:2px;height:11px;border-radius:1px;background:var(--hou)}
+.next-line{position:absolute;left:-18px;top:26px;width:2px;height:11px;border-radius:1px;background:var(--signal-active)}
 .row-team{display:flex;align-items:center;gap:24px;font-size:22px;line-height:32px;font-weight:500;color:var(--secondary);white-space:nowrap}
-.row-code{width:56px;font-family:'MyGame Identity',Geist,sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em;color:var(--lal)}
-.warriors .row-code{color:var(--gsw)}
+.row-code{width:56px;font-family:'MyGame Identity',Geist,sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em;color:var(--team-accent)}
+.warriors .row-code{color:var(--team-accent)}
 .row-venue{font-size:14px;line-height:24px;font-weight:500;color:var(--tertiary);letter-spacing:.10em;text-align:right}
 .row-time{display:flex;align-items:center;justify-content:flex-end;font-size:30px;line-height:40px;font-weight:500;color:var(--primary);text-align:right}
 .row-time .timing-run{font-weight:500}.row-time .timing-colon{opacity:.56}
@@ -160,7 +160,7 @@ svg *{vector-effect:non-scaling-stroke}
   </div>
   <div class="identity-english">HOUSTON ROCKETS</div>
  </section>
- <section class="pass">
+ <section class="pass" data-pass-status="game-day">
   <div class="pass-content">
    <div class="pass-main" aria-label="赛事主券">
    <span class="pass-security" id="main-security" aria-hidden="true"></span>
@@ -196,16 +196,24 @@ svg *{vector-effect:non-scaling-stroke}
  </nav>
 </main>
 <script type="module">
- import {formatPassRecord,passSecurityUrl} from './pass-design.js';
+ import {formatPassRecord,passSecurityUrl,getTeamIdentity,teamMaterialProperties} from './pass-design.js';
  import {DEMO_SEASON} from './seasons.js';
  import {readOrCreatePassId} from './pass-id.js';
  import {resolvePassStatus} from './pass-status.js';
  const selectedTeam='HOU';
+ const applyIdentity=(element,code)=>{
+  const identity=getTeamIdentity(code);
+  for(const [name,value] of Object.entries(teamMaterialProperties(identity)))element.style.setProperty(name,value);
+  element.dataset.identity=identity.symbol;element.dataset.temperature=identity.temperature;
+ };
+ for(const [selector,code] of [['.pass','HOU'],['.team-preference','HOU'],['.team-tint:not(.away)','HOU'],['.team-tint.away','LAL'],['.row-team','LAL'],['.warriors .row-team','GSW']])applyIdentity(document.querySelector(selector),code);
  for(const region of ['main','stub']) {
   const surface=document.getElementById(region+'-security');
   const url=passSecurityUrl(selectedTeam,region);
   surface.dataset.securityTeam=selectedTeam;
-  surface.style.backgroundImage=url?`url("${url}")`:'none';
+  surface.dataset.securityPattern=getTeamIdentity(selectedTeam).securityPattern;
+  surface.dataset.securityFinish='blind';
+  surface.style.setProperty('--security-mask',url?`url("${url}")`:'none');
  }
  for(const line of formatPassRecord({number:readOrCreatePassId()},{gameNumber:1},DEMO_SEASON)) {
   const row=document.createElement('span');row.textContent=line;document.getElementById('collection').append(row);

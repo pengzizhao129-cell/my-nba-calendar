@@ -21,7 +21,7 @@ async function emotion(page,text) {await page.waitForFunction(expected=>document
 async function fingerprint(page) {return page.evaluate(()=>{
  const hero=document.querySelector('.personal-pass'),h=hero.getBoundingClientRect();
  const rect=element=>{const b=element.getBoundingClientRect();return{x:b.x-h.x,y:b.y-h.y,width:b.width,height:b.height};};
- return {game:hero.dataset.gameId,team:hero.dataset.team,season:hero.dataset.season,record:[...hero.querySelectorAll('.collection-stack>span')].map(e=>e.textContent),serial:hero.querySelector('.ticket-number').textContent,emotion:hero.querySelector('.emotion-mark').textContent,security:[...hero.querySelectorAll('.pass-security')].map(e=>e.style.backgroundImage),geometry:Object.fromEntries(['.ticket-main','.ticket-stub','.match','.tipoff','.venue-detail','.collection-stack','.emotion-mark'].map(s=>[s,rect(hero.querySelector(s))]))};
+ return {game:hero.dataset.gameId,team:hero.dataset.team,season:hero.dataset.season,record:[...hero.querySelectorAll('.collection-stack>span')].map(e=>e.textContent),serial:hero.querySelector('.ticket-number').textContent,emotion:hero.querySelector('.emotion-mark').textContent,security:[...hero.querySelectorAll('.pass-security')].map(e=>e.style.getPropertyValue('--security-mask')),geometry:Object.fromEntries(['.ticket-main','.ticket-stub','.match','.tipoff','.venue-detail','.collection-stack','.emotion-mark'].map(s=>[s,rect(hero.querySelector(s))]))};
 });}
 async function selectTeam(page,code) {await page.locator('.team-select').click();await page.locator('.team-choice').filter({hasText:code}).click();}
 
@@ -62,7 +62,7 @@ async function main(){
   for(const team of ['HOU','LAL','GSW','DAL','DEN','BOS']){
    await selectTeam(page,team);
    const paper=page.locator('.ticket-main>.pass-security');assert.equal(await paper.getAttribute('data-security-team'),team);
-   stock.push(await paper.evaluate(e=>e.style.backgroundImage));assert.equal((await record(page))[0],`PASS ${id}`);
+   stock.push(await paper.evaluate(e=>e.style.getPropertyValue('--security-mask')));assert.equal((await record(page))[0],`PASS ${id}`);
    assert.equal(await page.locator('.emotion-mark').count(),1);
   }
   assert.equal(new Set(stock).size,6);await selectTeam(page,'HOU');
@@ -86,8 +86,8 @@ async function main(){
    for(const item of layout.items){assert.ok(!item.overflow);assert.ok(Math.abs(item.width-layout.items[0].width)<.02);}
   }
   await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.scrollTo(0,0));
-  await page.screenshot({path:'/tmp/mygame-v2.2-app-tokyo.png',fullPage:true});
-  await page.selectOption('#city','Europe/London');await page.screenshot({path:'/tmp/mygame-v2.2-app-london.png',fullPage:true});
+  await page.screenshot({path:'/tmp/mygame-v2.3-cm-app-tokyo.png',fullPage:true});
+  await page.selectOption('#city','Europe/London');await page.screenshot({path:'/tmp/mygame-v2.3-cm-app-london.png',fullPage:true});
   checks.push('320/390/480/1080px: stub fields, annotation and serial do not overlap; navigation and safe area remain intact');
 
   // Leading-zero IDs and corrupted local data survive the actual hydration path.
@@ -122,7 +122,7 @@ async function main(){
   await deniedPage.selectOption('#city','Europe/London');assert.equal(await deniedPage.locator('.pass-id').innerText(),temporary);await denied.close();
   checks.push('Denied browser storage does not crash the app and retains session identity');
   assert.deepEqual(errors,[],'No runtime or hydration errors');
-  await fs.writeFile('/tmp/mygame-v2.2-app-validation.json',JSON.stringify({checks,errors},null,2));
+  await fs.writeFile('/tmp/mygame-v2.3-cm-app-validation.json',JSON.stringify({checks,errors},null,2));
   console.log(JSON.stringify({passed:checks.length,checks,errors},null,2));
  }finally{await browser.close();}
 }

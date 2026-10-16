@@ -1,5 +1,5 @@
 import type {Team} from '@/data/teams';
-import {getTeamIdentity,teamSymbolGeometry} from '@/lib/passDesign';
+import {getTeamIdentity,teamMaterialProperties,teamSymbolGeometry} from '@/lib/passDesign';
 
 // English display names are presentation only; team selection stays in data/teams.
 export const teamEnglishNames:Record<string,string> = {
@@ -13,14 +13,14 @@ export const teamEnglishNames:Record<string,string> = {
 export function TeamSymbol({team,size=16}:{team:Team;size?:number}) {
  const geometry = teamSymbolGeometry[team.id];
  if (!geometry) return null;
- return <svg className="team-symbol" data-team={team.id} aria-hidden="true" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{color:team.primaryColor}}>{geometry.paths.map(d=><path key={d} d={d}/>)}{geometry.dot&&<circle cx="12" cy="12" r=".75" fill="currentColor" stroke="none"/>}</svg>;
+ return <svg className="team-symbol" data-team={team.id} aria-hidden="true" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{'--team-accent':team.primaryColor,color:'var(--identity-accent-ink,var(--team-accent))'} as React.CSSProperties}>{geometry.paths.map(d=><path key={d} d={d}/>)}{geometry.dot&&<circle cx="12" cy="12" r=".75" fill="currentColor" stroke="none"/>}</svg>;
 }
 
 export function TeamIdentityBlock({team}:{team:Team}) {
  const identity=getTeamIdentity(team.id)!;
- return <div className="team-identity" data-identity={identity.symbol} data-temperature={identity.temperature} style={{'--identity-color':identity.primaryColor,'--identity-tint-ink':identity.secondaryTint} as React.CSSProperties}>
+ return <div className="team-identity" data-identity={identity.symbol} data-temperature={identity.temperature} style={teamMaterialProperties(identity) as React.CSSProperties}>
   <TeamSymbol team={team}/>
-  <strong style={{color:team.primaryColor}}>{team.abbr}</strong>
+  <strong>{team.abbr}</strong>
   <span>{team.city}{team.name}</span>
  </div>;
 }

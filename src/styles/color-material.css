@@ -1,0 +1,143 @@
+/* MyGame+ V2.3-CM — the only global paint palette.
+ * Geometry, type and motion remain in their existing component styles.
+ * Team paint enters through TeamIdentity; SVG masks contain alpha geometry only.
+ */
+:root {
+  --canvas-base: #f1efea;
+  --canvas-soft: #f4f2ed;
+  --canvas-deep: #ece9e3;
+  --pass-base: #faf8f4;
+  --pass-highlight: #fcfbf8;
+  --pass-edge: #f5f2ec;
+  --pass-depth: #efece6;
+  --stub-base: #f5f3ef;
+  --stub-cool: #f2f1ed;
+  --stub-edge: #ebe9e4;
+  --stub-surface: color-mix(in srgb,var(--stub-base) 55%,var(--pass-base));
+
+  --graphite-100: #1b1c1a;
+  --graphite-90: #252623;
+  --graphite-70: #4b4c48;
+  --graphite-50: #767771;
+  --graphite-30: #a6a59f;
+  --graphite-15: #d0cec8;
+  --brand-red: #a92732;
+  --brand-red-100: var(--brand-red);
+  --brand-red-60: rgba(169,39,50,.60);
+  --brand-red-20: rgba(169,39,50,.20);
+  --brand-red-10: rgba(169,39,50,.10);
+  --hou-accent: #bc3a40;
+  --lal-accent: #625382;
+  --hou-warm-tint: rgba(188,58,64,.025);
+  --lal-cool-tint: rgba(98,83,130,.025);
+
+  --text-primary: var(--graphite-100);
+  --text-secondary: var(--graphite-70);
+  --text-tertiary: var(--graphite-50);
+  --text-micro: var(--graphite-30);
+  --text-on-graphite: var(--pass-highlight);
+  --text-on-graphite-secondary: color-mix(in srgb,var(--pass-highlight) 62%,transparent);
+  --text-on-graphite-muted: color-mix(in srgb,var(--pass-highlight) 60%,transparent);
+  --text-on-graphite-micro: color-mix(in srgb,var(--pass-highlight) 40%,transparent);
+  --text-on-graphite-separator: color-mix(in srgb,var(--pass-highlight) 35%,transparent);
+  --annotation-ink: color-mix(in srgb,var(--graphite-70) 50%,transparent);
+  --separator-ink: color-mix(in srgb,var(--graphite-100) 60%,transparent);
+  --border-hairline: rgba(40,40,36,.045);
+  --border-program: rgba(40,40,36,.035);
+  --border-paper: rgba(40,40,36,.008);
+  --border-system-divider: rgba(40,40,36,.10);
+
+  --light-source-x: 24%;
+  --light-source-y: 12%;
+  --light-top-edge: rgba(255,255,255,.65);
+  --light-bottom-edge: rgba(50,48,43,.03);
+  --light-paper-wash: rgba(255,255,255,.10);
+  --light-edge-settle: rgba(50,48,43,.008);
+  --pass-shadow-far: 0 14px 35px rgba(26,26,23,.055);
+  --pass-shadow-near: 0 2px 6px rgba(26,26,23,.035);
+  --pass-shadow: var(--pass-shadow-far),var(--pass-shadow-near);
+  --pass-contact-filter: drop-shadow(var(--pass-shadow-far)) drop-shadow(var(--pass-shadow-near));
+  --pass-edge-light: inset 0 1px 0 var(--light-top-edge),inset 0 -1px 0 var(--light-bottom-edge);
+  --pass-next-up: color-mix(in srgb,var(--pass-base) 20%,var(--pass-highlight));
+  --stub-edge-light: inset 0 1px 0 rgba(255,255,255,.30),inset 0 -1px 0 color-mix(in srgb,var(--stub-edge) 35%,transparent);
+  --seal-surface: radial-gradient(ellipse at var(--light-source-x) var(--light-source-y),var(--pass-highlight),var(--pass-base) 65%,var(--pass-edge));
+  --seal-edge: rgba(40,40,36,.025);
+  --seal-shadow: inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(50,48,43,.025),0 1px 3px rgba(26,26,23,.025);
+
+  --security-ink-dark: rgba(40,40,36,.025);
+  --security-blind: rgba(255,255,255,.22);
+  --security-blind-offset: -.75px;
+  --security-blind-light: linear-gradient(135deg,white 0%,transparent 68%);
+  --emboss-highlight: rgba(255,255,255,.45);
+  --emboss-shadow: rgba(50,48,43,.06);
+  --emboss-offset: 1px;
+  --deboss-upper: rgba(50,48,43,.04);
+  --deboss-lower: rgba(255,255,255,.30);
+  --deboss-offset: 1px;
+  --perforation-dark: rgba(60,58,53,.08);
+  --perforation-light: rgba(255,255,255,.35);
+  --cutout-highlight: rgba(255,255,255,.45);
+  --cutout-inner: rgba(50,48,43,.06);
+  --cutout-edge: rgba(50,48,43,.04);
+  --spine-text: var(--graphite-50);
+  --spine-line: rgba(40,40,36,.12);
+  --spine-team-opacity: .06;
+
+  --island-surface: var(--graphite-100);
+  --island-active-surface: rgba(255,255,255,.08);
+  --island-active-light: inset 0 1px 0 rgba(255,255,255,.03);
+  --island-top-light: rgba(255,255,255,.07);
+  --island-bottom-edge: rgba(0,0,0,.12);
+  --island-shadow: 0 10px 28px rgba(20,20,18,.14);
+  --island-edge: rgba(255,255,255,.025);
+  --island-material-shadow: inset 0 1px 0 var(--island-top-light),inset 0 -1px 0 var(--island-bottom-edge),var(--island-shadow),0 0 0 1px var(--island-edge);
+  --island-focus: color-mix(in srgb,var(--pass-highlight) 65%,transparent);
+
+  --surface-dialog: var(--pass-base);
+  --surface-selected: var(--canvas-soft);
+  --surface-scrim: rgba(27,28,26,.30);
+  --switch-off: var(--graphite-15);
+  --switch-on: var(--graphite-70);
+  --switch-thumb: var(--pass-highlight);
+  --focus-ring: var(--graphite-70);
+  --signal-active: var(--brand-red-100);
+  --signal-secondary: var(--brand-red-60);
+  --signal-inactive: var(--graphite-50);
+  --signal-active-opacity: 1;
+  --signal-muted-opacity: .45;
+  --signal-next-up-opacity: .60;
+}
+
+/* Material variables are scoped where inputs resolve, so a child team pack
+ * cannot accidentally inherit another team's already-computed paint. */
+.personal-pass,.pass {
+  --pass-surface: var(--pass-base);
+  --temperature-intensity: .65;
+  --serial-ink: var(--text-micro);
+  --material-pass: linear-gradient(180deg,var(--light-paper-wash),transparent 24%,transparent 78%,var(--light-edge-settle)),radial-gradient(ellipse at var(--light-source-x) var(--light-source-y),var(--pass-highlight) 0%,var(--pass-surface) 48%,var(--pass-edge) 100%);
+  --material-stub: linear-gradient(110deg,var(--stub-surface),color-mix(in srgb,var(--stub-surface) 95%,var(--stub-cool)));
+}
+.personal-pass[data-pass-status="coming-up"],.pass[data-pass-status="coming-up"] {
+  --pass-surface: var(--pass-next-up);
+  --temperature-intensity: .8;
+  --signal-muted-opacity: var(--signal-next-up-opacity);
+}
+.personal-pass[data-pass-status="game-day"],.personal-pass[data-pass-status="started"],.pass[data-pass-status="game-day"],.pass[data-pass-status="started"] {
+  --pass-surface: var(--pass-highlight);
+  --temperature-intensity: 1;
+}
+.personal-pass[data-pass-status="finished"],.pass[data-pass-status="finished"] {
+  --temperature-intensity: .6;
+  --serial-ink: var(--spine-text);
+}
+.personal-pass[data-pass-status="finished"] .collection-stack { color:var(--text-tertiary); }
+.pass-security { --security-team:var(--team-security-ink);position:absolute;inset:0;pointer-events:none;user-select:none; }
+.pass-security::before,.pass-security::after {
+  content:'';position:absolute;inset:0;pointer-events:none;
+  mask-image:var(--security-mask);mask-size:100% 100%;mask-repeat:no-repeat;mask-mode:alpha;
+}
+.pass-security::before { background:color-mix(in srgb,var(--security-ink-dark) 75%,var(--security-team) 25%); }
+.pass-security::after {
+  background:var(--security-blind);transform:translateY(var(--security-blind-offset));
+  mask-image:var(--security-mask),var(--security-blind-light);mask-size:100% 100%;mask-composite:intersect;
+}

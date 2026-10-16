@@ -67,7 +67,7 @@ test('All 30 teams have distinct authored identity and security stock, without f
  const packs=teams.map(team=>getTeamIdentity(team.id)!);
  assert.equal(packs.length,30);assert.equal(new Set(packs.map(pack=>pack.securityPattern)).size,30);
  assert.equal(new Set(teams.map(team=>passSecuritySvg(team.id))).size,30);
- for(const pack of packs){assert.ok(teamSymbolGeometry[pack.code]);assert.match(pack.secondaryTint,/\.016\)/);assert.equal(pack.microMark,pack.symbol);}
+ for(const pack of packs){assert.ok(teamSymbolGeometry[pack.code]);assert.match(pack.secondaryTint,/\.025\)/);assert.equal(pack.microMark,pack.symbol);}
  assert.equal(getTeamIdentity('HOU')?.symbol,'ASCEND');assert.equal(getTeamIdentity('LAL')?.symbol,'PRESTIGE');assert.equal(getTeamIdentity('GSW')?.symbol,'SPAN');
  assert.equal(getTeamIdentity('DAL')?.symbol,'FORWARD');assert.equal(getTeamIdentity('DEN')?.symbol,'SUMMIT');
  assert.equal(getTeamIdentity('toString'),undefined);assert.equal(passSecuritySvg('UNKNOWN'),null);

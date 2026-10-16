@@ -23,8 +23,9 @@ async function main() {
   await prepareAssets();
   const ts=require('typescript');
   const modules=new Map();
-  for(const [url,name] of [['/pass-design.js','passDesign'],['/pass-status.js','passStatus'],['/pass-id.js','passIdentity']])modules.set(url,ts.transpileModule(await fs.readFile(path.join(repository,`src/lib/${name}.ts`),'utf8'), {compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2017}}).outputText);
+  for(const [url,name] of [['/pass-design.js','passDesign'],['/pass-status.js','passStatus'],['/pass-id.js','passIdentity']])modules.set(url,ts.transpileModule(await fs.readFile(path.join(repository,`src/lib/${name}.ts`),'utf8'), {compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2017}}).outputText.replaceAll('../data/teamIdentities','./team-identities.js'));
   modules.set('/seasons.js',ts.transpileModule(await fs.readFile(path.join(repository,'src/data/seasons.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2017}}).outputText);
+  modules.set('/team-identities.js',ts.transpileModule(await fs.readFile(path.join(repository,'src/data/teamIdentities.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2017}}).outputText);
   const routes = new Map([
     ['/promo.html', [path.join(directory,'promo.html'),'text/html; charset=utf-8']],
     ['/wordmark.png', [path.join(directory,'wordmark.png'),'image/png']],
@@ -32,6 +33,7 @@ async function main() {
     ['/GeistSans.woff2', [path.join(repository,'src/app/fonts/GeistSans.woff2'),'font/woff2']],
     ...['timing-500.woff2','timing-550.woff2','identity-600.woff2','event-annotation.woff2'].map(name=>['/'+name,[path.join(directory,name),'font/woff2']]),
     ['/system-island.css', [path.join(repository,'src/styles/system-island.css'),'text/css']],
+    ['/color-material.css', [path.join(repository,'src/styles/color-material.css'),'text/css']],
   ]);
   const server = http.createServer(async (request,response) => {
     const pathname=new URL(request.url,'http://127.0.0.1').pathname;
@@ -62,8 +64,10 @@ async function main() {
         const rect = element => { const b = element.getBoundingClientRect(); return { x:b.x, y:b.y, width:b.width, height:b.height }; };
         const styles = selector => { const s = getComputedStyle(document.querySelector(selector)); return { radius:s.borderRadius, border:s.borderTopWidth + ' ' + s.borderTopColor, background:s.backgroundColor, backgroundImage:s.backgroundImage, shadow:s.boxShadow, filter:s.filter, blur:s.backdropFilter, font:s.fontFamily }; };
         const paper=getComputedStyle(document.querySelector('.pass'),'::before');
+        const paint=token=>{const probe=document.createElement('span');probe.style.color=`var(${token})`;document.body.append(probe);const color=getComputedStyle(probe).color;probe.remove();return color;};
         const overflow = [...document.querySelectorAll('[data-fit]')].filter(element => element.scrollWidth > element.clientWidth + 1 || element.scrollHeight > element.clientHeight + 1).map(element => element.className);
         return {
+          paints:Object.fromEntries(['--text-primary','--text-secondary','--text-tertiary','--text-micro','--annotation-ink','--canvas-base','--signal-active','--graphite-100','--brand-red','--hou-accent','--lal-accent'].map(token=>[token,paint(token)])),
           geometry: Object.fromEntries(selectors.map(selector => [selector, rect(document.querySelector(selector))])),
           dynamic: [...document.querySelectorAll('[data-state]')].map(rect),
           radius: Object.fromEntries(['.team-tint','.beta','.pass','.dock'].map(selector => [selector, styles(selector).radius])),
@@ -85,7 +89,7 @@ async function main() {
           notches:[...document.querySelectorAll('.notch')].map(rect),
           perforation:rect(document.querySelector('.perforation')),
           collection:[...document.querySelectorAll('.collection-stack>span')].map(element=>({text:element.textContent,rect:rect(element),font:getComputedStyle(element).fontFamily,size:getComputedStyle(element).fontSize,tracking:getComputedStyle(element).letterSpacing,numerals:getComputedStyle(element).fontVariantNumeric})),
-          security:[...document.querySelectorAll('.pass-security')].map(element=>({team:element.dataset.securityTeam,image:getComputedStyle(element).backgroundImage})),
+          security:[...document.querySelectorAll('.pass-security')].map(element=>({team:element.dataset.securityTeam,image:getComputedStyle(element,'::before').maskImage,ink:getComputedStyle(element,'::before').backgroundColor,finish:element.dataset.securityFinish,light:getComputedStyle(element,'::after').backgroundColor})),
           content:{slogan:document.querySelector('.slogan').textContent,cityState:document.querySelector('.city-status').textContent,auto:document.querySelector('.auto-state').textContent,serial:document.querySelector('.serial').textContent,time:document.querySelector('#tipoff').textContent,first:document.querySelector('#time-one').textContent,second:document.querySelector('#time-two').textContent},
           markLetters:{m:rect(document.querySelector('.mark-m')),g:rect(document.querySelector('.mark-g')),mLetter:document.querySelector('.mark-m').dataset.letter,gLetter:document.querySelector('.mark-g').dataset.letter,paths:document.querySelectorAll('.mark-glyph path').length,textNodes:document.querySelectorAll('.mark-glyph text').length},
           typography:Object.fromEntries(['.brand h1','.slogan','.subtitle','.nba','.beta-label','.auto-state','.team-abbr','.tipoff'].map(selector=>{const s=getComputedStyle(document.querySelector(selector));return [selector,{size:s.fontSize,weight:s.fontWeight,line:s.lineHeight,tracking:s.letterSpacing,color:s.color}];})),
@@ -110,7 +114,7 @@ async function main() {
       assert.equal(report.annotation.count,1,'Exactly one event annotation; no second handwritten cue');
       assert.equal(report.annotation.text,'Tip-off');assert.deepEqual(report.annotation.scriptText,['Tip-off'],'All technical information stays printed');
       assert.equal(report.annotation.size,'16px');assert.equal(report.annotation.line,'24px');assert.equal(report.annotation.weight,'400');
-      assert.equal(report.annotation.color,'rgb(38, 37, 33)');assert.equal(report.annotation.opacity,'0.5');
+      assert.equal(report.annotation.color,report.paints['--annotation-ink']);assert.equal(report.annotation.opacity,'1');
       assert.equal(report.annotation.decoration,'none');assert.equal(report.annotation.shadow,'none');
       assert.ok(report.geometry['.event-annotation'].y>=report.geometry['.stub'].y+12,'The only emotion mark belongs to the stub');
       assert.ok(report.geometry['.event-annotation'].y+report.geometry['.event-annotation'].height+8<=report.serialStyle.rect.y,'Handwriting must clear the printed serial');
@@ -154,7 +158,8 @@ async function main() {
       assert.deepEqual(report.serialStyle.parts,['MG+','/','HOU–LAL','/','01']);
       for(const separator of report.serialStyle.separators){assert.equal(separator.opacity,'0.62');assert.equal(separator.tracking,'normal');}
       assert.equal(report.serialStyle.rect.x+report.serialStyle.rect.width,report.geometry['.pass'].x+report.geometry['.pass'].width-33,'Serial stays on the ticket stub right alignment');
-      const inks={primary:'rgb(38, 37, 33)',secondary:'rgb(104, 98, 89)',tertiary:'rgb(148, 140, 128)',micro:'rgb(170, 163, 151)'};
+      const inks=Object.fromEntries(['primary','secondary','tertiary','micro'].map(level=>[level,report.paints['--text-'+level]]));
+      assert.deepEqual(inks,{primary:'rgb(27, 28, 26)',secondary:'rgb(75, 76, 72)',tertiary:'rgb(118, 119, 113)',micro:'rgb(166, 165, 159)'},'Use the approved warm graphite hierarchy');
       for(const [level,selectors] of Object.entries(report.inkLevels))for(const [selector,colors]of Object.entries(selectors))assert.deepEqual(colors,[inks[level]],selector+' must use its assigned brightness tier');
       assert.ok(parseFloat(report.paperBorder.split(',').at(-1))<=.01,'The frame must be only a minimal support for the illuminated paper');
       assert.equal(report.content.time,city==='tokyo'?'10:00':'01:00');
@@ -190,8 +195,8 @@ async function main() {
       for(const micro of report.microLabels){assert.ok(micro.font.startsWith('Geist'));assert.equal(micro.weight,'500');assert.ok(Math.abs(micro.tracking-.13)<.0001);}
       assert.equal(report.chevrons.length,2);
       for(const chevron of report.chevrons){assert.equal(chevron.rect.width,18);assert.equal(chevron.rect.height,18);assert.equal(chevron.color,inks.tertiary);}
-      assert.ok(Math.abs(parseFloat(report.activeBackground.split(',').at(-1))-.07)<=.002,'Active segment remains a soft 7% brightness layer');
-      assert.equal(report.canvas,'rgb(244, 242, 238)');
+      assert.ok(Math.abs(parseFloat(report.activeBackground.split(',').at(-1))-.08)<=.002,'Active segment uses the shared 8% brightness layer');
+      assert.equal(report.canvas,report.paints['--canvas-base']);assert.equal(report.canvas,'rgb(241, 239, 234)');
       assert.ok(report.wordmarkMask.includes('wordmark.png'),'Keep the original wordmark silhouette');
       assert.equal(report.notches.length,2,'Retain exactly two ticket cutouts');
       assert.ok(report.paperMaterial.composition.split(',').every(value=>value.trim()==='intersect'));
@@ -214,10 +219,10 @@ async function main() {
       const {data:corners,info:cornerInfo}=await sharp(path.join(output,names[i])).removeAlpha().raw().toBuffer({resolveWithObject:true});
       for(const [x,y] of [[0,0],[1079,0],[0,1439],[1079,1439]]) {
         const offset=(y*1080+x)*cornerInfo.channels;
-        assert.deepEqual([...corners.subarray(offset,offset+3)],[244,242,238],'No black borders');
+        assert.deepEqual([...corners.subarray(offset,offset+3)],[241,239,234],'No black borders');
       }
       report.file = { name:names[i], width:meta.width, height:meta.height, bytes:stat.size, decode:'passed' };
-      const withoutAnnotation = '/tmp/mygame-v2.2-'+city+'-without-note.png';
+      const withoutAnnotation = '/tmp/mygame-v2.3-cm-'+city+'-without-note.png';
       const annotationOffStyle = await page.addStyleTag({content:'.event-annotation{visibility:hidden!important}'});
       const annotationOffGeometry = await page.evaluate(selectors=>Object.fromEntries(selectors.map(selector=>{const b=document.querySelector(selector).getBoundingClientRect();return [selector,{x:b.x,y:b.y,width:b.width,height:b.height}];})),Object.keys(report.geometry));
       assert.deepEqual(annotationOffGeometry,report.geometry,'Removing the signature must leave all functional layout unchanged');
@@ -234,21 +239,17 @@ async function main() {
         }
       }
       assert.ok(notePixels>0,'The annotation must actually render');assert.equal(outsideNoteDifferences,0,'Only the single annotation may change pixels');
-      let outsideTicketDifferences=null;
+      let baselineGeometryMatch=null;
       if(process.env.PROMO_BASELINE_DIR){
-        const baseline=await sharp(path.join(process.env.PROMO_BASELINE_DIR,names[i])).removeAlpha().raw().toBuffer();
-        outsideTicketDifferences=0;
-        const p=report.geometry['.pass'];
-        for(let y=0;y<1440;y++)for(let x=0;x<1080;x++){
-          if(x>=p.x-16&&x<=p.x+p.width+16&&y>=p.y-16&&y<=p.y+p.height+16)continue;
-          const k=(y*1080+x)*3;
-          if(baseline[k]!==canonicalPixels[k]||baseline[k+1]!==canonicalPixels[k+1]||baseline[k+2]!==canonicalPixels[k+2])outsideTicketDifferences++;
-        }
-        assert.equal(outsideTicketDifferences,0,'Everything outside the ticket and its contact shadow must match the approved image');
+        const baseline=JSON.parse(await fs.readFile(path.join(process.env.PROMO_BASELINE_DIR,'validation.json'),'utf8')).reports[i];
+        assert.deepEqual(report.geometry,baseline.geometry,'Color/material work must preserve every approved layout landmark');
+        assert.deepEqual(report.content,baseline.content,'All approved copy, event information and location logic stay unchanged');
+        for(const [selector,type] of Object.entries(report.typography))for(const key of ['size','weight','line','tracking'])assert.equal(type[key],baseline.typography[selector][key],'Typography must not be redesigned');
+        baselineGeometryMatch=true;
       }
       report.annotationReview={withoutAnnotation,notePixels,outsideNoteDifferences};
-      report.outsideTicketDifferences=outsideTicketDifferences;
-      const withoutSecurity='/tmp/mygame-v2.2-'+city+'-without-security.png';
+      report.baselineGeometryMatch=baselineGeometryMatch;
+      const withoutSecurity='/tmp/mygame-v2.3-cm-'+city+'-without-security.png';
       const securityOffStyle=await page.addStyleTag({content:'.pass-security{visibility:hidden!important}'});
       await page.screenshot({path:withoutSecurity,type:'png',animations:'disabled'});
       await securityOffStyle.evaluate(element=>element.remove());
@@ -263,14 +264,19 @@ async function main() {
       assert.ok(maxChannelDelta<=10,'Security printing must stay below 4% channel contrast');
       assert.equal(protectedDifferences,0,'Security printing must not cross any core information frame');
       report.securityReview={printPixels,maxChannelDelta,protectedDifferences,withoutSecurity};
-      const thumbnail = '/tmp/mygame-v2.2-'+city+'-30.png';
+      const thumbnail = '/tmp/mygame-v2.3-cm-'+city+'-30.png';
       await sharp(path.join(output,names[i])).resize(324,432).png().toFile(thumbnail);
-      const blur = '/tmp/mygame-v2.2-'+city+'-blur.png';
+      const greyscale='/tmp/mygame-v2.3-cm-'+city+'-greyscale.png';
+      const lowSaturation='/tmp/mygame-v2.3-cm-'+city+'-saturation-10.png';
+      await sharp(path.join(output,names[i])).greyscale().png().toFile(greyscale);
+      await sharp(path.join(output,names[i])).modulate({saturation:.1}).png().toFile(lowSaturation);
+      for(const review of [greyscale,lowSaturation])await sharp(review).resize(324,432).png().toFile(review.replace('.png','-30.png'));
+      const blur = '/tmp/mygame-v2.3-cm-'+city+'-blur.png';
       const blurStyle = await page.addStyleTag({content:'main{filter:blur(5px)}'});
       await page.screenshot({path:blur,type:'png',fullPage:false,animations:'disabled'});
       await sharp(blur).resize(324,432).png().toFile(blur.replace('.png','-30.png'));
       await blurStyle.evaluate(element=>element.remove());
-      const borderless = '/tmp/mygame-v2.2-'+city+'-borderless.png';
+      const borderless = '/tmp/mygame-v2.3-cm-'+city+'-borderless.png';
       const borderlessStyle = await page.addStyleTag({content:'*,*::before,*::after{border-color:transparent!important;outline:none!important}.divider,.perforation{visibility:hidden!important}'});
       const borderlessGeometry = await page.evaluate(selectors=>Object.fromEntries(selectors.map(selector=>{const b=document.querySelector(selector).getBoundingClientRect();return [selector,{x:b.x,y:b.y,width:b.width,height:b.height}];})),Object.keys(report.geometry));
       assert.deepEqual(borderlessGeometry,report.geometry,'Layout must stand without drawn borders');
@@ -279,7 +285,20 @@ async function main() {
       await page.screenshot({path:borderless,type:'png',fullPage:false,animations:'disabled'});
       await sharp(borderless).resize(324,432).png().toFile(borderless.replace('.png','-30.png'));
       await borderlessStyle.evaluate(element=>element.remove());
-      report.review={thumbnail,blur,blurRadius:5,borderless,borderlessGeometryStable:true,dividersSuppressed};
+      report.review={thumbnail,greyscale,lowSaturation,blur,blurRadius:5,borderless,borderlessGeometryStable:true,dividersSuppressed};
+      const materialOnly='/tmp/mygame-v2.3-cm-'+city+'-material-only.png';
+      const paperStyle=await page.addStyleTag({content:'.pass-main>*:not(.pass-security),.stub>.collection-stack,.stub>.event-annotation,.stub>.serial,.pass-security{visibility:hidden!important}'});
+      await page.screenshot({path:materialOnly,type:'png',animations:'disabled'});
+      await paperStyle.evaluate(element=>element.remove());
+      const materialPixels=await sharp(materialOnly).removeAlpha().raw().toBuffer();
+      const luminance=(x,y)=>{const k=(Math.round(y)*1080+Math.round(x))*3;return (.2126*materialPixels[k]+.7152*materialPixels[k+1]+.0722*materialPixels[k+2])/255;};
+      const p=report.geometry['.pass'],samples=[];
+      for(let y=24;y<=448;y+=16)for(let x=32;x<=p.width-32;x+=16)samples.push(luminance(p.x+x,p.y+y));
+      const curvature=Math.max(...samples)-Math.min(...samples),center=luminance(p.x+p.width/2,p.y+240),stub=luminance(p.x+p.width/2,p.y+534),canvas=luminance(8,8);
+      assert.ok(curvature<=.03,'Unprinted main paper curvature stays within 3% encoded luminance');
+      assert.ok(center>canvas+.02&&center<canvas+.06,'Clean ivory remains distinct from the matte canvas without a spotlight');
+      assert.ok(center-stub>=.01&&center-stub<=.03,'Stub stays within the 1–3% archival-paper material difference');
+      report.materialReview={materialOnly,curvature,center,stub,canvas,stubDifference:center-stub};
       reports.push(report);
     }
   } finally { await browser.close(); await new Promise(resolve=>server.close(resolve)); }
@@ -302,14 +321,14 @@ async function main() {
   const dock = { left:76, top:1340, width:928, height:72 };
   const docks = await Promise.all(names.map(name => sharp(path.join(output,name)).extract(dock).raw().toBuffer()));
   assert.ok(docks[0].equals(docks[1]), 'Dock pixels must match exactly');
-  const overlay = '/tmp/mygame-v2.2-overlay.png';
+  const overlay = '/tmp/mygame-v2.3-cm-overlay.png';
   const overlayPixels=Buffer.alloc(buffers[0].length);
   for(let i=0;i<overlayPixels.length;i++)overlayPixels[i]=Math.round((buffers[0][i]+buffers[1][i])/2);
   await sharp(overlayPixels,{raw:{width:1080,height:1440,channels:3}}).png().toFile(overlay);
   await sharp(overlay).resize(324,432).png().toFile(overlay.replace('.png','-30.png'));
-  const result = { version:'MyGame+ Promo V2.2 — Personal Pass System', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
-  await fs.writeFile('/tmp/mygame-v2.2-validation.json', JSON.stringify(result,null,2));
-  console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing, MyGame Identity and Event Annotation loaded', eventAnnotations:reports.map(report=>({count:report.annotation.count,changedPixels:report.annotationReview.notePixels,outsideChanges:report.annotationReview.outsideNoteDifferences,outsideTicketChanges:report.outsideTicketDifferences})), collection:reports[0].collection.map(row=>row.text), security:reports.map(report=>report.securityReview), radius:reports[0].radius },null,2));
+  const result = { version:'MyGame+ Promo V2.3-CM — Color & Material System', reports, differingPixels, staticDifferences, dockIdentical:true,overlay,overlayOpacity:.5 };
+  await fs.writeFile('/tmp/mygame-v2.3-cm-validation.json', JSON.stringify(result,null,2));
+  console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist, MyGame Timing, MyGame Identity and Event Annotation loaded', eventAnnotations:reports.map(report=>({count:report.annotation.count,changedPixels:report.annotationReview.notePixels,outsideChanges:report.annotationReview.outsideNoteDifferences,layoutMatchesV22:report.baselineGeometryMatch})), collection:reports[0].collection.map(row=>row.text), security:reports.map(report=>report.securityReview), material:reports.map(report=>report.materialReview), radius:reports[0].radius },null,2));
 }
 
 main().catch(error=>{ console.error(error); process.exitCode=1; });

@@ -1,13 +1,12 @@
 :root {
-  --island-surface: #181917;
+  --island-surface: var(--graphite-100);
   --island-radius: 28px;
   --island-active-radius: 18px;
-  --island-active-surface: rgba(255,255,255,.07);
-  --island-text-active: #f7f5f0;
-  --island-text-inactive: rgba(255,255,255,.60);
-  --island-label-active: rgba(255,255,255,.62);
-  --island-label-inactive: rgba(255,255,255,.40);
-  --island-signal: #c7343d;
+  --island-text-active: var(--text-on-graphite);
+  --island-text-inactive: var(--text-on-graphite-muted);
+  --island-label-active: var(--text-on-graphite-secondary);
+  --island-label-inactive: var(--text-on-graphite-micro);
+  --island-signal: var(--brand-red);
   --island-motion: 180ms ease-out;
 }
 
@@ -17,10 +16,7 @@
   border: 0;
   border-radius: var(--island-radius);
   color: var(--island-text-active);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.07),
-    inset 0 -1px 0 rgba(0,0,0,.14),
-    0 3px 10px rgba(15,15,15,.05),
-    0 0 0 1px rgba(255,255,255,.02);
+  box-shadow: var(--island-material-shadow);
   isolation: isolate;
 }
 .system-island-items {
@@ -62,18 +58,18 @@
 .system-island-item svg * { vector-effect: non-scaling-stroke; }
 .system-island-item .island-cn { font-size: 22px; line-height: 26px; font-weight: 500; }
 .system-island-item .island-en { font-size: 10px; line-height: 12px; font-weight: 480; letter-spacing: .10em; color: var(--island-label-inactive); }
-.system-island-item[aria-current="page"] { background: var(--island-active-surface); color: var(--island-text-active); }
+.system-island-item[aria-current="page"] { background: var(--island-active-surface); box-shadow: var(--island-active-light); color: var(--island-text-active); }
 .system-island-item[aria-current="page"] .island-cn { font-weight: 550; }
 .system-island-item[aria-current="page"] .island-en { color: var(--island-label-active); }
 .system-island-item[aria-current="page"]::after { content: ""; position: absolute; top: 2px; left: calc(50% + 13px); width: 3.6px; height: 3.6px; border-radius: 50%; background: var(--island-signal); }
-.system-island-item:focus-visible { outline: 1px solid rgba(255,255,255,.65); outline-offset: -3px; }
+.system-island-item:focus-visible { outline: 1px solid var(--island-focus); outline-offset: -3px; }
 
 .island-context-row { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows var(--island-motion), opacity var(--island-motion); }
 .system-island[data-context="game-day"] .island-context-row { grid-template-rows: 1fr; opacity: 1; }
 .island-context-clip { overflow: hidden; min-height: 0; }
 .island-context-label { margin: 8px 20px 0; height: 24px; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 11px; line-height: 20px; font-weight: 500; white-space: nowrap; }
-.island-context-dot { height: 5px; width: 5px; border-radius: 50%; flex: none; }
-.island-context-separator { color: rgba(255,255,255,.35); }
+.island-context-dot { background: var(--signal-active); height: 5px; width: 5px; border-radius: 50%; flex: none; }
+.island-context-separator { color: var(--text-on-graphite-separator); }
 .island-context-label .numeric-separator { color: var(--island-label-active); }
 
 @media(prefers-reduced-motion:reduce) {
