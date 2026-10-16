@@ -1,7 +1,19 @@
-# MyGame+ Promo V1.4 — Luxury Sports Material System
+# MyGame+ Promo V1.5 — Brand Signal & Product Reality
 
 System is engineered. Game is tactile.
-V1.4 refines material, color and legibility only. Existing information architecture, team identity symbols, schedule data, timezones and V1.2 contextual interaction logic are unchanged.
+V1.5 adds brand and product-state cues to the V1.4 material system. Existing event content, team symbols, bottom navigation and App business logic are unchanged.
+
+## Brand and product reality
+
+- The existing brand title and script wordmark keep their coordinates and shapes. A 56×56px ivory App Mark sits at x=104/y=68 to the title's left, with a 14px radius and a very faint border. Geist M sits upper-left; G+ sits lower-right. There is no red background, horizontal abbreviation or stacked center alignment.
+- Tokyo slogan: `无论在哪，主队准时见。` London slogan: `换个城市，不换主队。` Both use x=176/y=184, width=728, height=28, 24px type at weight 550. The slogan sits between the original subtitle and the product status surface.
+- To fit the slogan, only the Beta strip and city state move within the header area. GAME PASS, schedule and bottom island keep their previous coordinates and sizes.
+- Tokyo state: `当前城市 · TOKYO`. London state: `城市切换 · TOKYO → LONDON`. Same position, size and weight; the route is subtly darker.
+- `AUTO CONVERTED` is a 10px unboxed neutral microstate immediately before LOCAL TIME. A tiny neutral dot supports it without turning it into a feature badge. The main LOCAL TIME/arrow coordinates remain intact.
+- Existing team/city chevrons increase from 14px to 16px with about 12% stronger ink contrast, retaining 1.5px rounded strokes. There is no input frame, button surface or pill.
+- The export renders the existing demo UTC fixtures through Intl/IANA timezone conversion, matching the real App's established behavior; this adds no product feature or live data source.
+- GAME PASS receives restrained upper-left light at 34%/22%. Other editorial areas and the quieter Beta remain flat. The serial stays `MG+ / HOU–LAL / 01` with no developer/build/version wording.
+- Product reality comes from WEB APP BETA, clickable-looking selectors, the functioning navigation language and the paired Tokyo/London state. No visible URL/domain, QR code or new CTA is added.
 
 ## Shared material and navigation
 
@@ -14,13 +26,13 @@ V1.4 refines material, color and legibility only. Existing information architect
 - Chinese: 15px/20px, weight 500 (active 550). English: 10px/12px, weight 480, tracking .10em.
 - Three equal tracks; 22px icons, 1.5px rounded strokes with non-scaling paths; identical icon and text baselines. The 80px outer height is retained.
 - Promo island: x=76, y=1334, width=928, height=80, bottom=26 on a 1080×1440 canvas. Schedule ends at y=1296.
-- Mini status surface: x=204, y=192, width=672, height=54 (6.9% reduction), radius=16; warm white 70%, blur 10px, border 4.4%.
+- Mini status surface: x=204, y=224, width=672, height=54, radius=16; warm white 58%, blur 8px, border 3.8%, no inner highlight or external shadow.
 
 ## Warm stone, tactile paper, signal color
 
 - Canvas: `#F5F3EF`, a quiet warm-stone editorial background.
 - Paper: `#FBF9F6`; central light `#FDFBF9`; settled edge `#F9F7F4`. The very low-contrast radial light is luminance-only; the pass has no blur or glossy reflection.
-- Paper edge: white 62% top inset, dark 3.2% bottom inset, a 4.8% hairline. A low `drop-shadow(0 3px 6px rgba(20,20,20,.035))` follows the genuinely cut silhouette.
+- Paper edge: white 64% top inset, dark 3.4% bottom inset, a 4.8% hairline. A low `drop-shadow(0 3px 6px rgba(20,20,20,.035))` follows the genuinely cut silhouette.
 - Exactly two original 16px side punch positions are retained. The paper surface uses intersecting radial masks; the holes reveal Canvas. A faint white upper arc and darker inner arc describe the cut edge.
 - The tear guide uses a regular 8px pitch (3px mark / 5px gap), 0.65px ink and a restrained 0.5px light edge. It stays centered on the cutouts, without a groove.
 - Identity patches retain 12px radii with no border or shadow. Pale red/purple ink varies only from 1.4% in the center to about 2.4–2.5% at the edge, weaker than the pass lighting.
@@ -58,8 +70,9 @@ Output:
 - `output/douyin/mygame-plus-douyin-02-london.png`
 
 The exporter verifies dimensions, complete PNG decoding, Geist readiness, text fit, radius and geometry, navigation alignment, equal material parameters and pixel-identical islands.
-It also confirms that differences between the two images occur only in city, GMT, time and city-transition text regions.
-The validation report is written to `/tmp/mygame-promo-v1.4-validation.json` rather than checked in as a generated artifact.
+It also checks the two exact slogans, diagonal App Mark, AUTO CONVERTED, chevron styling, header safe gaps, flat editorial regions and absence of visible URLs.
+Differences between the two images occur only in slogan, city, GMT, time and city-transition text regions.
+The validation report is written to `/tmp/mygame-promo-v1.5-validation.json` rather than checked in as a generated artifact.
 
 With the App running locally, run `node design/promo/check-app.cjs` (`MYGAME_APP_URL` defaults to `http://127.0.0.1:3200`).
 This checks real city/team navigation, fixture/no-fixture states, context dismissal, reduced motion and 320/390/480/1080px safe areas.

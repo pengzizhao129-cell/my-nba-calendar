@@ -49,7 +49,7 @@ async function main() {
       await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(image => image.decode())); });
       await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       const report = await page.evaluate(() => {
-        const selectors = ['.top-label', '.brand', '.wordmark', '.subtitle', '.beta', '.city-status', '.identity', '.identity-label', '.pass', '.week', '.schedule', '.dock'];
+        const selectors = ['.top-label', '.brand', '.app-mark', '.wordmark', '.subtitle', '.slogan', '.beta', '.city-status', '.identity', '.identity-label', '.local-label', '.auto-state', '.team-preference', '.city-control', '.pass', '.week', '.schedule', '.dock'];
         const rect = element => { const b = element.getBoundingClientRect(); return { x:b.x, y:b.y, width:b.width, height:b.height }; };
         const styles = selector => { const s = getComputedStyle(document.querySelector(selector)); return { radius:s.borderRadius, border:s.borderTopWidth + ' ' + s.borderTopColor, background:s.backgroundColor, backgroundImage:s.backgroundImage, shadow:s.boxShadow, filter:s.filter, blur:s.backdropFilter, font:s.fontFamily }; };
         const paper=getComputedStyle(document.querySelector('.pass'),'::before');
@@ -70,6 +70,13 @@ async function main() {
           paperMaterial:{background:paper.backgroundImage,mask:paper.maskImage,composition:paper.maskComposite,edge:paper.boxShadow},
           notches:[...document.querySelectorAll('.notch')].map(rect),
           perforation:rect(document.querySelector('.perforation')),
+          content:{slogan:document.querySelector('.slogan').textContent,cityState:document.querySelector('.city-status').textContent,auto:document.querySelector('.auto-state').textContent,serial:document.querySelector('.serial').textContent,time:document.querySelector('#tipoff').textContent,first:document.querySelector('#time-one').textContent,second:document.querySelector('#time-two').textContent},
+          markLetters:{m:rect(document.querySelector('.mark-m')),g:rect(document.querySelector('.mark-g')),mText:document.querySelector('.mark-m').textContent,gText:document.querySelector('.mark-g').textContent},
+          chevrons:[...document.querySelectorAll('.chevron')].map(element=>({rect:rect(element),color:getComputedStyle(element).color})),
+          visibleURLs:/https?:\/\/|www\.|vercel\.app/i.test(document.body.innerText),
+          litContent:['.identity','.city-status','.week','.beta','.app-mark'].filter(selector=>{
+            const s=getComputedStyle(document.querySelector(selector));return s.boxShadow!=='none'||s.filter!=='none'||s.backgroundImage!=='none';
+          }),
         };
       });
       assert.equal(report.scrollWidth, 1080);
@@ -82,6 +89,26 @@ async function main() {
       assert.equal(report.radius['.dock'], '32px');
       assert.equal(report.geometry['.beta'].width,672);
       assert.equal(report.geometry['.beta'].height,54);
+      assert.deepEqual(report.geometry['.app-mark'],{x:104,y:68,width:56,height:56});
+      assert.deepEqual(report.geometry['.pass'],{x:176,y:464,width:728,height:576});
+      assert.deepEqual(report.geometry['.week'],{x:176,y:1072,width:728,height:224});
+      assert.deepEqual(report.geometry['.dock'],{x:76,y:1334,width:928,height:80});
+      assert.ok(report.geometry['.slogan'].y+report.geometry['.slogan'].height+12<=report.geometry['.beta'].y);
+      assert.ok(report.geometry['.beta'].y+report.geometry['.beta'].height+12<=report.geometry['.city-status'].y);
+      assert.ok(report.geometry['.city-status'].y+report.geometry['.city-status'].height+16<=report.geometry['.identity'].y);
+      assert.deepEqual(report.litContent,[],'Only the event pass gets object lighting in content');
+      assert.ok(!report.visibleURLs,'No visible website URLs');
+      assert.equal(report.content.slogan,city==='tokyo'?'无论在哪，主队准时见。':'换个城市，不换主队。');
+      assert.equal(report.content.cityState,city==='tokyo'?'当前城市 · TOKYO':'城市切换 · TOKYO → LONDON');
+      assert.equal(report.content.auto,'AUTO CONVERTED');
+      assert.equal(report.content.serial,'MG+ / HOU–LAL / 01');
+      assert.equal(report.content.time,city==='tokyo'?'10:00':'01:00');
+      assert.equal(report.content.first,report.content.time);
+      assert.equal(report.content.second,city==='tokyo'?'11:00':'02:00');
+      assert.equal(report.markLetters.mText,'M');assert.equal(report.markLetters.gText,'G+');
+      assert.ok(report.markLetters.m.x<report.markLetters.g.x&&report.markLetters.m.y+report.markLetters.m.height<report.markLetters.g.y,'M upper-left, G+ lower-right with negative space');
+      assert.equal(report.chevrons.length,2);
+      for(const chevron of report.chevrons){assert.equal(chevron.rect.width,16);assert.equal(chevron.rect.height,16);assert.equal(chevron.color,'rgb(142, 139, 131)');}
       assert.equal(report.activeBackground,'rgba(255, 255, 255, 0.12)');
       assert.equal(report.canvas,'rgb(245, 243, 239)');
       assert.ok(report.wordmarkMask.includes('wordmark.png'),'Keep the original wordmark silhouette');
@@ -127,12 +154,12 @@ async function main() {
       if (!states.some(b=>x>=b.x && x<=b.right && y>=b.y && y<=b.bottom)) staticDifferences++;
     }
   }
-  assert.equal(staticDifferences, 0, 'Only city, GMT and time content may differ');
+  assert.equal(staticDifferences, 0, 'Only slogan, city state, GMT and time content may differ');
   const dock = { left:76, top:1334, width:928, height:80 };
   const docks = await Promise.all(names.map(name => sharp(path.join(output,name)).extract(dock).raw().toBuffer()));
   assert.ok(docks[0].equals(docks[1]), 'Dock pixels must match exactly');
-  const result = { version:'MyGame+ Promo V1.4 — Luxury Sports Material System', reports, differingPixels, staticDifferences, dockIdentical:true };
-  await fs.writeFile('/tmp/mygame-promo-v1.4-validation.json', JSON.stringify(result,null,2));
+  const result = { version:'MyGame+ Promo V1.5 — Brand Signal & Product Reality', reports, differingPixels, staticDifferences, dockIdentical:true };
+  await fs.writeFile('/tmp/mygame-promo-v1.5-validation.json', JSON.stringify(result,null,2));
   console.log(JSON.stringify({ files:reports.map(report=>report.file), sharedGeometry:'identical', staticDifferences, dockIdentical:true, fonts:'Geist loaded', radius:reports[0].radius },null,2));
 }
 
