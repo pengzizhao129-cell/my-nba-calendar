@@ -43,7 +43,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 2px;
   text-align: center;
   font: inherit;
   transition: background-color var(--island-motion), opacity 140ms ease-out;
@@ -60,7 +60,7 @@
   stroke-linejoin: round;
 }
 .system-island-item svg * { vector-effect: non-scaling-stroke; }
-.system-island-item .island-cn { font-size: 15px; line-height: 20px; font-weight: 500; }
+.system-island-item .island-cn { font-size: 16px; line-height: 22px; font-weight: 500; }
 .system-island-item .island-en { font-size: 10px; line-height: 12px; font-weight: 480; letter-spacing: .10em; color: var(--island-label-inactive); }
 .system-island-item[aria-current="page"] { background: var(--island-active-surface); color: var(--island-text-active); }
 .system-island-item[aria-current="page"] .island-cn { font-weight: 550; }

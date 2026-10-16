@@ -1,18 +1,20 @@
-# MyGame+ Promo V1.5 — Brand Signal & Product Reality
+# MyGame+ Promo V1.6 — Final Art Direction Pass
 
 System is engineered. Game is tactile.
-V1.5 adds brand and product-state cues to the V1.4 material system. Existing event content, team symbols, bottom navigation and App business logic are unchanged.
+V1.6 refines the existing brand seal, header hierarchy and tactile pass. Existing information architecture, event content, team symbols, bottom navigation destinations and App business logic are unchanged. No module, function, CTA or copy is added.
 
-## Brand and product reality
+## Fixed brand lockup and four header levels
 
-- The existing brand title and script wordmark keep their coordinates and shapes. A 56×56px ivory App Mark sits at x=104/y=68 to the title's left, with a 14px radius and a very faint border. Geist M sits upper-left; G+ sits lower-right. There is no red background, horizontal abbreviation or stacked center alignment.
-- Tokyo slogan: `无论在哪，主队准时见。` London slogan: `换个城市，不换主队。` Both use x=176/y=184, width=728, height=28, 24px type at weight 550. The slogan sits between the original subtitle and the product status surface.
-- To fit the slogan, only the Beta strip and city state move within the header area. GAME PASS, schedule and bottom island keep their previous coordinates and sizes.
+- Brand: the 56×56px ivory App Mark is at x=176/y=68, radius 16px. The Chinese title is 34px/44px, weight 500, warm graphite; the original script silhouette is 224×70px at x=468/y=60. These are one fixed, left-aligned lockup rather than competing headings.
+- The mark uses three custom SVG contours, with no font glyphs. M has chamfered shoulders and a diagonal inner counter; G has a squared-round open contour, shared cuts and an integrated plus. M remains upper-left and G+ lower-right with negative space between. The ivory seal has a subtle upper-left light, restrained lower edge and a 0 1px 3px / 3.5% contact shadow. There is no red background.
+- Emotion: Tokyo `无论在哪，主队准时见。`; London `换个城市，不换主队。`. Both use x=176/y=152, width=728, height=32, 26px type at weight 500. A 24px gap from the brand and 32px pause before product identity separate the slogan from ordinary explanatory text.
+- Product identity: `NBA 主队赛程 · 本地时间` at y=216, with NBA 30px/650 and the descriptor 19px/450. WEB APP BETA and the existing capability copy sit at y=252 in a flat 32px row. No enclosing light, blur, border or card competes with the pass. Divider spacing is preserved explicitly.
+- State: the city-state line sits at y=304; MY TEAM / LOCAL TIME starts at y=352, selector values at y=384, metadata at y=428. Spacing and smaller, lighter type group these as system state. GAME PASS, schedule and bottom island keep their established coordinates and sizes.
 - Tokyo state: `当前城市 · TOKYO`. London state: `城市切换 · TOKYO → LONDON`. Same position, size and weight; the route is subtly darker.
-- `AUTO CONVERTED` is a 10px unboxed neutral microstate immediately before LOCAL TIME. A tiny neutral dot supports it without turning it into a feature badge. The main LOCAL TIME/arrow coordinates remain intact.
-- Existing team/city chevrons increase from 14px to 16px with about 12% stronger ink contrast, retaining 1.5px rounded strokes. There is no input frame, button surface or pill.
+- `AUTO CONVERTED` and WEB APP BETA share one system-microcopy token: 11px/16px, weight 500, tracking .13em, warm neutral `#9B958A`. AUTO remains unboxed before LOCAL TIME, supported only by a tiny neutral dot.
+- Existing team/city chevrons are 18px with clearer warm-neutral ink `#817A6D`, retaining 1.5px rounded strokes and precise value-to-chevron gaps. There is no input frame, button surface or pill.
 - The export renders the existing demo UTC fixtures through Intl/IANA timezone conversion, matching the real App's established behavior; this adds no product feature or live data source.
-- GAME PASS receives restrained upper-left light at 34%/22%. Other editorial areas and the quieter Beta remain flat. The serial stays `MG+ / HOU–LAL / 01` with no developer/build/version wording.
+- GAME PASS receives restrained upper-left light at 32%/26%. Other editorial areas and Beta remain flat. The serial stays `MG+ / HOU–LAL / 01` with no developer/build/version wording.
 - Product reality comes from WEB APP BETA, clickable-looking selectors, the functioning navigation language and the paired Tokyo/London state. No visible URL/domain, QR code or new CTA is added.
 
 ## Shared material and navigation
@@ -23,21 +25,21 @@ V1.5 adds brand and product-state cues to the V1.4 material system. Existing eve
 - Top inset: white 10%; bottom inset: black 26%; outside shadow: 0 8px 24px, black 12%; soft edge: white 2.5%.
 - Active icon/Chinese: warm white, Chinese weight 550; English: white 64%; 3.6px signal-red dot.
 - Inactive icon/Chinese: white 54%; English: white 35%.
-- Chinese: 15px/20px, weight 500 (active 550). English: 10px/12px, weight 480, tracking .10em.
+- Chinese: 16px/22px, weight 500 (active 550). English: 10px/12px, weight 480, tracking .10em. A 2px internal gap preserves the 64px navigation stack within the 80px island, making Chinese the first reading level.
 - Three equal tracks; 22px icons, 1.5px rounded strokes with non-scaling paths; identical icon and text baselines. The 80px outer height is retained.
 - Promo island: x=76, y=1334, width=928, height=80, bottom=26 on a 1080×1440 canvas. Schedule ends at y=1296.
-- Mini status surface: x=204, y=224, width=672, height=54, radius=16; warm white 58%, blur 8px, border 3.8%, no inner highlight or external shadow.
+- Beta is now flat microcopy in the product-identity group rather than another surface. The brand seal is the sole small branding exception; GAME PASS is the only illuminated content object, and the dark island remains the distinct engineered control layer.
 
 ## Warm stone, tactile paper, signal color
 
-- Canvas: `#F5F3EF`, a quiet warm-stone editorial background.
-- Paper: `#FBF9F6`; central light `#FDFBF9`; settled edge `#F9F7F4`. The very low-contrast radial light is luminance-only; the pass has no blur or glossy reflection.
-- Paper edge: white 64% top inset, dark 3.4% bottom inset, a 4.8% hairline. A low `drop-shadow(0 3px 6px rgba(20,20,20,.035))` follows the genuinely cut silhouette.
-- Exactly two original 16px side punch positions are retained. The paper surface uses intersecting radial masks; the holes reveal Canvas. A faint white upper arc and darker inner arc describe the cut edge.
-- The tear guide uses a regular 8px pitch (3px mark / 5px gap), 0.65px ink and a restrained 0.5px light edge. It stays centered on the cutouts, without a groove.
-- Identity patches retain 12px radii with no border or shadow. Pale red/purple ink varies only from 1.4% in the center to about 2.4–2.5% at the edge, weaker than the pass lighting.
+- Canvas: `#F4F2EE`, a quiet, flat warm-stone editorial background.
+- Paper: `#FCFAF7`; central light `#FEFDFA`; settled edge `#FAF8F4`. A broad luminance-only radial light gives the center air while keeping the edges stable; the pass has no blur, glossy reflection or 3D transform.
+- Paper edge: white 70% top inset, dark 4.2% bottom inset, a 5.5% hairline. A low `drop-shadow(0 4px 8px rgba(34,29,21,.043))` follows the cut silhouette rather than a rectangular box. This increases separation from the flat canvas without making the pass float high.
+- Exactly two original side punch positions are retained; their diameter is refined to 20px. The paper surface uses intersecting radial masks, so the holes reveal Canvas. A 72% white upper arc and 7.5–9% darker inner/lower arc describe the cut material.
+- The tear guide uses a regular 8px pitch (3px mark / 5px gap), 0.7px ink at 9% and a restrained 0.5px light edge. It stays precisely centered on the cutouts, without a groove.
+- Identity patches retain 12px radii with no border or shadow. Pale red/purple ink varies only from 1.2% in the center to about 2–2.1% at the edge, weaker than the pass lighting. HOU/LAL increase to 64px/72px at weight 580; core time uses 100px/104px from the existing 48px design token and promo scale. The watermark steps back to 1.6%.
 - Unified signal red: `#C7343D`; LAL purple: `#76548E`; GSW blue: `#375A83`. Color encodes identity/state. The MyGame+ script silhouette is reused as a mask, changing ink color without reshaping the mark.
-- Ordinary city/identity/schedule regions remain flat. Dividers use 3.8% opacity; no additional boxes or shadows are introduced there.
+- Ordinary city/identity/schedule regions remain flat. NEXT 7 DAYS becomes a quieter summary: 30px/500 section heading, 42px/500 count, smaller secondary dates, aligned team identities and 30px times. Schedule rules are removed; row grouping relies on spacing and alignment rather than a table frame. No additional boxes or shadows are introduced there.
 
 ## Contextual Island State in the real App
 
@@ -70,9 +72,10 @@ Output:
 - `output/douyin/mygame-plus-douyin-02-london.png`
 
 The exporter verifies dimensions, complete PNG decoding, Geist readiness, text fit, radius and geometry, navigation alignment, equal material parameters and pixel-identical islands.
-It also checks the two exact slogans, diagonal App Mark, AUTO CONVERTED, chevron styling, header safe gaps, flat editorial regions and absence of visible URLs.
+It also checks the two exact slogans, custom vector App Mark, unified system microcopy, chevron styling, four header levels and safe gaps, borderless summary, flat editorial regions and absence of visible URLs.
 Differences between the two images occur only in slogan, city, GMT, time and city-transition text regions.
-The validation report is written to `/tmp/mygame-promo-v1.5-validation.json` rather than checked in as a generated artifact.
+The validation report is written to `/tmp/mygame-promo-v1.6-validation.json` rather than checked in as a generated artifact.
+For art-direction review, it also exports 324×432 (30%) thumbnails and borderless full-size/30% variants to `/tmp/mygame-promo-v1.6-{tokyo,london}-*.png`. Border removal is checked to leave every shared layout landmark unchanged. These diagnostics are not delivery images or extra repository artifacts.
 
 With the App running locally, run `node design/promo/check-app.cjs` (`MYGAME_APP_URL` defaults to `http://127.0.0.1:3200`).
 This checks real city/team navigation, fixture/no-fixture states, context dismissal, reduced motion and 320/390/480/1080px safe areas.
