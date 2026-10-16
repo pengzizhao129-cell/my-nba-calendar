@@ -14,10 +14,11 @@ async function fingerprint(page){return page.locator('.personal-pass').evaluate(
  const h=pass.getBoundingClientRect(),s=getComputedStyle(pass),rect=selector=>{const element=pass.querySelector(selector);if(!element)return null;const b=element.getBoundingClientRect();return{x:b.x-h.x,y:b.y-h.y,width:b.width,height:b.height};};
  const symbol=pass.querySelector('.team-identity>strong'),signal=pass.querySelector('.sports-signal-mark'),pattern=pass.querySelector('.pass-security');
  return {id:pass.dataset.gameId,team:pass.dataset.team,season:pass.dataset.season,phase:pass.dataset.passStatus,energy:pass.dataset.passEnergy,collected:Number(pass.dataset.collectedGames),record:[...pass.querySelectorAll('.collection-stack>span')].map(e=>e.textContent),serial:pass.querySelector('.ticket-number').textContent,reference:pass.querySelector('.serial-mark').dataset.reference,personalSerial:pass.querySelector('.serial-mark').dataset.personalSerial,location:{cityId:pass.dataset.cityId,timezone:pass.dataset.timezone,time:pass.querySelector('.tipoff-time .quiet-value-current').textContent},emotion:pass.querySelector('.emotion-mark')?.textContent,progress:pass.querySelector('.collection-count')?.textContent,
-  architecture:{version:pass.dataset.dna,ratio:h.width/h.height,outline:getComputedStyle(pass.querySelector('.ticket-object')).maskImage,cuts:[...pass.querySelectorAll('.ticket-cut-edges path')].map(e=>e.getAttribute('d')),geometry:Object.fromEntries(['.ticket-main','.ticket-stub','.match','.tipoff','.venue-detail','.collection-stack','.collection-progress','.emotion-mark','.ticket-join','.mg-bridge','.collectible-spine','.pass-security','.time-route','.season-spine','.serial-mark'].map(selector=>[selector,rect(selector)])),enclosure:pass.querySelector('.mobile-pass-enclosure')?{version:pass.querySelector('.mobile-pass-enclosure').dataset.enclosureDna}:null,font:getComputedStyle(pass.querySelector('.timing-run')).fontFamily},
+  architecture:{version:pass.dataset.dna,ratio:h.width/h.height,outline:getComputedStyle(pass.querySelector('.ticket-object')).maskImage,cuts:[...pass.querySelectorAll('.ticket-cut-edges path')].map(e=>e.getAttribute('d')),perforation:{viewBox:pass.querySelector('.perforation').getAttribute('viewBox'),cuts:[...pass.querySelectorAll('.perforation path')].map(e=>e.getAttribute('d'))},geometry:Object.fromEntries(['.ticket-main','.ticket-stub','.match','.tipoff','.venue-detail','.collection-stack','.collection-progress','.emotion-mark','.ticket-join','.mg-bridge','.collectible-spine','.pass-security','.time-route','.season-spine','.serial-mark'].map(selector=>[selector,rect(selector)])),enclosure:pass.querySelector('.mobile-pass-enclosure')?{version:pass.querySelector('.mobile-pass-enclosure').dataset.enclosureDna}:null,font:getComputedStyle(pass.querySelector('.timing-run')).fontFamily},
 
   paper:{surface:s.getPropertyValue('--pass-surface').trim(),temperature:s.getPropertyValue('--temperature-intensity').trim(),security:getComputedStyle(pattern).opacity,annotation:getComputedStyle(pass.querySelector('.emotion-mark')).opacity,time:getComputedStyle(pass.querySelector('.tipoff-time')).color,serial:getComputedStyle(pass.querySelector('.ticket-number')).color},
   stock:pattern.style.getPropertyValue('--security-mask'),accent:getComputedStyle(symbol).color,
+  graphics:{spineViewBox:pass.querySelector('.season-spine').getAttribute('viewBox'),spinePositions:[...pass.querySelectorAll('[data-season-tick]')].map(e=>`${e.getAttribute('x1')}:${e.getAttribute('y2')}`),routeOffset:pass.querySelector('.time-route').dataset.timeRouteOffset,routeMarker:pass.querySelector('.route-scale-marker').getAttribute('d')},
   signal:{type:signal.parentElement.dataset.type,color:getComputedStyle(signal).backgroundColor,opacity:getComputedStyle(signal).opacity},
   canvas:getComputedStyle(document.querySelector('.app-shell')).backgroundColor,island:getComputedStyle(document.querySelector('.system-island')).backgroundColor,
   stencil:pass.querySelector('.perforation')?getComputedStyle(pass.querySelector('.perforation')).maskImage:'',
@@ -32,6 +33,8 @@ async function dnaRaster(page,name){
  .personal-pass *,.personal-pass *::before,.personal-pass *::after{visibility:hidden!important;transition:none!important;animation:none!important}
  .personal-pass .ticket-paper{visibility:visible!important;background:var(--pass-base)!important;box-shadow:none!important;border-color:transparent!important}
  .personal-pass .perforation,.personal-pass .mg-bridge,.personal-pass .collectible-spine{visibility:visible!important;background:var(--graphite-100)!important;opacity:1!important}
+ .personal-pass .perforation{background:none!important}
+ .personal-pass .perforation g,.personal-pass .perforation path,.personal-pass .perforation ellipse,.personal-pass .perforation circle,.personal-pass .perforation line{visibility:visible!important;opacity:1!important;stroke:var(--graphite-100)!important}
  /* Variable ordinal ink is content. The fixed spine field remains visible above. */
  .personal-pass .season-spine line{visibility:hidden!important}
  .personal-pass .ticket-cut-edges,.personal-pass .ticket-cut-edges path{visibility:visible!important;stroke:var(--graphite-100)!important}
@@ -58,10 +61,12 @@ async function main({materialOnly=false}={}){
   const context=await browser.newContext({viewport:{width:390,height:844},locale:'zh-CN',reducedMotion:'reduce'}),page=await open(context);
   const id=await page.evaluate(()=>localStorage.getItem('mygame_pass_id'));
   const tokyo=await fingerprint(page);assert.deepEqual(tokyo.record,[`PASS ${id}`,'GAME 01 / 82','SEASON 26–27']);assert.equal(tokyo.emotion,'Tip-off');
+  assert.equal(tokyo.graphics.spineViewBox,'0 0 104 40');assert.equal(new Set(tokyo.graphics.spinePositions).size,82);assert.equal(new Set(tokyo.graphics.spinePositions.map(position=>position.split(':')[1])).size,2,'82 season marks form two horizontal registers');
   await page.reload({waitUntil:'networkidle'});await state(page,'game_day');assert.equal((await fingerprint(page)).record[0],`PASS ${id}`);
   const second=await open(context);assert.equal((await fingerprint(second)).record[0],`PASS ${id}`);await second.close();
   await page.selectOption('#city','kobe');await state(page,'game_day');const kobe=await fingerprint(page);
   for(const key of ['architecture','record','stock','id','team','season','serial','personalSerial'])assert.deepEqual(kobe[key],tokyo[key]);
+  assert.deepEqual(kobe.graphics,tokyo.graphics,'Sharing an event offset keeps the same world-time coordinate without conflating the two cities');
   assert.equal(kobe.location.time,tokyo.location.time);assert.equal(kobe.location.timezone,'Asia/Tokyo');assert.equal(kobe.location.timezone,tokyo.location.timezone);
   assert.match(tokyo.reference,/-JPTYO-/);assert.match(kobe.reference,/-JPKOB-/);assert.notEqual(kobe.reference,tokyo.reference);
   assert.equal(await page.locator('.route-destination .quiet-value-current').textContent(),'KOBE');assert.match(await page.locator('.city-state').textContent(),/KOBE/);
@@ -71,6 +76,7 @@ async function main({materialOnly=false}={}){
   checks.push('Tokyo and Kobe share clock/timezone, user, event, personal serial and geometry; authored JPTYO/JPKOB reference coordinates differ and city persists after reload');
   await page.selectOption('#city','london');await state(page,'game_day');const london=await fingerprint(page);
   for(const key of ['architecture','record','stock','id','season'])assert.deepEqual(london[key],tokyo[key]);
+  assert.deepEqual(london.graphics.spinePositions,tokyo.graphics.spinePositions);assert.notEqual(london.graphics.routeMarker,tokyo.graphics.routeMarker,'London changes the real world-time coordinate, not the ticket geometry');
   assert.equal(await page.locator('.tipoff-time .quiet-value-current').textContent(),'01:00');assert.match(await page.locator('.time-caption .quiet-value-current').textContent(),/^伦敦 · GMT(?:\+0)?$/);
   await page.waitForFunction(()=>document.querySelector('.app-system-island').dataset.context==='navigation');
   assert.equal(await page.locator('.system-island-item').count(),3);checks.push('Persistent four-digit ID; Tokyo/London location conversion and identical DNA; contextual navigation reset');

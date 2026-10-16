@@ -10,7 +10,8 @@ export function ticketIssueNumber(pass:PersonalPass):string|null {
  return String(hash%1000000).padStart(6,'0');
 }
 export function locationCoordinate(pass:PersonalPass){
- return {city:pass.location.cityName,country:pass.location.countryCode};
+ // Public country typography may use UK; the authoritative Reference keeps ISO GB.
+ return {city:pass.location.cityName,country:pass.location.countryCode==='GB'?'UK':pass.location.countryCode};
 }
 export function personalPassReference(pass:PersonalPass){
  return resolvePassReference({passId:pass.user.passId,teamCode:pass.team.code,opponentCode:pass.game.opponentCode,gameId:pass.game.id,gameNumber:pass.game.gameNumber,seasonCode:pass.game.seasonCode,seasonId:pass.game.seasonId,countryCode:pass.location.countryCode,cityCode:pass.location.cityCode});

@@ -5,6 +5,7 @@ import {renderToStaticMarkup} from 'react-dom/server';
 import {GamePass} from '../src/components/GamePass';
 import {createPersonalPass} from '../src/lib/personalPass';
 import {mockGames,DEMO_NOW} from '../src/data/mockGames';
+import {PASS_DNA} from '../src/lib/passDNA';
 
 test('The opt-in historical mobile enclosure stays identical across team, location and lifecycle',()=>{
  let drawing:string|undefined;
@@ -28,5 +29,5 @@ test('The current ticket is paper by default, without nesting an acrylic UI encl
  const pass=createPersonalPass({passId:'0147',teamCode:'HOU',game:mockGames[0],city:'东京',timezone:'Asia/Tokyo',now:new Date(DEMO_NOW)});
  const html=renderToStaticMarkup(createElement(GamePass,{pass}));
  assert.doesNotMatch(html,/mobile-pass-enclosure|has-mobile-enclosure/);
- assert.ok(html.includes('data-dna="MG-DNA-2"')&&html.includes('data-dna="bridge"'));
+ assert.ok(html.includes(`data-dna="${PASS_DNA.version}"`)&&html.includes('data-dna="bridge"'));
 });

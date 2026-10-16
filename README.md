@@ -43,6 +43,8 @@ npm start
 
 固定结构及历史实施记录见 [Digital Game Ticket](docs/digital-game-ticket.md)。其中旧的六位 ISSUE 描述已被 Bible 的语义 Reference 规范取代；其历史测试数量不能视为当前版本测试结果。
 
+当前票面精修见 [Phase 2 — From Ticket to Collectible](docs/collectible-ticket.md)：MG-DNA-3 保持主副券比例，使用微冲切撕线、紧邻场次的横向 82 个独立刻度、真实 GMT 坐标与更清楚的 Personal Issue。编号沿用已签发的语义 serial，不重新生成用户身份；普通票面收起重复收藏进度，原有数据与归档逻辑保留。
+
 `npm run export:promo` 直接截取生产 App，导出 1080×1440 东京／伦敦完整手机宣传图，不使用独立海报模板。Share Artifact 与首页截图用途不同：复用真实 Pass 数据，原生适配 1080×1440 与 1080×1920，不包含导航、未来赛程、二维码或广告 CTA，也不虚构比分与观看记录。
 
 ## V2.9 Personal Season Collection

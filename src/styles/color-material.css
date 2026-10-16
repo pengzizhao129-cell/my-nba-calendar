@@ -36,6 +36,8 @@
   --text-tertiary: var(--graphite-50);
   --text-micro: var(--graphite-50);
   --ticket-rule: var(--graphite-15);
+  --match-line-ink: var(--graphite-50);
+  --personal-serial-ink: var(--graphite-70);
   --ticket-contact: drop-shadow(0 1px 1px rgba(26,26,23,.025)) drop-shadow(0 6px 16px rgba(26,26,23,.035));
   --controller-shadow: 0 3px 10px rgba(26,26,23,.06);
   --controller-active: rgba(255,255,255,.035);
@@ -80,10 +82,10 @@
   --deboss-upper: rgba(50,48,43,.04);
   --deboss-lower: rgba(255,255,255,.30);
   --deboss-offset: 1px;
-  --perforation-dark: rgba(60,58,53,.08);
+  --perforation-dark: rgba(60,58,53,.11);
   --perforation-light: rgba(255,255,255,.35);
   --cutout-highlight: rgba(255,255,255,.45);
-  --cutout-inner: rgba(50,48,43,.06);
+  --cutout-inner: rgba(50,48,43,.075);
   --cutout-edge: rgba(50,48,43,.04);
   --spine-text: var(--graphite-50);
   --spine-line: rgba(40,40,36,.12);
@@ -126,7 +128,7 @@
   --security-visibility: .65;
   --emotion-visibility: .85;
   --material-pass: linear-gradient(180deg,var(--light-paper-wash),transparent 24%,transparent 78%,var(--light-edge-settle)),radial-gradient(ellipse at var(--light-source-x) var(--light-source-y),var(--pass-highlight) 0%,var(--pass-surface) 48%,var(--pass-edge) 100%);
-  --material-stub: linear-gradient(110deg,var(--stub-surface),color-mix(in srgb,var(--stub-surface) 95%,var(--stub-cool)));
+  --material-stub: linear-gradient(110deg,var(--stub-base),var(--stub-cool));
 }
 .personal-pass[data-pass-status="next_up"],.pass[data-pass-status="next_up"] {
   --pass-surface: var(--pass-next-up);
@@ -149,6 +151,7 @@
   --serial-ink: var(--spine-text);
   --record-ink: var(--text-tertiary);
   --spine-visibility:.58;
+  --personal-serial-ink: var(--graphite-90);
 }
 .team-identity,.team-tint {
  --identity-accent-ink:var(--team-print-ink);

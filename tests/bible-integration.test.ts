@@ -51,10 +51,11 @@ test('Server-rendered references use authored city metadata and the actual fixtu
  const html = renderToStaticMarkup(createElement(GamePass, {pass}));
  assert.equal(reference.full, `MG26-HOU-LAL-001-JPKOB-${reference.serial}`);
  assert.ok(html.includes(`data-reference="${reference.full}"`));
- assert.ok(html.includes(`aria-label="Reference ${reference.full}"`));
- assert.ok(html.includes('class="reference-short">HOU-LAL.001</span>'));
+ assert.ok(html.includes(`aria-label="Personal issue ${reference.serial}. Reference ${reference.full}"`));
+ assert.ok(html.includes('PERSONAL ISSUE'));
+ assert.ok(html.includes('class="reference-short">REF. HOU-LAL.001</span>'));
  assert.ok(html.includes('class="reference-coordinate">KOB / JP</span>'));
- assert.ok(html.includes(`class="reference-serial">№ ${reference.serial}</span>`));
+ assert.ok(html.includes(`class="reference-serial"><small>NO.</small> ${reference.serial}</span>`));
  assert.ok(html.includes('KOBE') && html.includes('神户 · GMT+9'));
  assert.ok(html.includes('data-city-id="kobe"') && html.includes('data-timezone="Asia/Tokyo"'));
  assert.doesNotMatch(html, /WATCHED FROM/, 'A current city selection does not claim a past viewing record');

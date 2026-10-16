@@ -7,6 +7,7 @@ import {GamePass} from '../src/components/GamePass';
 import {createPersonalPass} from '../src/lib/personalPass';
 import {passShareContext} from '../src/lib/passShare';
 import {mockGames,DEMO_NOW} from '../src/data/mockGames';
+import {PASS_DNA} from '../src/lib/passDNA';
 
 const input={passId:'0147',teamCode:'HOU',game:mockGames[0],games:mockGames,city:'东京',timezone:'Asia/Tokyo',now:new Date(DEMO_NOW)};
 
@@ -20,7 +21,7 @@ test('Feed and Story have explicit export dimensions and contain the exact same 
   assert.ok(figure.includes('data-share-pass-id="0147"')&&figure.includes(`data-share-game-id="${pass.game.id}"`));
   assert.ok(figure.includes('data-share-city="TOKYO"')&&figure.includes('data-share-timezone="Asia/Tokyo"'));
   assert.ok(html.includes(ticket),'Sharing embeds the same complete GamePass, without changing its drawing or data');
-  assert.equal((html.match(/data-dna="MG-DNA-2"/g)??[]).length,1);
+  assert.equal((html.match(new RegExp(`data-dna="${PASS_DNA.version}"`,'g'))??[]).length,1);
   assert.doesNotMatch(html,/<(?:nav|button|select|input|a)\b|WATCHED FROM|\bLIVE\b|\bFINAL\b|DOWNLOAD|QR CODE|NEXT 7 DAYS|PROFILE/i);
  }
  const defaultCard=renderToStaticMarkup(createElement(PassShareCard,{pass}));
