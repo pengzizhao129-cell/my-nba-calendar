@@ -1,5 +1,7 @@
 # MyGame+ V2.4 — Core Pass System
 
+> V2.7 promo/share presentation is documented in [Encased Pass Artifact](encased-pass-artifact.md). The core DNA, state and lifecycle rules below remain unchanged.
+
 The existing UI, team identity packs and V2.3-CM palette remain in place. V2.4 fixes the ticket architecture, replaces hour-threshold status with a schedule-aware lifecycle, and persists each completed personal pass. No archive page, account service, share workflow or NBA API is added.
 
 ## Pass DNA invariants
@@ -74,7 +76,7 @@ The writer reads and merges only the selected team/season, writes snapshots befo
 
 `resolveSeasonMilestone()` supports First Pass, Early Season (10), Halfway (41/82) and Season Complete (82/82). `seasonSummary()` returns ordered archived pass records, user identity, collection progress and milestone for a future `SeasonSummaryCard`. These are data-only: normal tickets gain no milestone badges.
 
-`PassShareCard` is an unlinked, reusable 1080 × 1440 renderer containing the same `GamePass` at the same master size. It supports future NEXT UP / GAME DAY / COLLECTED artifacts without alternate ticket DNA or a share feature. The existing full promo composition remains the current export.
+`PassShareCard` is an unlinked, reusable 1080 × 1440 renderer containing the same `GamePass` at the same master size. It supports future NEXT UP / GAME DAY / COLLECTED artifacts without alternate ticket DNA or a share feature. The current V2.7 promo export wraps this ticket family in an acrylic enclosure; see the artifact guide.
 
 Long-term rules: **game → content; location → local time; team → identity; user → number; state → energy; season → collection.** Time passes; the object remains.
 
@@ -85,7 +87,7 @@ npm test
 npm run build
 npm run start -- --port 4000
 MYGAME_APP_URL=http://127.0.0.1:4000 node design/promo/check-app.cjs
-node design/promo/export.cjs
+npm run export:promo
 ```
 
 `check-app.cjs` covers responsive geometry, team stock, real browser storage, cross-zone date boundaries, all four states/three energy bands, archive catch-up and retained pass selection. `check-material.cjs` reuses that same browser fixture suite with material focus rather than a divergent state model. Unit tests additionally exercise multi-season isolation, corrupt records, snapshot restoration and milestones.

@@ -3,6 +3,7 @@
 @import "../styles/system-island.css";
 @import "../styles/pass-dna.css";
 @import "../styles/pass-app.css";
+@import "../styles/encased-pass.css";
 
 :root {
   --bg-canvas: var(--canvas-base);

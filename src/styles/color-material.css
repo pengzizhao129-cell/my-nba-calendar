@@ -158,3 +158,32 @@
 
 @property --pass-surface { syntax:"<color>";inherits:true;initial-value:#faf8f4; }
 @property --temperature-intensity { syntax:"<number>";inherits:true;initial-value:.65; }
+
+/* V2.7 artifact-only materials. Ordinary App canvas and Pass paint are unchanged. */
+:root {
+ --artifact-environment:#5b5853;
+ --artifact-environment-lit:#64615b;
+ --artifact-environment-rest:#54514c;
+ --artifact-ink:color-mix(in srgb,var(--pass-highlight) 86%,transparent);
+ --artifact-ink-secondary:color-mix(in srgb,var(--pass-highlight) 68%,transparent);
+ --artifact-muted:color-mix(in srgb,var(--pass-highlight) 46%,transparent);
+ --artifact-brand-ink:color-mix(in srgb,var(--pass-highlight) 82%,transparent);
+ --acrylic-clear-plane:rgba(252,251,248,.012);
+ --acrylic-rear:rgba(252,251,248,.018);
+ --acrylic-rear-edge:rgba(252,251,248,.13);
+ --acrylic-upper-edge:rgba(252,251,248,.48);
+ --acrylic-mid-edge:rgba(252,251,248,.16);
+ --acrylic-lower-edge:rgba(27,28,26,.16);
+ --acrylic-inner-edge:rgba(252,251,248,.10);
+ --acrylic-inner-rest:rgba(27,28,26,.12);
+ --acrylic-corner-highlight:rgba(252,251,248,.32);
+ --acrylic-top-return:rgba(252,251,248,.26);
+ --acrylic-side-light:rgba(252,251,248,.20);
+ --acrylic-side-dark:rgba(27,28,26,.20);
+ --slab-display-shadow:0 4px 10px rgba(26,26,23,.14),10px 22px 42px rgba(26,26,23,.10);
+ --enclosed-paper-contact:drop-shadow(0 1px 3px rgba(26,26,23,.07));
+ --acrylic-bevel-material:linear-gradient(135deg,var(--acrylic-upper-edge),var(--acrylic-mid-edge) 32%,var(--acrylic-lower-edge) 76%,var(--acrylic-mid-edge));
+ --acrylic-side-material:linear-gradient(90deg,var(--acrylic-side-light),var(--acrylic-side-dark) 48%,var(--acrylic-mid-edge));
+ --acrylic-bottom-material:linear-gradient(180deg,var(--acrylic-side-dark),var(--acrylic-mid-edge) 76%,var(--acrylic-inner-rest));
+}
+.encased-pass { --acrylic-team-refraction:color-mix(in srgb,var(--team-accent) 14%,transparent); }

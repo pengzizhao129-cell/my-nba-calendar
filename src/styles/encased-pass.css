@@ -1,0 +1,31 @@
+/* V2.7 presentation: matte environment → hard clear enclosure → unchanged paper Pass. */
+.encased-artifact {
+ --artifact-scale:1.18;
+ position:relative;width:1080px;height:1440px;margin:0;overflow:hidden;isolation:isolate;
+ background:radial-gradient(ellipse at var(--light-source-x) var(--light-source-y),var(--artifact-environment-lit),var(--artifact-environment) 62%,var(--artifact-environment-rest));
+ color:var(--artifact-ink);
+}
+.artifact-brand-signature { position:absolute;left:112px;top:116px;width:236px;height:74px;background:var(--artifact-brand-ink);mask:url('/brand/mygame-plus.png') center/contain no-repeat; }
+.artifact-context { position:absolute;left:112px;right:112px;top:312px;height:40px;display:flex;align-items:baseline;justify-content:space-between; }
+.artifact-nba { font-size:30px;line-height:40px;font-weight:600;letter-spacing:.10em;color:var(--artifact-ink); }
+.artifact-city { font-size:16px;line-height:24px;font-weight:500;letter-spacing:.13em;color:var(--artifact-muted); }
+.artifact-display { position:absolute;left:92px;top:414px;width:896.8px;height:708px; }
+.artifact-display>.encased-pass { transform:scale(var(--artifact-scale));transform-origin:top left; }
+.artifact-caption { position:absolute;left:112px;top:1216px;width:856px;height:40px;font-size:28px;line-height:40px;font-weight:500;letter-spacing:.025em;color:var(--artifact-ink-secondary); }
+.artifact-city-state { position:absolute;left:112px;top:1276px;width:856px;height:24px;margin:0;font-size:16px;line-height:24px;font-weight:450;letter-spacing:.055em;color:var(--artifact-muted); }
+.encased-pass { position:relative;width:calc(var(--enclosure-width)*1px);height:calc(var(--enclosure-height)*1px);border-radius:var(--enclosure-radius);isolation:isolate; }
+.slab-rear,.slab-back-plane,.slab-front-bevel,.slab-inner-seam,.slab-refraction,.slab-corner-optics,.slab-light-return { position:absolute;inset:0;pointer-events:none; }
+.slab-rear { transform:translate(3px,4px);border-radius:inherit;background:var(--acrylic-rear);border:1px solid var(--acrylic-rear-edge);box-shadow:var(--slab-display-shadow); }
+.slab-side-right { position:absolute;right:-3px;top:12px;bottom:0;width:8px;border-radius:0 20px 24px 0;background:var(--acrylic-side-material);pointer-events:none; }
+.slab-side-bottom { position:absolute;left:12px;right:-1px;bottom:-4px;height:8px;border-radius:0 0 24px 20px;background:var(--acrylic-bottom-material);pointer-events:none; }
+.slab-back-plane { border-radius:inherit;background:var(--acrylic-clear-plane); }
+.encased-ticket-slot { color:var(--text-primary);position:absolute;left:var(--enclosure-gap-x);right:var(--enclosure-gap-x);top:var(--enclosure-gap-y);bottom:var(--enclosure-gap-y); }
+.encased-pass .encased-ticket-slot>.personal-pass,.encased-pass .encased-ticket-slot>.pass { position:absolute;left:0;top:0;width:100%;height:100%;margin:0;filter:var(--enclosed-paper-contact); }
+.slab-front-bevel { border-radius:inherit;padding:3px;background:var(--acrylic-bevel-material);mask:linear-gradient(white 0 0) content-box,linear-gradient(white 0 0);mask-composite:exclude; }
+.slab-inner-seam { inset:4px;border-radius:22px;border:1px solid var(--acrylic-inner-edge);border-bottom-color:var(--acrylic-inner-rest); }
+.slab-refraction,.slab-corner-optics { width:100%;height:100%;overflow:visible;fill:none; }
+.slab-refraction { color:var(--acrylic-team-refraction);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round; }
+.slab-corner-optics { stroke:var(--acrylic-corner-highlight);stroke-width:.65;stroke-linecap:round; }
+.slab-light-return { inset:5px 28px auto 28px;height:1px;background:linear-gradient(90deg,transparent,var(--acrylic-top-return) 12%,transparent 38%); }
+/* The source UI remains in the export document only to initialize the approved ticket. */
+main.encased-export-mode> :not(.encased-artifact):not(svg) { display:none!important; }
