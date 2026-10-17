@@ -13,6 +13,8 @@
 @import "../styles/art-editorial.css";
 @import "../styles/art-instrument.css";
 @import "../styles/art-collectible.css";
+@import "../styles/precision-collectible.css";
+@import "../styles/phase4-environment.css";
 
 :root {
   --bg-canvas: var(--canvas-base);

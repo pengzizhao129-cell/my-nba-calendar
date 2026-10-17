@@ -39,17 +39,17 @@ npm start
 
 ## Game Pass 与 Share Artifact
 
-首页保持真实 Mobile Web App：品牌、本地上下文、下一场 Pass、未来比赛索引与安静的 Bottom Controller。Game Pass 是唯一视觉英雄。连续的 HOU — LAL、Time Route 与 82 场 Season Spine 具有产品含义，不用航空图标、条码或随机水印建立票据感。
+首页保持真实 Mobile Web App：品牌、本地上下文、下一场 Pass、未来比赛索引与安静的 Bottom Controller。Game Pass 是唯一视觉英雄。连续的 HOU — LAL、24 小时时间仪器与 82 场 Season Spine 具有产品含义，不用航空图标、条码或随机水印建立票据感。
 
 固定结构及历史实施记录见 [Digital Game Ticket](docs/digital-game-ticket.md)。其中旧的六位 ISSUE 描述已被 Bible 的语义 Reference 规范取代；其历史测试数量不能视为当前版本测试结果。
 
-当前票面精修见 [Phase 2 — From Ticket to Collectible](docs/collectible-ticket.md)：MG-DNA-3 保持主副券比例，使用微冲切撕线、紧邻场次的横向 82 个独立刻度、真实 GMT 坐标与更清楚的 Personal Issue。编号沿用已签发的语义 serial，不重新生成用户身份；普通票面收起重复收藏进度，原有数据与归档逻辑保留。
+当前正式方向见 [Phase 4 — Atmosphere & Refinement](docs/phase4-atmosphere.md)：C 的实体可拆票根结构与 B 的 24 小时时间仪器融合为一个 `precision` 票面。728×576 固定主版、520/208 主副券比例、上下切口、Bridge、机械六位编号与底缘 82 个独立场次刻度保持稳定。单一球队印刷脊、暖石色环境、ivory 主券与轻微异色档案副券区分材质；浅色控制器保持功能与触控尺寸。编号继续沿用既有身份，城市切换仅改变当地时间坐标，不重新签发。
 
-[Phase 3 — Art Direction Review](docs/art-direction-review.md) 并行提供 Editorial / Instrument / Collectible 三套独立构图。开发评审入口为 `/review/art-direction`，支持总览与 A / B / C 切换；尚未选择正式方向，首页继续使用 Phase 2。`GamePass` 的新增 variant 共享真实 `PersonalPass` 数据，六位 `047295` 仅是现有 serial 的补零印刷格式。
+[Phase 2](docs/collectible-ticket.md) 与 [Phase 3 — Art Direction Review](docs/art-direction-review.md) 保留历史设计与测试记录。旧 Editorial / Instrument / Collectible 构图仍可在开发评审入口 `/review/art-direction` 对比，不出现在正式首页。`GamePass` 的这些 variant 共享真实 `PersonalPass` 数据，六位 `047295` 是现有 serial 的补零印刷格式。
 
-生产服务启动后，设置 `MYGAME_APP_URL` 并执行 `npm run export:art`，可重现六张完整手机截图、独立票面与七项评审诊断。输出位于 `output/art-direction/`；旧 `output/douyin/` 成品保留用于首页像素一致性检查。
+`output/art-direction/` 与 `output/douyin/` 保留旧轮次成品。Phase 3 的历史导出脚本还包含旧首页冻结断言，不用于验证已升级的 Phase 4 首页。
 
-`npm run export:promo` 直接截取生产 App，导出 1080×1440 东京／伦敦完整手机宣传图，不使用独立海报模板。Share Artifact 与首页截图用途不同：复用真实 Pass 数据，原生适配 1080×1440 与 1080×1920，不包含导航、未来赛程、二维码或广告 CTA，也不虚构比分与观看记录。
+生产构建后，`npm run export:promo`（同 `npm run export:phase4`）直接截取生产 App，导出 1080×1440 东京／伦敦完整手机宣传图、票面裁切及诊断图到 `output/phase4/`。可通过 `MYGAME_APP_URL` 指定已运行的服务；未指定时脚本启动本地生产服务。没有独立宣传 HTML 模板。Share Artifact 与首页截图用途不同：复用真实 Pass 数据，原生适配 1080×1440 与 1080×1920，不包含导航、未来赛程、二维码或广告 CTA，也不虚构比分与观看记录。
 
 ## V2.9 Personal Season Collection
 

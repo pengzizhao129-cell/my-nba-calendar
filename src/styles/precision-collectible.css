@@ -1,0 +1,115 @@
+/* One formal direction: a cut collectible stock with its own printed time index.
+   Scale is a 728 × 576 master; phase4 tokens paint it without changing the DNA. */
+:root {
+ --ticket:var(--pass-base);
+ --stub:var(--stub-cool);
+ --ink:var(--graphite-100);
+ --muted:var(--graphite-50);
+ --hairline:var(--graphite-15);
+ --brand:var(--brand-red);
+ --ticket-luminance-lit:var(--pass-highlight);
+ --ticket-luminance-rest:var(--pass-edge);
+ --ticket-contact-shadow:drop-shadow(0 .7px .8px color-mix(in srgb,var(--ink) 7%,transparent));
+ --ticket-ambient-shadow:drop-shadow(1px 7px 12px color-mix(in srgb,var(--ink) 4%,transparent));
+ --ticket-print-light:color-mix(in srgb,var(--pass-highlight) 78%,transparent);
+ --ticket-print-indent:color-mix(in srgb,var(--ink) 9%,transparent);
+ --ticket-quiet-line:color-mix(in srgb,var(--ink) 16%,transparent);
+ --ticket-micro-line:color-mix(in srgb,var(--ink) 7%,transparent);
+ --ticket-type-micro:9;
+ --ticket-type-meta:11;
+ --ticket-tracking:.12em;
+}
+.precision-pass {
+ --pc-u:calc(100cqw / 728);
+ --team-primary:var(--team-accent);
+ --team-secondary:var(--team-secondary-color,var(--text-secondary));
+ --pc-stock:var(--ticket);
+ --pc-timing-ink:var(--ink);
+ --pc-serial-ink:var(--text-secondary);
+ position:relative;width:100%;aspect-ratio:728 / 576;container-type:inline-size;
+ margin:0;padding:0;border:0;border-radius:0;background:transparent;overflow:visible;
+ color:var(--ink);font-family:var(--font-geist),sans-serif;isolation:isolate;
+}
+.precision-pass[data-pass-status="upcoming"] { --pc-timing-ink:var(--text-secondary); }
+.precision-pass[data-pass-status="archived"] { --pc-timing-ink:var(--text-secondary);--pc-serial-ink:var(--ink);--team-primary:color-mix(in srgb,var(--team-accent) 82%,var(--text-secondary)); }
+.precision-pass .pc-stock { position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:var(--ticket-contact-shadow) var(--ticket-ambient-shadow);pointer-events:none; }
+.pc-stock-lit { stop-color:var(--ticket-luminance-lit); }
+.pc-stock-base { stop-color:var(--pc-stock); }
+.pc-stock-rest { stop-color:var(--ticket-luminance-rest); }
+.pc-stub-stock { fill:var(--stub); }
+.pc-identity-ink { fill:var(--team-primary); }
+.pc-upper-edge { stroke:var(--ticket-print-light);stroke-width:1;fill:none; }
+.pc-cut-light { stroke:var(--cutout-highlight);stroke-width:1;fill:none; }
+.pc-cut-dark { stroke:var(--cutout-inner);stroke-width:.8;fill:none; }
+.pc-perforation { stroke:var(--ticket-print-indent);stroke-width:1.1;stroke-linecap:round;fill:none; }
+.pc-punch-light { stroke:var(--perforation-light);stroke-width:.8; }
+.pc-bridge { fill:none;stroke:var(--deboss-upper);stroke-width:1; }
+.pc-bridge-light { stroke:var(--deboss-lower); }
+.pc-printed-rail { position:absolute;left:0;top:0;width:calc(32 * var(--pc-u));height:100%;overflow:hidden;color:var(--pass-highlight); }
+.pc-printed-rail>span { position:absolute;left:calc(8 * var(--pc-u));bottom:calc(28 * var(--pc-u));writing-mode:vertical-rl;transform:rotate(180deg);font-size:calc(13 * var(--pc-u));font-weight:500;line-height:1;letter-spacing:.15em; }
+.pc-main { position:absolute;inset:0 auto 0 0;width:calc(520 * var(--pc-u)); }
+.pc-topline { position:absolute;left:calc(64 * var(--pc-u));top:calc(27 * var(--pc-u));width:calc(424 * var(--pc-u));display:flex;justify-content:space-between;align-items:center;font-size:calc(var(--ticket-type-micro) * var(--pc-u));line-height:1;letter-spacing:var(--ticket-tracking);font-weight:500;color:var(--muted); }
+.pc-status { display:flex;align-items:center;gap:calc(6 * var(--pc-u));font-size:calc(8 * var(--pc-u)); }
+.pc-status>i { width:calc(3 * var(--pc-u));height:calc(3 * var(--pc-u));background:var(--muted);opacity:.45; }
+.pc-status>i[data-active] { background:var(--brand);opacity:1; }
+.pc-date { position:absolute;left:calc(62 * var(--pc-u));top:calc(54 * var(--pc-u));display:flex;align-items:center;gap:calc(9 * var(--pc-u)); }
+.pc-date>strong { font-size:calc(43 * var(--pc-u));font-weight:450;line-height:.9;letter-spacing:-.06em;font-variant-numeric:tabular-nums; }
+.pc-date>span { display:flex;flex-direction:column;gap:calc(5 * var(--pc-u));font-size:calc(13 * var(--pc-u));line-height:1;font-weight:500;letter-spacing:.07em; }
+.pc-date small { font-size:calc(9 * var(--pc-u));font-weight:450;letter-spacing:.08em;color:var(--muted); }
+.pc-match { position:absolute;left:calc(62 * var(--pc-u));top:calc(119 * var(--pc-u));width:calc(428 * var(--pc-u));height:calc(119 * var(--pc-u));display:grid;grid-template-columns:minmax(0,1fr) calc(46 * var(--pc-u)) minmax(0,.94fr);align-items:start;gap:calc(3 * var(--pc-u)); }
+.pc-club { min-width:0; }
+.pc-club>strong { display:block;font-family:var(--font-identity),var(--font-geist),sans-serif;font-size:calc(104 * var(--pc-u));font-weight:600;line-height:.94;letter-spacing:-.075em;color:var(--ink); }
+.pc-club>span { display:block;margin-top:calc(9 * var(--pc-u));font-size:calc(11 * var(--pc-u));font-weight:450;line-height:1.2;color:var(--text-secondary);white-space:nowrap; }
+.pc-club--opponent { padding-top:calc(16 * var(--pc-u));text-align:right; }
+.pc-club--opponent>strong { font-size:calc(101 * var(--pc-u));letter-spacing:-.08em; }
+.pc-match-line { width:calc(52 * var(--pc-u));height:calc(40 * var(--pc-u));margin-top:calc(45 * var(--pc-u));margin-left:calc(-3 * var(--pc-u));fill:none;stroke:var(--text-secondary);stroke-width:1; }
+.pc-timing-sanctuary { position:absolute;inset:0;pointer-events:none; }
+.pc-time-instrument { position:absolute;inset:0;width:calc(728 * var(--pc-u));height:100%;overflow:visible; }
+.pc-clock-track { fill:none;stroke:var(--ticket-micro-line);stroke-width:.7; }
+.pc-clock-tick { fill:none;stroke:var(--hairline);stroke-width:.8; }
+.pc-clock-tick.is-major { stroke:var(--muted);stroke-width:1; }
+.pc-time-instrument text { fill:var(--muted);font-family:var(--font-geist),sans-serif;font-size:10px;font-weight:450;letter-spacing:0;font-variant-numeric:tabular-nums; }
+.pc-clock-marker { fill:var(--ink);stroke:var(--ink);stroke-width:1.6;animation:pc-state-ink 180ms ease-out both; }
+.pc-city { position:absolute;left:calc(154 * var(--pc-u));top:calc(329 * var(--pc-u));width:calc(248 * var(--pc-u));text-align:center; }
+.pc-city>span { display:block;margin-bottom:calc(8 * var(--pc-u));font-size:calc(8 * var(--pc-u));line-height:1;letter-spacing:.12em;font-weight:500;color:var(--muted); }
+.pc-city>strong { display:block;font-size:calc(25 * var(--pc-u));line-height:1.1;font-weight:500;letter-spacing:-.025em;white-space:nowrap; }
+.pc-city small { font-size:calc(10 * var(--pc-u));font-weight:450;letter-spacing:.015em;color:var(--muted); }
+.pc-time { position:absolute;left:calc(155 * var(--pc-u));top:calc(380 * var(--pc-u));width:calc(246 * var(--pc-u));text-align:center;font-size:calc(78 * var(--pc-u));font-weight:450;line-height:1;letter-spacing:-.035em;color:var(--pc-timing-ink);transition:color 180ms ease-out; }
+.precision-pass .pc-time .timing-run { font-weight:450; }
+.precision-pass .pc-time .timing-colon { width:.15em;margin:0 .035em; }
+.precision-pass .pc-time .timing-colon::before,.precision-pass .pc-time .timing-colon::after { width:.038em;height:.038em;border-radius:.007em;background:var(--separator-ink); }
+.pc-gmt { position:absolute;left:calc(178 * var(--pc-u));top:calc(464 * var(--pc-u));width:calc(200 * var(--pc-u));display:flex;align-items:baseline;justify-content:center;gap:calc(12 * var(--pc-u));font-size:calc(12 * var(--pc-u));line-height:1;letter-spacing:.015em;font-weight:450;color:var(--text-secondary); }
+.pc-gmt>span:first-child { font-size:calc(8 * var(--pc-u));letter-spacing:.1em;color:var(--muted); }
+.pc-event-result { position:absolute;left:calc(64 * var(--pc-u));top:calc(250 * var(--pc-u));width:calc(424 * var(--pc-u));text-align:center;font-size:calc(11 * var(--pc-u));font-weight:500;letter-spacing:.06em;color:var(--text-secondary); }
+.pc-venue { position:absolute;left:calc(64 * var(--pc-u));top:calc(520 * var(--pc-u));width:calc(424 * var(--pc-u));display:flex;align-items:baseline;gap:calc(12 * var(--pc-u));line-height:1; }
+.pc-venue>span { font-size:calc(8 * var(--pc-u));font-weight:500;letter-spacing:.1em;color:var(--muted); }
+.pc-venue>strong { font-size:calc(10 * var(--pc-u));font-weight:500;letter-spacing:.02em;color:var(--text-secondary); }
+.pc-season-edge { position:absolute;left:calc(64 * var(--pc-u));top:calc(545 * var(--pc-u));width:calc(424 * var(--pc-u));height:calc(22 * var(--pc-u)); }
+.pc-season-edge .art-season-edge,.pc-season-edge svg { display:block;width:100%;height:100%; }
+.precision-pass .art-season-edge line { stroke:var(--ticket-micro-line);stroke-width:.75; }
+.precision-pass .art-season-edge line[data-current] { stroke:var(--ink);stroke-width:1.6; }
+.pc-season-edge .art-season-ordinal { display:none; }
+.pc-stub { position:absolute;left:calc(520 * var(--pc-u));top:0;width:calc(208 * var(--pc-u));height:100%;font-variant-numeric:tabular-nums; }
+.pc-stub-index { position:absolute;left:calc(28 * var(--pc-u));top:calc(44 * var(--pc-u)); }
+.pc-stub-index>small { display:block;margin-bottom:calc(10 * var(--pc-u));font-size:calc(9 * var(--pc-u));font-weight:500;line-height:1;letter-spacing:.12em;color:var(--muted); }
+.pc-stub-index>strong { display:block;font-size:calc(57 * var(--pc-u));font-weight:450;line-height:1;letter-spacing:-.07em; }
+.pc-stub-index>strong>span { font-size:calc(23 * var(--pc-u));font-weight:400;letter-spacing:-.035em;color:var(--muted); }
+.pc-season { position:absolute;left:calc(29 * var(--pc-u));top:calc(133 * var(--pc-u));font-size:calc(12 * var(--pc-u));line-height:1;letter-spacing:.08em;font-weight:500;color:var(--text-secondary); }
+.pc-serial { position:absolute;left:calc(154 * var(--pc-u));top:calc(193 * var(--pc-u));width:calc(235 * var(--pc-u));transform:rotate(90deg);transform-origin:0 0;color:var(--pc-serial-ink); }
+.pc-serial>small { display:block;margin-bottom:calc(8 * var(--pc-u));font-size:calc(10 * var(--pc-u));font-weight:500;line-height:1;letter-spacing:.14em; }
+.pc-serial>strong { display:block;font-size:calc(43 * var(--pc-u));font-weight:450;line-height:1;letter-spacing:.025em; }
+.pc-user-record { position:absolute;left:calc(29 * var(--pc-u));top:calc(204 * var(--pc-u));display:flex;flex-direction:column;gap:calc(12 * var(--pc-u));writing-mode:vertical-rl;font-size:calc(9 * var(--pc-u));font-weight:500;line-height:1;letter-spacing:.08em;color:var(--muted); }
+.pc-pass-id { font-size:calc(8 * var(--pc-u)); }
+.pc-short-reference { position:absolute;left:calc(29 * var(--pc-u));top:calc(444 * var(--pc-u));font-size:calc(9 * var(--pc-u));font-weight:450;line-height:1;letter-spacing:.06em;color:var(--muted); }
+.pc-watched-from { position:absolute;left:calc(28 * var(--pc-u));top:calc(468 * var(--pc-u));width:calc(150 * var(--pc-u));font-size:calc(8 * var(--pc-u));font-weight:450;line-height:1.3;letter-spacing:.025em;color:var(--muted); }
+.precision-pass .pc-stub .emotion-mark { position:absolute;left:calc(28 * var(--pc-u));right:auto;top:calc(485 * var(--pc-u));font-size:calc(14 * var(--pc-u));line-height:1.2;color:var(--annotation-ink); }
+.pc-issuer-signature { position:absolute;left:calc(28 * var(--pc-u));bottom:calc(21 * var(--pc-u));width:calc(120 * var(--pc-u));height:calc(26 * var(--pc-u));mask:url('/brand/mygame-plus.png') left center/contain no-repeat;background:color-mix(in srgb,var(--text-secondary) 66%,transparent); }
+.pc-issued-note { position:absolute;left:calc(548 * var(--pc-u));top:calc(168 * var(--pc-u));font-size:calc(9 * var(--pc-u));line-height:1;letter-spacing:.08em;color:var(--muted);animation:issued-note 800ms ease-out both; }
+.precision-pass[data-issuance] .pc-match { animation:issue-identity 150ms ease-out both; }
+.precision-pass[data-issuance] .pc-match-line { animation:issue-ink 200ms ease-out 150ms both; }
+.precision-pass[data-issuance] .pc-serial,.precision-pass[data-issuance] .pc-pass-id { animation:issue-ink 180ms ease-out 350ms both; }
+.precision-pass[data-issuance] .pc-stub-index,.precision-pass[data-issuance] .pc-season { animation:issue-ink 160ms ease-out 530ms both; }
+@keyframes pc-state-ink { from {opacity:.25} to {opacity:1} }
+@media(prefers-reduced-motion:reduce) {
+ .precision-pass * { animation:none!important;transition:none!important; }
+}

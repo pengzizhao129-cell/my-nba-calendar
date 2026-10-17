@@ -18,11 +18,13 @@ import {resolvePassPresentation,type PassEventState} from '@/lib/passPresentatio
 import {EditorialPass} from './art-directions/EditorialPass';
 import {InstrumentPass} from './art-directions/InstrumentPass';
 import {CollectiblePass} from './art-directions/CollectiblePass';
+import {PrecisionCollectiblePass} from './PrecisionCollectiblePass';
 
-export type GamePassVariant='full'|'compact'|'collection'|'editorial'|'instrument'|'collectible';
+export type GamePassVariant='full'|'compact'|'collection'|'precision'|'editorial'|'instrument'|'collectible';
 /** Future viewing records must be supplied explicitly; selecting a city never claims a watched game. */
 export type PassCommemoration={readonly score?:{readonly team:number;readonly opponent:number};readonly watchedFrom?:string};
 export function GamePass({pass,enclosure='none',variant='full',issuance,commemoration,event}:{pass:PersonalPass;isToday?:boolean;enclosure?:'mobile'|'none';variant?:GamePassVariant;issuance?:string|null;commemoration?:PassCommemoration;event?:PassEventState}) {
+ if(variant==='precision')return <PrecisionCollectiblePass pass={pass} issuance={issuance} event={event} commemoration={commemoration}/>;
  if(variant==='editorial')return <EditorialPass pass={pass}/>;
  if(variant==='instrument')return <InstrumentPass pass={pass}/>;
  if(variant==='collectible')return <CollectiblePass pass={pass}/>;
