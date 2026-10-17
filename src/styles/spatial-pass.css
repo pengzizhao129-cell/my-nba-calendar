@@ -1,0 +1,79 @@
+/* PHASE 5: material response only. All printing coordinates remain MG-P4.1.
+   A rectangular technical ink run bleeds from the team rail to the tear seam.
+   It has no component boundary, rounded corners, or independent drop shadow. */
+.precision-pass {
+ --ticket:var(--paper-ivory);
+ --stub:color-mix(in srgb,var(--paper-ivory) 72%,var(--canvas-ivory));
+ --ticket-luminance-lit:var(--paper-raised);
+ --ticket-luminance-rest:color-mix(in srgb,var(--paper-ivory) 90%,var(--canvas-ivory));
+ --ticket-print-light:var(--light-highlight);
+ --ticket-print-indent:color-mix(in srgb,var(--ink) 12%,transparent);
+ --pc-stock:var(--ticket);
+ --pc-timing-ink:var(--instrument-on-ink);
+ --pc-instrument-surface:var(--instrument-ink);
+ --pc-instrument-lit:var(--instrument-lit);
+ --pc-serial-ink:var(--ink-secondary);
+ --pc-index-paper:var(--ink-muted);
+ --pc-index-knockout:var(--instrument-on-ink);
+ --pc-signal-paper:var(--signal);
+ --pc-signal-knockout:var(--signal-on-ink);
+ --pc-on-ink-micro:var(--instrument-muted-on-ink);
+ --surface-elevation:var(--depth-ticket);
+ color:var(--ink);
+}
+.precision-pass[data-pass-status="upcoming"] { --pc-timing-ink:var(--instrument-on-ink); }
+.precision-pass[data-material-state="issued"] { --pc-instrument-surface:var(--instrument-lit); }
+.precision-pass[data-material-state="game_day"],.precision-pass[data-material-state="live"] { --pc-instrument-surface:var(--instrument-ink); }
+.precision-pass[data-material-state="collected"],.precision-pass[data-material-state="final"] {
+ --pc-instrument-surface:var(--instrument-lit);
+ --pc-timing-ink:color-mix(in srgb,var(--instrument-on-ink) 94%,var(--instrument-ink));
+ --pc-signal-paper:var(--ink-muted);
+ --pc-signal-knockout:var(--instrument-muted-on-ink);
+ --pc-serial-ink:var(--ink);
+}
+.precision-pass .pc-stock { filter:drop-shadow(var(--shadow-contact)) drop-shadow(var(--shadow-ambient)); }
+.precision-pass .pc-stub-stock { fill:var(--stub); }
+.pc-paper-grain { opacity:var(--grain-paper);pointer-events:none; }
+.pc-carbon-lit { stop-color:var(--pc-instrument-lit); }
+.pc-carbon-base { stop-color:var(--pc-instrument-surface); }
+.pc-print-paper { stop-color:var(--pc-index-paper); }
+.pc-print-ink { stop-color:var(--pc-index-knockout); }
+.pc-signal-paper { stop-color:var(--pc-signal-paper); }
+.pc-signal-ink { stop-color:var(--pc-signal-knockout); }
+.precision-pass .pc-clock-track { stroke:var(--pc-index-print);opacity:.18; }
+.precision-pass .pc-clock-tick { stroke:var(--pc-index-print);opacity:.42; }
+.precision-pass .pc-clock-tick.is-major { stroke:var(--pc-index-print);opacity:.7; }
+.precision-pass .pc-time-instrument text { fill:var(--pc-index-print); }
+.precision-pass .pc-clock-marker { fill:var(--pc-index-signal);stroke:var(--pc-index-signal); }
+.precision-pass .pc-city>span { color:var(--pc-on-ink-micro); }
+.precision-pass .pc-city>strong { color:var(--instrument-on-ink); }
+.precision-pass .pc-city small { color:var(--pc-on-ink-micro); }
+.precision-pass .pc-time { color:var(--pc-timing-ink); }
+.precision-pass .pc-time .timing-colon::before,.precision-pass .pc-time .timing-colon::after { background:var(--pc-on-ink-micro); }
+.precision-pass .pc-gmt { color:var(--instrument-on-ink); }
+.precision-pass .pc-gmt>span:first-child { color:var(--pc-on-ink-micro); }
+.precision-pass .pc-status>i[data-active] { background:var(--signal); }
+.precision-pass .art-season-edge line[data-current] { stroke:var(--pc-signal-paper); }
+.precision-pass .pc-perforation { filter:drop-shadow(var(--shadow-occlusion)); }
+.precision-pass .pc-upper-edge { stroke:var(--light-highlight); }
+.precision-pass .pc-cut-dark { stroke:var(--ticket-print-indent); }
+.precision-pass .pc-match-line { filter:none;box-shadow:none; }
+
+/* Interaction belongs to the flat identity coordinates; the artifact never
+   bounces, scales, or grows a new shadow. Preserve the 44px controller targets. */
+.phase4-environment button:active { transform:translateY(.5px); }
+.phase4-environment .team-select:hover,.phase4-environment .zone-label:hover {
+ background:color-mix(in srgb,var(--paper-raised) 16%,transparent);
+}
+
+/* Temporary diagnostic classes. They expose the independent physical roles
+   without adding controls or another formal product theme. */
+.spatial-no-shadow .precision-pass .pc-stock,.spatial-no-shadow .precision-pass .pc-perforation { filter:none; }
+.spatial-no-shadow .precision-pass * { box-shadow:none; }
+.spatial-no-team .precision-pass { --team-primary:var(--ink-muted); }
+.spatial-no-team .team-chip { color:var(--ink-muted)!important; }
+.spatial-no-signal .precision-pass { --pc-signal-paper:var(--ink-muted);--pc-signal-knockout:var(--instrument-muted-on-ink); }
+.spatial-no-signal .pc-status>i[data-active] { background:var(--ink-muted); }
+.spatial-no-signal .system-island-item[aria-current="page"]::after { background:var(--ink-muted); }
+.spatial-no-signal .island-context-dot { background:var(--ink-muted); }
+@media(prefers-reduced-motion:reduce) { .phase4-environment button:active { transform:none; } }

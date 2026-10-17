@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
     "test": "tsx --tsconfig tsconfig.tests.json --test tests/*.test.ts",
-    "export:promo": "node design/promo/export-phase4.cjs",
+    "export:promo": "node design/promo/export-phase5.cjs",
     "export:art": "node design/promo/export-art-directions.cjs",
     "export:phase4": "node design/promo/export-phase4.cjs",
+    "export:phase5": "node design/promo/export-phase5.cjs",
     "export:season": "node design/validation/export-season-artifacts.cjs"
   },
   "dependencies": {

@@ -1,0 +1,122 @@
+/* PHASE 5 — Spatial atmosphere.
+ * Physical roles, rather than component-specific paint. The environment stays
+ * warm and matte; the ticket is ivory stock; instrument ink is neutral carbon.
+ * Team colors are resolved on the Pass, never on the page or navigation.
+ */
+:root {
+  /* Environment and paper stock: no pure white, no yellowed-paper effect. */
+  --canvas-ivory: #f0eee9;
+  --paper-ivory: #faf8f3;
+  --paper-raised: #fcfbf7;
+
+  /* Carbon is intentionally a little cooler than the paper, without a colored
+   * black. Four neutral roles: ink, secondary ink, muted ink, and hairline. */
+  --carbon-ink: #252628;
+  --ink: var(--carbon-ink);
+  --ink-secondary: #4d4f52;
+  --ink-muted: #696b6e;
+  --hairline: color-mix(in srgb,var(--ink) 12%,transparent);
+
+  /* Signal is a product state; it must never inherit the selected team's red. */
+  --signal: var(--brand-red);
+
+  /* Instrument ink is a material zone printed into the ticket, not a separate
+   * floating panel. The lit stop moves at most two percent toward raised paper.
+   * Its status red is a flat, paper-lifted version of the same Signal pigment;
+   * it remains independent of team identity and clears 3:1 on the lit carbon. */
+  --instrument-ink: var(--carbon-ink);
+  --instrument-lit: color-mix(in srgb,var(--instrument-ink) 98%,var(--paper-raised));
+  --instrument-on-ink: var(--paper-ivory);
+  --instrument-muted-on-ink: color-mix(in srgb,var(--paper-ivory) 68%,transparent);
+  --signal-on-ink: color-mix(in srgb,var(--signal) 74%,var(--paper-raised));
+
+  /* One upper-left source. This is a paper edge value, not a glossy reflection. */
+  --light-highlight: color-mix(in srgb,var(--paper-raised) 78%,transparent);
+  --light-source-x: 24%;
+  --light-source-y: 12%;
+
+  /* Shadow values intentionally omit box-shadow / drop-shadow wrappers, so a
+   * true cut-paper SVG can use the same physical rules as a printed surface.
+   * Contact = thin sheet meets canvas; ambient = soft displaced room light;
+   * occlusion = local cut/perforation depth, never a second floating shadow. */
+  --shadow-contact: 0 .65px .8px color-mix(in srgb,var(--ink) 9%,transparent);
+  --shadow-ambient: 1px 7px 18px color-mix(in srgb,var(--ink) 4%,transparent);
+  --shadow-occlusion: 0 .3px .45px color-mix(in srgb,var(--ink) 11%,transparent);
+
+  /* Layer names document physical order; they do not impose new geometry. */
+  --depth-canvas: 0;
+  --depth-editorial: 1;
+  --depth-ticket: 2;
+  --depth-detail: 3;
+
+  /* Alpha budgets for generated micrograin. These are material differences,
+   * not visible noise overlays. Paper has a slightly finer surface response. */
+  --grain-canvas: .014;
+  --grain-paper: .018;
+
+  /* The upper-left to lower-right canvas luminance spread remains under 2%.
+   * No vignette: it is a broad flat ambient field, with no local spotlight. */
+  --spatial-canvas-lit: color-mix(in srgb,var(--paper-raised) 26%,var(--canvas-ivory));
+  --spatial-canvas-rest: color-mix(in srgb,var(--canvas-deep) 36%,var(--canvas-ivory));
+  --spatial-controller: color-mix(in srgb,var(--canvas-ivory) 92%,var(--paper-ivory));
+  --spatial-controller-edge: color-mix(in srgb,var(--hairline) 55%,transparent);
+}
+
+/* Each TeamIdentity supplies these inputs. Do not define a global default team:
+ * changing the selected team must not recolor the surrounding environment. */
+.precision-pass {
+  --team-primary: var(--team-accent);
+  --team-secondary: var(--team-secondary-color,var(--ink-secondary));
+}
+
+/* This file changes paint and physical response only. Existing typography,
+ * spacing, viewport crop, Pass geometry, and interaction targets stay fixed. */
+.app-shell.phase4-environment {
+  --canvas: var(--canvas-ivory);
+  --ticket: var(--paper-ivory);
+  --ink: var(--carbon-ink);
+  --secondary: var(--ink-secondary);
+  --muted: var(--ink-muted);
+  --hairline: color-mix(in srgb,var(--ink) 12%,transparent);
+  --environment-air: var(--spatial-canvas-lit);
+  --environment-settle: var(--spatial-canvas-rest);
+  --environment-grain-opacity: var(--grain-canvas);
+  --environment-controller: var(--spatial-controller);
+  --environment-contact: none;
+  --island-text-active: var(--ink);
+  --island-text-inactive: var(--ink-muted);
+  --island-label-active: var(--ink-secondary);
+  --island-label-inactive: var(--ink-muted);
+  background:var(--canvas);
+}
+body:has(.phase4-environment) { background-color:var(--canvas-ivory); }
+.phase4-environment::before {
+  background:linear-gradient(132deg,var(--environment-air),var(--canvas) 52%,var(--environment-settle));
+}
+.phase4-environment::after {
+  background:var(--ink);
+  opacity:var(--grain-canvas);
+}
+
+/* The editorial information is printed directly in the environment. No
+ * elevated surface, depth shadow, or paper material leaks into ordinary UI. */
+.phase4-environment .preferences,
+.phase4-environment .week,
+.phase4-environment .schedule-list,
+.phase4-environment .schedule-row {
+  background:transparent;
+  box-shadow:none;
+}
+
+/* Navigation stays usable and legible, but has essentially the same material
+ * as the canvas. It must never become a second physical object below the Pass. */
+.phase4-environment .app-system-island {
+  background:var(--spatial-controller);
+  border-color:var(--spatial-controller-edge);
+  box-shadow:none;
+  backdrop-filter:none;
+}
+.phase4-environment .system-island-item[aria-current="page"] {
+  background:none;
+  box-shadow:none;
+}

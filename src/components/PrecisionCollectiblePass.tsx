@@ -16,6 +16,9 @@ export const PRECISION_PASS_DNA = Object.freeze({
  clock:Object.freeze({x:278,y:388,radius:116,labelRadius:143,start:135,sweep:270}),
 });
 
+/** A material window, not a second ticket template. Existing printing stays put. */
+export const PRECISION_INK_WINDOW = Object.freeze({x:32,y:278,width:488,height:232});
+
 export function precisionClockAngle(minutes:number){return PRECISION_PASS_DNA.clock.start+minutes/1440*PRECISION_PASS_DNA.clock.sweep;}
 function point(radius:number,angle:number){
  const {x,y}=PRECISION_PASS_DNA.clock,theta=angle*Math.PI/180;
@@ -28,23 +31,26 @@ function clockArc(radius:number,from:number,to:number){
 
 /** A printed wall-clock index. Position is local minutes, not a map or progress. */
 export function PrecisionTimeInstrument({pass}:{pass:PersonalPass}){
+ const id=useId().replaceAll(':',''),print=`pc-index-print-${id}`,signal=`pc-index-signal-${id}`;
  const minutes=artClockMinutes(pass),angle=precisionClockAngle(minutes);
  const inner=point(109,angle),outer=point(131,angle),cap=point(135,angle);
- return <svg className="pc-time-instrument" viewBox="0 0 728 576" role="img" aria-label={`24 小时时标 · ${pass.location.cityName} ${pass.location.localTime}`} data-local-minute={minutes} data-clock-minutes={minutes} data-clock-angle={angle}>
+ const top=PRECISION_INK_WINDOW.y/576,bottom=(PRECISION_INK_WINDOW.y+PRECISION_INK_WINDOW.height)/576;
+ return <svg className="pc-time-instrument" viewBox="0 0 728 576" role="img" aria-label={`24 小时时标 · ${pass.location.cityName} ${pass.location.localTime}`} data-local-minute={minutes} data-clock-minutes={minutes} data-clock-angle={angle} style={{'--pc-index-print':`url(#${print})`,'--pc-index-signal':`url(#${signal})`} as CSSProperties}>
+  <defs>{[[print,'print'],[signal,'signal']].map(([key,role])=><linearGradient key={key} id={key} x1="0" x2="0" y1="0" y2="576" gradientUnits="userSpaceOnUse"><stop className={`pc-${role}-paper`} offset="0"/><stop className={`pc-${role}-paper`} offset={top}/><stop className={`pc-${role}-ink`} offset={top}/><stop className={`pc-${role}-ink`} offset={bottom}/><stop className={`pc-${role}-paper`} offset={bottom}/><stop className={`pc-${role}-paper`} offset="1"/></linearGradient>)}</defs>
   <path className="pc-clock-track" d={clockArc(116,135,405)}/>
   {Array.from({length:49},(_,index)=>{
    const theta=precisionClockAngle(index*30),major=index%6===0,hour=index%2===0;
    const a=point(major?120:hour?123:125,theta),b=point(major?132:129,theta),label=point(143,theta);
    return <g key={index}><path className={`pc-clock-tick${major?' is-major':''}`} d={`M${a.x} ${a.y}L${b.x} ${b.y}`}/>{major&&<text x={label.x} y={label.y} dominantBaseline="central" textAnchor="middle">{String(index/2).padStart(2,'0')}</text>}</g>;
   })}
-  <g key={minutes} className="pc-clock-marker" data-time-marker="local-clock" data-value={minutes}><path d={`M${inner.x} ${inner.y}L${outer.x} ${outer.y}`}/><rect x={cap.x-2.1} y={cap.y-2.1} width="4.2" height="4.2" transform={`rotate(${angle} ${cap.x} ${cap.y})`}/></g>
+  <g key={minutes} className="pc-clock-marker" data-time-marker="local-clock" data-signal-role="time-index" data-value={minutes}><path d={`M${inner.x} ${inner.y}L${outer.x} ${outer.y}`}/><rect x={cap.x-2.1} y={cap.y-2.1} width="4.2" height="4.2" transform={`rotate(${angle} ${cap.x} ${cap.y})`}/></g>
  </svg>;
 }
 
 /** C supplies the physical stock; B supplies the information engraved into it.
  * No city, attention state or season is allowed to move the printing geometry. */
 export function PrecisionCollectiblePass({pass,issuance,event,commemoration}:{pass:PersonalPass;issuance?:string|null;event?:PassEventState;commemoration?:PassCommemoration}){
- const id=useId().replaceAll(':',''),clip=`pc-stock-${id}`,light=`pc-light-${id}`;
+ const id=useId().replaceAll(':',''),clip=`pc-stock-${id}`,light=`pc-light-${id}`,ink=`pc-carbon-${id}`,grain=`pc-paper-grain-${id}`;
  const {team,game,location,status,season,user}=pass;
  const club=getTeam(team.code),opponent=getTeam(game.opponentCode),reference=personalPassReference(pass);
  const ordinal=game.gameNumber===null?'—':String(game.gameNumber).padStart(2,'0');
@@ -52,10 +58,10 @@ export function PrecisionCollectiblePass({pass,issuance,event,commemoration}:{pa
  const result=presentation.score?`${presentation.state==='live'?'LIVE':'FINAL'} · ${presentation.score.team} — ${presentation.score.opponent}${presentation.state==='live'&&presentation.period?` · ${presentation.period}${presentation.clock?` · ${presentation.clock}`:''}`:''}`:null;
  const watchedFrom=status.phase==='archived'?commemoration?.watchedFrom:undefined;
  const shape=PRECISION_PASS_DNA.silhouette;
- return <section className="personal-pass precision-pass" data-dna={PRECISION_PASS_DNA.version} data-pass-variant="precision" data-game-id={game.id} data-team={team.code} data-opponent={game.opponentCode} data-game-number={game.gameNumber??''} data-season={game.seasonId} data-pass-id={user.passId??''} data-personal-issue={reference?artIssue(pass):''} data-reference={reference?.full} data-city-id={location.cityId} data-timezone={location.timezone} data-local-time={location.localTime} data-gmt={location.offset} data-lifecycle={user.passId?presentation.state:'preview'} data-pass-status={status.phase} data-pass-energy={status.energy} data-collected-games={season.collectedGames} data-issuance={issuance||undefined} aria-label={`${team.code} — ${game.opponentCode} · ${location.day} ${location.month} ${location.dateKey.slice(0,4)} · ${location.cityName} ${location.localTime} ${location.offset} · GAME ${ordinal} / ${season.totalGames} · ${user.passId?`${presentation.label} · personal issue ${artIssue(pass)}`:'PREVIEW'}`} style={teamMaterialProperties(team) as CSSProperties}>
+ return <section className="personal-pass precision-pass" data-material-system="spatial-1" data-material-state={presentation.state==='issued'&&status.phase==='game_day'?'game_day':presentation.state} data-dna={PRECISION_PASS_DNA.version} data-pass-variant="precision" data-game-id={game.id} data-team={team.code} data-opponent={game.opponentCode} data-game-number={game.gameNumber??''} data-season={game.seasonId} data-pass-id={user.passId??''} data-personal-issue={reference?artIssue(pass):''} data-reference={reference?.full} data-city-id={location.cityId} data-timezone={location.timezone} data-local-time={location.localTime} data-gmt={location.offset} data-lifecycle={user.passId?presentation.state:'preview'} data-pass-status={status.phase} data-pass-energy={status.energy} data-collected-games={season.collectedGames} data-issuance={issuance||undefined} aria-label={`${team.code} — ${game.opponentCode} · ${location.day} ${location.month} ${location.dateKey.slice(0,4)} · ${location.cityName} ${location.localTime} ${location.offset} · GAME ${ordinal} / ${season.totalGames} · ${user.passId?`${presentation.label} · personal issue ${artIssue(pass)}`:'PREVIEW'}`} style={teamMaterialProperties(team) as CSSProperties}>
   <svg className="pc-stock" viewBox="0 0 728 576" aria-hidden="true">
-   <defs><clipPath id={clip}><path d={shape}/></clipPath><linearGradient id={light} x1="0" y1="0" x2="1" y2="1"><stop className="pc-stock-lit" offset="0"/><stop className="pc-stock-base" offset=".55"/><stop className="pc-stock-rest" offset="1"/></linearGradient></defs>
-   <g clipPath={`url(#${clip})`}><path d={shape} fill={`url(#${light})`} data-dna-layer="silhouette"/><path className="pc-stub-stock" d="M520 0H728V576H520Z"/><path className="pc-identity-ink" d="M0 0H32V576H0Z"/></g>
+   <defs><clipPath id={clip}><path d={shape}/></clipPath><linearGradient id={light} x1="0" y1="0" x2="1" y2="1"><stop className="pc-stock-lit" offset="0"/><stop className="pc-stock-base" offset=".55"/><stop className="pc-stock-rest" offset="1"/></linearGradient><linearGradient id={ink} x1="0" y1="0" x2="1" y2="1"><stop className="pc-carbon-lit" offset="0"/><stop className="pc-carbon-base" offset="1"/></linearGradient><filter id={grain} x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".92" numOctaves="2" seed="7" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></defs>
+   <g clipPath={`url(#${clip})`}><path d={shape} fill={`url(#${light})`} data-dna-layer="silhouette"/><path className="pc-stub-stock" d="M520 0H728V576H520Z"/><rect className="pc-paper-grain" x="0" y="0" width="728" height="576" filter={`url(#${grain})`}/><rect className="pc-ink-surface" data-material-layer="ink-time" x={PRECISION_INK_WINDOW.x} y={PRECISION_INK_WINDOW.y} width={PRECISION_INK_WINDOW.width} height={PRECISION_INK_WINDOW.height} fill={`url(#${ink})`}/><path className="pc-identity-ink" data-team-color-moment="registration-stripe" d="M0 0H32V576H0Z"/></g>
    <path className="pc-upper-edge" d="M4 .6H507M533 .6H724Q727.4 .6 727.4 4"/>
    <path className="pc-cut-light" d="M508 0C508 7 513 11 520 11S532 7 532 0M504 576C504 566 511 560 520 560"/>
    <path className="pc-cut-dark" d="M520 11C527 11 532 7 532 0M520 560C529 560 536 566 536 576"/>
@@ -64,7 +70,7 @@ export function PrecisionCollectiblePass({pass,issuance,event,commemoration}:{pa
   </svg>
   <div className="pc-printed-rail" aria-hidden="true"><span>{team.code}</span></div>
   <div className="pc-main" data-dna-layer="main" data-ticket-section="main">
-   <div className="pc-topline"><span>NBA / GAME PASS</span><span className="pc-status" data-pass-layer="game-status"><i data-active={status.phase==='game_day'||undefined}/>{status.phase==='archived'?'COLLECTED':status.phase==='game_day'?'GAME DAY':status.phase==='next_up'?'NEXT UP':'UPCOMING'}</span></div>
+   <div className="pc-topline"><span>NBA / GAME PASS</span><span className="pc-status" data-pass-layer="game-status"><i data-signal-role="state" data-active={status.phase==='game_day'||undefined}/>{status.phase==='archived'?'COLLECTED':status.phase==='game_day'?'GAME DAY':status.phase==='next_up'?'NEXT UP':'UPCOMING'}</span></div>
    <div className="pc-date" data-pass-layer="date"><strong>{location.day}</strong><span>{location.month}<small>{location.dateKey.slice(0,4)}</small></span></div>
    <div className="pc-match" data-pass-layer="match" aria-label={`${team.code} 对阵 ${game.opponentCode}`}>
     <div className="pc-club pc-club--own"><strong>{team.code}</strong><span>{club.city}{club.name}</span></div>
@@ -79,7 +85,7 @@ export function PrecisionCollectiblePass({pass,issuance,event,commemoration}:{pa
    </div>
    <div className="pc-event-result" data-pass-layer="result">{result}</div>
    <div className="pc-venue"><span>{game.homeAway}</span><strong>{artVenue(pass)}</strong></div>
-   <div className="pc-season-edge" data-dna-layer="spine"><ArtSeasonEdge pass={pass}/></div>
+   <div className="pc-season-edge" data-dna-layer="spine"><ArtSeasonEdge pass={pass} signalRole="season-position"/></div>
   </div>
   <aside className="pc-stub" data-dna-layer="stub" data-ticket-section="stub" aria-label="个人赛事副券">
    <div className="pc-stub-index" data-pass-layer="game-number"><small>GAME</small><strong>{ordinal}<span> / {season.totalGames}</span></strong></div>

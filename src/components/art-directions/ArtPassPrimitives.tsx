@@ -31,9 +31,9 @@ export function ArtTiming({pass}:{pass:PersonalPass}){return <span className="ar
 export function ArtSerial({pass}:{pass:PersonalPass}){return <span className="art-serial" data-art-layer="serial"><small>MG+ Nº</small><strong data-issue-number={pass.user.passId?artIssue(pass):undefined}>{artIssue(pass)}</strong></span>;}
 
 /** 82 independent event positions. The season is a physical lower edge. */
-export function ArtSeasonEdge({pass}:{pass:PersonalPass}){
+export function ArtSeasonEdge({pass,signalRole}:{pass:PersonalPass;signalRole?:string}){
  const total=pass.season.totalGames;
- return <div className="art-season-edge" aria-label={`赛季比赛位置 ${pass.game.gameNumber??'—'} / ${total}`}><svg viewBox="0 0 640 28" preserveAspectRatio="none" aria-hidden="true">{Array.from({length:total},(_,i)=>{const ordinal=i+1,x=2+i*636/Math.max(1,total-1),active=ordinal===pass.game.gameNumber;return <line key={ordinal} data-season-tick={ordinal} data-current={active||undefined} x1={x} x2={x} y1={active?3:ordinal%10===0?8:ordinal%5===0?13:18} y2="25"/>;})}</svg><span className="art-season-ordinal">{pass.game.gameNumber===null?'—':String(pass.game.gameNumber).padStart(2,'0')} / {total}</span></div>;
+ return <div className="art-season-edge" aria-label={`赛季比赛位置 ${pass.game.gameNumber??'—'} / ${total}`}><svg viewBox="0 0 640 28" preserveAspectRatio="none" aria-hidden="true">{Array.from({length:total},(_,i)=>{const ordinal=i+1,x=2+i*636/Math.max(1,total-1),active=ordinal===pass.game.gameNumber;return <line key={ordinal} data-season-tick={ordinal} data-current={active||undefined} data-signal-role={active?signalRole:undefined} x1={x} x2={x} y1={active?3:ordinal%10===0?8:ordinal%5===0?13:18} y2="25"/>;})}</svg><span className="art-season-ordinal">{pass.game.gameNumber===null?'—':String(pass.game.gameNumber).padStart(2,'0')} / {total}</span></div>;
 }
 
 /** A 24h clock scale; position means local clock time, never geographic distance. */
